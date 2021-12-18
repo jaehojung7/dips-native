@@ -3,15 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import ColorText from "../styles";
 
-// const Container = styled.View`
-//   flex: 1;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: beige;
-//   padding: 0px 20px;
-//   color: red;
-// `;
-
 export default function Welcome({ navigation }) {
   return (
     <View
