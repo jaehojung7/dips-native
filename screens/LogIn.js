@@ -5,11 +5,23 @@ import AuthButton from "../components/AuthButton";
 import { TextInput } from "../components/AuthInput";
 import AuthLayout from "../components/AuthLayout";
 
-export default function Login({ navigation }) {
+export default function Login() {
+  const { register, handleSubmit, setValue } = useForm();
   const passwordRef = useRef();
-  const onDone = () => {
-    alert("done!");
+  const onNext = (nextOne) => {
+    nextOne?.current?.focus();
   };
+  const onValid = (data) => {
+    console.log(data);
+  };
+  useEffect(() => {
+    register("email", {
+      required: true,
+    });
+    register("password", {
+      required: true,
+    });
+  }, [register]);
   return (
     <AuthLayout>
       <TextInput
@@ -28,10 +40,14 @@ export default function Login({ navigation }) {
         returnKeyType="done"
         lastOne={true}
         placeholderTextColor="gray"
-        onSubmitEditing={onDone}
+        onSubmitEditing={handleSubmit(onValid)}
         onChangeText={(text) => setValue("password", text)}
       />
-      <AuthButton text="로그인" disabled={false} onPress={() => null} />
+      <AuthButton
+        text="로그인"
+        disabled={false}
+        onPress={handleSubmit(onValid)}
+      />
     </AuthLayout>
   );
 }

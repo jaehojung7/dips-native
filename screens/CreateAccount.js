@@ -15,8 +15,8 @@ export default function CreateAccount() {
     nextOne?.current?.focus();
   };
 
-  const onDone = () => {
-    alert("done!");
+  const onValid = (data) => {
+    console.log(data);
   };
 
   useEffect(() => {
@@ -57,10 +57,15 @@ export default function CreateAccount() {
         returnKeyType="done"
         lastOne={true}
         placeholderTextColor="gray"
-        onSubmitEditing={onDone}
+        onSubmitEditing={handleSubmit(onValid)}
         onChangeText={(text) => setValue("password", text)}
       />
-      <AuthButton text="계정 만들기" disabled={false} onPress={() => null} />
+      <AuthButton
+        text="계정 만들기"
+        disabled={false}
+        loading
+        onPress={handleSubmit(onValid)}
+      />
     </AuthLayout>
   );
 }
