@@ -5,7 +5,6 @@ import { useForm, Controller } from "react-hook-form";
 import AuthButton from "../components/AuthButton";
 import { TextInput } from "../components/AuthInput";
 import AuthLayout from "../components/AuthLayout";
-import { getVariableValues } from "graphql/execution/values";
 import { isLoggedInVar } from "../apollo";
 
 const LOGIN_MUTATION = gql`
@@ -18,9 +17,14 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function Login() {
+export default function Login({ route }) {
+  console.log(route);
   const { register, handleSubmit, setValue, getValues, watch, control } =
-    useForm();
+    useForm({
+      defaultValues: {
+        email: route.params?.email,
+      },
+    });
   const passwordRef = useRef();
 
   const onCompleted = (data) => {
@@ -46,7 +50,6 @@ export default function Login() {
     if (loading) {
       return;
     }
-
     const { email, password } = getValues();
     console.log(email, password);
     loginFunction({
@@ -71,6 +74,7 @@ export default function Login() {
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
+            value={watch("email")}
             placeholder="Email"
             autoCapitalize="none"
             keyboardType="email-address"

@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 export const isLoggedInVar = makeVar(false);
 
 const client = new ApolloClient({
-  uri: "https://stale-mule-76.loca.lt/graphql",
+  uri: "https://pretty-dog-64.loca.lt/graphql",
   cache: new InMemoryCache(),
 });
 
