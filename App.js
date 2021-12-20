@@ -13,6 +13,8 @@ import {
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./styles";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedInVar } from "./apollo";
 
 const MyDarkTheme = {
   ...DarkTheme,
@@ -31,7 +33,7 @@ const MyLightTheme = {
 export default function App() {
   const scheme = useColorScheme();
   const [loading, setLoading] = useState(true);
-
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const onFinish = () => setLoading(false);
   const preload = () => {
     const fontsToLoad = [Ionicons.font];
@@ -49,15 +51,18 @@ export default function App() {
       />
     );
   }
+
   return (
-    <AppearanceProvider>
-      <ThemeProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
-        <NavigationContainer
-          theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}
-        >
-          <LoggedOutNav />
-        </NavigationContainer>
-      </ThemeProvider>
-    </AppearanceProvider>
+    <ApolloProvider client={client}>
+      <AppearanceProvider>
+        <ThemeProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
+          <NavigationContainer
+            theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}
+          >
+            {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
+          </NavigationContainer>
+        </ThemeProvider>
+      </AppearanceProvider>
+    </ApolloProvider>
   );
 }
