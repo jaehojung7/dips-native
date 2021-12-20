@@ -14,7 +14,8 @@ import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./styles";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import client, { isLoggedInVar } from "./apollo";
+import client, { isLoggedInVar, tokenVar } from "./apollo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MyDarkTheme = {
   ...DarkTheme,
@@ -35,12 +36,21 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const onFinish = () => setLoading(false);
-  const preload = () => {
+  const preloadAssets = () => {
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
     const imagesToLoad = [require("./assets/favicon.png")];
     const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image));
     return Promise.all([...fontPromises, ...imagePromises]);
+  };
+  const preload = async () => {
+    const token = await AsyncStorage.getItem("token");
+    console.log(token);
+    if (token) {
+      isLoggedInVar(true);
+      tokenVar(token);
+    }
+    return preloadAssets();
   };
   if (loading) {
     return (

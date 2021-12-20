@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import AuthButton from "../components/AuthButton";
 import { TextInput } from "../components/AuthInput";
 import AuthLayout from "../components/AuthLayout";
-import { isLoggedInVar } from "../apollo";
+import { isLoggedInVar, logUserIn } from "../apollo";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -18,7 +18,6 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default function Login({ route }) {
-  console.log(route);
   const { register, handleSubmit, setValue, getValues, watch, control } =
     useForm({
       defaultValues: {
@@ -27,14 +26,13 @@ export default function Login({ route }) {
     });
   const passwordRef = useRef();
 
-  const onCompleted = (data) => {
+  const onCompleted = async (data) => {
     const {
       login: { ok, token, error },
     } = data;
     if (ok) {
-      isLoggedInVar(true);
+      await logUserIn(token);
     }
-    console.log(ok, error, token);
   };
 
   const [loginFunction, { loading, error }] = useMutation(LOGIN_MUTATION, {
@@ -51,7 +49,6 @@ export default function Login({ route }) {
       return;
     }
     const { email, password } = getValues();
-    console.log(email, password);
     loginFunction({
       variables: { email, password },
     });
