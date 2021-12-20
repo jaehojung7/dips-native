@@ -63,7 +63,7 @@ export default function CreateAccount() {
       <AuthButton
         text="계정 만들기"
         disabled={false}
-        // loading
+        loading
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>

@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import AuthButton from "../components/AuthButton";
 import { TextInput } from "../components/AuthInput";
 import AuthLayout from "../components/AuthLayout";
+import { getVariableValues } from "graphql/execution/values";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -17,26 +18,50 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default function Login() {
-  const { register, handleSubmit, setValue, watch, control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm();
   const passwordRef = useRef();
-  const onCompleted = (data) => {
+
+  const loginCompleted = (data) => {
     console.log(data);
   };
-  const [logInMutation, { loading }] = useMutation(LOGIN_MUTATION, {
-    onCompleted,
+
+  const [loginFunction, { loading }] = useMutation(LOGIN_MUTATION, {
+    loginCompleted,
   });
+
   const onNext = (nextOne) => {
     nextOne?.current?.focus();
   };
-  const onValid = (data) => {
-    if (!loading) {
-      logInMutation({
-        variables: {
-          ...data,
-        },
-      });
+
+  const onSubmitValid = (submissionData) => {
+    // console.log(submissionData, loading);
+    // if (!loading) {
+    //   loginFunction({
+    //     variables: {
+    //       ...submissionData,
+    //     },
+    //   });
+    // }
+
+    if (loading) {
+      return;
     }
+
+    const { email, password } = getValues();
+    console.log(email, password);
+    loginFunction({
+      variables: { email, password },
+    });
   };
+
   useEffect(() => {
     register("email", {
       required: true,
@@ -45,10 +70,13 @@ export default function Login() {
       required: true,
     });
   }, [register]);
+
   return (
     <AuthLayout>
       <Controller
+        name="email"
         control={control}
+        rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             placeholder="Email"
@@ -60,11 +88,11 @@ export default function Login() {
             onChangeText={(text) => setValue("email", text)}
           />
         )}
-        name="email"
-        rules={{ required: true }}
       />
       <Controller
+        name="password"
         control={control}
+        rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             ref={passwordRef}
@@ -73,18 +101,16 @@ export default function Login() {
             returnKeyType="done"
             lastOne={true}
             placeholderTextColor="gray"
-            onSubmitEditing={handleSubmit(onValid)}
+            onSubmitEditing={handleSubmit(onSubmitValid)}
             onChangeText={(text) => setValue("password", text)}
           />
         )}
-        name="password"
-        rules={{ required: true }}
       />
       <AuthButton
         text="로그인"
-        // loading={loading}
+        loading={loading}
         disabled={!watch("email") || !watch("password")}
-        onPress={handleSubmit(onValid)}
+        onPress={handleSubmit(onSubmitValid)}
       />
     </AuthLayout>
   );
