@@ -6,6 +6,7 @@ import AuthButton from "../components/AuthButton";
 import { TextInput } from "../components/AuthInput";
 import AuthLayout from "../components/AuthLayout";
 import { getVariableValues } from "graphql/execution/values";
+import { isLoggedInVar } from "../apollo";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -18,23 +19,22 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue, getValues, watch, control } =
+    useForm();
   const passwordRef = useRef();
 
-  const loginCompleted = (data) => {
-    console.log(data);
+  const onCompleted = (data) => {
+    const {
+      login: { ok, token, error },
+    } = data;
+    if (ok) {
+      isLoggedInVar(true);
+    }
+    console.log(ok, error, token);
   };
 
-  const [loginFunction, { loading }] = useMutation(LOGIN_MUTATION, {
-    loginCompleted,
+  const [loginFunction, { loading, error }] = useMutation(LOGIN_MUTATION, {
+    onCompleted,
   });
 
   const onNext = (nextOne) => {
@@ -42,15 +42,7 @@ export default function Login() {
   };
 
   const onSubmitValid = (submissionData) => {
-    // console.log(submissionData, loading);
-    // if (!loading) {
-    //   loginFunction({
-    //     variables: {
-    //       ...submissionData,
-    //     },
-    //   });
-    // }
-
+    // Prevents login function from working in case the user clicks the button twice
     if (loading) {
       return;
     }
