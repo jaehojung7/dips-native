@@ -17,20 +17,6 @@ import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import client, { isLoggedInVar, tokenVar } from "./apollo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const MyDarkTheme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-  },
-};
-
-const MyLightTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-  },
-};
-
 export default function App() {
   const scheme = useColorScheme();
   const [loading, setLoading] = useState(true);
@@ -45,7 +31,6 @@ export default function App() {
   };
   const preload = async () => {
     const token = await AsyncStorage.getItem("token");
-    console.log(token);
     if (token) {
       isLoggedInVar(true);
       tokenVar(token);
@@ -67,9 +52,10 @@ export default function App() {
       <AppearanceProvider>
         <ThemeProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
           <NavigationContainer
-            theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}
+            theme={scheme === "dark" ? DarkTheme : DefaultTheme}
           >
             {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
+            {/* <LoggedOutNav /> */}
           </NavigationContainer>
         </ThemeProvider>
       </AppearanceProvider>

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import ColorText from "../styles";
 import AuthButton from "../components/AuthButton";
 import AuthLayout from "../components/AuthLayout";
 

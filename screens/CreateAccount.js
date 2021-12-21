@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 import AuthButton from "../components/AuthButton";
 import AuthLayout from "../components/AuthLayout";
 import { TextInput } from "../components/AuthInput";
-import ColorText from "../styles";
 import { gql, useMutation } from "@apollo/client";
 
 const CREATE_ACCOUNT_MUTATION = gql`
