@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { logUserOut } from "../apollo";
 
 export default function Workout({ navigation }) {
   return (
     <View>
-      <Text>운동 시작하기</Text>
+      <TouchableOpacity onPress={() => logUserOut()}>
+        <Text>로그아웃</Text>
+      </TouchableOpacity>
     </View>
   );
 }

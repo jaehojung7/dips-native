@@ -2,13 +2,13 @@ import styled from "styled-components/native";
 
 export const darkTheme = {
   fontColor: "white",
-  accent: "#ee6600",
+  accent: "#FF7F50",
   buttonText: "white",
 };
 
 export const lightTheme = {
   fontColor: "black",
-  accent: "#ee6600",
+  accent: "#FF7F50",
   buttonText: "white",
 };
 
@@ -18,7 +18,7 @@ const ColorText = styled.Text`
 
 export const colors = {
   neutral: "gray",
-  point: "#ee6600",
+  accent: "#FF7F50",
 };
 
 export default ColorText;

@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Workout from "../screens/Workout";
 import Stats from "../screens/Stats";
 import Plan from "../screens/Plan";
-import ColorText, { colors } from "../styles";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const Tabs = createBottomTabNavigator();
@@ -13,10 +12,20 @@ export default function LoggedInNav() {
     <Tabs.Navigator
       initialRouteName="Workout"
       screenOptions={{
-        headerTitleStyle: { color: "#ee6600", fontSize: 19, fontWeight: "700" },
-        tabBarActiveTintColor: "#ee6600",
+        headerTitleStyle: {
+          color: "#FF7F50",
+          fontSize: 19,
+          fontWeight: "700",
+        },
+        headerStyle: {
+          shadowColor: "gray",
+        },
+        tabBarActiveTintColor: "#FF7F50",
         tabBarInactiveTintColor: "gray",
-        // tabBarStyle: { borderTopColor: "#ee6600" },
+        tabBarLabelStyle: { fontSize: 11 },
+        tabBarStyle: {
+          borderTopColor: "gray",
+        },
       }}
     >
       <Tabs.Screen
@@ -25,8 +34,8 @@ export default function LoggedInNav() {
         options={{
           title: "프로그램",
           tabBarLabel: "Program",
-          tabBarIcon: ({ focused, color, size }) => (
-            <FontAwesome5 name="calendar-check" size={25} color={color} />
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="calendar-check" size={24} color={color} />
           ),
         }}
       />
@@ -36,8 +45,8 @@ export default function LoggedInNav() {
         options={{
           title: "운동하기",
           tabBarLabel: "Workout",
-          tabBarIcon: ({ focused, color, size }) => (
-            <FontAwesome5 name="running" size={25} color={color} />
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="running" size={24} color={color} />
           ),
         }}
       />
@@ -45,10 +54,10 @@ export default function LoggedInNav() {
         name="Stats"
         component={Stats}
         options={{
-          title: "운동기록",
+          title: "기록보기",
           tabBarLabel: "Stats",
-          tabBarIcon: ({ focused, color, size }) => (
-            <FontAwesome name="bar-chart-o" size={25} color={color} />
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="bar-chart-o" size={24} color={color} />
           ),
         }}
       />
