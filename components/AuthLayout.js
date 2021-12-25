@@ -32,7 +32,7 @@ export default function AuthLayout({ children }) {
       <Container>
         <KeyboardAvoidingView
           style={{
-            width: "95%",
+            width: "100%",
           }}
           behavior="position"
           keyboardVerticalOffset={75}

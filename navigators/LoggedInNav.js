@@ -1,8 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ProgramNav from "./ProgramNav";
 import Workout from "../screens/Workout";
 import Stats from "../screens/Stats";
-import Plan from "../screens/Plan";
+import Profile from "../screens/Profile";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const Tabs = createBottomTabNavigator();
@@ -10,7 +11,7 @@ const Tabs = createBottomTabNavigator();
 export default function LoggedInNav() {
   return (
     <Tabs.Navigator
-      initialRouteName="Workout"
+      initialRouteName="Program"
       screenOptions={{
         headerTitleStyle: {
           color: "#FF7F50",
@@ -29,8 +30,8 @@ export default function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="Plan"
-        component={Plan}
+        name="ProgramNav"
+        component={ProgramNav}
         options={{
           title: "프로그램",
           tabBarLabel: "Program",
@@ -58,6 +59,17 @@ export default function LoggedInNav() {
           tabBarLabel: "Stats",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="bar-chart-o" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: "내 프로필",
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user" size={24} color={color} />
           ),
         }}
       />

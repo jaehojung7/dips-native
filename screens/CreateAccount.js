@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import AuthButton from "../components/AuthButton";
+import MainButton from "../components/MainButton";
 import AuthLayout from "../components/AuthLayout";
 import { TextInput } from "../components/AuthInput";
 import { gql, useMutation } from "@apollo/client";
@@ -121,7 +121,7 @@ export default function CreateAccount({ navigation }) {
           />
         )}
       />
-      <AuthButton
+      <MainButton
         text="계정 만들기"
         disabled={false}
         loading={loading}

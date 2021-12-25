@@ -55,7 +55,6 @@ export default function App() {
             theme={scheme === "dark" ? DarkTheme : DefaultTheme}
           >
             {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
-            {/* <LoggedOutNav /> */}
           </NavigationContainer>
         </ThemeProvider>
       </AppearanceProvider>

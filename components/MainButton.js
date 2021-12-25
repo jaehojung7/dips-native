@@ -4,7 +4,8 @@ import styled from "styled-components/native";
 
 const Button = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.accent};
-  padding: 15px 10px;
+  width: 100%;
+  padding: 12px;
   border-radius: 10px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
   margin-top: 15px;
@@ -18,7 +19,7 @@ const ButtonText = styled.Text`
   padding: 0px 25px;
 `;
 
-function AuthButton({ onPress, disabled, text, loading }) {
+function MainButton({ onPress, disabled, text, loading }) {
   return (
     <Button disabled={disabled} onPress={onPress}>
       {loading ? (
@@ -30,4 +31,4 @@ function AuthButton({ onPress, disabled, text, loading }) {
   );
 }
 
-export default AuthButton;
+export default MainButton;

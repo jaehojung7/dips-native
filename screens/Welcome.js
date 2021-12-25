@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import AuthButton from "../components/AuthButton";
-import AuthLayout from "../components/AuthLayout";
+import MainButton from "../components/MainButton";
 
 const Container = styled.View`
   flex: 1;
@@ -25,8 +24,8 @@ export default function Welcome({ navigation }) {
 
   return (
     <Container>
-      <AuthButton text="로그인" disabled={false} onPress={goToLogIn} />
-      <AuthButton text="운동하기" disabled={false} onPress={goToWorkout} />
+      <MainButton text="로그인" disabled={false} onPress={goToLogIn} />
+      <MainButton text="운동하기" disabled={false} onPress={goToWorkout} />
       <TouchableOpacity onPress={goToCreateAccount}>
         <LoginLink>가입하기</LoginLink>
       </TouchableOpacity>
