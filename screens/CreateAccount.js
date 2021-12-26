@@ -70,6 +70,7 @@ export default function CreateAccount({ navigation }) {
       required: true,
     });
   }, [register]);
+
   return (
     <AuthLayout>
       <Controller

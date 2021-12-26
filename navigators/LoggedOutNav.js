@@ -12,7 +12,6 @@ export default function LoggedOutNav() {
     <Stack.Navigator
       screenOptions={{
         headerBackTitleVisible: false,
-        headerTitle: false,
       }}
     >
       <Stack.Screen

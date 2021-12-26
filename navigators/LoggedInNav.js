@@ -1,10 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ProgramNav from "./ProgramNav";
+import Program from "../screens/Program";
 import Workout from "../screens/Workout";
 import Stats from "../screens/Stats";
 import Profile from "../screens/Profile";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import SharedStackNav from "./SharedStackNav";
 
 const Tabs = createBottomTabNavigator();
 
@@ -30,8 +31,7 @@ export default function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="ProgramNav"
-        component={ProgramNav}
+        name="Program"
         options={{
           title: "프로그램",
           tabBarLabel: "Program",
@@ -39,10 +39,11 @@ export default function LoggedInNav() {
             <FontAwesome5 name="calendar-check" size={24} color={color} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="Program" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Workout"
-        component={Workout}
         options={{
           title: "운동하기",
           tabBarLabel: "Workout",
@@ -50,10 +51,11 @@ export default function LoggedInNav() {
             <FontAwesome5 name="running" size={24} color={color} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="Workout" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Stats"
-        component={Stats}
         options={{
           title: "기록보기",
           tabBarLabel: "Stats",
@@ -61,10 +63,11 @@ export default function LoggedInNav() {
             <FontAwesome name="bar-chart-o" size={24} color={color} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="Stats" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Profile"
-        component={Profile}
         options={{
           title: "내 프로필",
           tabBarLabel: "Profile",
@@ -72,7 +75,9 @@ export default function LoggedInNav() {
             <FontAwesome name="user" size={24} color={color} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="Profile" />}
+      </Tabs.Screen>
     </Tabs.Navigator>
   );
 }
