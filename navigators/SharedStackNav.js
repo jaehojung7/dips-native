@@ -16,16 +16,16 @@ export default function SharedStackNav({ screenName }) {
         headerMode: "screen",
       }}
     >
-      {screenName === "StackProgram" ? (
+      {screenName === "Program" ? (
         <Stack.Screen name={"StackProgram"} component={Program} />
       ) : null}
-      {screenName === "StackWorkout" ? (
+      {screenName === "Workout" ? (
         <Stack.Screen name={"StackWorkout"} component={Workout} />
       ) : null}
-      {screenName === "StackStats" ? (
+      {screenName === "Stats" ? (
         <Stack.Screen name={"StackStats"} component={Stats} />
       ) : null}
-      {screenName === "StackProfile" ? (
+      {screenName === "Profile" ? (
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
       <Stack.Screen name="CreateProgram" component={CreateProgram} />

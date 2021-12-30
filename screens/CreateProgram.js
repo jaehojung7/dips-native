@@ -8,6 +8,7 @@ import ScreenLayout from "../components/ScreenLayout";
 import MainButton from "../components/MainButton";
 import styled from "styled-components/native";
 import ColorText from "../styles";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const ToggleContainer = styled.View`
   flex-direction: row;
