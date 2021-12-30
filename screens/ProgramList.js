@@ -1,23 +1,7 @@
 // Overflow, List of cards
 // title, description, hastags, likeCount
 
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        title
-        description
-        likeCount
-      }
-      # likes {}
-    }
-  }
-`
-
-
 export default function ProgramList() {
-  const {data, loading} = useQuery(ME_QUERY)
-
   return (
     <Container>
       <Header>

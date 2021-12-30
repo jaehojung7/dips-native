@@ -16,7 +16,6 @@ const ME_QUERY = gql`
         id
         title
         description
-        likeCount
       }
       # likes {}
     }
@@ -29,13 +28,29 @@ const Container = styled.View`
   justify-content: center;
 `;
 
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Item",
+  },
+];
+
 export default function Program() {
-  const { data, loading } = useQuery(ME_QUERY);
   const navigation = useNavigation();
-  const renderProgram = ({ item }) => {
+  const { data, loading } = useQuery(ME_QUERY);
+
+  const renderProgram = ({ item: program }) => {
     return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ color: "black" }}>{item.title}</Text>
+      <View>
+        <Text style={{ color: "red" }}>{program.title}</Text>
       </View>
     );
   };
@@ -48,8 +63,9 @@ export default function Program() {
         onPress={() => navigation.navigate("CreateProgram")}
       />
       <FlatList
-        data={data?.me}
-        keyExtractor={(item) => "" + item.id}
+        // horizontal
+        data={data?.me?.programs}
+        keyExtractor={(program) => "" + program.id}
         renderItem={renderProgram}
       />
     </ScreenLayout>
