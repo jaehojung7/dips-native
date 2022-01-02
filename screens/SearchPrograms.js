@@ -6,28 +6,31 @@ import ScreenLayout from "../components/ScreenLayout";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "../components/AuthInput";
 
-const SEARCH_PROGRAM = gql`
-  query searchProgram($keyword: String!) {
-    searchProgram(keyword: $keyword) {
+const SEARCH_PROGRAMS_QUERY = gql`
+  query searchPrograms($keyword: String!) {
+    searchPrograms(keyword: $keyword) {
       id
       title
       description
-      hashtags
-      likeCount
-      user {
-        username
-      }
+      # hashtags
+      # likeCount
+      # user {
+      #   username
+      # }
     }
   }
 `;
 
-export default function SearchProgram({ navigation }) {
+export default function SearchPrograms({ navigation }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
 
-  const [startQueryFuction, { loading, data }] = useLazyQuery(SEARCH_PROGRAM);
+  const [searchProgramsFunction, { loading, data }] = useLazyQuery(
+    SEARCH_PROGRAMS_QUERY
+  );
   console.log(data);
+
   const onSubmitValid = ({ keyword }) => {
-    startQueryFuction({
+    searchProgramsFunction({
       variables: {
         keyword,
       },
@@ -53,7 +56,7 @@ export default function SearchProgram({ navigation }) {
   return (
     <ScreenLayout>
       <Controller
-        name="SearchProgram"
+        name="keyword"
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -61,7 +64,7 @@ export default function SearchProgram({ navigation }) {
             placeholderTextColor="gray"
             placeholder="프로그램 찾기"
             autoCapitalize="none"
-            returnKeyLabel="Search"
+            // returnKeyLabel="Search"
             returnKeyType="search"
             autoCorrect={false}
             onChangeText={(text) => setValue("keyword", text)}
@@ -70,7 +73,7 @@ export default function SearchProgram({ navigation }) {
         )}
       />
       <FlatList
-        data={data?.searchProgram}
+        data={data?.searchPrograms}
         keyExtractor={(program) => "" + program.id}
         renderItem={renderProgram}
       />
