@@ -53,7 +53,6 @@ export default function CreateAccount({ navigation }) {
       return;
     }
     const { username, email, password } = getValues();
-    console.log(username, email, password);
     createAccountFunction({
       variables: { username, email, password },
     });

@@ -5,6 +5,7 @@ import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "../components/AuthInput";
+import MainButton from "../components/MainButton";
 
 const SEARCH_PROGRAMS_QUERY = gql`
   query searchPrograms($keyword: String!) {
@@ -30,6 +31,9 @@ export default function SearchPrograms({ navigation }) {
   console.log(data);
 
   const onSubmitValid = ({ keyword }) => {
+    if (loading) {
+      return;
+    }
     searchProgramsFunction({
       variables: {
         keyword,
@@ -64,13 +68,19 @@ export default function SearchPrograms({ navigation }) {
             placeholderTextColor="gray"
             placeholder="프로그램 찾기"
             autoCapitalize="none"
-            // returnKeyLabel="Search"
-            returnKeyType="search"
+            returnKeyLabel="Search"
+            returnKeyType="done"
             autoCorrect={false}
             onChangeText={(text) => setValue("keyword", text)}
             onSubmitEditing={handleSubmit(onSubmitValid)}
           />
         )}
+      />
+      <MainButton
+        text="프로그램 검색"
+        disabled={false}
+        loading={loading}
+        onPress={handleSubmit(onSubmitValid)}
       />
       <FlatList
         data={data?.searchPrograms}
