@@ -6,7 +6,7 @@ import { TextInput } from "../components/AuthInput";
 import { gql, useQuery } from "@apollo/client";
 import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
-import SearchProgram from "./SearchProgram";
+import SearchPrograms from "./SearchPrograms";
 
 const ME_QUERY = gql`
   query me {
@@ -56,7 +56,7 @@ export default function Program() {
       <MainButton
         text="프로그램 찾기"
         disabled={false}
-        onPress={() => navigation.navigate("SearchProgram")}
+        onPress={() => navigation.navigate("SearchPrograms")}
       />
     </ScreenLayout>
   );
