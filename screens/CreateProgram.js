@@ -65,7 +65,6 @@ export default function CreateProgram() {
       return;
     }
     const { title, description } = getValues();
-    console.log(title, description, isPrivate);
     createProgramFunction({
       variables: { title, description, isPrivate },
     });
