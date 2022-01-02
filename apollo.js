@@ -25,7 +25,7 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://popular-dragonfly-71.loca.lt/graphql",
+  uri: "https://orange-turtle-31.loca.lt/graphql",
   // uri: "http://localhost:4000/graphql",
 });
 

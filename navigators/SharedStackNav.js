@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Program from "../screens/Program";
 import CreateProgram from "../screens/CreateProgram";
+import SearchProgram from "../screens/SearchProgram";
 import Workout from "../screens/Workout";
 import Stats from "../screens/Stats";
 import Profile from "../screens/Profile";
@@ -29,6 +30,11 @@ export default function SharedStackNav({ screenName }) {
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
+      <Stack.Screen
+        name="SearchProgram"
+        component={SearchProgram}
+        // options={{ presentation: "modal" }}
+      />
     </Stack.Navigator>
   );
 }

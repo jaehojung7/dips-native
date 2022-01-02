@@ -1,9 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Program from "../screens/Program";
-import Workout from "../screens/Workout";
-import Stats from "../screens/Stats";
-import Profile from "../screens/Profile";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import SharedStackNav from "./SharedStackNav";
 
