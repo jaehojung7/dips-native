@@ -6,7 +6,7 @@ import { TextInput } from "../components/AuthInput";
 import { gql, useQuery } from "@apollo/client";
 import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
-import SearchPrograms from "./SearchPrograms";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const ME_QUERY = gql`
   query me {
@@ -30,7 +30,6 @@ const Container = styled.View`
 export default function Program() {
   const navigation = useNavigation();
   const { data, loading } = useQuery(ME_QUERY);
-  console.log(data);
 
   const renderProgram = ({ item: program }) => {
     return (
@@ -47,6 +46,12 @@ export default function Program() {
         text="새 프로그램 만들기"
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram")}
+      />
+      <FontAwesome5
+        name="edit"
+        size={21}
+        color="black"
+        onPress={() => navigation.navigate("EditProgram")}
       />
       <FlatList
         data={data?.me?.programs}

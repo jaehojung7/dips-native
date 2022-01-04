@@ -30,9 +30,9 @@ export default function CreateAccount({ navigation }) {
 
   const onCompleted = (data) => {
     const {
-      createAccount: { ok },
+      createAccount: { ok, id },
     } = data;
-
+    console.log(ok, id);
     const { email } = getValues();
     if (ok) {
       navigation.navigate("LogIn", {

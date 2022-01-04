@@ -40,6 +40,36 @@ const CREATE_PROGRAM_MUTATION = gql`
   }
 `;
 
+const CREATE_TEMPLATE_MUTATION = gql`
+  mutation createTemplate($programId: Int!, $title: String!) {
+    createTemplate(programId: $programId, title: $title) {
+      ok
+      id
+      error
+    }
+  }
+`;
+
+const CREATE_TEMPLATE_SET_MUTATION = gql`
+  mutation createTemplateSet(
+    $templateId: Int!
+    $exercise: [String]
+    $setCount: Int!
+    $rir: Int
+  ) {
+    createTemplateSet(
+      templateId: $templateId
+      exercise: $exercise
+      setCount: $setCount
+      rir: $rir
+    ) {
+      ok
+      id
+      error
+    }
+  }
+`;
+
 export default function CreateProgram() {
   const {
     register,
@@ -53,26 +83,9 @@ export default function CreateProgram() {
   const [isPrivate, setIsPrivate] = useState(false);
   const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
-  const [createProgramFunction, { loading, error }] = useMutation(
-    CREATE_PROGRAM_MUTATION,
-    {
-      onCompleted,
-    }
-  );
-
-  const onSubmitValid = (submissionData) => {
-    if (loading) {
-      return;
-    }
-    const { title, description } = getValues();
-    createProgramFunction({
-      variables: { title, description, isPrivate },
-    });
-  };
-
-  const onCompleted = (data) => {
+  const onCreateTemplateSetCompleted = (data) => {
     const {
-      createProgram: { ok, error },
+      createTemplateSet: { ok, id, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -81,37 +94,94 @@ export default function CreateProgram() {
     }
   };
 
-  useEffect(() => {
-    register("title", {
-      required: true,
+  const onCreateTemplateCompleted = (data) => {
+    const {
+      createTemplate: { ok, id: templateId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+    const { setCount } = getValues();
+    createTemplateSetFunction({
+      variables: { templateId, setCount },
     });
-    register("description", {
-      required: true,
+  };
+
+  const onCreateProgramCompleted = (data) => {
+    const {
+      createProgram: { ok, id: programId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+    const { workoutTitle } = getValues();
+    createTemplateFunction({
+      variables: { programId, title: workoutTitle },
     });
-  }, [register]);
+  };
+
+  // useMutation
+  const [createProgramFunction, { loading, error }] = useMutation(
+    CREATE_PROGRAM_MUTATION,
+    {
+      onCompleted: onCreateProgramCompleted,
+    }
+  );
+
+  const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
+    onCompleted: onCreateTemplateCompleted,
+  });
+
+  const [createTemplateSetFunction] = useMutation(
+    CREATE_TEMPLATE_SET_MUTATION,
+    {
+      onCreateTemplateSetCompleted,
+    }
+  );
+
+  // onSubmitValid
+  const onSubmitValid = (submissionData) => {
+    if (loading) {
+      return;
+    }
+    const { programTitle, description } = getValues();
+    createProgramFunction({
+      variables: { title: programTitle, description, isPrivate },
+    });
+  };
+
+  // useEffect(() => {
+  //   register("programTitle", {
+  //     required: true,
+  //   });
+  //   register("description", {
+  //     required: false,
+  //   });
+  // }, [register]);
 
   return (
     <ScreenLayout>
       <Controller
-        name="title"
+        name="programTitle"
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            value={watch("title")}
             placeholder="프로그램 이름"
             placeholderTextColor="gray"
-            onChangeText={(text) => setValue("title", text)}
+            onChangeText={(text) => setValue("programTitle", text)}
           />
         )}
       />
       <Controller
         name="description"
         control={control}
-        rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            value={watch("description")}
             placeholder="프로그램 설명"
             placeholderTextColor="gray"
             onChangeText={(text) => setValue("description", text)}
@@ -129,10 +199,34 @@ export default function CreateProgram() {
         />
         <ColorText>Private</ColorText>
       </ToggleContainer>
+
+      <Controller
+        name="workoutTitle"
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            placeholder="워크아웃 이름"
+            placeholderTextColor="gray"
+            onChangeText={(text) => setValue("workoutTitle", text)}
+          />
+        )}
+      />
+
+      <Controller
+        name="setCount"
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            placeholder="워크아웃 이름"
+            placeholderTextColor="gray"
+            onChangeText={(text) => setValue("workoutTitle", text)}
+          />
+        )}
+      />
       <MainButton
         text="새 프로그램 저장"
         loading={loading}
-        disabled={!watch("title")}
+        disabled={!watch("programTitle")}
         onPress={handleSubmit(onSubmitValid)}
       />
     </ScreenLayout>

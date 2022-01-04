@@ -49,7 +49,6 @@ export default function Login({ route }) {
       return;
     }
     const { email, password } = getValues();
-    console.log(email, password);
     loginFunction({
       variables: { email, password },
     });
