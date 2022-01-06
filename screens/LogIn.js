@@ -3,7 +3,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import MainButton from "../components/MainButton";
-import { TextInput } from "../components/AuthInput";
+import { AuthInput } from "../components/StyledInput";
 import AuthLayout from "../components/AuthLayout";
 import { isLoggedInVar, logUserIn } from "../apollo";
 
@@ -70,7 +70,7 @@ export default function Login({ route }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             value={watch("email")}
             placeholder="Email"
             autoCapitalize="none"
@@ -87,7 +87,7 @@ export default function Login({ route }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             ref={passwordRef}
             placeholder="Password"
             secureTextEntry

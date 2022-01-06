@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput } from "../components/AuthInput";
 import { gql, useQuery } from "@apollo/client";
 import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";

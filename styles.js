@@ -2,23 +2,22 @@ import styled from "styled-components/native";
 
 export const darkTheme = {
   fontColor: "white",
-  accent: "#FF7F50",
+  orange: "#FF7F50",
+  blue: "#42a5f5",
+  gray: "#e5e7e9",
   buttonText: "white",
 };
 
 export const lightTheme = {
   fontColor: "black",
-  accent: "#FF7F50",
+  orange: "#FF7F50",
+  blue: "#42a5f5",
+  gray: "#e5e7e9",
   buttonText: "white",
 };
 
 const ColorText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
-
-export const colors = {
-  neutral: "gray",
-  accent: "#FF7F50",
-};
 
 export default ColorText;

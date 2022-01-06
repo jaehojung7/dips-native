@@ -4,7 +4,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
 import { Controller, useForm } from "react-hook-form";
-import { TextInput } from "../components/AuthInput";
+import { AuthInput } from "../components/StyledInput";
 import MainButton from "../components/MainButton";
 
 const SEARCH_PROGRAMS_QUERY = gql`
@@ -64,7 +64,7 @@ export default function SearchPrograms({ navigation }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             placeholderTextColor="gray"
             placeholder="프로그램 찾기"
             autoCapitalize="none"

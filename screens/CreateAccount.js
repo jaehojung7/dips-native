@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/MainButton";
 import AuthLayout from "../components/AuthLayout";
-import { TextInput } from "../components/AuthInput";
+import { AuthInput } from "../components/StyledInput";
 import { gql, useMutation } from "@apollo/client";
 
 const CREATE_ACCOUNT_MUTATION = gql`
@@ -77,7 +77,7 @@ export default function CreateAccount({ navigation }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             placeholder="Username"
             autoCapitalize="none"
             returnKeyType="next"
@@ -92,7 +92,7 @@ export default function CreateAccount({ navigation }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             ref={emailRef}
             placeholder="Email"
             autoCapitalize="none"
@@ -109,7 +109,7 @@ export default function CreateAccount({ navigation }) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <AuthInput
             ref={passwordRef}
             placeholder="Password"
             secureTextEntry
