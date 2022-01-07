@@ -20,9 +20,9 @@ const ButtonText = styled.Text`
   /* text-align: center; */
 `;
 
-export default function AddExerciseButton({ onPress }) {
+export default function AddExerciseButton() {
   return (
-    <Button onPress={onPress}>
+    <Button>
       <TextContainer>
         <FontAwesome5 name="plus" size={14} color="#42a5f5" />
         <ButtonText>운동 추가하기</ButtonText>

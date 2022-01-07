@@ -67,6 +67,7 @@ export default function ProgramHeader() {
               placeholder="프로그램 설명"
               placeholderTextColor="#797d7f"
               multiline={true}
+              maxLength={5}
               onChangeText={(text) => setValue("description", text)}
             />
           )}

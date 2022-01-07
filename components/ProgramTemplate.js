@@ -36,7 +36,7 @@ export default function ProgramTemplate() {
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <WorkoutTitle
-            placeholder="워크아웃 이름 (루틴)"
+            placeholder="워크아웃 이름(Routine)"
             placeholderTextColor="#797d7f"
             onChangeText={(text) => setValue("WorkoutTitle", text)}
           />
