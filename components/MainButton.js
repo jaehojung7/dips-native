@@ -19,7 +19,7 @@ const ButtonText = styled.Text`
   padding: 0px 25px;
 `;
 
-function MainButton({ onPress, disabled, text, loading }) {
+export default function MainButton({ onPress, disabled, text, loading }) {
   return (
     <Button disabled={disabled} onPress={onPress}>
       {loading ? (
@@ -30,5 +30,3 @@ function MainButton({ onPress, disabled, text, loading }) {
     </Button>
   );
 }
-
-export default MainButton;

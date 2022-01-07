@@ -1,7 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Switch } from "react-native";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { AuthInput, TemplateInput } from "./StyledInput";
 import styled from "styled-components/native";
 import ColorText from "../styles";
 
@@ -9,6 +7,26 @@ const TemplateContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const ExerciseInput = styled.TextInput`
+  color: black;
+  background-color: ${(props) => props.theme.lightgray};
+  padding: 7px 10px;
+  font-size: 15px
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 75%;
+`;
+
+const SetInput = styled.TextInput`
+  color: black;
+  background-color: ${(props) => props.theme.lightgray};
+  padding: 7px 10px;
+  font-size: 15px
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 15%;
 `;
 
 export default function ProgramTemplateInput() {
@@ -19,9 +37,9 @@ export default function ProgramTemplateInput() {
         name="ExerciseTitle"
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TemplateInput
+          <ExerciseInput
             placeholder="Exercise"
-            placeholderTextColor="gray"
+            placeholderTextColor="#797d7f"
             onChangeText={(text) => setValue("ExerciseTitle", text)}
           />
         )}
@@ -30,23 +48,10 @@ export default function ProgramTemplateInput() {
         name="setCount"
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TemplateInput
+          <SetInput
             keyboardType="numeric"
-            placeholder="Set"
-            placeholderTextColor="gray"
+            placeholderTextColor="#797d7f"
             onChangeText={(text) => setValue("setCount", text)}
-          />
-        )}
-      />
-      <Controller
-        name="RIR"
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TemplateInput
-            keyboardType="numeric"
-            placeholder="RIR"
-            placeholderTextColor="gray"
-            onChangeText={(text) => setValue("RIR", text)}
           />
         )}
       />

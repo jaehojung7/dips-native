@@ -9,7 +9,7 @@ import ColorText from "../styles";
 import ProgramHeader from "../components/ProgramHeader";
 import ProgramTemplate from "../components/ProgramTemplate";
 import DismissKeyboard from "../components/DismissKeyboard";
-import ProgramTemplateInput from "../components/TemplateFormat";
+import AddWorkoutButton from "../components/AddWorkoutButton";
 
 const Container = styled.View`
   padding: 0 15px;
@@ -143,7 +143,7 @@ export default function CreateProgram() {
       <Container>
         <ProgramHeader />
         <ProgramTemplate />
-
+        <AddWorkoutButton />
         <MainButton
           text="새 프로그램 저장"
           loading={loading}

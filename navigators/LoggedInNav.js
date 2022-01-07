@@ -19,10 +19,10 @@ export default function LoggedInNav() {
           shadowColor: "gray",
         },
         tabBarActiveTintColor: "#FF7F50",
-        tabBarInactiveTintColor: "gray",
+        tabBarInactiveTintColor: "#797d7f",
         tabBarLabelStyle: { fontSize: 11 },
         tabBarStyle: {
-          borderTopColor: "gray",
+          borderTopColor: "#797d7f",
         },
       }}
     >

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Switch } from "react-native";
 import { Controller, useForm } from "react-hook-form";
-import { TemplateInput, TitleInput } from "../components/StyledInput";
 import styled from "styled-components/native";
 import ColorText from "../styles";
 
@@ -9,6 +8,27 @@ const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 0 35px;
+  margin-bottom: 15px;
+`;
+
+const TitleContainer = styled.View`
+  align-items: center;
+`;
+
+const TitleInput = styled.TextInput`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 16px
+  border-radius: 5px;
+  margin-bottom: 5px;
+`;
+
+const DescriptionInput = styled.TextInput`
+  color: ${(props) => props.theme.fontColor};
+  background-color: ${(props) => props.theme.lightgray};
+  padding: 10px 15px;
+  font-size: 14px
+  border-radius: 5px;
+  height: 40px;
 `;
 
 const ToggleContainer = styled.View`
@@ -17,21 +37,6 @@ align-items: center;
 `;
 const ToggleSwitch = styled.View`
   margin-top: 7px;
-`;
-
-const TitleContainer = styled.View`
-  align-items: center;
-`;
-
-const ProgramDescription = styled.TextInput`
-    color: ${(props) => props.theme.fontColor};
-  background-color: #e5e7e9;
-  padding: 10px 15px;
-  font-size: 14px
-  border-radius: 5px;
-  height: 40px;
-  /* border: 1px solid ${(props) => props.theme.gray}; */
-  margin-bottom: ${(props) => (props.lastOne ? "17" : 13)}px;
 `;
 
 export default function ProgramHeader() {
@@ -49,7 +54,7 @@ export default function ProgramHeader() {
           render={({ field: { onChange, onBlur, value } }) => (
             <TitleInput
               placeholder="프로그램 이름"
-              placeholderTextColor="gray"
+              placeholderTextColor="#797d7f"
               onChangeText={(text) => setValue("programTitle", text)}
             />
           )}
@@ -58,9 +63,9 @@ export default function ProgramHeader() {
           name="description"
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <ProgramDescription
+            <DescriptionInput
               placeholder="프로그램 설명"
-              placeholderTextColor="gray"
+              placeholderTextColor="#797d7f"
               multiline={true}
               onChangeText={(text) => setValue("description", text)}
             />
@@ -75,7 +80,7 @@ export default function ProgramHeader() {
             trackColor={{ true: "#42a5f5" }}
             // thumbColor="#42a5f5"
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-            ios_backgroundColor="#e5e7e9"
+            ios_backgroundColor="#cacfd2"
             onValueChange={toggleSwitch}
             value={isPrivate}
           />
