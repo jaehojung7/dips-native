@@ -1,16 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import ScreenLayout from "../components/ScreenLayout";
+import { Controller, useForm, useFieldArray } from "react-hook-form";
 import MainButton from "../components/MainButton";
 import styled from "styled-components/native";
 import ColorText from "../styles";
-import ProgramHeader from "../components/ProgramHeader";
-import ProgramTemplate from "../components/ProgramTemplate";
 import DismissKeyboard from "../components/DismissKeyboard";
-import AddWorkoutButton from "../components/AddWorkoutButton";
 import { Switch } from "react-native";
+import TemplateArray from "../components/TemplateArray";
 
 const Container = styled.View`
   padding: 0 15px;
@@ -42,6 +38,7 @@ const TitleInput = styled.TextInput`
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 5px;
+  height: 40px;
 `;
 
 const DescriptionInput = styled.TextInput`
@@ -101,20 +98,31 @@ const CREATE_TEMPLATE_SET_MUTATION = gql`
   }
 `;
 
+// Passing empty strings as default values creates one empty form automatically
+const defaultValues = {
+  templates: [
+    {
+      name: "",
+      templateSets: [{ exercise: "", setCount: "" }],
+    },
+  ],
+};
+
 export default function CreateProgram() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
+  const { handleSubmit, setValue, getValues, control, watch, setError } =
+    useForm({
+      defaultValues,
+    });
+
+  const { fields, append, remove } = useFieldArray({
     control,
-    watch,
-    setError,
-  } = useForm();
+    name: "templates",
+  });
 
   const [isPrivate, setIsPrivate] = useState(false);
 
   const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
+
   // const onCreateTemplateSetCompleted = (data) => {
   //   const {
   //     createTemplateSet: { ok, id, error },
@@ -126,20 +134,20 @@ export default function CreateProgram() {
   //   }
   // };
 
-  // const onCreateTemplateCompleted = (data) => {
-  //   const {
-  //     createTemplate: { ok, id: templateId, error },
-  //   } = data;
-  //   if (!ok) {
-  //     setError("result", {
-  //       message: error,
-  //     });
-  //   }
-  //   const { setCount } = getValues();
-  //   createTemplateSetFunction({
-  //     variables: { templateId, setCount },
-  //   });
-  // };
+  const onCreateTemplateCompleted = (data) => {
+    const {
+      createTemplate: { ok, id: templateId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+    // const { setCount } = getValues();
+    // createTemplateSetFunction({
+    //   variables: { templateId, setCount },
+    // });
+  };
 
   const onCreateProgramCompleted = (data) => {
     const {
@@ -163,9 +171,9 @@ export default function CreateProgram() {
     }
   );
 
-  // const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
-  //   onCompleted: onCreateTemplateCompleted,
-  // });
+  const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
+    onCompleted: onCreateTemplateCompleted,
+  });
 
   // const [createTemplateSetFunction] = useMutation(
   //   CREATE_TEMPLATE_SET_MUTATION,
@@ -174,13 +182,12 @@ export default function CreateProgram() {
   //   }
   // );
 
-  // onSubmitValid
   const onSubmitValid = (submissionData) => {
+    console.log(submissionData);
     if (loading) {
       return;
     }
     const { programTitle, description } = getValues();
-    console.log(programTitle, description);
     createProgramFunction({
       variables: { title: programTitle, description, isPrivate },
     });
@@ -232,8 +239,14 @@ export default function CreateProgram() {
           </ToggleContainer>
         </HeaderContainer>
 
-        {/* <ProgramTemplate />
-        <AddWorkoutButton /> */}
+        <TemplateArray
+          {...{
+            control,
+            getValues,
+            setValue,
+          }}
+        />
+
         <MainButton
           text="새 프로그램 저장"
           loading={loading}
