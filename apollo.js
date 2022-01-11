@@ -25,8 +25,8 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://lazy-parrot-94.loca.lt/graphql",
-  // uri: "http://localhost:4000/graphql",
+  // uri: "https://lazy-parrot-94.loca.lt/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
