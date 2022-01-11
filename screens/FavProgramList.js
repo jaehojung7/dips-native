@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { FlatList, Text } from "react-native";
+import { FlatList, ScrollView, Text } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
@@ -22,7 +22,7 @@ const ProgramContainer = styled.View`
   border: 1px solid #797d7f;
   border-radius: 5px;
   padding: 7px 10px;
-  height: 35%;
+  /* height: 40%; */
   /* width: 80%; */
 `;
 
@@ -40,7 +40,7 @@ const ProgramTitle = styled.Text`
 
 const Likes = styled.Text`
   font-size: 14px;
-  color: ${(props) => props.theme.orange};
+  color: tomato;
 `;
 
 const Private = styled.Text`
@@ -51,25 +51,21 @@ const Private = styled.Text`
 
 const ProgramDescription = styled.Text`
   font-size: 14px;
-  margin-top: 5px;
+  margin: 7px 0;
   padding: 0 5px;
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function ProgramList() {
+export default function FavProgramList() {
   const { data, loading } = useQuery(ME_QUERY);
   const renderProgram = ({ item: program }) => {
     return (
       <ProgramContainer>
         <TitleContainer>
           <ProgramTitle> {program.title}</ProgramTitle>
-          <Private>
-            {program.isPrivate ? (
-              <FontAwesome5 name="lock" size={14} />
-            ) : (
-              <FontAwesome5 name="globe" size={14} />
-            )}
-          </Private>
+          <Likes>
+            <FontAwesome name="heart" size={14} /> {program.likeCount}
+          </Likes>
         </TitleContainer>
         <ProgramDescription>{program.description}</ProgramDescription>
       </ProgramContainer>
@@ -77,23 +73,17 @@ export default function ProgramList() {
   };
 
   return (
+    // <ScrollView>
     <FlatList
-      horizontal
-      // numColumns={2}
-      // initialNumToRender={2}
       data={data?.me?.programs}
       keyExtractor={(program) => "" + program.id}
       renderItem={renderProgram}
+      // horizontal
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      numColumns={2}
+      // initialNumToRender={3}
     />
+    // </ScrollView>
   );
 }
-
-// ProgramList.propTypes = {
-//     id: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string,
-//     hashtags: PropTypes.string,
-//     isLiked: PropTypes.bool.isRequired,
-//     likeCount: PropTypes.number.isRequired,
-
-//   };
