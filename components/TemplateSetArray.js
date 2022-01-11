@@ -1,6 +1,5 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
-import { Text } from "react-native";
 import styled from "styled-components/native";
 import AddExerciseButton from "./AddExerciseButton";
 import DeleteExerciseButton from "./DeleteExerciseButton";
@@ -62,7 +61,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <SetCount
-                  // keyboardType="numeric"
+                  keyboardType="numeric"
                   placeholder="0"
                   placeholderTextColor="#797d7f"
                   onChangeText={(text) =>

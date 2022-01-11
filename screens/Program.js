@@ -1,43 +1,19 @@
-import React, { useEffect } from "react";
-import styled from "styled-components/native";
+import React from "react";
 import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
-import { gql, useQuery } from "@apollo/client";
-import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
-import { FontAwesome5 } from "@expo/vector-icons";
+import ProgramList from "./ProgramList";
+import styled from "styled-components/native";
 
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        id
-        title
-        description
-      }
-      # likes {}
-    }
-  }
-`;
-
-const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+const MyProgram = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: ${(props) => props.theme.orange};
 `;
 
 export default function Program() {
   const navigation = useNavigation();
-  const { data, loading } = useQuery(ME_QUERY);
-
-  const renderProgram = ({ item: program }) => {
-    return (
-      <View>
-        <Text style={{ color: "green" }}>{program.title}</Text>
-        <Text style={{ color: "green" }}>{program.description}</Text>
-      </View>
-    );
-  };
 
   return (
     <ScreenLayout>
@@ -46,17 +22,10 @@ export default function Program() {
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram")}
       />
-      <FontAwesome5
-        name="edit"
-        size={21}
-        color="black"
-        onPress={() => navigation.navigate("EditProgram")}
-      />
-      <FlatList
-        data={data?.me?.programs}
-        keyExtractor={(program) => "" + program.id}
-        renderItem={renderProgram}
-      />
+
+      <MyProgram>내 운동 프로그램</MyProgram>
+
+      <ProgramList />
       <MainButton
         text="프로그램 찾기"
         disabled={false}

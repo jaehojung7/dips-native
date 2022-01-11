@@ -1,6 +1,5 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
-import { Text } from "react-native";
 import styled from "styled-components/native";
 import ColorText from "../styles";
 import AddWorkoutButton from "./AddWorkoutButton";

@@ -8,7 +8,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { Switch } from "react-native";
 import TemplateArray from "../components/TemplateArray";
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   padding: 0 15px;
   margin-top: 15px;
 `;
@@ -250,7 +250,7 @@ export default function CreateProgram() {
         <MainButton
           text="새 프로그램 저장"
           loading={loading}
-          // disabled={!watch("programTitle")}
+          disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}
         />
       </Container>
