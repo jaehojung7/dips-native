@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { FlatList, Text } from "react-native";
+import { FlatList, ScrollView, Text } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
@@ -18,12 +18,11 @@ const ME_QUERY = gql`
 `;
 
 const ProgramContainer = styled.View`
-  margin: 7px 10px;
+  justify-content: center;
+  margin: 5px 5px 15px 5px;
   border: 1px solid #797d7f;
   border-radius: 5px;
-  padding: 7px 10px;
-  height: 35%;
-  /* width: 80%; */
+  padding: 10px;
 `;
 
 const TitleContainer = styled.View`
@@ -34,42 +33,32 @@ const TitleContainer = styled.View`
 
 const ProgramTitle = styled.Text`
   font-size: 15px;
-  padding: 0 5px;
   color: ${(props) => props.theme.fontColor};
 `;
 
-const Likes = styled.Text`
-  font-size: 14px;
-  color: ${(props) => props.theme.orange};
-`;
-
-const Private = styled.Text`
-  margin: 5px;
+const Favorite = styled.Text`
+  margin: 0 3px 0 7px;
   font-size: 14px;
   color: ${(props) => props.theme.blue};
 `;
 
 const ProgramDescription = styled.Text`
   font-size: 14px;
-  margin-top: 5px;
-  padding: 0 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function ProgramList() {
+export default function FavProgramList() {
   const { data, loading } = useQuery(ME_QUERY);
   const renderProgram = ({ item: program }) => {
     return (
       <ProgramContainer>
         <TitleContainer>
           <ProgramTitle> {program.title}</ProgramTitle>
-          <Private>
-            {program.isPrivate ? (
-              <FontAwesome5 name="lock" size={14} />
-            ) : (
-              <FontAwesome5 name="globe" size={14} />
-            )}
-          </Private>
+          <Favorite>
+            <FontAwesome name="star" size={14} /> {program.likeCount}
+          </Favorite>
         </TitleContainer>
         <ProgramDescription>{program.description}</ProgramDescription>
       </ProgramContainer>
@@ -78,22 +67,12 @@ export default function ProgramList() {
 
   return (
     <FlatList
-      horizontal
-      // numColumns={2}
-      // initialNumToRender={2}
       data={data?.me?.programs}
       keyExtractor={(program) => "" + program.id}
       renderItem={renderProgram}
+      horizontal
+      initialNumToRender={3}
+      windowSize={3}
     />
   );
 }
-
-// ProgramList.propTypes = {
-//     id: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string,
-//     hashtags: PropTypes.string,
-//     isLiked: PropTypes.bool.isRequired,
-//     likeCount: PropTypes.number.isRequired,
-
-//   };
