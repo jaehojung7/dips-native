@@ -18,12 +18,11 @@ const ME_QUERY = gql`
 `;
 
 const ProgramContainer = styled.View`
-  margin: 7px 10px;
+  justify-content: center;
+  margin: 5px 5px 15px 5px;
   border: 1px solid #797d7f;
   border-radius: 5px;
-  padding: 7px 10px;
-  /* height: 40%; */
-  /* width: 80%; */
+  padding: 10px;
 `;
 
 const TitleContainer = styled.View`
@@ -34,25 +33,19 @@ const TitleContainer = styled.View`
 
 const ProgramTitle = styled.Text`
   font-size: 15px;
-  padding: 0 5px;
   color: ${(props) => props.theme.fontColor};
 `;
 
-const Likes = styled.Text`
-  font-size: 14px;
-  color: tomato;
-`;
-
-const Private = styled.Text`
-  margin: 5px;
+const Favorite = styled.Text`
+  margin: 0 3px 0 7px;
   font-size: 14px;
   color: ${(props) => props.theme.blue};
 `;
 
 const ProgramDescription = styled.Text`
   font-size: 14px;
-  margin: 7px 0;
-  padding: 0 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   color: ${(props) => props.theme.darkgray};
 `;
 
@@ -63,9 +56,9 @@ export default function FavProgramList() {
       <ProgramContainer>
         <TitleContainer>
           <ProgramTitle> {program.title}</ProgramTitle>
-          <Likes>
-            <FontAwesome name="heart" size={14} /> {program.likeCount}
-          </Likes>
+          <Favorite>
+            <FontAwesome name="star" size={14} /> {program.likeCount}
+          </Favorite>
         </TitleContainer>
         <ProgramDescription>{program.description}</ProgramDescription>
       </ProgramContainer>
@@ -73,17 +66,13 @@ export default function FavProgramList() {
   };
 
   return (
-    // <ScrollView>
     <FlatList
       data={data?.me?.programs}
       keyExtractor={(program) => "" + program.id}
       renderItem={renderProgram}
-      // horizontal
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      numColumns={2}
-      // initialNumToRender={3}
+      horizontal
+      initialNumToRender={3}
+      windowSize={3}
     />
-    // </ScrollView>
   );
 }
