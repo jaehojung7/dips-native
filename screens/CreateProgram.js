@@ -69,10 +69,19 @@ const CREATE_PROGRAM_MUTATION = gql`
 `;
 
 const CREATE_TEMPLATE_MUTATION = gql`
-  mutation createTemplate($programId: Int!, $title: String!) {
-    createTemplate(programId: $programId, title: $title) {
+  mutation createTemplate(
+    $programId: Int!
+    $templateIndex: Int!
+    $title: String!
+  ) {
+    createTemplate(
+      programId: $programId
+      templateIndex: $templateIndex
+      title: $title
+    ) {
       ok
-      id
+      programId
+      templateIndex
       error
     }
   }
@@ -80,16 +89,16 @@ const CREATE_TEMPLATE_MUTATION = gql`
 
 const CREATE_TEMPLATE_SET_MUTATION = gql`
   mutation createTemplateSet(
-    $templateId: Int!
+    $programId: Int!
+    $templateIndex: Int!
     $exercise: [String]
-    $setCount: Int!
-    $rir: Int
+    $setCount: Int! # $rir: Int
   ) {
     createTemplateSet(
-      templateId: $templateId
+      programId: $programId
+      templateIndex: $templateIndex
       exercise: $exercise
-      setCount: $setCount
-      rir: $rir
+      setCount: $setCount # rir: $rir
     ) {
       ok
       id
@@ -123,30 +132,38 @@ export default function CreateProgram() {
 
   const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
-  // const onCreateTemplateSetCompleted = (data) => {
-  //   const {
-  //     createTemplateSet: { ok, id, error },
-  //   } = data;
-  //   if (!ok) {
-  //     setError("result", {
-  //       message: error,
-  //     });
-  //   }
-  // };
-
-  const onCreateTemplateCompleted = (data) => {
+  const onCreateTemplateSetCompleted = (data) => {
     const {
-      createTemplate: { ok, id: templateId, error },
+      createTemplateSet: { ok, id: templateSetId, error },
     } = data;
     if (!ok) {
       setError("result", {
         message: error,
       });
     }
-    // const { setCount } = getValues();
-    // createTemplateSetFunction({
-    //   variables: { templateId, setCount },
-    // });
+  };
+
+  const onCreateTemplateCompleted = (data) => {
+    const {
+      createTemplate: { ok, programId, templateIndex, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+
+    const submissionData = getValues();
+    submissionData.templates[templateIndex].templateSets.map((templateSet) => {
+      createTemplateSetFunction({
+        variables: {
+          programId,
+          templateIndex,
+          exercise: templateSet.exercise,
+          setCount: parseInt(templateSet.setCount),
+        },
+      });
+    });
   };
 
   const onCreateProgramCompleted = (data) => {
@@ -158,10 +175,13 @@ export default function CreateProgram() {
         message: error,
       });
     }
-    // const { workoutTitle } = getValues();
-    // createTemplateFunction({
-    //   variables: { programId, title: workoutTitle },
-    // });
+
+    const submissionData = getValues();
+    submissionData.templates.map((template, templateIndex) => {
+      createTemplateFunction({
+        variables: { programId, templateIndex, title: template.name },
+      });
+    });
   };
 
   const [createProgramFunction, { loading, error }] = useMutation(
@@ -175,15 +195,14 @@ export default function CreateProgram() {
     onCompleted: onCreateTemplateCompleted,
   });
 
-  // const [createTemplateSetFunction] = useMutation(
-  //   CREATE_TEMPLATE_SET_MUTATION,
-  //   {
-  //     onCreateTemplateSetCompleted,
-  //   }
-  // );
+  const [createTemplateSetFunction] = useMutation(
+    CREATE_TEMPLATE_SET_MUTATION,
+    {
+      onCompleted: onCreateTemplateSetCompleted,
+    }
+  );
 
   const onSubmitValid = (submissionData) => {
-    console.log(submissionData);
     if (loading) {
       return;
     }

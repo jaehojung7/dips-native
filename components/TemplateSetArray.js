@@ -62,6 +62,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
               render={({ field: { onChange, onBlur, value } }) => (
                 <SetCount
                   keyboardType="numeric"
+                  type="number"
                   placeholder="0"
                   placeholderTextColor="#797d7f"
                   onChangeText={(text) =>

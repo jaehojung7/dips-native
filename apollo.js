@@ -25,8 +25,8 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://wet-fish-98.loca.lt/graphql",
-  // uri: "http://localhost:4000/graphql",
+  // uri: "https://wet-fish-98.loca.lt/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
