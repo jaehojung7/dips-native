@@ -42,7 +42,7 @@ const TitleInput = styled.TextInput`
 `;
 
 const DescriptionInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
+  color: black;
   background-color: ${(props) => props.theme.lightgray};
   padding: 10px 15px;
   font-size: 14px;

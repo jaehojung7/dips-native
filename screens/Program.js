@@ -1,11 +1,10 @@
 import React from "react";
 import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
-import ScreenLayout from "../components/ScreenLayout";
-import MyProgramList from "./MyProgramList";
 import styled from "styled-components/native";
-import FavProgramList from "./FavProgramList";
 import { ScrollView, TouchableOpacity } from "react-native";
+import FavProgramCard from "./FavProgramCard";
+import MyProgramCard from "./MyProgramCard";
 
 const Container = styled.View`
   flex: 1;
@@ -44,7 +43,7 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <MyProgramList />
+        <MyProgramCard />
 
         <TitleContainer>
           <ProgramTitle>즐겨찾는 프로그램</ProgramTitle>
@@ -52,7 +51,7 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <FavProgramList />
+        <FavProgramCard />
 
         <MainButton
           text="새 프로그램 만들기"

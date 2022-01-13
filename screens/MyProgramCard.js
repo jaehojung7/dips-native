@@ -1,7 +1,30 @@
 import { gql, useQuery } from "@apollo/client";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Modal,
+  Pressable,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { useState } from "react";
+import ProgramPopup from "../components/ProgramPopup";
+
+const SEE_PROGRAM_QUERY = gql`
+  query seeProgram($id: Int!) {
+    seeProgram(id: $id) {
+      user
+      title
+      description
+      templates {
+        title
+      }
+      isPrivate
+      likeCount
+    }
+  }
+`;
 
 const ME_QUERY = gql`
   query me {
@@ -12,9 +35,6 @@ const ME_QUERY = gql`
         description
         isPrivate
         likeCount
-        templates {
-          title
-        }
       }
     }
   }
@@ -34,41 +54,49 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `;
 
-const ProgramTitle = styled.Text`
+const TitleText = styled.Text`
   font-size: 15px;
   color: ${(props) => props.theme.fontColor};
 `;
 
-const Private = styled.Text`
+const TitleIcon = styled.Text`
   margin: 0 3px 0 7px;
   font-size: 14px;
   color: ${(props) => props.theme.blue};
 `;
 
-const ProgramDescription = styled.Text`
+const DescriptionText = styled.Text`
   font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 7px;
+  padding-left: 4px;
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function MyProgramList() {
+export default function MyProgramCard() {
   const { data, loading } = useQuery(ME_QUERY);
+  // const { data } = useQuery(SEE_PROGRAM_QUERY);
+  console.log(data);
+  const [modalVisible, setModalVisible] = useState(false);
   const renderProgram = ({ item: program }) => {
     return (
       <ProgramContainer>
-        <TitleContainer>
-          <ProgramTitle> {program.title}</ProgramTitle>
-          <Private>
-            {program.isPrivate ? (
-              <FontAwesome5 name="lock" size={14} />
-            ) : (
-              <FontAwesome5 name="globe" size={14} />
-            )}
-          </Private>
-        </TitleContainer>
-        <ProgramDescription>{program.description}</ProgramDescription>
-        {/* <ProgramDescription>{program.templates.title}</ProgramDescription> */}
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <ProgramPopup />
+        </Modal>
+
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <TitleContainer>
+            <TitleText> {program.title}</TitleText>
+            <TitleIcon>
+              {program.isPrivate ? (
+                <FontAwesome5 name="lock" size={14} />
+              ) : (
+                <FontAwesome5 name="globe" size={14} />
+              )}
+            </TitleIcon>
+          </TitleContainer>
+          <DescriptionText>{program.description}</DescriptionText>
+        </TouchableOpacity>
       </ProgramContainer>
     );
   };

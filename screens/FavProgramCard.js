@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { FlatList, ScrollView, Text } from "react-native";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
@@ -31,36 +31,36 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `;
 
-const ProgramTitle = styled.Text`
+const TitleText = styled.Text`
   font-size: 15px;
   color: ${(props) => props.theme.fontColor};
 `;
 
-const Favorite = styled.Text`
+const TitleIcon = styled.Text`
   margin: 0 3px 0 7px;
   font-size: 14px;
   color: ${(props) => props.theme.blue};
 `;
 
-const ProgramDescription = styled.Text`
+const DescriptionText = styled.Text`
   font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 7px;
+  padding-left: 4px;
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function FavProgramList() {
+export default function FavProgramCard() {
   const { data, loading } = useQuery(ME_QUERY);
   const renderProgram = ({ item: program }) => {
     return (
       <ProgramContainer>
         <TitleContainer>
-          <ProgramTitle> {program.title}</ProgramTitle>
-          <Favorite>
+          <TitleText> {program.title}</TitleText>
+          <TitleIcon>
             <FontAwesome name="star" size={14} /> {program.likeCount}
-          </Favorite>
+          </TitleIcon>
         </TitleContainer>
-        <ProgramDescription>{program.description}</ProgramDescription>
+        <DescriptionText>{program.description}</DescriptionText>
       </ProgramContainer>
     );
   };
