@@ -25,7 +25,6 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  // uri: "https://average-penguin-72.loca.lt/graphql",
   uri: "http://localhost:4000/graphql",
 });
 
