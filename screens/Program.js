@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import FavProgramCard from "./FavProgramCard";
 import MyProgramCard from "./MyProgramCard";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const Container = styled.View`
   flex: 1;
