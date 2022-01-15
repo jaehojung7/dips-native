@@ -1,39 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
-import { FlatList, Modal, TouchableOpacity, View } from "react-native";
+import { FlatList, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 import ProgramPopup from "../components/ProgramPopup";
-import CloseButton from "../components/CloseButton";
-
-const SEE_PROGRAM_QUERY = gql`
-  query seeProgram($id: Int!) {
-    seeProgram(id: $id) {
-      user
-      title
-      description
-      templates {
-        title
-      }
-      isPrivate
-      likeCount
-    }
-  }
-`;
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        id
-        title
-        description
-        isPrivate
-        likeCount
-      }
-    }
-  }
-`;
 
 const ProgramContainer = styled.View`
   justify-content: center;
@@ -73,16 +42,13 @@ const DescriptionText = styled.Text`
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function MyProgramCard() {
-  const { data, loading } = useQuery(SEE_PROGRAM_QUERY);
-  // console.log(data?.me?.programs[0]?.title);
-  // console.log(data?.me);
+export default function MyProgramCard({ programs }) {
   const [modalVisible, setModalVisible] = useState(false);
   const renderProgram = ({ item: program }) => {
     return (
       <ProgramContainer>
         <Modal animationType="none" transparent={true} visible={modalVisible}>
-          <ProgramPopup {...{ modalVisible, setModalVisible }} />
+          <ProgramPopup {...{ modalVisible, setModalVisible, programs }} />
         </Modal>
 
         <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -104,7 +70,7 @@ export default function MyProgramCard() {
 
   return (
     <FlatList
-      data={data?.me?.programs}
+      data={programs}
       keyExtractor={(program) => "" + program.id}
       renderItem={renderProgram}
       horizontal

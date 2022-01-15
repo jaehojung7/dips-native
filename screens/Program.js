@@ -1,11 +1,36 @@
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import FavProgramCard from "./FavProgramCard";
 import MyProgramCard from "./MyProgramCard";
-import DismissKeyboard from "../components/DismissKeyboard";
+
+const ME_QUERY = gql`
+  query me {
+    me {
+      programs {
+        id
+        title
+        description
+        isPrivate
+        likeCount
+        templates {
+          title
+        }
+      }
+      likes {
+        program {
+          id
+          title
+          description
+          likeCount
+        }
+      }
+    }
+  }
+`;
 
 const Container = styled.View`
   flex: 1;
@@ -34,7 +59,7 @@ const MoreProgram = styled.Text`
 
 export default function Program() {
   const navigation = useNavigation();
-
+  const { data, loading } = useQuery(ME_QUERY);
   return (
     <Container>
       <ScrollView>
@@ -44,7 +69,7 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <MyProgramCard />
+        <MyProgramCard programs={data?.me?.programs} />
 
         <TitleContainer>
           <ProgramTitle>즐겨찾는 프로그램</ProgramTitle>
@@ -52,18 +77,13 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <FavProgramCard />
+        <FavProgramCard likes={data?.me?.likes} />
 
         <MainButton
           text="새 프로그램 만들기"
           disabled={false}
           onPress={() => navigation.navigate("CreateProgram")}
         />
-        {/* <MainButton
-        text="프로그램 찾기"
-        disabled={false}
-        onPress={() => navigation.navigate("SearchPrograms")}
-      /> */}
       </ScrollView>
     </Container>
   );

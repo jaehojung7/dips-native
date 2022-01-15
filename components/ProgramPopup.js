@@ -1,40 +1,6 @@
-import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import CloseButton from "../components/CloseButton";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        id
-        title
-        description
-        isPrivate
-        likeCount
-        templates {
-          title
-        }
-      }
-    }
-  }
-`;
-
-const SEE_PROGRAM_QUERY = gql`
-  query seeProgram($id: Int!) {
-    seeProgram(id: $id) {
-      id
-      user
-      title
-      # description
-      # templates {
-      #   title
-      # }
-      # isPrivate
-      # likeCount
-    }
-  }
-`;
+import TextButton from "./TextButton";
 
 const CenterView = styled.View`
   flex: 1;
@@ -67,15 +33,33 @@ const TitleIcon = styled.Text`
   color: ${(props) => props.theme.blue};
 `;
 
-const InfoContainer = styled.View`
+const ContentsContainer = styled.View`
   /* align-items: center; */
   justify-content: center;
 `;
 
-const InfoText = styled.Text`
+const DescriptionText = styled.Text`
   font-size: 14px;
   font-weight: 700;
   color: ${(props) => props.theme.darkgray};
+  margin-top: 5px;
+`;
+
+const WorkoutContainer = styled.View`
+  /* align-items: center; */
+  /* justify-content: center; */
+`;
+
+const WorkoutTitleContainer = styled.View`
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const WorkoutTitleText = styled.Text`
+  font-size: 14px;
+  font-weight: 700;
+  color: ${(props) => props.theme.fontColor};
   margin-top: 5px;
 `;
 
@@ -87,41 +71,54 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function ProgramPopup({ modalVisible, setModalVisible }) {
-  // const { data } = useQuery(SEE_PROGRAM_QUERY);
-  const { data } = useQuery(ME_QUERY);
-  console.log(data);
+export default function ProgramPopup({
+  modalVisible,
+  setModalVisible,
+  programs,
+}) {
+  console.log(programs);
   return (
     <CenterView>
-      <PopupView>
-        <TitleContainer>
-          <TitleText>{data?.me.programs[0].title}</TitleText>
-          <TitleIcon>
-            <FontAwesome name="star" size={14} />{" "}
-            {data?.me.programs[0].likeCount}
-          </TitleIcon>
-          <TitleIcon>
-            {data?.me.programs[0].isPrivate ? (
-              <FontAwesome5 name="lock" size={14} />
-            ) : (
-              <FontAwesome5 name="globe" size={14} />
-            )}
-          </TitleIcon>
-        </TitleContainer>
+      {programs.map((program, index) => {
+        return (
+          <PopupView key={index}>
+            <TitleContainer>
+              <TitleText>{program.title}</TitleText>
+              <TitleIcon>
+                <FontAwesome name="star" size={14} /> {program.likeCount}
+              </TitleIcon>
+              <TitleIcon>
+                {program.isPrivate ? (
+                  <FontAwesome5 name="lock" size={14} />
+                ) : (
+                  <FontAwesome5 name="globe" size={14} />
+                )}
+              </TitleIcon>
+            </TitleContainer>
 
-        <InfoContainer>
-          <InfoText>{data?.me.programs[0].description}</InfoText>
-          <InfoText>Day 1: Back + Chest + Arm 시작하기 Button</InfoText>
-          <InfoText>Day 2: Back + Chest + Shoulder 시작하기 Button</InfoText>
-          <InfoText>Day 3: Leg + Core 시작하기 Button</InfoText>
-        </InfoContainer>
-        <CloseButton
-          text="닫기"
-          onPress={() => {
-            setModalVisible(!modalVisible);
-          }}
-        />
-      </PopupView>
+            <ContentsContainer>
+              <DescriptionText>{program.description}</DescriptionText>
+
+              <WorkoutContainer>
+                {program.templates.map((workout, index) => {
+                  return (
+                    <WorkoutTitleContainer key={index}>
+                      <WorkoutTitleText>{workout.title}</WorkoutTitleText>
+                      <TextButton text="시작하기" onPress={() => {}} />
+                    </WorkoutTitleContainer>
+                  );
+                })}
+              </WorkoutContainer>
+            </ContentsContainer>
+            <TextButton
+              text="닫기"
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            />
+          </PopupView>
+        );
+      })}
     </CenterView>
   );
 }

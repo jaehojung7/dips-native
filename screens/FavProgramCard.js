@@ -3,20 +3,6 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        id
-        title
-        description
-        isPrivate
-        likeCount
-      }
-    }
-  }
-`;
-
 const ProgramContainer = styled.View`
   justify-content: center;
   margin: 5px 5px 15px 5px;
@@ -49,26 +35,25 @@ const DescriptionText = styled.Text`
   color: ${(props) => props.theme.darkgray};
 `;
 
-export default function FavProgramCard() {
-  const { data, loading } = useQuery(ME_QUERY);
-  const renderProgram = ({ item: program }) => {
+export default function FavProgramCard({ likes }) {
+  const renderProgram = ({ item: like }) => {
     return (
       <ProgramContainer>
         <TitleContainer>
-          <TitleText> {program.title}</TitleText>
+          <TitleText> {like.program.title}</TitleText>
           <TitleIcon>
-            <FontAwesome name="star" size={14} /> {program.likeCount}
+            <FontAwesome name="star" size={14} /> {like.program.likeCount}
           </TitleIcon>
         </TitleContainer>
-        <DescriptionText>{program.description}</DescriptionText>
+        <DescriptionText>{like.program.description}</DescriptionText>
       </ProgramContainer>
     );
   };
 
   return (
     <FlatList
-      data={data?.me?.programs}
-      keyExtractor={(program) => "" + program.id}
+      data={likes}
+      keyExtractor={(like) => "" + like.id}
       renderItem={renderProgram}
       horizontal
       initialNumToRender={3}
