@@ -1,8 +1,8 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import AddExerciseButton from "./AddExerciseButton";
-import DeleteExerciseButton from "./DeleteExerciseButton";
+import AddTemplateSetButton from "./AddTemplateSetButton";
+import DeleteTemplateSetButton from "./DeleteTemplateSetButton";
 
 const TemplateSetContainer = styled.View`
   flex-direction: row;
@@ -74,12 +74,12 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 />
               )}
             />
-            <DeleteExerciseButton onPress={() => remove(templateSetIndex)} />
+            <DeleteTemplateSetButton onPress={() => remove(templateSetIndex)} />
           </TemplateSetContainer>
         );
       })}
 
-      <AddExerciseButton
+      <AddTemplateSetButton
         onPress={() => {
           append({});
         }}

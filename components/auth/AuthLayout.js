@@ -1,7 +1,7 @@
 import React from "react";
 import { KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
-import DismissKeyboard from "../components/DismissKeyboard";
+import DismissKeyboard from "../DismissKeyboard";
 
 const Container = styled.View`
   flex: 1;

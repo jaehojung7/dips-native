@@ -4,7 +4,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import { Text, View, FlatList } from "react-native";
 import ScreenLayout from "../components/ScreenLayout";
 import { Controller, useForm } from "react-hook-form";
-import { AuthInput } from "../components/StyledInput";
+import { AuthInput } from "../components/auth/AuthInput";
 import MainButton from "../components/MainButton";
 
 const SEARCH_PROGRAMS_QUERY = gql`
