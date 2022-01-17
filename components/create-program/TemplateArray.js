@@ -1,9 +1,9 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import ColorText from "../styles";
-import AddWorkoutButton from "./AddWorkoutButton";
-import DeleteWorkoutButton from "./DeleteWorkoutButton";
+import ColorText from "../../styles";
+import AddTemplateButton from "./AddTemplateButton";
+import DeleteTemplateButton from "./DeleteTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`
@@ -58,7 +58,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   />
                 )}
               />
-              <DeleteWorkoutButton onPress={() => remove(templateIndex)} />
+              <DeleteTemplateButton onPress={() => remove(templateIndex)} />
             </TemplateHeader>
             <IndexContainer>
               <ColorText>운동 이름</ColorText>
@@ -72,7 +72,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
         );
       })}
 
-      <AddWorkoutButton
+      <AddTemplateButton
         onPress={() => {
           append({});
         }}

@@ -2,18 +2,9 @@ import React, { useRef } from "react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/MainButton";
-import AuthLayout from "../components/AuthLayout";
+import AuthLayout from "../components/auth/AuthLayout";
 import { gql, useMutation } from "@apollo/client";
-import styled from "styled-components/native";
-
-const AuthInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  padding: 15px 10px;
-  font-size: 15px;
-  border-radius: 5px;
-  margin-bottom: ${(props) => (props.lastOne ? "17" : 13)}px;
-  border: 1px solid ${(props) => props.theme.blue};
-`;
+import { AuthInput } from "../components/auth/AuthInput";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(

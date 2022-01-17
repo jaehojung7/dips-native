@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { Controller, useForm, useFieldArray } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/MainButton";
 import styled from "styled-components/native";
 import ColorText from "../styles";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { Switch } from "react-native";
-import TemplateArray from "../components/TemplateArray";
+import TemplateArray from "../components/create-program/TemplateArray";
 
 const Container = styled.ScrollView`
   padding: 0 15px;
@@ -122,11 +122,6 @@ export default function CreateProgram() {
     useForm({
       defaultValues,
     });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "templates",
-  });
 
   const [isPrivate, setIsPrivate] = useState(false);
 

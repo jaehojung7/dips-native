@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import FavProgramCard from "./FavProgramCard";
-import MyProgramCard from "./MyProgramCard";
+import MyProgramCards from "../components/program-card/MyProgramCards";
+import FavProgramCards from "../components/program-card/FavProgramCards";
 
 const ME_QUERY = gql`
   query me {
@@ -25,7 +25,11 @@ const ME_QUERY = gql`
           id
           title
           description
+          isPrivate
           likeCount
+          templates {
+            title
+          }
         }
       }
     }
@@ -69,7 +73,7 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <MyProgramCard programs={data?.me?.programs} />
+        <MyProgramCards programs={data?.me?.programs} />
 
         <TitleContainer>
           <ProgramTitle>즐겨찾는 프로그램</ProgramTitle>
@@ -77,7 +81,7 @@ export default function Program() {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <FavProgramCard likes={data?.me?.likes} />
+        <FavProgramCards likes={data?.me?.likes} />
 
         <MainButton
           text="새 프로그램 만들기"
