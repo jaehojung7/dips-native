@@ -2,11 +2,13 @@ import { FlatList, Modal, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 import ProgramModal from "./ProgramModal";
-import ProgramContainer from "./ProgramContainer";
-import TitleContainer from "./TitleContainer";
-import { TitleText } from "./TitleText";
-import { TitleIcon } from "./TitleIcon";
-import { DescriptionText } from "./DescriptionText";
+import {
+  ProgramContainer,
+  TitleContainer,
+  ProgramTitle,
+  TitleIcon,
+  Description,
+} from "./StyledCard";
 
 export default function MyProgramCards({ programs }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,15 +16,15 @@ export default function MyProgramCards({ programs }) {
 
   const renderProgram = ({ item: program }) => {
     return (
-      <ProgramContainer>
-        <TouchableOpacity
-          onPress={() => {
-            setProgramModalContent(program);
-            setModalVisible(true);
-          }}
-        >
+      <TouchableOpacity
+        onPress={() => {
+          setProgramModalContent(program);
+          setModalVisible(true);
+        }}
+      >
+        <ProgramContainer>
           <TitleContainer>
-            <TitleText>{program.title}</TitleText>
+            <ProgramTitle>{program.title}</ProgramTitle>
             <TitleIcon>
               {program.isPrivate ? (
                 <FontAwesome5 name="lock" size={14} />
@@ -31,9 +33,9 @@ export default function MyProgramCards({ programs }) {
               )}
             </TitleIcon>
           </TitleContainer>
-          <DescriptionText>{program.description}</DescriptionText>
-        </TouchableOpacity>
-      </ProgramContainer>
+          <Description>{program.description}</Description>
+        </ProgramContainer>
+      </TouchableOpacity>
     );
   };
 

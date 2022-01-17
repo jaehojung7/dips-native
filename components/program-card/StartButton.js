@@ -6,13 +6,13 @@ const Button = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: ${(props) => props.theme.blue};
-  font-size: 13px;
+  color: ${(props) => props.theme.orange};
+  font-size: 14px;
   font-weight: 700;
   text-align: center;
 `;
 
-export default function TextButton({ onPress, text }) {
+export default function StartButton({ onPress, text }) {
   return (
     <Button onPress={onPress}>
       <ButtonText>{text}</ButtonText>

@@ -2,11 +2,13 @@ import { FlatList, Modal, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import ProgramModal from "./ProgramModal";
-import ProgramContainer from "./ProgramContainer";
-import TitleContainer from "./TitleContainer";
-import { TitleText } from "./TitleText";
-import { TitleIcon } from "./TitleIcon";
-import { DescriptionText } from "./DescriptionText";
+import {
+  ProgramContainer,
+  TitleContainer,
+  ProgramTitle,
+  TitleIcon,
+  Description,
+} from "./StyledCard";
 
 export default function FavProgramCards({ likes }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,12 +24,12 @@ export default function FavProgramCards({ likes }) {
           }}
         >
           <TitleContainer>
-            <TitleText>{like.program.title}</TitleText>
+            <ProgramTitle>{like.program.title}</ProgramTitle>
             <TitleIcon>
               <FontAwesome name="star" size={14} /> {like.program.likeCount}
             </TitleIcon>
           </TitleContainer>
-          <DescriptionText>{like.program.description}</DescriptionText>
+          <Description>{like.program.description}</Description>
         </TouchableOpacity>
       </ProgramContainer>
     );
