@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import AddTemplateButton from "./AddTemplateButton";
 import DeleteTemplateButton from "./DeleteTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const TemplateContainer = styled.View`
   margin-bottom: 10px;
@@ -24,18 +25,6 @@ const WorkoutTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const IndexContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0 7px 0;
-  padding: 0 37px 0 7px;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-`;
-
 export default function TemplateArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -53,7 +42,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WorkoutTitle
-                    placeholder="워크아웃 이름 (Routine)"
+                    placeholder="운동 선택"
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(`templates[${templateIndex}].name`, text)
@@ -61,12 +50,10 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   />
                 )}
               />
+
               <DeleteTemplateButton onPress={() => remove(templateIndex)} />
             </TemplateHeader>
-            <IndexContainer>
-              <IndexText>운동 이름</IndexText>
-              <IndexText>세트</IndexText>
-            </IndexContainer>
+
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}

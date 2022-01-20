@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const ProgramContainer = styled.View`
   margin: 5px 5px 20px 5px;
-  border: 1px solid #cacfd2;
+  border: 1px solid ${(props) => props.theme.darkgray};
   border-radius: 5px;
   padding: 10px;
   width: 200px;

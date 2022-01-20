@@ -16,22 +16,26 @@ export default function FavProgramCards({ likes }) {
 
   const renderProgram = ({ item: like }) => {
     return (
-      <ProgramContainer>
-        <TouchableOpacity
-          onPress={() => {
-            setProgramModalContent(like.program);
-            setModalVisible(true);
-          }}
-        >
+      <TouchableOpacity
+        onPress={() => {
+          setProgramModalContent(like.program);
+          setModalVisible(true);
+        }}
+      >
+        <ProgramContainer>
           <TitleContainer>
             <ProgramTitle>{like.program.title}</ProgramTitle>
             <TitleIcon>
               <FontAwesome name="star" size={14} /> {like.program.likeCount}
             </TitleIcon>
           </TitleContainer>
-          <Description>{like.program.description}</Description>
-        </TouchableOpacity>
-      </ProgramContainer>
+          <Description>
+            {like.program.description.length > 35
+              ? `${like.program.description.substring(0, 35)}...`
+              : like.program.description}
+          </Description>
+        </ProgramContainer>
+      </TouchableOpacity>
     );
   };
 

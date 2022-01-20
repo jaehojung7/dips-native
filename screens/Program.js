@@ -49,6 +49,7 @@ const TitleContainer = styled.View`
   align-items: center;
   justify-content: space-between;
 `;
+
 const ProgramTitle = styled.Text`
   font-size: 18px;
   font-weight: 700;
@@ -61,8 +62,7 @@ const MoreProgram = styled.Text`
   color: ${(props) => props.theme.blue};
 `;
 
-export default function Program() {
-  const navigation = useNavigation();
+export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   return (
     <Container>

@@ -4,8 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { Switch } from "react-native";
-import TemplateArray from "../components/create-program/TemplateArray";
+import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
   padding: 0 15px;
@@ -21,19 +20,6 @@ const HeaderContainer = styled.View`
 
 const TitleContainer = styled.View`
   align-items: center;
-`;
-
-const ToggleContainer = styled.View`
-  margin-left: 35px;
-  align-items: center;
-`;
-
-const ToggleText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const ToggleSwitch = styled.View`
-  margin-top: 7px;
 `;
 
 const TitleInput = styled.TextInput`
@@ -120,15 +106,13 @@ const defaultValues = {
   ],
 };
 
-export default function CreateProgram() {
+export default function NewWorkout() {
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
     });
 
   const [isPrivate, setIsPrivate] = useState(false);
-
-  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
   const onCreateTemplateSetCompleted = (data) => {
     const {
@@ -221,39 +205,13 @@ export default function CreateProgram() {
               rules={{ required: true }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TitleInput
-                  placeholder="프로그램 이름"
+                  placeholder="워크아웃 이름"
                   placeholderTextColor="#797d7f"
                   onChangeText={(text) => setValue("programTitle", text)}
                 />
               )}
             />
-            <Controller
-              name="description"
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <DescriptionInput
-                  placeholder="프로그램 설명"
-                  placeholderTextColor="#797d7f"
-                  multiline={true}
-                  onChangeText={(text) => setValue("description", text)}
-                />
-              )}
-            />
           </TitleContainer>
-
-          <ToggleContainer>
-            <ToggleText>프로그램 공개</ToggleText>
-            <ToggleSwitch>
-              <Switch
-                trackColor={{ true: "#42a5f5" }}
-                // thumbColor="#42a5f5"
-                style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-                ios_backgroundColor="#cacfd2"
-                onValueChange={toggleSwitch}
-                value={isPrivate}
-              />
-            </ToggleSwitch>
-          </ToggleContainer>
         </HeaderContainer>
 
         <TemplateArray

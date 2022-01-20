@@ -17,9 +17,3 @@ export const lightTheme = {
   darkgray: "#797d7f",
   buttonText: "white",
 };
-
-const ColorText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-`;
-
-export default ColorText;

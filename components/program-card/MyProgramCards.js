@@ -33,7 +33,11 @@ export default function MyProgramCards({ programs }) {
               )}
             </TitleIcon>
           </TitleContainer>
-          <Description>{program.description}</Description>
+          <Description>
+            {program.description.length > 35
+              ? `${program.description.substring(0, 35)}...`
+              : program.description}
+          </Description>
         </ProgramContainer>
       </TouchableOpacity>
     );

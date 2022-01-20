@@ -10,11 +10,10 @@ const CenterView = styled.View`
 `;
 
 const PopupView = styled.View`
-  margin: 10px;
-  border-radius: 5px;
+  border-radius: 25px;
   background-color: white;
   padding: 20px;
-  min-width: 300px;
+  width: 90%;
 `;
 
 const HeaderContainer = styled.View`
@@ -62,7 +61,7 @@ const BorderLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.lightgray};
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 `;
 
 export default function ProgramModal({ program, setModalVisible }) {
