@@ -5,7 +5,7 @@ import AddTemplateSetButton from "./AddTemplateSetButton";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import SetModal from "../modal-components/SetModal";
-import { Modal, TouchableOpacity } from "react-native";
+import { Modal } from "react-native";
 
 const IndexContainer = styled.View`
   flex-direction: row;
