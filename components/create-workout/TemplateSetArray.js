@@ -2,10 +2,10 @@ import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddTemplateSetButton from "./AddTemplateSetButton";
-import DeleteTemplateSetButton from "./DeleteTemplateSetButton";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { TouchableOpacity } from "react-native";
+import SetModal from "../modal-components/SetModal";
+import { Modal, TouchableOpacity } from "react-native";
 
 const IndexContainer = styled.View`
   flex-direction: row;
@@ -19,8 +19,16 @@ const IndexText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const InputContainer = styled.View`
-  /* align-items: center; */
+const SetContainer = styled.TouchableOpacity`
+  background-color: ${(props) => props.theme.lightgray};
+  padding: 7px 10px;
+  font-size: 15px;
+  border-radius: 5px;
+`;
+
+const SetNumber = styled.Text`
+  color: black;
+  font-weight: 700;
 `;
 
 const TemplateSetContainer = styled.View`
@@ -30,22 +38,13 @@ const TemplateSetContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-const ExerciseTitle = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.lightgray};
-  padding: 7px 10px;
-  font-size: 15px;
-  border-radius: 5px;
-  width: 75%;
-`;
-
 const SetCount = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.lightgray};
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
-  width: 15%;
+  width: 60px;
 `;
 
 const CheckContainer = styled.TouchableOpacity``;
@@ -70,8 +69,8 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
     control,
     name: `templates[${templateIndex}].templateSets`,
   });
-
   const [isDone, setIsDone] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const renderRightActions = (progress, dragX, templateSetIndex) => {
     const trans = dragX.interpolate({
@@ -105,6 +104,21 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
             renderRightActions={renderRightActions}
           >
             <TemplateSetContainer>
+              <SetContainer
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <SetNumber>{parseInt(`${templateSetIndex}`) + 1}</SetNumber>
+                <Modal
+                  animationType="none"
+                  transparent={true}
+                  visible={modalVisible}
+                >
+                  <SetModal {...{ setModalVisible }} />
+                </Modal>
+              </SetContainer>
+
               <Controller
                 name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
                 control={control}
@@ -113,6 +127,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
+                    maxLength={4}
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(
@@ -131,6 +146,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
+                    maxLength={3}
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(
@@ -141,6 +157,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                   />
                 )}
               />
+
               <Controller
                 name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
                 control={control}
@@ -149,24 +166,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
-                    placeholderTextColor="#797d7f"
-                    onChangeText={(text) =>
-                      setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
-                        text
-                      )
-                    }
-                  />
-                )}
-              />
-              <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
-                    keyboardType="numeric"
-                    type="number"
-                    placeholder="0"
+                    maxLength={3}
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(

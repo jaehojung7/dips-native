@@ -4,8 +4,8 @@ import MainButton from "../components/MainButton";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import MyProgramCards from "../components/program-card/MyProgramCards";
-import FavProgramCards from "../components/program-card/FavProgramCards";
+import MyProgramCards from "../components/modal-components/MyProgramCards";
+import FavProgramCards from "../components/modal-components/FavProgramCards";
 
 const ME_QUERY = gql`
   query me {
