@@ -17,36 +17,60 @@ const PopupView = styled.View`
 const IconContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 `;
 
-const SetType = styled.Text`
+const Warmup = styled.Text`
+  /* font-size: 16px;
+  font-weight: 700;
+  margin-left: 5px; */
+  color: ${(props) => props.theme.orange};
+`;
+
+const Dropset = styled.Text`
+  /* font-size: 16px;
+  font-weight: 700;
+  margin-left: 5px; */
+  color: ${(props) => props.theme.blue};
+`;
+
+const SetOption = styled.Text`
   font-size: 16px;
   font-weight: 700;
   margin-left: 5px;
-  color: ${(props) => props.theme.orange};
+  color: black;
 `;
 
-const SetIcon = styled.Text`
-  color: ${(props) => props.theme.orange};
-`;
-
-export default function SetModal({ setModalVisible }) {
+export default function SetModal({
+  setModalVisible,
+  setIsWarmup,
+  setIsDropset,
+}) {
   return (
     <CenterView>
       <PopupView>
-        <IconContainer>
-          <SetIcon>
-            <FontAwesome5 name="arrow-circle-up" size={18} />
-          </SetIcon>
-          <SetType>Warm-up</SetType>
+        <IconContainer
+          onPress={() => {
+            setIsWarmup(true);
+            setModalVisible(false);
+          }}
+        >
+          <Warmup>
+            <FontAwesome5 name="arrow-circle-up" size={20} />
+          </Warmup>
+          <SetOption>웜업세트 Warm-up</SetOption>
         </IconContainer>
 
-        <IconContainer>
-          <SetIcon>
-            <FontAwesome5 name="arrow-circle-down" size={18} />
-          </SetIcon>
-          <SetType>Drop Set</SetType>
+        <IconContainer
+          onPress={() => {
+            setIsDropset(true);
+            setModalVisible(false);
+          }}
+        >
+          <Dropset>
+            <FontAwesome5 name="arrow-circle-down" size={20} />
+          </Dropset>
+          <SetOption>드롭세트 Drop Set</SetOption>
         </IconContainer>
 
         <CloseButton

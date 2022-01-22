@@ -1,26 +1,27 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
+import CloseTemplateButton from "./CloseTemplateButton";
 import AddTemplateButton from "./AddTemplateButton";
-import DeleteTemplateButton from "./DeleteTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const TemplateContainer = styled.View`
   margin-bottom: 10px;
   border: 1px solid ${(props) => props.theme.darkgray};
-  border-radius: 5px;
-  padding: 5px 15px;
+  border-radius: 15px;
+  padding: 5px 10px;
 `;
 
 const TemplateHeader = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin: 12px;
 `;
 
 const WorkoutTitle = styled.TextInput`
   font-size: 16px;
+  font-weight: 600;
   padding: 0 5px;
   color: ${(props) => props.theme.fontColor};
 `;
@@ -50,8 +51,10 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   />
                 )}
               />
-
-              <DeleteTemplateButton onPress={() => remove(templateIndex)} />
+              <CloseTemplateButton
+                text="닫기"
+                onPress={() => remove(templateIndex)}
+              />
             </TemplateHeader>
 
             <TemplateSetArray

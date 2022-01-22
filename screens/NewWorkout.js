@@ -14,19 +14,20 @@ const Container = styled.ScrollView`
 const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 0 35px;
-  margin-bottom: 15px;
+  padding: 0 15px;
+  margin-bottom: 10px;
 `;
 
-const TitleContainer = styled.View`
-  align-items: center;
-`;
+// const TitleContainer = styled.View`
+//   align-items: center;
+// `;
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
   border-radius: 5px;
-  margin-bottom: 5px;
+  /* background-color: ${(props) => props.theme.lightgray}; */
+  border-bottom-color: ${(props) => props.theme.darkgray};
   height: 40px;
 `;
 
@@ -111,78 +112,77 @@ export default function NewWorkout() {
     useForm({
       defaultValues,
     });
-
   const [isPrivate, setIsPrivate] = useState(false);
 
-  const onCreateTemplateSetCompleted = (data) => {
-    const {
-      createTemplateSet: { ok, id: templateSetId, error },
-    } = data;
-    if (!ok) {
-      setError("result", {
-        message: error,
-      });
-    }
-  };
+  // const onCreateTemplateSetCompleted = (data) => {
+  //   const {
+  //     createTemplateSet: { ok, id: templateSetId, error },
+  //   } = data;
+  //   if (!ok) {
+  //     setError("result", {
+  //       message: error,
+  //     });
+  //   }
+  // };
 
-  const onCreateTemplateCompleted = (data) => {
-    const {
-      createTemplate: { ok, programId, templateIndex, error },
-    } = data;
-    if (!ok) {
-      setError("result", {
-        message: error,
-      });
-    }
+  // const onCreateTemplateCompleted = (data) => {
+  //   const {
+  //     createTemplate: { ok, programId, templateIndex, error },
+  //   } = data;
+  //   if (!ok) {
+  //     setError("result", {
+  //       message: error,
+  //     });
+  //   }
 
-    const submissionData = getValues();
-    submissionData.templates[templateIndex].templateSets.map((templateSet) => {
-      createTemplateSetFunction({
-        variables: {
-          programId,
-          templateIndex,
-          exercise: templateSet.exercise,
-          setCount: parseInt(templateSet.setCount),
-        },
-      });
-    });
-  };
+  //   const submissionData = getValues();
+  //   submissionData.templates[templateIndex].templateSets.map((templateSet) => {
+  //     createTemplateSetFunction({
+  //       variables: {
+  //         programId,
+  //         templateIndex,
+  //         exercise: templateSet.exercise,
+  //         setCount: parseInt(templateSet.setCount),
+  //       },
+  //     });
+  //   });
+  // };
 
-  const onCreateProgramCompleted = (data) => {
-    const {
-      createProgram: { ok, id: programId, error },
-    } = data;
-    if (!ok) {
-      setError("result", {
-        message: error,
-      });
-    }
+  // const onCreateProgramCompleted = (data) => {
+  //   const {
+  //     createProgram: { ok, id: programId, error },
+  //   } = data;
+  //   if (!ok) {
+  //     setError("result", {
+  //       message: error,
+  //     });
+  //   }
 
-    const submissionData = getValues();
-    submissionData.templates.map((template, templateIndex) => {
-      createTemplateFunction({
-        variables: { programId, templateIndex, title: template.name },
-      });
-    });
-  };
+  //   const submissionData = getValues();
+  //   submissionData.templates.map((template, templateIndex) => {
+  //     createTemplateFunction({
+  //       variables: { programId, templateIndex, title: template.name },
+  //     });
+  //   });
+  // };
 
-  const [createProgramFunction, { loading, error }] = useMutation(
-    CREATE_PROGRAM_MUTATION,
-    {
-      onCompleted: onCreateProgramCompleted,
-    }
-  );
+  // const [createProgramFunction, { loading, error }] = useMutation(
+  //   CREATE_PROGRAM_MUTATION,
+  //   {
+  //     onCompleted: onCreateProgramCompleted,
+  //   }
+  // );
 
-  const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
-    onCompleted: onCreateTemplateCompleted,
-  });
+  // const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
+  //   onCompleted: onCreateTemplateCompleted,
+  // });
 
-  const [createTemplateSetFunction] = useMutation(
-    CREATE_TEMPLATE_SET_MUTATION,
-    {
-      onCompleted: onCreateTemplateSetCompleted,
-    }
-  );
+  // const [createTemplateSetFunction] = useMutation(
+  //   CREATE_TEMPLATE_SET_MUTATION,
+  //   {
+  //     onCompleted: onCreateTemplateSetCompleted,
+  //   }
+  // );
 
   const onSubmitValid = (submissionData) => {
     if (loading) {
@@ -198,20 +198,20 @@ export default function NewWorkout() {
     <DismissKeyboard>
       <Container>
         <HeaderContainer>
-          <TitleContainer>
-            <Controller
-              name="programTitle"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TitleInput
-                  placeholder="워크아웃 이름"
-                  placeholderTextColor="#797d7f"
-                  onChangeText={(text) => setValue("programTitle", text)}
-                />
-              )}
-            />
-          </TitleContainer>
+          {/* <TitleContainer> */}
+          <Controller
+            name="programTitle"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TitleInput
+                placeholder="워크아웃 이름"
+                placeholderTextColor="#797d7f"
+                onChangeText={(text) => setValue("programTitle", text)}
+              />
+            )}
+          />
+          {/* </TitleContainer> */}
         </HeaderContainer>
 
         <TemplateArray
@@ -223,8 +223,8 @@ export default function NewWorkout() {
         />
 
         <MainButton
-          text="새 프로그램 저장"
-          loading={loading}
+          text="워크아웃 기록 저장"
+          // loading={loading}
           disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}
         />

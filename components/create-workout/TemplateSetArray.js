@@ -7,12 +7,18 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import SetModal from "../modal-components/SetModal";
 import { Modal } from "react-native";
 
+const TemplateSetContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
 const IndexContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  /* padding: 0 3px; */
 `;
 
 const IndexText = styled.Text`
@@ -21,46 +27,42 @@ const IndexText = styled.Text`
 
 const SetContainer = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.lightgray};
-  padding: 7px 10px;
-  font-size: 15px;
-  border-radius: 5px;
+  padding: 3px;
+  border-radius: 15px;
+  width: 25px;
 `;
+
+const IconContainer = styled.TouchableOpacity``;
 
 const SetNumber = styled.Text`
   color: black;
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
 `;
 
-const TemplateSetContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const SetCount = styled.TextInput`
+const InputCount = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.lightgray};
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
-  width: 60px;
+  width: 50px;
+  text-align: center;
 `;
 
 const CheckContainer = styled.TouchableOpacity``;
 
 const Button = styled.TouchableOpacity`
-  /* background-color: tomato; */
-  align-items: center;
+  margin-left: 13px;
   justify-content: center;
-  margin-left: 15px;
+  margin-top: -15px;
 `;
 
 const ButtonText = styled.Text`
   color: tomato;
-  font-size: 12px;
-  font-weight: 700;
-  /* margin: 0 5px; */
+  font-size: 13px;
+  font-weight: 500;
   text-align: center;
 `;
 
@@ -71,6 +73,8 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
   });
   const [isDone, setIsDone] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isWarmup, setIsWarmup] = useState(false);
+  const [isDropset, setIsDropset] = useState(false);
 
   const renderRightActions = (progress, dragX, templateSetIndex) => {
     const trans = dragX.interpolate({
@@ -81,7 +85,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
     return (
       <Button onPress={() => remove(templateSetIndex)}>
-        <ButtonText>Delete</ButtonText>
+        <ButtonText>지우기</ButtonText>
       </Button>
     );
   };
@@ -89,11 +93,11 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
   return (
     <>
       <IndexContainer>
-        <IndexText>Set</IndexText>
-        <IndexText>Load (kg)</IndexText>
+        <IndexText>세트</IndexText>
+        <IndexText>중량(kg)</IndexText>
         <IndexText>Reps</IndexText>
         <IndexText>RIR</IndexText>
-        <FontAwesome5 name="check-circle" size={18} color="#797d7f" />
+        <FontAwesome5 name="check-circle" size={19} color="#797d7f" />
       </IndexContainer>
 
       {fields.map((item, templateSetIndex) => {
@@ -104,34 +108,49 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
             renderRightActions={renderRightActions}
           >
             <TemplateSetContainer>
-              <SetContainer
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-              >
-                <SetNumber>{parseInt(`${templateSetIndex}`) + 1}</SetNumber>
-                <Modal
-                  animationType="none"
-                  transparent={true}
-                  visible={modalVisible}
+              {isWarmup ? (
+                <IconContainer
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}
                 >
-                  <SetModal {...{ setModalVisible }} />
-                </Modal>
-              </SetContainer>
+                  <FontAwesome5
+                    name="arrow-circle-up"
+                    size={23}
+                    color="#FF7F50"
+                  />
+                </IconContainer>
+              ) : (
+                <SetContainer
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}
+                >
+                  <SetNumber>{parseInt(`${templateSetIndex}`) + 1}</SetNumber>
+                </SetContainer>
+              )}
+
+              <Modal
+                animationType="none"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <SetModal {...{ setModalVisible, setIsWarmup, setIsDropset }} />
+              </Modal>
 
               <Controller
                 name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
+                  <InputCount
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
-                    maxLength={4}
+                    maxLength={3}
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
+                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
                         text
                       )
                     }
@@ -139,10 +158,10 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 )}
               />
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
+                  <InputCount
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
@@ -162,7 +181,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
+                  <InputCount
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
@@ -179,9 +198,9 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
               />
               <CheckContainer onPress={() => setIsDone(!isDone)}>
                 {isDone ? (
-                  <FontAwesome5 name="check-circle" size={18} color="#32CD32" />
+                  <FontAwesome5 name="check-circle" size={19} color="#32CD32" />
                 ) : (
-                  <FontAwesome5 name="check-circle" size={18} color="#797d7f" />
+                  <FontAwesome5 name="check-circle" size={19} color="#797d7f" />
                 )}
               </CheckContainer>
             </TemplateSetContainer>
