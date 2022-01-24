@@ -30,7 +30,7 @@ export default function FavProgramCards({ likes }) {
             </TitleIcon>
           </TitleContainer>
           <Description>
-            {like.program.description.length > 35
+            {like.program.description && like.program.description.length > 35
               ? `${like.program.description.substring(0, 35)}...`
               : like.program.description}
           </Description>

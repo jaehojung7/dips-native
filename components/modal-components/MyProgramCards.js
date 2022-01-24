@@ -34,7 +34,7 @@ export default function MyProgramCards({ programs }) {
             </TitleIcon>
           </TitleContainer>
           <Description>
-            {program.description.length > 35
+            {program.description && program.description.length > 35
               ? `${program.description.substring(0, 35)}...`
               : program.description}
           </Description>
