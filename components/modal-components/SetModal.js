@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
-import CloseButton from "./CloseButton";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import CloseButton from "./CloseButton";
 
 const CenterView = styled.View`
   flex: 1;
@@ -21,16 +21,14 @@ const IconContainer = styled.TouchableOpacity`
 `;
 
 const Warmup = styled.Text`
-  /* font-size: 16px;
-  font-weight: 700;
-  margin-left: 5px; */
   color: ${(props) => props.theme.orange};
 `;
 
+const Mainset = styled.Text`
+  color: ${(props) => props.theme.darkgray};
+`;
+
 const Dropset = styled.Text`
-  /* font-size: 16px;
-  font-weight: 700;
-  margin-left: 5px; */
   color: ${(props) => props.theme.blue};
 `;
 
@@ -43,6 +41,7 @@ const SetOption = styled.Text`
 
 export default function SetModal({
   setModalVisible,
+  isWarmup,
   setIsWarmup,
   setIsDropset,
 }) {
@@ -52,7 +51,7 @@ export default function SetModal({
         <IconContainer
           onPress={() => {
             setIsWarmup(true);
-            setModalVisible(false);
+            setIsDropset(false);
           }}
         >
           <Warmup>
@@ -63,8 +62,20 @@ export default function SetModal({
 
         <IconContainer
           onPress={() => {
+            setIsWarmup(false);
+            setIsDropset(false);
+          }}
+        >
+          <Mainset>
+            <FontAwesome5 name="arrow-circle-right" size={20} />
+          </Mainset>
+          <SetOption>메인세트 Main Set</SetOption>
+        </IconContainer>
+
+        <IconContainer
+          onPress={() => {
             setIsDropset(true);
-            setModalVisible(false);
+            setIsWarmup(false);
           }}
         >
           <Dropset>

@@ -76,6 +76,34 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
   const [isWarmup, setIsWarmup] = useState(false);
   const [isDropset, setIsDropset] = useState(false);
 
+  // const SetOptions = () => {
+  //   const [isWarmup, setIsWarmup] = useState(false);
+  //   const [isDropset, setIsDropset] = useState(false);
+  //   if (isWarmup) {
+  //     return (
+  //       <IconContainer
+  //         onPress={() => {
+  //           setModalVisible(true);
+  //         }}
+  //       >
+  //         <FontAwesome5 name="arrow-circle-up" size={23} color="#FF7F50" />
+  //       </IconContainer>
+  //     );
+  //   }
+  //   if (isDropset) {
+  //     return (
+  //       <IconContainer
+  //         onPress={() => {
+  //           setModalVisible(true);
+  //         }}
+  //       >
+  //         <FontAwesome5 name="arrow-circle-down" size={23} color="#42a5f5" />
+  //       </IconContainer>
+  //     );
+  //   } else {
+  //   }
+  // };
+
   const renderRightActions = (progress, dragX, templateSetIndex) => {
     const trans = dragX.interpolate({
       inputRange: [-150, 0],
@@ -118,6 +146,18 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     name="arrow-circle-up"
                     size={23}
                     color="#FF7F50"
+                  />
+                </IconContainer>
+              ) : isDropset ? (
+                <IconContainer
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}
+                >
+                  <FontAwesome5
+                    name="arrow-circle-down"
+                    size={23}
+                    color="#42a5f5"
                   />
                 </IconContainer>
               ) : (
