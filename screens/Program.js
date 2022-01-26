@@ -69,7 +69,9 @@ export default function Program({ navigation }) {
       <ScrollView>
         <TitleContainer>
           <ProgramTitle>나의 운동 프로그램</ProgramTitle>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("SearchProgram")}
+          >
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>

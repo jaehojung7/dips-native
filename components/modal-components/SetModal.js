@@ -25,7 +25,7 @@ const Warmup = styled.Text`
 `;
 
 const Mainset = styled.Text`
-  color: ${(props) => props.theme.darkgray};
+  color: ${(props) => props.theme.lightgray};
 `;
 
 const Dropset = styled.Text`

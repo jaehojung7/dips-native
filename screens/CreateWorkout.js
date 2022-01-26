@@ -107,7 +107,7 @@ const defaultValues = {
   ],
 };
 
-export default function NewWorkout() {
+export default function CreateWorkout() {
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,

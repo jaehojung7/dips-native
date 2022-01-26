@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddTemplateSetButton from "./AddTemplateSetButton";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import SetModal from "../modal-components/SetModal";
 import { Modal } from "react-native";
@@ -18,7 +18,8 @@ const IndexContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 7px 0;
+  margin: 7px 2px;
+  /* padding: 0 5px; */
 `;
 
 const IndexText = styled.Text`
@@ -27,16 +28,28 @@ const IndexText = styled.Text`
 
 const SetContainer = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.lightgray};
-  padding: 3px;
+  padding: 5px;
   border-radius: 15px;
-  width: 25px;
+  width: 30px;
 `;
-
-const IconContainer = styled.TouchableOpacity``;
 
 const SetNumber = styled.Text`
   color: black;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+`;
+
+const Warmup = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-weight: 800;
+  font-size: 15px;
+  text-align: center;
+`;
+
+const Dropset = styled.Text`
+  color: ${(props) => props.theme.blue};
+  font-weight: 800;
   font-size: 15px;
   text-align: center;
 `;
@@ -45,6 +58,7 @@ const InputCount = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.lightgray};
   padding: 7px 10px;
+  /* margin: 7px 0; */
   font-size: 15px;
   border-radius: 5px;
   width: 50px;
@@ -121,11 +135,12 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
   return (
     <>
       <IndexContainer>
-        <IndexText>세트</IndexText>
-        <IndexText>중량(kg)</IndexText>
+        <IndexText>Set</IndexText>
+        <IndexText>Load(kg)</IndexText>
         <IndexText>Reps</IndexText>
         <IndexText>RIR</IndexText>
-        <FontAwesome5 name="check-circle" size={19} color="#797d7f" />
+        <IndexText>Check</IndexText>
+        {/* <FontAwesome5 name="check-circle" size={19} color="#797d7f" /> */}
       </IndexContainer>
 
       {fields.map((item, templateSetIndex) => {
@@ -137,29 +152,21 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
           >
             <TemplateSetContainer>
               {isWarmup ? (
-                <IconContainer
+                <SetContainer
                   onPress={() => {
                     setModalVisible(true);
                   }}
                 >
-                  <FontAwesome5
-                    name="arrow-circle-up"
-                    size={23}
-                    color="#FF7F50"
-                  />
-                </IconContainer>
+                  <Warmup>W</Warmup>
+                </SetContainer>
               ) : isDropset ? (
-                <IconContainer
+                <SetContainer
                   onPress={() => {
                     setModalVisible(true);
                   }}
                 >
-                  <FontAwesome5
-                    name="arrow-circle-down"
-                    size={23}
-                    color="#42a5f5"
-                  />
-                </IconContainer>
+                  <Dropset>D</Dropset>
+                </SetContainer>
               ) : (
                 <SetContainer
                   onPress={() => {
@@ -238,9 +245,9 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
               />
               <CheckContainer onPress={() => setIsDone(!isDone)}>
                 {isDone ? (
-                  <FontAwesome5 name="check-circle" size={19} color="#32CD32" />
+                  <FontAwesome5 name="check-circle" size={20} color="#32CD32" />
                 ) : (
-                  <FontAwesome5 name="check-circle" size={19} color="#797d7f" />
+                  <FontAwesome5 name="check-circle" size={20} color="#797d7f" />
                 )}
               </CheckContainer>
             </TemplateSetContainer>
