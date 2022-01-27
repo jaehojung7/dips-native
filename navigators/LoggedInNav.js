@@ -2,27 +2,36 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import SharedStackNav from "./SharedStackNav";
+import { useColorScheme } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 
 export default function LoggedInNav() {
+  const scheme = useColorScheme();
   return (
     <Tabs.Navigator
       initialRouteName="Program"
       screenOptions={{
+        headerTitleAlign: "left",
+        headerTitleContainerStyle: {},
         headerTitleStyle: {
           color: "#FF7F50",
-          fontSize: 19,
+          fontSize: 25,
           fontWeight: "700",
+          marginTop: 20,
+          marginLeft: 10,
         },
         headerStyle: {
-          shadowColor: "gray",
+          shadowColor: "transparent",
+          height: 70,
+          backgroundColor: scheme === "dark" ? "black" : "white",
         },
         tabBarActiveTintColor: "#FF7F50",
         tabBarInactiveTintColor: "#797d7f",
         tabBarLabelStyle: { fontSize: 11 },
         tabBarStyle: {
-          borderTopColor: "#797d7f",
+          borderTopColor: "#cacfd2",
+          backgroundColor: scheme === "dark" ? "black" : "white",
         },
       }}
     >
@@ -68,7 +77,7 @@ export default function LoggedInNav() {
       <Tabs.Screen
         name="Search"
         options={{
-          title: "찾기",
+          title: "검색하기",
           tabBarLabel: "Search",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="search" size={22} color={color} />

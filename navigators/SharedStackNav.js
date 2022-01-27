@@ -7,15 +7,18 @@ import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import CreateProgram from "../screens/CreateProgram";
 import CreateWorkout from "../screens/CreateWorkout";
+import { useColorScheme } from "react-native";
 
 const Stack = createStackNavigator();
 
 export default function SharedStackNav({ screenName }) {
+  const scheme = useColorScheme();
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
         headerMode: "screen",
+        cardStyle: { backgroundColor: scheme === "dark" ? "black" : "white" },
       }}
     >
       {screenName === "Program" ? (
