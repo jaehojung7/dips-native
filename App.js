@@ -17,6 +17,26 @@ import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import client, { isLoggedInVar, tokenVar } from "./apollo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const MyDarkTheme = {
+  ...DarkTheme,
+  colors: {
+    background: "black",
+    card: "black",
+    border: "#797d7f",
+    text: "white",
+  },
+};
+
+const MyLightTheme = {
+  ...DefaultTheme,
+  colors: {
+    background: "white",
+    card: "white",
+    border: "#cacfd2",
+    text: "black",
+  },
+};
+
 export default function App() {
   const scheme = useColorScheme();
   const [loading, setLoading] = useState(true);
@@ -52,7 +72,7 @@ export default function App() {
       <AppearanceProvider>
         <ThemeProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
           <NavigationContainer
-            theme={scheme === "dark" ? DarkTheme : DefaultTheme}
+            theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}
           >
             {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
           </NavigationContainer>

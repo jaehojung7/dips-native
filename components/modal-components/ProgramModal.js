@@ -10,8 +10,8 @@ const CenterView = styled.View`
 `;
 
 const PopupView = styled.View`
-  border-radius: 25px;
-  background-color: white;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.lightgray};
   padding: 20px;
   width: 90%;
 `;
@@ -32,10 +32,6 @@ const ProgramTitle = styled.Text`
   color: black;
   font-weight: 700;
   margin-right: 10px;
-`;
-
-const TitleIcon = styled.Text`
-  color: ${(props) => props.theme.blue};
 `;
 
 const Description = styled.Text`
@@ -71,18 +67,7 @@ export default function ProgramModal({ program, setModalVisible }) {
         <HeaderContainer>
           <TitleContainer>
             <ProgramTitle>{program.title}</ProgramTitle>
-            <TitleIcon>
-              {program.isPrivate ? (
-                <FontAwesome5 name="lock" size={14} />
-              ) : (
-                <FontAwesome5 name="globe" size={14} />
-              )}
-            </TitleIcon>
           </TitleContainer>
-
-          <TitleIcon>
-            <FontAwesome name="star" size={15} /> {program.likeCount}
-          </TitleIcon>
 
           <CloseButton
             text="닫기"

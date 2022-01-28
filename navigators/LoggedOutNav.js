@@ -4,6 +4,7 @@ import Welcome from "../screens/Welcome";
 import LogIn from "../screens/LogIn";
 import CreateAccount from "../screens/CreateAccount";
 import Workout from "../screens/Workout";
+import CreateWorkout from "../screens/CreateWorkout";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,7 @@ export default function LoggedOutNav() {
       />
       <Stack.Screen
         name="Workout"
-        component={Workout}
+        component={CreateWorkout}
         options={{ presentation: "modal" }}
       />
       <Stack.Screen

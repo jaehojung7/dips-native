@@ -24,34 +24,16 @@ export default function LoggedInNav() {
         headerStyle: {
           shadowColor: "transparent",
           height: 70,
-          backgroundColor: scheme === "dark" ? "black" : "white",
         },
         tabBarActiveTintColor: "#FF7F50",
         tabBarInactiveTintColor: "#797d7f",
         tabBarLabelStyle: { fontSize: 11 },
-        tabBarStyle: {
-          borderTopColor: "#cacfd2",
-          backgroundColor: scheme === "dark" ? "black" : "white",
-        },
       }}
     >
       <Tabs.Screen
-        name="Program"
-        options={{
-          title: "프로그램",
-          tabBarLabel: "Program",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="calendar-check" size={22} color={color} />
-          ),
-        }}
-      >
-        {() => <SharedStackNav screenName="Program" />}
-      </Tabs.Screen>
-
-      <Tabs.Screen
         name="Workout"
         options={{
-          title: "운동하기",
+          title: "워크아웃",
           tabBarLabel: "Workout",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="running" size={22} color={color} />

@@ -5,9 +5,7 @@ import { logUserOut } from "../apollo";
 export default function Workout({ navigation }) {
   return (
     <View>
-      <TouchableOpacity onPress={() => logUserOut()}>
-        <Text>로그아웃</Text>
-      </TouchableOpacity>
+      <Text>기록보기</Text>
     </View>
   );
 }

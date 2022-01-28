@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Program from "../screens/Program";
 import Workout from "../screens/Workout";
 import Stats from "../screens/Stats";
 import Search from "../screens/Search";
@@ -18,12 +17,8 @@ export default function SharedStackNav({ screenName }) {
       screenOptions={{
         headerShown: false,
         headerMode: "screen",
-        cardStyle: { backgroundColor: scheme === "dark" ? "black" : "white" },
       }}
     >
-      {screenName === "Program" ? (
-        <Stack.Screen name={"StackProgram"} component={Program} />
-      ) : null}
       {screenName === "Workout" ? (
         <Stack.Screen name={"StackWorkout"} component={Workout} />
       ) : null}

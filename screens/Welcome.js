@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import MainButton from "../components/MainButton";
+import MainButton from "../components/Buttons/MainButton";
 
 const Container = styled.View`
   flex: 1;

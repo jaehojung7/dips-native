@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import AddTemplateSetButton from "./AddTemplateSetButton";
+import AddTemplateSetButton from "../Buttons/AddTemplateSetButton";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import SetModal from "../modal-components/SetModal";

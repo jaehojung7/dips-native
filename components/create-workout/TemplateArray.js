@@ -1,8 +1,8 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import CloseTemplateButton from "./CloseTemplateButton";
-import AddTemplateButton from "./AddTemplateButton";
+import AddTemplateButton from "../Buttons/AddTemplateButton";
+import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`

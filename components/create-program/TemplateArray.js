@@ -1,15 +1,15 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import AddTemplateButton from "./AddTemplateButton";
-import DeleteTemplateButton from "./DeleteTemplateButton";
+import CloseTemplateButton from "../Buttons/CloseTemplateButton";
+import AddTemplateButton from "../Buttons/AddTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid ${(props) => props.theme.darkgray};
-  border-radius: 5px;
-  padding: 5px 15px;
+  border-radius: 15px;
+  padding: 15px 15px;
 `;
 
 const TemplateHeader = styled.View`
@@ -20,19 +20,8 @@ const TemplateHeader = styled.View`
 
 const WorkoutTitle = styled.TextInput`
   font-size: 16px;
+  font-weight: 600;
   padding: 0 5px;
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const IndexContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0 7px 0;
-  padding: 0 37px 0 7px;
-`;
-
-const IndexText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -61,12 +50,12 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   />
                 )}
               />
-              <DeleteTemplateButton onPress={() => remove(templateIndex)} />
+              <CloseTemplateButton
+                text="닫기"
+                onPress={() => remove(templateIndex)}
+              />
             </TemplateHeader>
-            <IndexContainer>
-              <IndexText>운동 이름</IndexText>
-              <IndexText>세트</IndexText>
-            </IndexContainer>
+
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}
