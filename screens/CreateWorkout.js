@@ -8,36 +8,22 @@ import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
   padding: 0 15px;
-  margin-top: 15px;
+  margin-top: 20px;
 `;
 
 const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 0 15px;
-  margin-bottom: 10px;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  /* background-color: gray; */
 `;
-
-// const TitleContainer = styled.View`
-//   align-items: center;
-// `;
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
-  border-radius: 5px;
-  /* background-color: ${(props) => props.theme.lightgray}; */
-  border-bottom-color: ${(props) => props.theme.darkgray};
-  height: 40px;
-`;
-
-const DescriptionInput = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.lightgray};
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 15px;
 `;
 
 const CREATE_PROGRAM_MUTATION = gql`
@@ -198,7 +184,6 @@ export default function CreateWorkout() {
     <DismissKeyboard>
       <Container>
         <HeaderContainer>
-          {/* <TitleContainer> */}
           <Controller
             name="programTitle"
             control={control}
@@ -211,7 +196,6 @@ export default function CreateWorkout() {
               />
             )}
           />
-          {/* </TitleContainer> */}
         </HeaderContainer>
 
         <TemplateArray

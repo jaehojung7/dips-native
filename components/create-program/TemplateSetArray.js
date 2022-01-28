@@ -8,7 +8,7 @@ const TemplateSetContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const IndexContainer = styled.View`
@@ -28,7 +28,7 @@ const ExerciseTitle = styled.TextInput`
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
-  width: 75%;
+  /* width: 75%; */
 `;
 
 const SetCount = styled.TextInput`
@@ -37,7 +37,7 @@ const SetCount = styled.TextInput`
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
-  width: 15%;
+  /* width: 15%; */
 `;
 
 const Button = styled.TouchableOpacity`
@@ -93,7 +93,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ExerciseTitle
-                    placeholder="Exercise"
+                    placeholder="운동 선택하기"
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(

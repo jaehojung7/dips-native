@@ -18,8 +18,7 @@ const IndexContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 7px 2px;
-  /* padding: 0 5px; */
+  margin: 20px 0;
 `;
 
 const IndexText = styled.Text`
@@ -58,7 +57,6 @@ const InputCount = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.lightgray};
   padding: 7px 10px;
-  /* margin: 7px 0; */
   font-size: 15px;
   border-radius: 5px;
   width: 50px;

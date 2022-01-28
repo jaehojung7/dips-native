@@ -31,38 +31,36 @@ const Container = styled.View`
 const BorderLine = styled.View`
   border-bottom-width: 2px;
   border-bottom-color: ${(props) => props.theme.lightgray};
-  margin: 20px 0;
+  margin-top: 25px;
 `;
 
 const WorkoutContainer = styled.View`
-  margin-top: 15px;
+  margin-top: 20px;
   padding: 0 5px;
   /* background-color: gray; */
 `;
 
 const WorkoutInfo = styled.View`
-  /* background-color: ${(props) => props.theme.lightgray}; */
-  padding: 10px;
+  /* padding: 10px 0; */
   border-radius: 15px;
-  /* border: 1px solid ${(props) => props.theme.darkgray}; */
 `;
 
 const ProgramTitle = styled.Text`
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
 `;
 
 const WorkoutTitle = styled.Text`
-  margin-top: 10px;
-  font-weight: 500;
-  font-size: 15px;
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 17px;
   color: ${(props) => props.theme.fontColor};
 `;
 
 const ProgramContainer = styled.View`
+  margin-top: 25px;
   padding: 0 5px;
-  justify-content: center;
 `;
 
 const TitleContainer = styled.View`

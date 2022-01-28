@@ -6,24 +6,25 @@ import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid ${(props) => props.theme.darkgray};
   border-radius: 15px;
-  padding: 5px 10px;
+  padding: 15px 15px;
 `;
 
 const TemplateHeader = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 12px;
 `;
 
 const WorkoutTitle = styled.TextInput`
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 0 5px;
+  padding: 7px 15px;
   color: ${(props) => props.theme.fontColor};
+  background-color: ${(props) => props.theme.lightgray};
+  border-radius: 5px;
 `;
 
 export default function TemplateArray({ control, setValue, getValues }) {
