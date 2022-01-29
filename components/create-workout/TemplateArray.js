@@ -8,7 +8,7 @@ import TemplateSetArray from "./TemplateSetArray";
 const TemplateContainer = styled.View`
   margin-bottom: 15px;
   border: 1px solid ${(props) => props.theme.darkgray};
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 15px 15px;
 `;
 

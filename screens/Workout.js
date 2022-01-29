@@ -25,42 +25,38 @@ const ME_QUERY = gql`
 `;
 
 const Container = styled.View`
-  padding: 0 10px;
+  padding: 15px;
 `;
 
 const BorderLine = styled.View`
   border-bottom-width: 2px;
   border-bottom-color: ${(props) => props.theme.lightgray};
-  margin-top: 25px;
+  margin: 30px 0;
 `;
 
 const WorkoutContainer = styled.View`
   margin-top: 20px;
-  padding: 0 5px;
-  /* background-color: gray; */
-`;
-
-const WorkoutInfo = styled.View`
-  /* padding: 10px 0; */
-  border-radius: 15px;
+  padding: 25px 20px;
+  border-radius: 20px;
+  border: 1px solid ${(props) => props.theme.darkgray};
 `;
 
 const ProgramTitle = styled.Text`
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 700;
+  text-align: center;
   color: ${(props) => props.theme.fontColor};
 `;
 
 const WorkoutTitle = styled.Text`
-  margin-top: 15px;
+  margin-top: 20px;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 18px;
   color: ${(props) => props.theme.fontColor};
 `;
 
 const ProgramContainer = styled.View`
-  margin-top: 25px;
-  padding: 0 5px;
+  margin-bottom: 25px;
 `;
 
 const TitleContainer = styled.View`
@@ -70,7 +66,7 @@ const TitleContainer = styled.View`
 `;
 
 const RecentProgram = styled.Text`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
   padding: 0 5px;
@@ -82,9 +78,8 @@ const MoreProgram = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
-  flex-direction: row;
-  /* margin-top: 15px; */
-  /* padding: 0px 25px; */
+  /* flex-direction: row; */
+  margin-top: 5px;
   justify-content: space-between;
 `;
 
@@ -94,15 +89,14 @@ export default function Program({ navigation }) {
     <Container>
       <ScrollView>
         <WorkoutContainer>
-          <WorkoutInfo>
-            <ProgramTitle>3분할 홈짐 프로그램 </ProgramTitle>
-            <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
-            <WorkoutTitle>다음 워크아웃: Chest Arm Workout</WorkoutTitle>
-          </WorkoutInfo>
+          <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
+          <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
+          <WorkoutTitle>다음 워크아웃: Chest Arm Workout</WorkoutTitle>
+
           <ButtonContainer>
             <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
             <WorkoutButton
-              text="빈 템플릿으로 시작"
+              text="새 템플릿으로 시작"
               onPress={() => navigation.navigate("CreateWorkout")}
             />
           </ButtonContainer>
@@ -117,13 +111,13 @@ export default function Program({ navigation }) {
             </TouchableOpacity>
           </TitleContainer>
           <MyProgramCards programs={data?.me?.programs} />
-
-          <MainButton
-            text="새 프로그램 만들기"
-            disabled={false}
-            onPress={() => navigation.navigate("CreateProgram")}
-          />
         </ProgramContainer>
+
+        <MainButton
+          text="새 프로그램 만들기"
+          disabled={false}
+          onPress={() => navigation.navigate("CreateProgram")}
+        />
       </ScrollView>
     </Container>
   );

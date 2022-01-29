@@ -4,11 +4,10 @@ import styled from "styled-components/native";
 
 const Button = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.blue};
-  width: 100%;
-  padding: 13px;
-  border-radius: 15px;
+  padding: 14px
+  border-radius: 20px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
-  margin-top: 15px;
+  /* margin: 20px 0; */
 `;
 
 const ButtonText = styled.Text`

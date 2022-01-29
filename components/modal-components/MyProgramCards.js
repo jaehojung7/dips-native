@@ -5,22 +5,16 @@ import ProgramModal from "./ProgramModal";
 
 const ProgramContainer = styled.View`
   /* background-color: ${(props) => props.theme.lightgray}; */
-  margin: 10px 10px 0 0;
+  margin: 25px 15px 0 0;
   border: 1px solid ${(props) => props.theme.darkgray};
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 20px;
+  padding: 15px;
   width: 240px;
-  height: 130px;
-`;
-
-const TitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  height: 150px;
 `;
 
 const ProgramTitle = styled.Text`
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
   /* text-align: center; */
@@ -28,13 +22,13 @@ const ProgramTitle = styled.Text`
 
 const Description = styled.Text`
   font-size: 14px;
-  margin-top: 7px;
+  margin-top: 10px;
   color: ${(props) => props.theme.darkgray};
 `;
 
 const WorkoutTitle = styled.Text`
-  font-size: 15px;
-  margin-top: 7px;
+  font-size: 16px;
+  margin-top: 10px;
   color: ${(props) => props.theme.fontColor};
 `;
 
