@@ -56,7 +56,7 @@ const WorkoutTitle = styled.Text`
 `;
 
 const ProgramContainer = styled.View`
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 `;
 
 const TitleContainer = styled.View`
@@ -66,7 +66,7 @@ const TitleContainer = styled.View`
 `;
 
 const RecentProgram = styled.Text`
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
   padding: 0 5px;
@@ -87,7 +87,7 @@ export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   return (
     <Container>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <WorkoutContainer>
           <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
           <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
@@ -110,7 +110,10 @@ export default function Program({ navigation }) {
               <MoreProgram>더보기</MoreProgram>
             </TouchableOpacity>
           </TitleContainer>
-          <MyProgramCards programs={data?.me?.programs} />
+          <MyProgramCards
+            programs={data?.me?.programs}
+            onPress={() => navigation.navigate("MyProgramCard")}
+          />
         </ProgramContainer>
 
         <MainButton

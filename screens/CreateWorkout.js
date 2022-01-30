@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
-import MainButton from "../components/Buttons/MainButton";
+import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
@@ -16,7 +16,6 @@ const HeaderContainer = styled.View`
   align-items: center;
   padding: 0 10px;
   margin-bottom: 15px;
-  /* background-color: gray; */
 `;
 
 const TitleInput = styled.TextInput`
@@ -206,7 +205,7 @@ export default function CreateWorkout() {
           }}
         />
 
-        <MainButton
+        <WorkoutButton
           text="워크아웃 기록 저장"
           // loading={loading}
           disabled={!watch("programTitle")}

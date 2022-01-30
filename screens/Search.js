@@ -47,13 +47,7 @@ export default function SearchTab() {
         }}
         initialParams={{ programs: data?.me?.programs }}
       />
-      <Tab.Screen
-        name="SearchWorkout"
-        component={SearchWorkout}
-        options={{
-          title: "내 워크아웃",
-        }}
-      />
+
       <Tab.Screen
         name="SearchExercise"
         component={SearchExercise}

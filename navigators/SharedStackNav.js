@@ -1,12 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Workout from "../screens/Workout";
+import Program from "../screens/Program";
 import Stats from "../screens/Stats";
 import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import CreateProgram from "../screens/CreateProgram";
 import CreateWorkout from "../screens/CreateWorkout";
 import { useColorScheme } from "react-native";
+import MyProgramCards from "../components/modal-components/MyProgramCards";
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,8 @@ export default function SharedStackNav({ screenName }) {
         headerMode: "screen",
       }}
     >
-      {screenName === "Workout" ? (
-        <Stack.Screen name={"StackWorkout"} component={Workout} />
+      {screenName === "Program" ? (
+        <Stack.Screen name={"StackWorkout"} component={Program} />
       ) : null}
       {screenName === "Stats" ? (
         <Stack.Screen name={"StackStats"} component={Stats} />
@@ -34,6 +35,11 @@ export default function SharedStackNav({ screenName }) {
       ) : null}
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
+      <Stack.Screen
+        name="MyProgramCard"
+        component={MyProgramCards}
+        presentation="modal"
+      />
     </Stack.Navigator>
   );
 }

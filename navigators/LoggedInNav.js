@@ -2,12 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import SharedStackNav from "./SharedStackNav";
-import { useColorScheme } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 
 export default function LoggedInNav() {
-  const scheme = useColorScheme();
   return (
     <Tabs.Navigator
       initialRouteName="Program"
@@ -31,22 +29,22 @@ export default function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="Workout"
+        name="Program"
         options={{
-          title: "워크아웃",
-          tabBarLabel: "Workout",
+          title: "프로그램",
+          tabBarLabel: "Program",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="running" size={22} color={color} />
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Workout" />}
+        {() => <SharedStackNav screenName="Program" />}
       </Tabs.Screen>
 
       <Tabs.Screen
         name="Stats"
         options={{
-          title: "기록보기",
+          title: "운동기록",
           tabBarLabel: "Stats",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="bar-chart-o" size={22} color={color} />

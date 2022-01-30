@@ -6,6 +6,7 @@ const Button = styled.TouchableOpacity`
   padding: 5px;
   border-radius: 20px;
   border: 1px solid ${(props) => props.theme.darkgray};
+  margin-bottom: 7px;
 `;
 
 const TextContainer = styled.View`
