@@ -3,7 +3,6 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import SearchProgram from "./SearchProgram";
-import SearchWorkout from "./SearchWorkout";
 import SearchExercise from "./SearchExercise";
 import { useColorScheme } from "react-native";
 
@@ -32,11 +31,8 @@ export default function SearchTab() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 14 },
+        tabBarLabelStyle: { fontSize: 15 },
         tabBarIndicatorStyle: { backgroundColor: "#42a5f5" },
-        tabBarIndicatorContainerStyle: {
-          color: "red",
-        },
       }}
     >
       <Tab.Screen

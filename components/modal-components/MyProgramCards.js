@@ -2,6 +2,7 @@ import { FlatList, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { useState } from "react";
 import ProgramModal from "./ProgramModal";
+import { useNavigation } from "@react-navigation/native";
 
 const ProgramContainer = styled.View`
   margin: 25px 15px 0 0;
@@ -34,15 +35,11 @@ const WorkoutTitle = styled.Text`
 export default function MyProgramCards({ programs }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [programModalContent, setProgramModalContent] = useState();
+  const navigation = useNavigation();
 
   const renderProgram = ({ item: program }) => {
     return (
-      <TouchableOpacity
-      // onPress={() => {
-      //   setProgramModalContent(program);
-      //   setModalVisible(true);
-      // }}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("ProgramModal")}>
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
           <Description>
@@ -67,19 +64,10 @@ export default function MyProgramCards({ programs }) {
         windowSize={3}
         showsHorizontalScrollIndicator={false}
       />
-      {/* <Modal animationType="none" transparent={true} visible={modalVisible}>
-        <ProgramModal program={programModalContent} {...{ setModalVisible }} />
-      </Modal> */}
+
+      {/* <Modal animationType="none" transparent={true} visible={modalVisible}> */}
+      {/* <ProgramModal program={programModalContent} {...{ setModalVisible }} /> */}
+      {/* </Modal> */}
     </>
   );
 }
-
-// ProgramList.propTypes = {
-//     id: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string,
-//     hashtags: PropTypes.string,
-//     isLiked: PropTypes.bool.isRequired,
-//     likeCount: PropTypes.number.isRequired,
-
-//   };

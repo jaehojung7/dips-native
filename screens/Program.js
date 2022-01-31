@@ -110,10 +110,7 @@ export default function Program({ navigation }) {
               <MoreProgram>더보기</MoreProgram>
             </TouchableOpacity>
           </TitleContainer>
-          <MyProgramCards
-            programs={data?.me?.programs}
-            onPress={() => navigation.navigate("MyProgramCard")}
-          />
+          <MyProgramCards programs={data?.me?.programs} />
         </ProgramContainer>
 
         <MainButton

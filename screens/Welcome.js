@@ -21,7 +21,7 @@ const LoginLink = styled.Text`
 export default function Welcome({ navigation }) {
   const goToCreateAccount = () => navigation.navigate("CreateAccount");
   const goToLogIn = () => navigation.navigate("LogIn");
-  const goToWorkout = () => navigation.navigate("Workout");
+  const goToWorkout = () => navigation.navigate("CreateWorkout");
 
   return (
     <Container>

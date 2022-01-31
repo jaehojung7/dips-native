@@ -7,19 +7,19 @@ import ProgramModal from "../components/modal-components/ProgramModal";
 const TitleContainer = styled.View``;
 
 const ProgramTitle = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   color: ${(props) => props.theme.fontColor};
-  margin: 13px 0 15px 13px;
+  margin: 13px 0 13px 15px;
   font-weight: 600;
 `;
 
 const BorderLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.lightgray};
-  opacity: 0.2;
+  opacity: 0.5;
 `;
 
-export default function SearchProgram({ route }) {
+export default function SearchProgram({ route, navigation }) {
   const { programs } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [programModalContent, setProgramModalContent] = useState();
@@ -27,8 +27,7 @@ export default function SearchProgram({ route }) {
     return (
       <TouchableOpacity
         onPress={() => {
-          setProgramModalContent(program);
-          setModalVisible(true);
+          navigation.navigate("ProgramModal");
         }}
       >
         <TitleContainer>
@@ -48,9 +47,9 @@ export default function SearchProgram({ route }) {
         initialNumToRender={10}
         // windowSize={3}
       />
-      <Modal animationType="none" transparent={true} visible={modalVisible}>
+      {/* <Modal animationType="none" transparent={true} visible={modalVisible}>
         <ProgramModal program={programModalContent} {...{ setModalVisible }} />
-      </Modal>
+      </Modal> */}
     </>
   );
 }

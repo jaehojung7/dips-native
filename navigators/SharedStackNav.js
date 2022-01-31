@@ -6,13 +6,11 @@ import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import CreateProgram from "../screens/CreateProgram";
 import CreateWorkout from "../screens/CreateWorkout";
-import { useColorScheme } from "react-native";
-import MyProgramCards from "../components/modal-components/MyProgramCards";
+import ProgramModal from "../components/modal-components/ProgramModal";
 
 const Stack = createStackNavigator();
 
 export default function SharedStackNav({ screenName }) {
-  const scheme = useColorScheme();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -36,8 +34,8 @@ export default function SharedStackNav({ screenName }) {
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
       <Stack.Screen
-        name="MyProgramCard"
-        component={MyProgramCards}
+        name="ProgramModal"
+        component={ProgramModal}
         presentation="modal"
       />
     </Stack.Navigator>

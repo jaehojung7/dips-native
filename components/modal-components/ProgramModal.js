@@ -1,23 +1,23 @@
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import CloseButton from "./CloseButton";
 import StartButton from "./StartButton";
 import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 const CenterView = styled.View`
-  flex: 1;
+  /* flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 `;
 
 const PopupView = styled.View`
-  border-radius: 15px;
+  /* border-radius: 15px;
   background-color: ${(props) => props.theme.lightgray};
   padding: 20px;
-  width: 90%;
+  width: 90%; */
 `;
 
 const HeaderContainer = styled.View`
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: center;
   justify-content: space-between;
 `;
@@ -60,32 +60,36 @@ const BorderLine = styled.View`
   margin-bottom: 18px;
 `;
 
-export default function ProgramModal({ program, setModalVisible }) {
+export default function ProgramModal({ program, navigation }) {
   return (
     <CenterView>
       <PopupView>
         <HeaderContainer>
           <TitleContainer>
-            <ProgramTitle>{program.title}</ProgramTitle>
+            <ProgramTitle>{program?.title}</ProgramTitle>
+            <ProgramTitle>3분할 프로그램</ProgramTitle>
           </TitleContainer>
 
           <CloseButton
             text="닫기"
-            onPress={() => {
-              setModalVisible(false);
-            }}
+            onPress={() => navigation.navigate("SearchProgram")}
           />
         </HeaderContainer>
 
-        <Description>{program.description}</Description>
+        <Description>{program?.description}</Description>
         <BorderLine />
 
         <>
-          {program.templates.map((template, index) => {
+          {program?.templates.map((template, index) => {
             return (
               <WorkoutContainer key={index}>
                 <WorkoutTitle>{template.title}</WorkoutTitle>
-                <StartButton text="워크아웃 시작" onPress={() => {}} />
+                <StartButton
+                  text="워크아웃 시작"
+                  onPress={() => {
+                    navigation.navigate("CreateWorkout");
+                  }}
+                />
               </WorkoutContainer>
             );
           })}

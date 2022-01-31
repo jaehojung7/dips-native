@@ -11,11 +11,19 @@ const Container = styled.ScrollView`
   margin-top: 20px;
 `;
 
+const ProgramTitle = styled.Text`
+  font-size: 23px;
+  font-weight: 700;
+  padding: 0 10px;
+  color: ${(props) => props.theme.fontColor};
+  margin-bottom: 5px;
+`;
+
 const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 0 10px;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 const TitleInput = styled.TextInput`
@@ -97,7 +105,6 @@ export default function CreateWorkout() {
     useForm({
       defaultValues,
     });
-  const [isPrivate, setIsPrivate] = useState(false);
 
   // const onCreateTemplateSetCompleted = (data) => {
   //   const {
@@ -175,23 +182,24 @@ export default function CreateWorkout() {
     }
     const { programTitle, description } = getValues();
     createProgramFunction({
-      variables: { title: programTitle, description, isPrivate },
+      variables: { title: programTitle, description },
     });
   };
 
   return (
     <DismissKeyboard>
       <Container>
+        <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
         <HeaderContainer>
           <Controller
-            name="programTitle"
+            name="WorkoutTitle"
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
                 placeholder="워크아웃 이름"
                 placeholderTextColor="#797d7f"
-                onChangeText={(text) => setValue("programTitle", text)}
+                onChangeText={(text) => setValue("WorkoutTitle", text)}
               />
             )}
           />
@@ -208,7 +216,7 @@ export default function CreateWorkout() {
         <WorkoutButton
           text="워크아웃 기록 저장"
           // loading={loading}
-          disabled={!watch("programTitle")}
+          disabled={!watch("WorkoutTitle")}
           onPress={handleSubmit(onSubmitValid)}
         />
       </Container>
