@@ -22,7 +22,7 @@ const MyDarkTheme = {
   colors: {
     background: "black",
     card: "black",
-    border: "#797d7f",
+    border: "#999999",
     text: "white",
   },
 };
@@ -30,9 +30,9 @@ const MyDarkTheme = {
 const MyLightTheme = {
   ...DefaultTheme,
   colors: {
-    background: "#ededed",
-    card: "#ededed",
-    border: "#cacfd2",
+    background: "#fbfbfb",
+    card: "#fbfbfb",
+    border: "#999999",
     text: "black",
   },
 };

@@ -7,30 +7,29 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
-  padding: 0 10px;
-  margin-top: 25px;
+  margin: 20px 10px;
 `;
 
-const ProgramTitle = styled.Text`
+const WorkoutTitle = styled.Text`
   font-size: 23px;
   font-weight: 700;
-  padding: 0 10px;
+  padding: 0 15px;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 `;
 
-const HeaderContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 0 10px;
-  margin: 15px 0;
-`;
-
-const TitleInput = styled.TextInput`
+const WorkoutTitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 20px;
   font-weight: 500;
   border-radius: 15px;
+`;
+
+const ExerciseContainer = styled.View`
+  margin-bottom: 15px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.cardColor};
+  padding: 15px 20px;
 `;
 
 const CREATE_PROGRAM_MUTATION = gql`
@@ -100,7 +99,9 @@ const defaultValues = {
   ],
 };
 
-export default function CreateWorkout() {
+export default function CreateWorkout({ route }) {
+  const { workout } = route.params;
+  console.log(workout);
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
@@ -189,21 +190,37 @@ export default function CreateWorkout() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
-        <HeaderContainer>
-          <Controller
+        <WorkoutTitle>{workout.title}</WorkoutTitle>
+
+        {/* {program?.templates.map((workout, workoutIndex) => {
+          return (
+            <WorkoutContainer key={workoutIndex}>
+              <WorkoutTitle>
+                워크아웃 {workoutIndex + 1}. {workout.title}
+              </WorkoutTitle>
+              <ExerciseContainer>
+                <ExerciseTitle>
+                  스쿼트 데드리프트 밀리터리프레스 딥스 인클라인 벤치프레스
+                </ExerciseTitle>
+              </ExerciseContainer>
+            </WorkoutContainer>
+          );
+        })} */}
+
+        {/* {program?. ? <ActivityIndicator color="white" /> : children} */}
+
+        {/* <Controller
             name="WorkoutTitle"
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TitleInput
+              <WorkoutTitleInput
                 placeholder="워크아웃 이름"
-                placeholderTextColor="#797d7f"
+                placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("WorkoutTitle", text)}
               />
             )}
-          />
-        </HeaderContainer>
+          /> */}
 
         <TemplateArray
           {...{

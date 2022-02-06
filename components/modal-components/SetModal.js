@@ -20,22 +20,38 @@ const IconContainer = styled.TouchableOpacity`
   margin-bottom: 18px;
 `;
 
-const Warmup = styled.Text`
-  color: ${(props) => props.theme.orange};
+const SetContainer = styled.TouchableOpacity`
+  background-color: #cacfd2;
+  padding: 5px;
+  border-radius: 5px;
+  width: 30px;
 `;
 
 const Mainset = styled.Text`
-  color: ${(props) => props.theme.gray};
+  color: black;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+`;
+
+const Warmup = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
 `;
 
 const Dropset = styled.Text`
   color: ${(props) => props.theme.blue};
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
 `;
 
 const SetOption = styled.Text`
   font-size: 16px;
   font-weight: 700;
-  margin-left: 5px;
+  margin-left: 10px;
   color: black;
 `;
 
@@ -54,9 +70,9 @@ export default function SetModal({
             setIsDropset(false);
           }}
         >
-          <Warmup>
-            <FontAwesome5 name="arrow-circle-up" size={20} />
-          </Warmup>
+          <SetContainer>
+            <Warmup>W</Warmup>
+          </SetContainer>
           <SetOption>웜업세트 Warm-up</SetOption>
         </IconContainer>
 
@@ -66,9 +82,9 @@ export default function SetModal({
             setIsDropset(false);
           }}
         >
-          <Mainset>
-            <FontAwesome5 name="arrow-circle-right" size={20} />
-          </Mainset>
+          <SetContainer>
+            <Mainset>M</Mainset>
+          </SetContainer>
           <SetOption>메인세트 Main Set</SetOption>
         </IconContainer>
 
@@ -78,9 +94,11 @@ export default function SetModal({
             setIsWarmup(false);
           }}
         >
-          <Dropset>
-            <FontAwesome5 name="arrow-circle-down" size={20} />
-          </Dropset>
+          <SetContainer>
+            <Dropset>
+              D{/* <FontAwesome5 name="arrow-circle-down" size={20} /> */}
+            </Dropset>
+          </SetContainer>
           <SetOption>드롭세트 Drop Set</SetOption>
         </IconContainer>
 

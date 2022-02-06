@@ -22,7 +22,7 @@ const TitleContainer = styled.View`
   margin-bottom: 15px;
   padding: 15px 20px;
   background-color: ${(props) => props.theme.cardColor};
-  /* border: 1px solid ${(props) => props.theme.gray}; */
+  /* background-color: #ececec */
   border-radius: 20px;
 `;
 
@@ -35,7 +35,7 @@ const TitleInput = styled.TextInput`
 `;
 
 const DescriptionInput = styled.TextInput`
-  color: ${(props) => props.theme.gray};
+  color: ${(props) => props.theme.fontColor};
   font-size: 16px;
 `;
 
@@ -208,7 +208,7 @@ export default function CreateProgram() {
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
                 placeholder="프로그램 이름"
-                placeholderTextColor="#797d7f"
+                placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
               />
             )}
@@ -219,7 +219,7 @@ export default function CreateProgram() {
             render={({ field: { onChange, onBlur, value } }) => (
               <DescriptionInput
                 placeholder="프로그램 설명 (max.50)"
-                placeholderTextColor="#797d7f"
+                placeholderTextColor="#999999"
                 multiline={true}
                 maxLength={50}
                 onChangeText={(text) => setValue("description", text)}

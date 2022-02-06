@@ -77,7 +77,7 @@ export default function Login({ route }) {
             autoCapitalize="none"
             keyboardType="email-address"
             returnKeyType="next"
-            placeholderTextColor="gray"
+            placeholderTextColor="#999999"
             onSubmitEditing={() => onNext(passwordRef)}
             onChangeText={(text) => setValue("email", text)}
           />
@@ -94,7 +94,7 @@ export default function Login({ route }) {
             secureTextEntry
             returnKeyType="done"
             lastOne={true}
-            placeholderTextColor="gray"
+            placeholderTextColor="#999999"
             onSubmitEditing={handleSubmit(onSubmitValid)}
             onChangeText={(text) => setValue("password", text)}
           />

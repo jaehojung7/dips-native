@@ -11,10 +11,13 @@ const ME_QUERY = gql`
         id
         title
         description
-        isPrivate
-        likeCount
         templates {
           title
+          templateIndex
+          createdAt
+          templateSets {
+            id
+          }
         }
       }
     }
@@ -25,7 +28,6 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function SearchTab() {
   const { data, loading } = useQuery(ME_QUERY);
-  console.log(data);
   return (
     <Tab.Navigator
       screenOptions={{

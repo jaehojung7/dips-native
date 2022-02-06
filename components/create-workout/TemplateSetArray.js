@@ -32,36 +32,37 @@ const IndexText = styled.Text`
 `;
 
 const SetContainer = styled.TouchableOpacity`
-  background-color: ${(props) => props.theme.gray};
+  background-color: #cacfd2;
   padding: 5px;
   border-radius: 5px;
   width: 30px;
 `;
 
-const SetNumber = styled.Text`
+const Mainset = styled.Text`
   color: black;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
   text-align: center;
 `;
 
 const Warmup = styled.Text`
   color: ${(props) => props.theme.orange};
-  font-weight: 800;
+  font-weight: 700;
   font-size: 15px;
   text-align: center;
 `;
 
 const Dropset = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-weight: 800;
+  font-weight: 700;
   font-size: 15px;
   text-align: center;
 `;
 
 const InputCount = styled.TextInput`
   color: black;
-  background-color: ${(props) => props.theme.gray};
+  /* background-color: ${(props) => props.theme.gray}; */
+  background-color: #cacfd2;
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
@@ -144,7 +145,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         <IndexText>Reps</IndexText>
         {/* <IndexText>RIR</IndexText> */}
         {/* <IndexText>Done</IndexText> */}
-        <FontAwesome5 name="check-circle" size={20} color="#797d7f" />
+        <FontAwesome5 name="check-circle" size={20} color="#999999" />
       </IndexContainer>
 
       {fields.map((item, templateSetIndex) => {
@@ -177,7 +178,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     setModalVisible(true);
                   }}
                 >
-                  <SetNumber>{parseInt(`${templateSetIndex}`) + 1}</SetNumber>
+                  <Mainset>{parseInt(`${templateSetIndex}`) + 1}</Mainset>
                 </SetContainer>
               )}
 
@@ -198,7 +199,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     type="number"
                     placeholder="0"
                     maxLength={3}
-                    placeholderTextColor="#797d7f"
+                    placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
@@ -217,7 +218,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     type="number"
                     placeholder="0"
                     maxLength={3}
-                    placeholderTextColor="#797d7f"
+                    placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
@@ -237,7 +238,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     type="number"
                     placeholder="0"
                     maxLength={3}
-                    placeholderTextColor="#797d7f"
+                    placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
@@ -251,7 +252,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 {isDone ? (
                   <FontAwesome5 name="check-circle" size={20} color="#32CD32" />
                 ) : (
-                  <FontAwesome5 name="check-circle" size={20} color="#797d7f" />
+                  <FontAwesome5 name="check-circle" size={20} color="#999999" />
                 )}
               </CheckContainer>
             </TemplateSetContainer>

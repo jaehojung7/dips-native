@@ -6,10 +6,10 @@ import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`
-  margin-bottom: 10px;
-  padding: 15px;
+  margin-bottom: 15px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
+  padding: 15px 20px;
 `;
 
 const TemplateHeader = styled.View`
@@ -26,13 +26,6 @@ const WorkoutTitle = styled.TextInput`
   border-radius: 5px;
 `;
 
-const BorderLine = styled.View`
-  border-bottom-width: 7px;
-  border-bottom-color: ${(props) => props.theme.borderColor};
-  margin: 5px 0;
-  opacity: 0.5;
-`;
-
 export default function TemplateArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -46,8 +39,8 @@ export default function TemplateArray({ control, setValue, getValues }) {
           <TemplateContainer key={item.id}>
             <TemplateHeader>
               <WorkoutTitle
-                placeholder="운동 선택"
-                placeholderTextColor="#797d7f"
+                placeholder="운동 이름"
+                placeholderTextColor="#999999"
                 onChangeText={(text) =>
                   setValue(`templates[${templateIndex}].name`, text)
                 }

@@ -14,6 +14,7 @@ const TemplateSetContainer = styled.View`
 const ExerciseTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   border: 1px solid ${(props) => props.theme.gray};
+  /* border: 1px solid #999999; */
   padding: 5px 10px;
   font-size: 15px;
   border-radius: 20px;
@@ -69,7 +70,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ExerciseTitle
                     placeholder="운동이름"
-                    placeholderTextColor="#797d7f"
+                    placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,

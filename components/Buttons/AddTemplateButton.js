@@ -16,7 +16,7 @@ const TextContainer = styled.View`
 `;
 
 const ButtonText = styled.Text`
-  color: #797d7f;
+  color: #999999;
   font-size: 14px;
   font-weight: 700;
   margin: 0 5px;
@@ -27,7 +27,7 @@ export default function AddWorkoutButton({ onPress }) {
   return (
     <Button onPress={onPress}>
       <TextContainer>
-        <FontAwesome5 name="plus" size={14} color="#797d7f" />
+        <FontAwesome5 name="plus" size={14} color="#999999" />
         <ButtonText>워크아웃 추가</ButtonText>
       </TextContainer>
     </Button>

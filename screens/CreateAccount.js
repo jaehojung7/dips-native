@@ -81,7 +81,7 @@ export default function CreateAccount({ navigation }) {
             placeholder="Username"
             autoCapitalize="none"
             returnKeyType="next"
-            placeholderTextColor="gray"
+            placeholderTextColor="#999999"
             onSubmitEditing={() => onNext(emailRef)}
             onChangeText={(text) => setValue("username", text)}
           />
@@ -98,7 +98,7 @@ export default function CreateAccount({ navigation }) {
             autoCapitalize="none"
             keyboardType="email-address"
             returnKeyType="next"
-            placeholderTextColor="gray"
+            placeholderTextColor="#999999"
             onSubmitEditing={() => onNext(passwordRef)}
             onChangeText={(text) => setValue("email", text)}
           />
@@ -115,7 +115,7 @@ export default function CreateAccount({ navigation }) {
             secureTextEntry
             returnKeyType="done"
             lastOne={true}
-            placeholderTextColor="gray"
+            placeholderTextColor="#999999"
             onSubmitEditing={handleSubmit(onSubmitValid)}
             onChangeText={(text) => setValue("password", text)}
           />

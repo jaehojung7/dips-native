@@ -86,9 +86,8 @@ export default function Program({ navigation }) {
     <Container showsVerticalScrollIndicator={false}>
       <WorkoutContainer>
         <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
-        <WorkoutTitle>워크아웃 1: Back Shoulder Workout</WorkoutTitle>
-        <WorkoutTitle>워크아웃 2: Chest Arm Workout</WorkoutTitle>
-        <WorkoutTitle>워크아웃 3: Leg Core Workout</WorkoutTitle>
+        <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
+        <WorkoutTitle>다음 워크아웃: Leg Core Workout</WorkoutTitle>
 
         <ButtonContainer>
           <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />

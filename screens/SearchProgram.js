@@ -9,7 +9,7 @@ const TitleContainer = styled.View``;
 const ProgramTitle = styled.Text`
   font-size: 18px;
   color: ${(props) => props.theme.fontColor};
-  margin: 13px 0 13px 15px;
+  margin: 15px 0 15px 15px;
   font-weight: 600;
 `;
 

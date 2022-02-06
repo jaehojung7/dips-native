@@ -17,6 +17,7 @@ const TemplateContainer = styled.View`
   margin-bottom: 15px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
+  /* background-color: #ececec; */
   padding: 15px 20px;
 `;
 
@@ -53,7 +54,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WorkoutTitle
                     placeholder="워크아웃 이름"
-                    placeholderTextColor="#797d7f"
+                    placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(`templates[${templateIndex}].name`, text)
                     }

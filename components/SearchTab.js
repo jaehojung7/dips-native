@@ -36,7 +36,7 @@ export default function SearchTab() {
         returnKeyLabel="search"
         value={keyword}
       />
-      <FontAwesome name="search" size={15} color="#797d7f" />
+      <FontAwesome name="search" size={15} color="#999999" />
     </SearchBarWrapper>
   );
 }

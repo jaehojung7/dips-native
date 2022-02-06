@@ -19,12 +19,6 @@ const ProgramTitle = styled.Text`
   margin-bottom: 10px;
 `;
 
-const Description = styled.Text`
-  font-size: 14px;
-  margin-top: 10px;
-  color: ${(props) => props.theme.gray};
-`;
-
 const WorkoutTitle = styled.Text`
   font-size: 16px;
   font-weight: 600;

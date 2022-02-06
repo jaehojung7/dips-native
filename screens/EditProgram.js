@@ -31,7 +31,7 @@ export default function editProgram({ route }) {
         render={({ field: { onChange, onBlur, value } }) => (
           <DescriptionInput
             placeholder="프로그램 설명"
-            placeholderTextColor="#797d7f"
+            placeholderTextColor="#999999"
             multiline={true}
             maxLength={50}
             onChangeText={(text) => setValue("description", text)}
