@@ -5,7 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const SearchBarWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  background-color: ${(props) => props.theme.lightgray};
+  background-color: ${(props) => props.theme.gray};
   border-radius: 15px;
   padding: 10px 15px;
   margin: 0px 20px;

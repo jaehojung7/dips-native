@@ -6,10 +6,10 @@ import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const TemplateContainer = styled.View`
-  margin-bottom: 15px;
-  border: 1px solid ${(props) => props.theme.darkgray};
+  margin-bottom: 10px;
+  padding: 15px;
   border-radius: 20px;
-  padding: 15px 15px;
+  background-color: ${(props) => props.theme.cardColor};
 `;
 
 const TemplateHeader = styled.View`
@@ -19,12 +19,18 @@ const TemplateHeader = styled.View`
 `;
 
 const WorkoutTitle = styled.TextInput`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  padding: 7px 15px;
+  padding: 7px 0;
   color: ${(props) => props.theme.fontColor};
-  background-color: ${(props) => props.theme.lightgray};
   border-radius: 5px;
+`;
+
+const BorderLine = styled.View`
+  border-bottom-width: 7px;
+  border-bottom-color: ${(props) => props.theme.borderColor};
+  margin: 5px 0;
+  opacity: 0.5;
 `;
 
 export default function TemplateArray({ control, setValue, getValues }) {
@@ -39,25 +45,18 @@ export default function TemplateArray({ control, setValue, getValues }) {
         return (
           <TemplateContainer key={item.id}>
             <TemplateHeader>
-              <Controller
-                name={`templates[${templateIndex}].name`}
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <WorkoutTitle
-                    placeholder="운동 선택"
-                    placeholderTextColor="#797d7f"
-                    onChangeText={(text) =>
-                      setValue(`templates[${templateIndex}].name`, text)
-                    }
-                  />
-                )}
+              <WorkoutTitle
+                placeholder="운동 선택"
+                placeholderTextColor="#797d7f"
+                onChangeText={(text) =>
+                  setValue(`templates[${templateIndex}].name`, text)
+                }
               />
               <CloseTemplateButton
                 text="닫기"
                 onPress={() => remove(templateIndex)}
               />
             </TemplateHeader>
-
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}

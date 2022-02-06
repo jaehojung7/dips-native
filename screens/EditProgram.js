@@ -25,9 +25,43 @@ export default function editProgram({ route }) {
     });
   return (
     <View>
-      <Text>
-        <FontAwesome5 name="edit" size={24} color="black" />
-      </Text>
+      <Controller
+        name="description"
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <DescriptionInput
+            placeholder="프로그램 설명"
+            placeholderTextColor="#797d7f"
+            multiline={true}
+            maxLength={50}
+            onChangeText={(text) => setValue("description", text)}
+          />
+        )}
+      />
+
+      {/* <TemplateArray
+          {...{
+            control,
+            getValues,
+            setValue,
+          }}
+        /> */}
+
+      {/* <>
+          {program?.templates.map((template, index) => {
+            return (
+              <WorkoutContainer key={index}>
+                <WorkoutTitle>{template.title}</WorkoutTitle>
+                <StartButton
+                  text="워크아웃 시작"
+                  onPress={() => {
+                    navigation.navigate("CreateWorkout");
+                  }}
+                />
+              </WorkoutContainer>
+            );
+          })}
+        </> */}
     </View>
   );
 }

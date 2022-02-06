@@ -7,6 +7,12 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import SetModal from "../modal-components/SetModal";
 import { Modal } from "react-native";
 
+const BorderLine = styled.View`
+  border-bottom-width: 5px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0;
+`;
+
 const TemplateSetContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -16,7 +22,7 @@ const TemplateSetContainer = styled.View`
 
 const IndexContainer = styled.View`
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   margin: 20px 0;
 `;
@@ -26,9 +32,9 @@ const IndexText = styled.Text`
 `;
 
 const SetContainer = styled.TouchableOpacity`
-  background-color: ${(props) => props.theme.lightgray};
+  background-color: ${(props) => props.theme.gray};
   padding: 5px;
-  border-radius: 15px;
+  border-radius: 5px;
   width: 30px;
 `;
 
@@ -55,11 +61,11 @@ const Dropset = styled.Text`
 
 const InputCount = styled.TextInput`
   color: black;
-  background-color: ${(props) => props.theme.lightgray};
+  background-color: ${(props) => props.theme.gray};
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
-  width: 50px;
+  width: 70px;
   text-align: center;
 `;
 
@@ -134,11 +140,11 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
     <>
       <IndexContainer>
         <IndexText>Set</IndexText>
-        <IndexText>Load(kg)</IndexText>
+        <IndexText>Load (kg)</IndexText>
         <IndexText>Reps</IndexText>
-        <IndexText>RIR</IndexText>
-        <IndexText>Check</IndexText>
-        {/* <FontAwesome5 name="check-circle" size={19} color="#797d7f" /> */}
+        {/* <IndexText>RIR</IndexText> */}
+        {/* <IndexText>Done</IndexText> */}
+        <FontAwesome5 name="check-circle" size={20} color="#797d7f" />
       </IndexContainer>
 
       {fields.map((item, templateSetIndex) => {
@@ -222,7 +228,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 )}
               />
 
-              <Controller
+              {/* <Controller
                 name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -240,7 +246,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     }
                   />
                 )}
-              />
+              /> */}
               <CheckContainer onPress={() => setIsDone(!isDone)}>
                 {isDone ? (
                   <FontAwesome5 name="check-circle" size={20} color="#32CD32" />

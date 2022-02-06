@@ -5,23 +5,33 @@ import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import AddTemplateButton from "../Buttons/AddTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
-const TemplateContainer = styled.View`
-  margin-bottom: 15px;
-  border: 1px solid ${(props) => props.theme.darkgray};
-  border-radius: 20px;
-  padding: 15px 15px;
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0;
 `;
 
-const TemplateHeader = styled.View`
+const Container = styled.View``;
+
+const TemplateContainer = styled.View`
+  margin-bottom: 15px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.cardColor};
+  padding: 15px 20px;
+`;
+
+const TitleContainer = styled.View`
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+`;
+const ExerciseContainer = styled.View`
+  margin: 10px 0;
 `;
 
 const WorkoutTitle = styled.TextInput`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  padding: 0 5px;
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -32,17 +42,17 @@ export default function TemplateArray({ control, setValue, getValues }) {
   });
 
   return (
-    <>
+    <Container>
       {fields.map((item, templateIndex) => {
         return (
           <TemplateContainer key={item.id}>
-            <TemplateHeader>
+            <TitleContainer>
               <Controller
                 name={`templates[${templateIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WorkoutTitle
-                    placeholder="워크아웃 이름 (Routine)"
+                    placeholder="워크아웃 이름"
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(`templates[${templateIndex}].name`, text)
@@ -54,12 +64,14 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 text="닫기"
                 onPress={() => remove(templateIndex)}
               />
-            </TemplateHeader>
+            </TitleContainer>
 
-            <TemplateSetArray
-              templateIndex={templateIndex}
-              {...{ control, setValue }}
-            />
+            <ExerciseContainer>
+              <TemplateSetArray
+                templateIndex={templateIndex}
+                {...{ control, setValue }}
+              />
+            </ExerciseContainer>
           </TemplateContainer>
         );
       })}
@@ -69,6 +81,6 @@ export default function TemplateArray({ control, setValue, getValues }) {
           append({});
         }}
       />
-    </>
+    </Container>
   );
 }

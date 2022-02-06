@@ -11,12 +11,11 @@ export default function LoggedInNav() {
       initialRouteName="Program"
       screenOptions={{
         headerTitleAlign: "left",
-        headerTitleContainerStyle: {},
         headerTitleStyle: {
           color: "#FF7F50",
-          fontSize: 25,
+          fontSize: 26,
           fontWeight: "700",
-          marginTop: 20,
+          marginTop: 25,
           marginLeft: 10,
         },
         headerStyle: {

@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const ProgramContainer = styled.View`
   margin: 5px 5px 20px 5px;
-  border: 1px solid ${(props) => props.theme.darkgray};
+  border: 1px solid ${(props) => props.theme.gray};
   border-radius: 5px;
   padding: 10px;
   width: 200px;
@@ -29,5 +29,5 @@ export const TitleIcon = styled.Text`
 export const Description = styled.Text`
   font-size: 14px;
   margin-top: 7px;
-  color: ${(props) => props.theme.darkgray};
+  color: ${(props) => props.theme.gray};
 `;

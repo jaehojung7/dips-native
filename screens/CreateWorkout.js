@@ -7,8 +7,8 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
-  padding: 0 15px;
-  margin-top: 20px;
+  padding: 0 10px;
+  margin-top: 25px;
 `;
 
 const ProgramTitle = styled.Text`
@@ -188,7 +188,7 @@ export default function CreateWorkout() {
 
   return (
     <DismissKeyboard>
-      <Container>
+      <Container showsVerticalScrollIndicator={false}>
         <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
         <HeaderContainer>
           <Controller

@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 const Button = styled.TouchableOpacity`
   padding: 5px;
   border-radius: 20px;
-  border: 1px solid ${(props) => props.theme.darkgray};
+  border: 1px solid ${(props) => props.theme.gray};
   margin-bottom: 7px;
 `;
 
@@ -28,7 +28,7 @@ export default function AddWorkoutButton({ onPress }) {
     <Button onPress={onPress}>
       <TextContainer>
         <FontAwesome5 name="plus" size={14} color="#797d7f" />
-        <ButtonText>워크아웃 추가하기</ButtonText>
+        <ButtonText>워크아웃 추가</ButtonText>
       </TextContainer>
     </Button>
   );

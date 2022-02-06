@@ -6,38 +6,18 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const TemplateSetContainer = styled.View`
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const IndexContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px 10px;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  /* margin-bottom: 10px; */
 `;
 
 const ExerciseTitle = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.lightgray};
-  padding: 7px 10px;
+  color: ${(props) => props.theme.fontColor};
+  border: 1px solid ${(props) => props.theme.gray};
+  padding: 5px 10px;
   font-size: 15px;
-  border-radius: 5px;
-  /* width: 75%; */
-`;
-
-const SetCount = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.lightgray};
-  padding: 7px 10px;
-  font-size: 15px;
-  border-radius: 5px;
-  /* width: 15%; */
+  border-radius: 20px;
+  margin-bottom: 10px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -75,11 +55,6 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
   return (
     <>
-      <IndexContainer>
-        <IndexText>운동이름</IndexText>
-        <IndexText>Set</IndexText>
-      </IndexContainer>
-
       {fields.map((item, templateSetIndex) => {
         return (
           <Swipeable
@@ -93,29 +68,11 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ExerciseTitle
-                    placeholder="운동 선택하기"
+                    placeholder="운동이름"
                     placeholderTextColor="#797d7f"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,
-                        text
-                      )
-                    }
-                  />
-                )}
-              />
-              <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
-                    keyboardType="numeric"
-                    type="number"
-                    placeholder="0"
-                    placeholderTextColor="#797d7f"
-                    onChangeText={(text) =>
-                      setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
                         text
                       )
                     }

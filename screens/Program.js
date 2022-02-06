@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
-import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
-import { ScrollView, TouchableOpacity } from "react-native";
-import MyProgramCards from "../components/modal-components/MyProgramCards";
+import { TouchableOpacity } from "react-native";
+import ProgramCards from "../components/modal-components/ProgramCards";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 
 const ME_QUERY = gql`
@@ -14,31 +13,29 @@ const ME_QUERY = gql`
         id
         title
         description
-        isPrivate
-        likeCount
         templates {
           title
+          templateIndex
+          createdAt
+          templateSets {
+            id
+          }
         }
       }
     }
   }
 `;
 
-const Container = styled.View`
-  padding: 15px;
-`;
-
-const BorderLine = styled.View`
-  border-bottom-width: 2px;
-  border-bottom-color: ${(props) => props.theme.lightgray};
-  margin: 30px 0;
+const Container = styled.ScrollView`
+  padding: 10px;
+  margin-top: 15px;
 `;
 
 const WorkoutContainer = styled.View`
-  margin-top: 20px;
+  margin: 20px 0;
   padding: 25px 20px;
   border-radius: 20px;
-  border: 1px solid ${(props) => props.theme.darkgray};
+  background-color: ${(props) => props.theme.cardColor};
 `;
 
 const ProgramTitle = styled.Text`
@@ -56,7 +53,8 @@ const WorkoutTitle = styled.Text`
 `;
 
 const ProgramContainer = styled.View`
-  margin-bottom: 20px;
+  margin: 20px 0;
+  /* background-color: ${(props) => props.theme.cardColor}; */
 `;
 
 const TitleContainer = styled.View`
@@ -78,7 +76,6 @@ const MoreProgram = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
-  /* flex-direction: row; */
   margin-top: 5px;
   justify-content: space-between;
 `;
@@ -86,39 +83,37 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   return (
-    <Container>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <WorkoutContainer>
-          <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
-          <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
-          <WorkoutTitle>다음 워크아웃: Chest Arm Workout</WorkoutTitle>
+    <Container showsVerticalScrollIndicator={false}>
+      <WorkoutContainer>
+        <ProgramTitle>3분할 홈짐 프로그램</ProgramTitle>
+        <WorkoutTitle>워크아웃 1: Back Shoulder Workout</WorkoutTitle>
+        <WorkoutTitle>워크아웃 2: Chest Arm Workout</WorkoutTitle>
+        <WorkoutTitle>워크아웃 3: Leg Core Workout</WorkoutTitle>
 
-          <ButtonContainer>
-            <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
-            <WorkoutButton
-              text="새 템플릿으로 시작"
-              onPress={() => navigation.navigate("CreateWorkout")}
-            />
-          </ButtonContainer>
-        </WorkoutContainer>
+        <ButtonContainer>
+          <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
+          <WorkoutButton
+            text="새 템플릿으로 시작"
+            onPress={() => navigation.navigate("CreateWorkout")}
+          />
+        </ButtonContainer>
+      </WorkoutContainer>
 
-        <BorderLine />
-        <ProgramContainer>
-          <TitleContainer>
-            <RecentProgram>최근에 사용한 프로그램</RecentProgram>
-            <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-              <MoreProgram>더보기</MoreProgram>
-            </TouchableOpacity>
-          </TitleContainer>
-          <MyProgramCards programs={data?.me?.programs} />
-        </ProgramContainer>
+      <ProgramContainer>
+        <TitleContainer>
+          <RecentProgram>최근에 사용한 프로그램</RecentProgram>
+          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+            <MoreProgram>더보기</MoreProgram>
+          </TouchableOpacity>
+        </TitleContainer>
+        <ProgramCards programs={data?.me?.programs} />
+      </ProgramContainer>
 
-        <MainButton
-          text="새 프로그램 만들기"
-          disabled={false}
-          onPress={() => navigation.navigate("CreateProgram")}
-        />
-      </ScrollView>
+      <MainButton
+        text="새 프로그램 만들기"
+        disabled={false}
+        onPress={() => navigation.navigate("CreateProgram")}
+      />
     </Container>
   );
 }

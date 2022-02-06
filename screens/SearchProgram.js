@@ -2,7 +2,7 @@ import { FlatList, Modal, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { useState } from "react";
-import ProgramModal from "../components/modal-components/ProgramModal";
+import SeeProgram from "./SeeProgram";
 
 const TitleContainer = styled.View``;
 
@@ -15,19 +15,17 @@ const ProgramTitle = styled.Text`
 
 const BorderLine = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.lightgray};
+  border-bottom-color: ${(props) => props.theme.gray};
   opacity: 0.5;
 `;
 
 export default function SearchProgram({ route, navigation }) {
   const { programs } = route.params;
-  const [modalVisible, setModalVisible] = useState(false);
-  const [programModalContent, setProgramModalContent] = useState();
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("ProgramModal");
+          navigation.navigate("SeeProgram", { program });
         }}
       >
         <TitleContainer>
@@ -47,9 +45,6 @@ export default function SearchProgram({ route, navigation }) {
         initialNumToRender={10}
         // windowSize={3}
       />
-      {/* <Modal animationType="none" transparent={true} visible={modalVisible}>
-        <ProgramModal program={programModalContent} {...{ setModalVisible }} />
-      </Modal> */}
     </>
   );
 }

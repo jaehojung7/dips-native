@@ -6,11 +6,11 @@ import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import CreateProgram from "../screens/CreateProgram";
 import CreateWorkout from "../screens/CreateWorkout";
-import ProgramModal from "../components/modal-components/ProgramModal";
+import SeeProgram from "../screens/SeeProgram";
 
 const Stack = createStackNavigator();
 
-export default function SharedStackNav({ screenName }) {
+export default function SharedStackNav({ screenName, route }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -34,9 +34,28 @@ export default function SharedStackNav({ screenName }) {
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
       <Stack.Screen
-        name="ProgramModal"
-        component={ProgramModal}
-        presentation="modal"
+        mode="modal"
+        name="SeeProgram"
+        component={SeeProgram}
+        // options={{
+        //   headerBackTitleVisible: false,
+        //   headerTintColor: "#42a5f5",
+        //   headerShown: true,
+        //   title: "프로그램 이름",
+        //   headerTitleStyle: {
+        //     fontSize: 22,
+        //     fontWeight: "700",
+        //   },
+        //   headerTitleContainerStyle: {
+        //     marginTop: 15,
+        //   },
+        //   headerLeftContainerStyle: {
+        //     marginTop: 15,
+        //   },
+        //   headerStyle: {
+        //     shadowColor: "transparent",
+        //   },
+        // }}
       />
     </Stack.Navigator>
   );

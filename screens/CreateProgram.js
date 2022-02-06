@@ -4,22 +4,26 @@ import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { Switch } from "react-native";
 import TemplateArray from "../components/create-program/TemplateArray";
 
 const Container = styled.ScrollView`
+  margin: 20px 10px;
+`;
+
+const Header = styled.Text`
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
   padding: 0 15px;
-  margin-top: 20px;
+  color: ${(props) => props.theme.fontColor};
 `;
 
 const TitleContainer = styled.View`
-  /* align-items: center; */
-  /* border: 1px solid ${(props) => props.theme.darkgray}; */
-  /* background-color: gray; */
-  /* padding: 5px 10px; */
-  border-radius: 15px;
   margin-bottom: 15px;
-  /* background-color: green; */
+  padding: 15px 20px;
+  background-color: ${(props) => props.theme.cardColor};
+  /* border: 1px solid ${(props) => props.theme.gray}; */
+  border-radius: 20px;
 `;
 
 const TitleInput = styled.TextInput`
@@ -27,30 +31,12 @@ const TitleInput = styled.TextInput`
   font-size: 20px;
   font-weight: 500;
   border-radius: 5px;
-  margin-bottom: 15px;
-  padding: 0 10px;
+  margin-bottom: 10px;
 `;
 
 const DescriptionInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  background-color: ${(props) => props.theme.lightgray};
-  font-size: 15px;
-  border-radius: 15px;
-  padding: 10px 15px;
-  height: 65px;
-`;
-
-const ToggleContainer = styled.View`
-  margin-left: 35px;
-  align-items: center;
-`;
-
-const ToggleText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const ToggleSwitch = styled.View`
-  margin-top: 7px;
+  color: ${(props) => props.theme.gray};
+  font-size: 16px;
 `;
 
 const CREATE_PROGRAM_MUTATION = gql`
@@ -212,7 +198,8 @@ export default function CreateProgram() {
 
   return (
     <DismissKeyboard>
-      <Container>
+      <Container showsVerticalScrollIndicator={false}>
+        <Header>새 프로그램 만들기</Header>
         <TitleContainer>
           <Controller
             name="programTitle"
@@ -231,7 +218,7 @@ export default function CreateProgram() {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <DescriptionInput
-                placeholder="프로그램 설명"
+                placeholder="프로그램 설명 (max.50)"
                 placeholderTextColor="#797d7f"
                 multiline={true}
                 maxLength={50}
