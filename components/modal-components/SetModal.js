@@ -11,7 +11,8 @@ const CenterView = styled.View`
 const PopupView = styled.View`
   border-radius: 25px;
   background-color: white;
-  padding: 18px;
+  padding: 20px;
+  border: 1px solid ${(props) => props.theme.gray};
 `;
 
 const IconContainer = styled.TouchableOpacity`

@@ -46,9 +46,16 @@ const WorkoutTitle = styled.Text`
   font-size: 18px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
+  margin-bottom: 5px;
 `;
 
 const ExerciseContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ExerciseTitleContainer = styled.View`
   margin: 10px 0;
 `;
 
@@ -56,6 +63,7 @@ const ExerciseTitle = styled.Text`
   font-size: 16px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
+  margin-bottom: 5px;
 `;
 
 const defaultValues = {
@@ -82,28 +90,31 @@ export default function SeeProgram({ route, navigation }) {
           const workoutTitle = workout.title;
           return (
             <WorkoutContainer key={workoutIndex}>
-              <WorkoutTitle>
-                워크아웃 {workoutIndex + 1}. {workout.title}
-              </WorkoutTitle>
+              {/* <WorkoutTitle>워크아웃 {workoutIndex + 1}</WorkoutTitle> */}
+              <WorkoutTitle>{workout.title}</WorkoutTitle>
               <ExerciseContainer>
-                <ExerciseTitle>
-                  스쿼트 데드리프트 밀리터리프레스 딥스 인클라인 벤치프레스
-                </ExerciseTitle>
-              </ExerciseContainer>
+                <ExerciseTitleContainer>
+                  <ExerciseTitle>스쿼트</ExerciseTitle>
+                  <ExerciseTitle>데드리프트</ExerciseTitle>
+                  <ExerciseTitle>밀리터리프레스</ExerciseTitle>
+                  <ExerciseTitle>벤치프레스</ExerciseTitle>
+                  <ExerciseTitle>바벨로우</ExerciseTitle>
+                </ExerciseTitleContainer>
 
-              {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
+                {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
                 return (
                   <ExerciseContainer key={exerciseIndex}>
                     <ExerciseTitle>{exercise}</ExerciseTitle>)
                   </ExerciseContainer>
                 );
               })} */}
-              <StartWorkoutButton
-                text="워크아웃 시작"
-                onPress={() => {
-                  navigation.navigate("CreateWorkout", { workoutTitle });
-                }}
-              />
+                <StartWorkoutButton
+                  text="워크아웃 시작"
+                  onPress={() => {
+                    navigation.navigate("CreateWorkout", { workoutTitle });
+                  }}
+                />
+              </ExerciseContainer>
             </WorkoutContainer>
           );
         })}
