@@ -1,5 +1,5 @@
 import CloseButton from "../components/modal-components/CloseButton";
-import StartButton from "../components/modal-components/StartButton";
+import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 
@@ -16,7 +16,7 @@ const TitleContainer = styled.View`
 
 const Header = styled.Text`
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 15px;
   padding: 0 15px;
   color: ${(props) => props.theme.fontColor};
@@ -72,13 +72,14 @@ export default function SeeProgram({ route, navigation }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
+        {/* <Header>프로그램 보기</Header> */}
         <TitleContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
           <ProgramDescription>{program.description}</ProgramDescription>
         </TitleContainer>
 
         {program?.templates.map((workout, workoutIndex) => {
-          // console.log(workout);
+          const workoutTitle = workout.title;
           return (
             <WorkoutContainer key={workoutIndex}>
               <WorkoutTitle>
@@ -97,10 +98,10 @@ export default function SeeProgram({ route, navigation }) {
                   </ExerciseContainer>
                 );
               })} */}
-              <StartButton
+              <StartWorkoutButton
                 text="워크아웃 시작"
                 onPress={() => {
-                  navigation.navigate("CreateWorkout", { workout });
+                  navigation.navigate("CreateWorkout", { workoutTitle });
                 }}
               />
             </WorkoutContainer>

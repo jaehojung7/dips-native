@@ -12,7 +12,7 @@ const Container = styled.ScrollView`
 
 const Header = styled.Text`
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 15px;
   padding: 0 15px;
   color: ${(props) => props.theme.fontColor};
@@ -20,9 +20,8 @@ const Header = styled.Text`
 
 const TitleContainer = styled.View`
   margin-bottom: 15px;
-  padding: 15px 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  /* background-color: #ececec */
+  padding: 0 15px;
+  /* background-color: ${(props) => props.theme.cardColor}; */
   border-radius: 20px;
 `;
 
@@ -199,7 +198,7 @@ export default function CreateProgram() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <Header>새 프로그램 만들기</Header>
+        {/* <Header>새 프로그램 만들기</Header> */}
         <TitleContainer>
           <Controller
             name="programTitle"

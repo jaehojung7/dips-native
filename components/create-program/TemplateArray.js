@@ -18,13 +18,14 @@ const TemplateContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   /* background-color: #ececec; */
-  padding: 15px 20px;
+  padding: 15px 15px;
 `;
 
 const TitleContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 0 10px;
 `;
 const ExerciseContainer = styled.View`
   margin: 10px 0;
@@ -66,7 +67,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 onPress={() => remove(templateIndex)}
               />
             </TitleContainer>
-
+            {/* <BorderLine /> */}
             <ExerciseContainer>
               <TemplateSetArray
                 templateIndex={templateIndex}

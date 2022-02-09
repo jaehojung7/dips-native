@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 
 const EDIT_PROGRAM_MUTATION = gql`
@@ -52,7 +50,7 @@ export default function editProgram({ route }) {
             return (
               <WorkoutContainer key={index}>
                 <WorkoutTitle>{template.title}</WorkoutTitle>
-                <StartButton
+                <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
                     navigation.navigate("CreateWorkout");

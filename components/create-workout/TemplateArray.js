@@ -5,6 +5,12 @@ import AddTemplateButton from "../Buttons/AddTemplateButton";
 import CloseTemplateButton from "../Buttons/CloseTemplateButton";
 import TemplateSetArray from "./TemplateSetArray";
 
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0;
+`;
+
 const TemplateContainer = styled.View`
   margin-bottom: 15px;
   border-radius: 20px;
@@ -50,6 +56,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 onPress={() => remove(templateIndex)}
               />
             </TemplateHeader>
+            <BorderLine />
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}

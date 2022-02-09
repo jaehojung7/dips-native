@@ -4,21 +4,55 @@ import styled from "styled-components/native";
 import AddTemplateSetButton from "../Buttons/AddTemplateSetButton";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0;
+`;
+
 const TemplateSetContainer = styled.View`
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* margin-bottom: 5px; */
+`;
+
+const IndexContainer = styled.View`
+  flex-direction: row;
   /* align-items: center; */
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  margin: 20px 0;
+`;
+
+const SetByReps = styled.View`
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-between;
+  margin: 20px 0; */
+`;
+
+const IndexText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 16px;
+  margin: 0 5px;
+`;
+const ExerciseTitle = styled.TextInput`
+  color: black;
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px 10px;
+  font-size: 15px;
+  border-radius: 5px;
   /* margin-bottom: 10px; */
 `;
 
-const ExerciseTitle = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  border: 1px solid ${(props) => props.theme.gray};
-  /* border: 1px solid #999999; */
-  padding: 5px 10px;
+const InputCount = styled.TextInput`
+  color: black;
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px 5px;
   font-size: 15px;
-  border-radius: 20px;
-  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -56,6 +90,11 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
   return (
     <>
+      <IndexContainer>
+        <IndexText>Exercise</IndexText>
+        <IndexText>Set x Reps</IndexText>
+      </IndexContainer>
+
       {fields.map((item, templateSetIndex) => {
         return (
           <Swipeable
@@ -69,8 +108,8 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ExerciseTitle
-                    placeholder="운동이름"
-                    placeholderTextColor="#999999"
+                    placeholder="운동 고르기"
+                    placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
                         `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,
@@ -80,7 +119,49 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                   />
                 )}
               />
+              <SetByReps>
+                <Controller
+                  name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <InputCount
+                      keyboardType="numeric"
+                      type="number"
+                      placeholder="0"
+                      maxLength={3}
+                      placeholderTextColor="#7b7b7b"
+                      onChangeText={(text) =>
+                        setValue(
+                          `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                          text
+                        )
+                      }
+                    />
+                  )}
+                />
+                <IndexText>x</IndexText>
+                <Controller
+                  name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <InputCount
+                      keyboardType="numeric"
+                      type="number"
+                      placeholder="0"
+                      maxLength={3}
+                      placeholderTextColor="#7b7b7b"
+                      onChangeText={(text) =>
+                        setValue(
+                          `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                          text
+                        )
+                      }
+                    />
+                  )}
+                />
+              </SetByReps>
             </TemplateSetContainer>
+            <BorderLine />
           </Swipeable>
         );
       })}

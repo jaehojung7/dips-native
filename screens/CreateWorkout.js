@@ -100,11 +100,13 @@ const defaultValues = {
 };
 
 export default function CreateWorkout({ route }) {
-  const { workout } = route.params;
-  console.log(workout);
+  // const { workout } = route?.params;
+  // console.log(workout.title);
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
-      defaultValues,
+      defaultValues: {
+        workoutTitle: route.params?.workoutTitle,
+      },
     });
 
   // const onCreateTemplateSetCompleted = (data) => {
@@ -190,7 +192,21 @@ export default function CreateWorkout({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <WorkoutTitle>{workout.title}</WorkoutTitle>
+        <WorkoutTitle>
+          <Controller
+            name="WorkoutTitle"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <WorkoutTitleInput
+                value={watch("workoutTitle")}
+                placeholder="워크아웃 이름"
+                placeholderTextColor="#999999"
+                onChangeText={(text) => setValue("WorkoutTitle", text)}
+              />
+            )}
+          />
+        </WorkoutTitle>
 
         {/* {program?.templates.map((workout, workoutIndex) => {
           return (
@@ -206,21 +222,6 @@ export default function CreateWorkout({ route }) {
             </WorkoutContainer>
           );
         })} */}
-
-        {/* {program?. ? <ActivityIndicator color="white" /> : children} */}
-
-        {/* <Controller
-            name="WorkoutTitle"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <WorkoutTitleInput
-                placeholder="워크아웃 이름"
-                placeholderTextColor="#999999"
-                onChangeText={(text) => setValue("WorkoutTitle", text)}
-              />
-            )}
-          /> */}
 
         <TemplateArray
           {...{

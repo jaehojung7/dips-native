@@ -32,7 +32,7 @@ const IndexText = styled.Text`
 `;
 
 const SetContainer = styled.TouchableOpacity`
-  background-color: #cacfd2;
+  background-color: ${(props) => props.theme.inputBackground};
   padding: 5px;
   border-radius: 5px;
   width: 30px;
@@ -61,8 +61,7 @@ const Dropset = styled.Text`
 
 const InputCount = styled.TextInput`
   color: black;
-  /* background-color: ${(props) => props.theme.gray}; */
-  background-color: #cacfd2;
+  background-color: ${(props) => props.theme.inputBackground};
   padding: 7px 10px;
   font-size: 15px;
   border-radius: 5px;
@@ -143,8 +142,6 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         <IndexText>Set</IndexText>
         <IndexText>Load (kg)</IndexText>
         <IndexText>Reps</IndexText>
-        {/* <IndexText>RIR</IndexText> */}
-        {/* <IndexText>Done</IndexText> */}
         <FontAwesome5 name="check-circle" size={20} color="#999999" />
       </IndexContainer>
 

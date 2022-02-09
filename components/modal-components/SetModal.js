@@ -21,7 +21,7 @@ const IconContainer = styled.TouchableOpacity`
 `;
 
 const SetContainer = styled.TouchableOpacity`
-  background-color: #cacfd2;
+  background-color: ${(props) => props.theme.inputBackground};
   padding: 5px;
   border-radius: 5px;
   width: 30px;
