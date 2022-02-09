@@ -87,7 +87,6 @@ export default function SeeProgram({ route, navigation }) {
         </TitleContainer>
 
         {program?.templates.map((workout, workoutIndex) => {
-          const workoutTitle = workout.title;
           return (
             <WorkoutContainer key={workoutIndex}>
               {/* <WorkoutTitle>워크아웃 {workoutIndex + 1}</WorkoutTitle> */}
@@ -111,7 +110,7 @@ export default function SeeProgram({ route, navigation }) {
                 <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
-                    navigation.navigate("CreateWorkout", { workoutTitle });
+                    navigation.navigate("CreateWorkout", { workout });
                   }}
                 />
               </ExerciseContainer>
