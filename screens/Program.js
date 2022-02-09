@@ -93,7 +93,7 @@ export default function Program({ navigation }) {
           <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
           <WorkoutButton
             text="새 템플릿으로 시작"
-            onPress={() => navigation.navigate("CreateWorkout")}
+            onPress={() => navigation.navigate("CreateWorkout", {})}
           />
         </ButtonContainer>
       </WorkoutContainer>

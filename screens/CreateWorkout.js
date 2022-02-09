@@ -101,11 +101,11 @@ const defaultValues = {
 
 export default function CreateWorkout({ route }) {
   const { workout } = route?.params;
-  // console.log(workout.title);
+  console.log(workout);
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues: {
-        workoutTitle: route.params?.workoutTitle,
+        workoutTitle: workout.title,
       },
     });
 
