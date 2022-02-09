@@ -100,7 +100,10 @@ const defaultValues = {
 };
 
 export default function CreateWorkout({ route }) {
-  const { workout } = route?.params;
+  let { workout } = route?.params;
+  if (workout === undefined) {
+    workout = {};
+  }
   console.log(workout);
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
