@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import TemplateArray from "../components/create-program/TemplateArray";
+import WorkoutArray from "../components/create-program/WorkoutArray";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -241,7 +241,7 @@ export default function CreateProgram() {
             </ToggleSwitch>
           </ToggleContainer> */}
 
-        <TemplateArray
+        <WorkoutArray
           {...{
             control,
             getValues,

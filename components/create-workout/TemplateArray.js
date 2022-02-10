@@ -1,18 +1,11 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import AddTemplateButton from "../Buttons/AddTemplateButton";
-import CloseTemplateButton from "../Buttons/CloseTemplateButton";
+import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import TemplateSetArray from "./TemplateSetArray";
 
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0;
-`;
-
 const TemplateContainer = styled.View`
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   padding: 15px 20px;
@@ -30,6 +23,12 @@ const WorkoutTitle = styled.TextInput`
   padding: 7px 0;
   color: ${(props) => props.theme.fontColor};
   border-radius: 5px;
+`;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 7px 0;
 `;
 
 export default function TemplateArray({ control, setValue, getValues }) {
@@ -51,12 +50,8 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   setValue(`templates[${templateIndex}].name`, text)
                 }
               />
-              <CloseTemplateButton
-                text="닫기"
-                onPress={() => remove(templateIndex)}
-              />
             </TemplateHeader>
-            <BorderLine />
+            {/* <BorderLine /> */}
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}
@@ -64,12 +59,20 @@ export default function TemplateArray({ control, setValue, getValues }) {
           </TemplateContainer>
         );
       })}
-
-      <AddTemplateButton
-        onPress={() => {
-          append({});
-        }}
-      />
+      <ButtonContainer>
+        <AddDeleteExerciseButton
+          text="운동 추가"
+          onPress={() => {
+            append({});
+          }}
+        />
+        <AddDeleteExerciseButton
+          text="운동 삭제"
+          onPress={() => {
+            remove({});
+          }}
+        />
+      </ButtonContainer>
     </>
   );
 }
