@@ -20,17 +20,17 @@ const Header = styled.Text`
 
 const TitleContainer = styled.View`
   margin-bottom: 15px;
-  padding: 0 15px;
-  /* background-color: ${(props) => props.theme.cardColor}; */
+  padding: 15px 25px;
+  background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
+  /* border: 1px solid ${(props) => props.theme.gray}; */
 `;
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
-  font-size: 20px;
-  font-weight: 500;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  /* margin-bottom: 10px; */
 `;
 
 const DescriptionInput = styled.TextInput`
@@ -198,7 +198,6 @@ export default function CreateProgram() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        {/* <Header>새 프로그램 만들기</Header> */}
         <TitleContainer>
           <Controller
             name="programTitle"
@@ -212,7 +211,7 @@ export default function CreateProgram() {
               />
             )}
           />
-          <Controller
+          {/* <Controller
             name="description"
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -224,7 +223,7 @@ export default function CreateProgram() {
                 onChangeText={(text) => setValue("description", text)}
               />
             )}
-          />
+          /> */}
         </TitleContainer>
 
         {/* <ToggleContainer>

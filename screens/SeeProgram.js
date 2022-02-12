@@ -9,25 +9,16 @@ const Container = styled.ScrollView`
 
 const TitleContainer = styled.View`
   margin-bottom: 15px;
-  padding: 0 15px;
-  /* background-color: ${(props) => props.theme.cardColor}; */
-  /* border-radius: 20px; */
-`;
-
-const Header = styled.Text`
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 15px;
-  padding: 0 15px;
-  color: ${(props) => props.theme.fontColor};
+  padding: 15px 25px;
+  background-color: ${(props) => props.theme.cardColor};
+  border-radius: 20px;
 `;
 
 const ProgramTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
-  font-size: 20px;
-  font-weight: 500;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  /* margin-bottom: 10px; */
 `;
 
 const ProgramDescription = styled.Text`
@@ -39,24 +30,24 @@ const WorkoutContainer = styled.View`
   margin-bottom: 15px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 15px 20px;
+  padding: 15px 25px;
 `;
 
 const WorkoutTitle = styled.Text`
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 5px;
 `;
 
 const ExerciseContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  /* padding: 0 3px; */
 `;
 
 const ExerciseTitleContainer = styled.View`
-  margin: 10px 0;
+  margin-top: 15px;
 `;
 
 const ExerciseTitle = styled.Text`
@@ -83,7 +74,7 @@ export default function SeeProgram({ route, navigation }) {
         {/* <Header>프로그램 보기</Header> */}
         <TitleContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          <ProgramDescription>{program.description}</ProgramDescription>
+          {/* <ProgramDescription>{program.description}</ProgramDescription> */}
         </TitleContainer>
 
         {program?.templates.map((workout, workoutIndex) => {

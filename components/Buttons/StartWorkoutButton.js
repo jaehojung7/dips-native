@@ -7,7 +7,7 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
 `;

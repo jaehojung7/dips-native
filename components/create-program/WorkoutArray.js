@@ -7,7 +7,7 @@ import AddDeleteWorkoutButton from "./AddDeleteWorkoutButton";
 const BorderLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0;
+  margin: 10px 0 15px 0;
 `;
 
 const Container = styled.View``;
@@ -16,7 +16,7 @@ const TemplateContainer = styled.View`
   margin-bottom: 15px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 15px 15px;
+  padding: 15px;
 `;
 
 const TitleContainer = styled.View`
@@ -27,13 +27,9 @@ const TitleContainer = styled.View`
 `;
 
 const WorkoutTitle = styled.TextInput`
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-`;
-
-const ExerciseContainer = styled.View`
-  margin: 10px 0;
 `;
 
 export default function WorkoutArray({ control, setValue, getValues }) {
@@ -63,12 +59,10 @@ export default function WorkoutArray({ control, setValue, getValues }) {
               />
             </TitleContainer>
             <BorderLine />
-            <ExerciseContainer>
-              <ExerciseArray
-                templateIndex={templateIndex}
-                {...{ control, setValue }}
-              />
-            </ExerciseContainer>
+            <ExerciseArray
+              templateIndex={templateIndex}
+              {...{ control, setValue }}
+            />
           </TemplateContainer>
         );
       })}

@@ -85,7 +85,7 @@ export default function Program({ navigation }) {
   return (
     <Container showsVerticalScrollIndicator={false}>
       <WorkoutContainer>
-        <ProgramTitle>Pinned Program</ProgramTitle>
+        <ProgramTitle>진행중인 프로그램</ProgramTitle>
         <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
         <WorkoutTitle>다음 워크아웃: Leg Core Workout</WorkoutTitle>
 

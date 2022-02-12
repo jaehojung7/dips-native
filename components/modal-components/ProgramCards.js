@@ -7,23 +7,26 @@ const ProgramContainer = styled.View`
   margin: 25px 15px 0 0;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
-  padding: 15px;
-  width: 230px;
+  padding: 15px 20px;
+  width: 210px;
   height: 140px;
 `;
 
 const ProgramTitle = styled.Text`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
-  color: ${(props) => props.theme.fontColor};
   margin-bottom: 10px;
+  color: ${(props) => props.theme.fontColor};
+  /* text-align: center; */
 `;
 
 const WorkoutTitle = styled.Text`
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 5px;
   color: ${(props) => props.theme.fontColor};
+  opacity: 0.5;
+  /* text-align: center; */
 `;
 
 export default function ProgramCards({ programs }) {

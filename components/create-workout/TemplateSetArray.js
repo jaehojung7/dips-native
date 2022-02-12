@@ -121,7 +121,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
       {fields.map((item, templateSetIndex) => {
         return (
-          <TemplateSetContainer>
+          <TemplateSetContainer key={item.id}>
             {isWarmup ? (
               <SetContainer
                 onPress={() => {

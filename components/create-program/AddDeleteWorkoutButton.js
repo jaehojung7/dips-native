@@ -13,9 +13,10 @@ const ButtonContainer = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: #999999;
+  color: ${(props) => props.theme.fontColor};
+  opacity: 0.5
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 5px;
   text-align: center;
 `;
