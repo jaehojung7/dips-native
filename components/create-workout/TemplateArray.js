@@ -4,25 +4,24 @@ import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import TemplateSetArray from "./TemplateSetArray";
 
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0 15px 0;
+`;
+
 const TemplateContainer = styled.View`
   margin-bottom: 10px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 15px 20px;
-`;
-
-const TemplateHeader = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  padding: 15px;
 `;
 
 const WorkoutTitle = styled.TextInput`
-  font-size: 16px;
-  font-weight: 600;
-  padding: 7px 0;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 5px 10px;
   color: ${(props) => props.theme.fontColor};
-  border-radius: 5px;
 `;
 
 const ButtonContainer = styled.View`
@@ -42,16 +41,14 @@ export default function TemplateArray({ control, setValue, getValues }) {
       {fields.map((item, templateIndex) => {
         return (
           <TemplateContainer key={item.id}>
-            <TemplateHeader>
-              <WorkoutTitle
-                placeholder="운동 이름"
-                placeholderTextColor="#999999"
-                onChangeText={(text) =>
-                  setValue(`templates[${templateIndex}].name`, text)
-                }
-              />
-            </TemplateHeader>
-            {/* <BorderLine /> */}
+            <WorkoutTitle
+              placeholder="운동 이름"
+              placeholderTextColor="#999999"
+              onChangeText={(text) =>
+                setValue(`templates[${templateIndex}].name`, text)
+              }
+            />
+            <BorderLine />
             <TemplateSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}

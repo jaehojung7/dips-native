@@ -5,7 +5,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 
 const Container = styled.View`
-  padding: 0 5px;
+  /* padding: 0 5px; */
 `;
 
 const MainContainer = styled.View`
@@ -105,7 +105,6 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
         </SubContainer>
 
         <SubContainer>
-          {/* <IndexText>Sets x Reps</IndexText> */}
           <SetsReps>Sets</SetsReps>
           <IndexText>x</IndexText>
           <SetsReps>Reps</SetsReps>
