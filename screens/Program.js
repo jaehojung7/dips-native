@@ -27,12 +27,20 @@ const ME_QUERY = gql`
 `;
 
 const Container = styled.ScrollView`
-  padding: 10px;
-  margin-top: 15px;
+  margin: 20px 10px;
+`;
+
+const HeaderContainer = styled.View`
+  margin: 30px 15px 15px 15px;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
 `;
 
 const WorkoutContainer = styled.View`
-  margin: 20px 0;
   padding: 25px 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
@@ -54,7 +62,6 @@ const WorkoutTitle = styled.Text`
 
 const ProgramContainer = styled.View`
   margin: 20px 0;
-  /* background-color: ${(props) => props.theme.cardColor}; */
 `;
 
 const TitleContainer = styled.View`
@@ -84,6 +91,9 @@ export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   return (
     <Container showsVerticalScrollIndicator={false}>
+      <HeaderContainer>
+        <Header>프로그램</Header>
+      </HeaderContainer>
       <WorkoutContainer>
         <ProgramTitle>진행중인 프로그램</ProgramTitle>
         <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
@@ -93,7 +103,7 @@ export default function Program({ navigation }) {
           <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
           <WorkoutButton
             text="새 템플릿으로 시작"
-            onPress={() => navigation.navigate("CreateWorkout", {})}
+            onPress={() => navigation.navigate("StackWorkout", {})}
           />
         </ButtonContainer>
       </WorkoutContainer>

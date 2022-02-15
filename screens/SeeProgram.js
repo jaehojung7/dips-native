@@ -7,6 +7,16 @@ const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
 
+const HeaderContainer = styled.View`
+  margin: 30px 15px 15px 15px;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
+`;
+
 const TitleContainer = styled.View`
   margin-bottom: 15px;
   padding: 15px 25px;
@@ -21,16 +31,18 @@ const ProgramTitle = styled.Text`
   /* margin-bottom: 10px; */
 `;
 
-const ProgramDescription = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
-`;
-
 const WorkoutContainer = styled.View`
   margin-bottom: 15px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   padding: 15px 25px;
+`;
+
+const WorkoutTitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 `;
 
 const WorkoutTitle = styled.Text`
@@ -41,13 +53,9 @@ const WorkoutTitle = styled.Text`
 
 const ExerciseContainer = styled.View`
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  /* padding: 0 3px; */
-`;
-
-const ExerciseTitleContainer = styled.View`
-  margin-top: 15px;
+  align-items: center;
+  margin-bottom: 5px;
 `;
 
 const ExerciseTitle = styled.Text`
@@ -71,40 +79,57 @@ export default function SeeProgram({ route, navigation }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        {/* <Header>프로그램 보기</Header> */}
+        <HeaderContainer>
+          <Header>프로그램</Header>
+        </HeaderContainer>
         <TitleContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          {/* <ProgramDescription>{program.description}</ProgramDescription> */}
         </TitleContainer>
 
         {program?.templates.map((workout, workoutIndex) => {
           return (
             <WorkoutContainer key={workoutIndex}>
-              {/* <WorkoutTitle>워크아웃 {workoutIndex + 1}</WorkoutTitle> */}
-              <WorkoutTitle>{workout.title}</WorkoutTitle>
-              <ExerciseContainer>
-                <ExerciseTitleContainer>
-                  <ExerciseTitle>스쿼트</ExerciseTitle>
-                  <ExerciseTitle>데드리프트</ExerciseTitle>
-                  <ExerciseTitle>밀리터리프레스</ExerciseTitle>
-                  <ExerciseTitle>벤치프레스</ExerciseTitle>
-                  <ExerciseTitle>바벨로우</ExerciseTitle>
-                </ExerciseTitleContainer>
+              <WorkoutTitleContainer>
+                <WorkoutTitle>{workout.title}</WorkoutTitle>
+                <StartWorkoutButton
+                  text="워크아웃 시작"
+                  onPress={() => {
+                    navigation.navigate("StackWorkout", { workout });
+                  }}
+                />
+              </WorkoutTitleContainer>
 
-                {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
+              <ExerciseContainer>
+                <ExerciseTitle>스쿼트</ExerciseTitle>
+                <ExerciseTitle>5x5</ExerciseTitle>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseTitle>벤치프레스</ExerciseTitle>
+                <ExerciseTitle>5x5</ExerciseTitle>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseTitle>바벨로우</ExerciseTitle>
+                <ExerciseTitle>5x5</ExerciseTitle>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseTitle>오버헤드프레스</ExerciseTitle>
+                <ExerciseTitle>5x5</ExerciseTitle>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseTitle>데드리프트</ExerciseTitle>
+                <ExerciseTitle>5x5</ExerciseTitle>
+              </ExerciseContainer>
+              {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
                 return (
                   <ExerciseContainer key={exerciseIndex}>
                     <ExerciseTitle>{exercise}</ExerciseTitle>)
                   </ExerciseContainer>
                 );
               })} */}
-                <StartWorkoutButton
-                  text="워크아웃 시작"
-                  onPress={() => {
-                    navigation.navigate("CreateWorkout", { workout });
-                  }}
-                />
-              </ExerciseContainer>
             </WorkoutContainer>
           );
         })}

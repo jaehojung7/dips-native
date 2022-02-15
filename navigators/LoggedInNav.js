@@ -10,6 +10,7 @@ export default function LoggedInNav() {
     <Tabs.Navigator
       initialRouteName="Program"
       screenOptions={{
+        headerShown: false,
         headerTitleAlign: "left",
         headerTitleStyle: {
           color: "#FF7F50",
@@ -24,14 +25,14 @@ export default function LoggedInNav() {
         },
         tabBarActiveTintColor: "#FF7F50",
         tabBarInactiveTintColor: "#797d7f",
-        tabBarLabelStyle: { fontSize: 11 },
+        tabBarLabelStyle: { fontSize: 12, fontWeight: "500" },
       }}
     >
       <Tabs.Screen
-        name="Program"
+        name="Workout"
         options={{
-          title: "프로그램",
-          tabBarLabel: "Program",
+          // title: "프로그램",
+          // tabBarLabel: "Program",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="running" size={22} color={color} />
           ),
@@ -43,8 +44,6 @@ export default function LoggedInNav() {
       <Tabs.Screen
         name="Stats"
         options={{
-          title: "운동기록",
-          tabBarLabel: "Stats",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="bar-chart-o" size={22} color={color} />
           ),
@@ -56,8 +55,6 @@ export default function LoggedInNav() {
       <Tabs.Screen
         name="Search"
         options={{
-          title: "검색하기",
-          tabBarLabel: "Search",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="search" size={22} color={color} />
           ),
@@ -69,8 +66,6 @@ export default function LoggedInNav() {
       <Tabs.Screen
         name="Profile"
         options={{
-          title: "내 프로필",
-          tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="user" size={22} color={color} />
           ),

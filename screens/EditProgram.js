@@ -53,7 +53,7 @@ export default function editProgram({ route }) {
                 <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
-                    navigation.navigate("CreateWorkout");
+                    navigation.navigate("Workout");
                   }}
                 />
               </WorkoutContainer>

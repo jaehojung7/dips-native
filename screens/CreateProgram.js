@@ -10,12 +10,14 @@ const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
 
+const HeaderContainer = styled.View`
+  margin: 30px 15px 15px 15px;
+`;
+
 const Header = styled.Text`
-  font-size: 18px;
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
   font-weight: 700;
-  margin-bottom: 15px;
-  padding: 0 15px;
-  color: ${(props) => props.theme.fontColor};
 `;
 
 const TitleContainer = styled.View`
@@ -29,13 +31,7 @@ const TitleContainer = styled.View`
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 22px;
-  font-weight: 700;
-  /* margin-bottom: 10px; */
-`;
-
-const DescriptionInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
+  font-weight: 600;
 `;
 
 const CREATE_PROGRAM_MUTATION = gql`
@@ -198,6 +194,10 @@ export default function CreateProgram() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
+        <HeaderContainer>
+          <Header>프로그램</Header>
+        </HeaderContainer>
+
         <TitleContainer>
           <Controller
             name="programTitle"

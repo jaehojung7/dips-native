@@ -72,15 +72,11 @@ const IndexText = styled.Text`
   padding: 0 5px;
 `;
 
-const Mainset = styled.Text`
-  color: black;
+const Warmup = styled.Text`
+  color: ${(props) => props.theme.orange};
   font-weight: 700;
   font-size: 15px;
   text-align: center;
-`;
-
-const Warmup = styled(Mainset)`
-  color: ${(props) => props.theme.orange};
 `;
 
 const ButtonContainer = styled.View`
@@ -89,7 +85,7 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function TemplateSetArray({ templateIndex, control, setValue }) {
+export default function WarmupSetArray({ templateIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
     name: `templates[${templateIndex}].templateSets`,
@@ -122,23 +118,9 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
-              {isWarmup ? (
-                <SetButton
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}
-                >
-                  <Warmup>W</Warmup>
-                </SetButton>
-              ) : (
-                <SetButton
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}
-                >
-                  <Mainset>{parseInt(`${templateSetIndex}`) + 1}</Mainset>
-                </SetButton>
-              )}
+              <SetButton>
+                <Warmup>W</Warmup>
+              </SetButton>
 
               <Modal
                 animationType="none"

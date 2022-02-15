@@ -28,7 +28,7 @@ const TitleContainer = styled.View`
 
 const WorkoutTitle = styled.TextInput`
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: ${(props) => props.theme.fontColor};
 `;
 

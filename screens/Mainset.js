@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import {
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  UIManager,
+} from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
@@ -7,7 +14,17 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 20px 0;
+`;
+
+const HeaderContainer = styled.View`
+  margin: 30px 25px 15px 25px;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
 `;
 
 const WorkoutTitle = styled.Text`
@@ -25,11 +42,8 @@ const WorkoutTitleInput = styled.TextInput`
   border-radius: 15px;
 `;
 
-const ExerciseContainer = styled.View`
-  margin-bottom: 15px;
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  padding: 15px 20px;
+const ButtonContainer = styled.View`
+  padding: 0 15px;
 `;
 
 const CREATE_PROGRAM_MUTATION = gql`
@@ -99,7 +113,7 @@ const defaultValues = {
   ],
 };
 
-export default function CreateWorkout({ route }) {
+export default function Workout({ route }) {
   let { workout } = route?.params;
   if (workout === undefined) {
     workout = {};
@@ -110,7 +124,7 @@ export default function CreateWorkout({ route }) {
         workoutTitle: workout.title,
       },
     });
-
+  const [expanded, setExpanded] = useState(false);
   // const onCreateTemplateSetCompleted = (data) => {
   //   const {
   //     createTemplateSet: { ok, id: templateSetId, error },
@@ -194,37 +208,6 @@ export default function CreateWorkout({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <WorkoutTitle>
-          <Controller
-            name="WorkoutTitle"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <WorkoutTitleInput
-                value={watch("workoutTitle")}
-                placeholder="워크아웃 이름"
-                placeholderTextColor="#999999"
-                onChangeText={(text) => setValue("WorkoutTitle", text)}
-              />
-            )}
-          />
-        </WorkoutTitle>
-
-        {/* {program?.templates.map((workout, workoutIndex) => {
-          return (
-            <WorkoutContainer key={workoutIndex}>
-              <WorkoutTitle>
-                워크아웃 {workoutIndex + 1}. {workout.title}
-              </WorkoutTitle>
-              <ExerciseContainer>
-                <ExerciseTitle>
-                  스쿼트 데드리프트 밀리터리프레스 딥스 인클라인 벤치프레스
-                </ExerciseTitle>
-              </ExerciseContainer>
-            </WorkoutContainer>
-          );
-        })} */}
-
         <TemplateArray
           {...{
             control,
@@ -232,13 +215,14 @@ export default function CreateWorkout({ route }) {
             setValue,
           }}
         />
-
-        <WorkoutButton
-          text="워크아웃 기록 저장"
-          // loading={loading}
-          disabled={!watch("WorkoutTitle")}
-          onPress={handleSubmit(onSubmitValid)}
-        />
+        <ButtonContainer>
+          <WorkoutButton
+            text="워크아웃 기록 저장"
+            // loading={loading}
+            disabled={!watch("WorkoutTitle")}
+            onPress={handleSubmit(onSubmitValid)}
+          />
+        </ButtonContainer>
       </Container>
     </DismissKeyboard>
   );

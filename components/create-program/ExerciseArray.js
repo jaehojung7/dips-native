@@ -25,7 +25,7 @@ const SubContainer = styled.View`
 const IndexText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0 5px;
 `;
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
-import TemplateSetArray from "./TemplateSetArray";
+import WarmupSetArray from "./WarmupSetArray";
 
 const BorderLine = styled.View`
   border-bottom-width: 1px;
@@ -31,7 +31,7 @@ const ButtonContainer = styled.View`
   margin: 7px 0;
 `;
 
-export default function TemplateArray({ control, setValue, getValues }) {
+export default function WarmupArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "templates",
@@ -50,7 +50,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
               }
             />
             <BorderLine />
-            <TemplateSetArray
+            <WarmupSetArray
               templateIndex={templateIndex}
               {...{ control, setValue }}
             />

@@ -42,13 +42,6 @@ const Warmup = styled.Text`
   text-align: center;
 `;
 
-const Dropset = styled.Text`
-  color: ${(props) => props.theme.blue};
-  font-weight: 700;
-  font-size: 15px;
-  text-align: center;
-`;
-
 const SetOption = styled.Text`
   font-size: 16px;
   font-weight: 700;
@@ -56,19 +49,13 @@ const SetOption = styled.Text`
   color: black;
 `;
 
-export default function SetModal({
-  setModalVisible,
-  isWarmup,
-  setIsWarmup,
-  setIsDropset,
-}) {
+export default function SetModal({ setModalVisible, setIsWarmup }) {
   return (
     <CenterView>
       <PopupView>
         <IconContainer
           onPress={() => {
             setIsWarmup(true);
-            setIsDropset(false);
           }}
         >
           <SetContainer>
@@ -80,7 +67,6 @@ export default function SetModal({
         <IconContainer
           onPress={() => {
             setIsWarmup(false);
-            setIsDropset(false);
           }}
         >
           <SetContainer>
@@ -94,14 +80,7 @@ export default function SetModal({
             setIsDropset(true);
             setIsWarmup(false);
           }}
-        >
-          <SetContainer>
-            <Dropset>
-              D{/* <FontAwesome5 name="arrow-circle-down" size={20} /> */}
-            </Dropset>
-          </SetContainer>
-          <SetOption>드롭세트 Drop Set</SetOption>
-        </IconContainer>
+        ></IconContainer>
 
         <CloseButton
           text="닫기"
