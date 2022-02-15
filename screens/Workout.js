@@ -15,15 +15,21 @@ const HeaderContainer = styled.View`
 
 const Header = styled.Text`
   color: ${(props) => props.theme.orange};
-  font-size: 25px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 7px;
+`;
+
+const WorkoutTitle = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 23px;
   font-weight: 700;
 `;
 
 const WorkoutTitleInput = styled.TextInput`
-  color: ${(props) => props.theme.orange};
-  font-size: 25px;
+  color: ${(props) => props.theme.fontColor};
+  font-size: 23px;
   font-weight: 700;
-  /* border-radius: 15px; */
 `;
 
 export default function WorkoutTab({ route }) {
@@ -33,6 +39,7 @@ export default function WorkoutTab({ route }) {
     <DismissKeyboard>
       <>
         <HeaderContainer>
+          <Header>프로그램 이름</Header>
           {workout === undefined ? (
             <Controller
               name="WorkoutTitle"
@@ -48,7 +55,7 @@ export default function WorkoutTab({ route }) {
               )}
             />
           ) : (
-            <Header>{workout.title}</Header>
+            <WorkoutTitle>{workout.title}</WorkoutTitle>
           )}
         </HeaderContainer>
 
@@ -62,7 +69,7 @@ export default function WorkoutTab({ route }) {
             name="Mainset"
             component={Mainset}
             options={{
-              title: "메인 운동",
+              title: "Main Set",
             }}
             initialParams={{ workout }}
           />
@@ -71,7 +78,7 @@ export default function WorkoutTab({ route }) {
             name="Warmup"
             component={Warmup}
             options={{
-              title: "웜업 세트",
+              title: "Warm-up",
             }}
             initialParams={{ workout }}
           />
