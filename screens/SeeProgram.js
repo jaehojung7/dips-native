@@ -11,24 +11,10 @@ const HeaderContainer = styled.View`
   margin: 30px 15px 15px 15px;
 `;
 
-const Header = styled.Text`
+const ProgramTitle = styled.Text`
   color: ${(props) => props.theme.orange};
   font-size: 25px;
   font-weight: 700;
-`;
-
-const TitleContainer = styled.View`
-  margin-bottom: 15px;
-  padding: 15px 25px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-`;
-
-const ProgramTitle = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 22px;
-  font-weight: 700;
-  /* margin-bottom: 10px; */
 `;
 
 const WorkoutContainer = styled.View`
@@ -49,22 +35,29 @@ const WorkoutTitle = styled.Text`
   font-size: 20px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
+  width: 50%;
 `;
 
 const ExerciseContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+`;
+
+const ExerciseSubContainer = styled.View`
+  width: 50%;
 `;
 
 const ExerciseTitle = styled.Text`
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 500;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 5px;
 `;
 
+const SetsbyReps = styled(ExerciseTitle)`
+  text-align: right;
+`;
 const defaultValues = {
   templates: [
     {
@@ -80,11 +73,8 @@ export default function SeeProgram({ route, navigation }) {
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <Header>프로그램</Header>
-        </HeaderContainer>
-        <TitleContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-        </TitleContainer>
+        </HeaderContainer>
 
         {program?.templates.map((workout, workoutIndex) => {
           return (
@@ -100,29 +90,32 @@ export default function SeeProgram({ route, navigation }) {
               </WorkoutTitleContainer>
 
               <ExerciseContainer>
-                <ExerciseTitle>스쿼트</ExerciseTitle>
-                <ExerciseTitle>5x5</ExerciseTitle>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>스쿼트</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
               </ExerciseContainer>
 
               <ExerciseContainer>
-                <ExerciseTitle>벤치프레스</ExerciseTitle>
-                <ExerciseTitle>5x5</ExerciseTitle>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>벤치프레스</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
               </ExerciseContainer>
 
               <ExerciseContainer>
-                <ExerciseTitle>바벨로우</ExerciseTitle>
-                <ExerciseTitle>5x5</ExerciseTitle>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>바벨로우</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
               </ExerciseContainer>
 
-              <ExerciseContainer>
-                <ExerciseTitle>오버헤드프레스</ExerciseTitle>
-                <ExerciseTitle>5x5</ExerciseTitle>
-              </ExerciseContainer>
-
-              <ExerciseContainer>
-                <ExerciseTitle>데드리프트</ExerciseTitle>
-                <ExerciseTitle>5x5</ExerciseTitle>
-              </ExerciseContainer>
               {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
                 return (
                   <ExerciseContainer key={exerciseIndex}>
