@@ -1,14 +1,14 @@
 import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import SetModal from "../modal-components/SetModal";
 import { Modal } from "react-native";
 import AddSetButton from "./AddSetButton";
 import DeleteSetButton from "./DeleteSetButton";
 
 const Container = styled.View`
-  /* padding: 0 5px; */
+  margin-top: 10px;
 `;
 
 const MainContainer = styled.View`
@@ -38,11 +38,14 @@ const SetContainer = styled(IndexContainer)`
   width: 15%;
 `;
 
-const CheckContainer = styled(IndexContainer)`
+const CheckContainer = styled.TouchableOpacity`
   width: 10%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
-const SetButton = styled.TouchableOpacity`
+const SetButton = styled.View`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px;
   border-radius: 5px;
@@ -114,7 +117,8 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         </RepsContainer>
 
         <CheckContainer>
-          <FontAwesome5 name="check-circle" size={20} color="#999999" />
+          <FontAwesome5 name="check" size={23} color="#999999" />
+          {/* <IndexText>OK</IndexText> */}
         </CheckContainer>
       </MainContainer>
 
@@ -196,9 +200,9 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
             <CheckContainer onPress={() => setIsDone(!isDone)}>
               {isDone ? (
-                <FontAwesome5 name="check-circle" size={20} color="#32CD32" />
+                <FontAwesome5 name="check" size={23} color="#32CD32" />
               ) : (
-                <FontAwesome5 name="check-circle" size={20} color="#999999" />
+                <FontAwesome5 name="check" size={23} color="#999999" />
               )}
             </CheckContainer>
           </MainContainer>

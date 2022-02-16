@@ -42,7 +42,7 @@ const CheckContainer = styled(IndexContainer)`
   width: 10%;
 `;
 
-const SetButton = styled.TouchableOpacity`
+const SetButton = styled.View`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px;
   border-radius: 5px;

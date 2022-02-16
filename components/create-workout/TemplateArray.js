@@ -1,26 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
+import { LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import TemplateSetArray from "./TemplateSetArray";
-
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0 15px 0;
-`;
+import ExpandSetButton from "./ExpandSetButton";
 
 const TemplateContainer = styled.View`
-  margin-bottom: 10px;
-  /* border-radius: 20px; */
+  /* margin-bottom: 10px; */
+  border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 15px;
+  padding: 10px;
+  margin: 5px 10px;
+`;
+
+const ExerciseTitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const ExerciseTitle = styled.TextInput`
   font-size: 20px;
   font-weight: 700;
-  margin-top: 5px;
   padding: 0 10px;
   color: ${(props) => props.theme.fontColor};
 `;
@@ -36,24 +38,36 @@ export default function TemplateArray({ control, setValue, getValues }) {
     control,
     name: "templates",
   });
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
       {fields.map((item, templateIndex) => {
         return (
           <TemplateContainer key={item.id}>
-            <ExerciseTitle
-              placeholder="운동 이름"
-              placeholderTextColor="#999999"
-              onChangeText={(text) =>
-                setValue(`templates[${templateIndex}].name`, text)
-              }
-            />
-            <BorderLine />
-            <TemplateSetArray
-              templateIndex={templateIndex}
-              {...{ control, setValue }}
-            />
+            <ExerciseTitleContainer>
+              <ExerciseTitle
+                placeholder="운동 이름"
+                placeholderTextColor="#999999"
+                onChangeText={(text) =>
+                  setValue(`templates[${templateIndex}].name`, text)
+                }
+              />
+              <ExpandSetButton
+                onPress={() => {
+                  LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut
+                  );
+                  setExpanded(!expanded);
+                }}
+              />
+            </ExerciseTitleContainer>
+            {expanded && (
+              <TemplateSetArray
+                templateIndex={templateIndex}
+                {...{ control, setValue }}
+              />
+            )}
           </TemplateContainer>
         );
       })}

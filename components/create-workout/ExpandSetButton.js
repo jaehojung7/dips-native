@@ -8,16 +8,14 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.fontColor};
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
+  /* text-align: center; */
 `;
 
-export default function DeleteSetButton({ onPress }) {
+export default function ExpandSetButton({ onPress }) {
   return (
     <Button onPress={onPress}>
       <ButtonText>
-        <FontAwesome5 name="minus" size={18} />
+        <FontAwesome5 name="angle-down" size={23} />
       </ButtonText>
     </Button>
   );

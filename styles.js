@@ -16,6 +16,6 @@ export const lightTheme = {
   blue: "#42a5f5",
   gray: "#b5babd",
   buttonText: "white",
-  cardColor: "#fbfbfb",
+  cardColor: "#ececec",
   inputBackground: "#cacfd2",
 };

@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import {
-  LayoutAnimation,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  UIManager,
-} from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
@@ -13,12 +6,30 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  margin: 10px 0 15px 0;
+`;
+
 const Container = styled.ScrollView`
   margin: 20px 0;
 `;
 
-const HeaderContainer = styled.View`
-  margin: 30px 25px 15px 25px;
+const ExerciseContainer = styled.View`
+  /* flex-direction: row;
+  align-items: center;
+  justify-content: space-between; */
+  margin-bottom: 10px;
+  background-color: ${(props) => props.theme.cardColor};
+  padding: 5px 10px;
+  border: 1px solid green;
+`;
+
+const ExerciseTitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Header = styled.Text`
@@ -27,12 +38,11 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-const WorkoutTitle = styled.Text`
-  font-size: 23px;
+const ExerciseTitle = styled.Text`
+  font-size: 20px;
   font-weight: 700;
-  padding: 0 15px;
+  padding: 5px 10px;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 15px;
 `;
 
 const WorkoutTitleInput = styled.TextInput`
@@ -124,7 +134,7 @@ export default function Workout({ route }) {
         workoutTitle: workout.title,
       },
     });
-  const [expanded, setExpanded] = useState(false);
+
   // const onCreateTemplateSetCompleted = (data) => {
   //   const {
   //     createTemplateSet: { ok, id: templateSetId, error },
@@ -215,11 +225,12 @@ export default function Workout({ route }) {
             setValue,
           }}
         />
+
         <ButtonContainer>
           <WorkoutButton
             text="워크아웃 기록 저장"
             // loading={loading}
-            disabled={!watch("WorkoutTitle")}
+            // disabled={!watch("WorkoutTitle")}
             onPress={handleSubmit(onSubmitValid)}
           />
         </ButtonContainer>

@@ -30,8 +30,8 @@ const MyDarkTheme = {
 const MyLightTheme = {
   ...DefaultTheme,
   colors: {
-    background: "#ececec",
-    card: "#ececec",
+    background: "#fbfbfb",
+    card: "#fbfbfb",
     border: "#999999",
     text: "black",
   },
