@@ -4,9 +4,10 @@ import Program from "../screens/Program";
 import Stats from "../screens/Stats";
 import Search from "../screens/Search";
 import Profile from "../screens/Profile";
-import CreateProgram from "../screens/CreateProgram";
 import Workout from "../screens/Workout";
+import CreateProgram from "../screens/CreateProgram";
 import SeeProgram from "../screens/SeeProgram";
+import EditProgram from "../screens/EditProgram";
 
 const Stack = createStackNavigator();
 
@@ -31,10 +32,10 @@ export default function SharedStackNav({ screenName, route }) {
       {screenName === "Profile" ? (
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
-      <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="StackWorkout" component={Workout} />
+      <Stack.Screen name="CreateProgram" component={CreateProgram} />
+      <Stack.Screen name="EditProgram" component={EditProgram} />
       <Stack.Screen
-        mode="modal"
         name="SeeProgram"
         component={SeeProgram}
         // options={{

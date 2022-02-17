@@ -1,65 +1,155 @@
-import React, { useRef } from "react";
-import { gql, useMutation } from "@apollo/client";
+import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
+import styled from "styled-components/native";
+import DismissKeyboard from "../components/DismissKeyboard";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
-import { Text, View } from "react-native";
 
-const EDIT_PROGRAM_MUTATION = gql`
-  mutation editProgram($id: Int!, $description: String!) {
-    editProgram(id: $id, description: $description) {
-      # title: $title 추가
-      ok
-      id
-      error
-    }
-  }
+const Container = styled.ScrollView`
+  margin: 20px 10px;
 `;
 
-export default function editProgram({ route }) {
+const HeaderContainer = styled.View`
+  margin: 30px 15px 15px 15px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ProgramTitle = styled.TextInput`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
+`;
+
+const EditProgramIcon = styled.TouchableOpacity`
+  color: ${(props) => props.theme.fontColor};
+`;
+
+const WorkoutContainer = styled.View`
+  margin-bottom: 15px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.cardColor};
+  padding: 15px 25px;
+`;
+
+const WorkoutTitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
+const WorkoutTitle = styled.Text`
+  font-size: 20px;
+  font-weight: 700;
+  color: ${(props) => props.theme.fontColor};
+  width: 50%;
+`;
+
+const ExerciseContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const ExerciseSubContainer = styled.View`
+  width: 50%;
+`;
+
+const ExerciseTitle = styled.Text`
+  font-size: 17px;
+  font-weight: 500;
+  color: ${(props) => props.theme.fontColor};
+`;
+
+const SetsbyReps = styled(ExerciseTitle)`
+  text-align: right;
+`;
+const defaultValues = {
+  templates: [
+    {
+      name: "",
+      templateSets: [{ exercise: "", setCount: "" }],
+    },
+  ],
+};
+
+export default function EditProgram({ route }) {
+  const { program } = route.params;
   const { register, handleSubmit, setValue, getValues, watch, control } =
     useForm({
       defaultValues: {
-        email: route.params?.email,
+        programTitle: program?.title,
+        // workoutTitle: program?.username,
       },
     });
   return (
-    <View>
-      <Controller
-        name="description"
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <DescriptionInput
-            placeholder="프로그램 설명"
-            placeholderTextColor="#999999"
-            multiline={true}
-            maxLength={50}
-            onChangeText={(text) => setValue("description", text)}
+    <DismissKeyboard>
+      <Container showsVerticalScrollIndicator={false}>
+        <HeaderContainer>
+          <Controller
+            name="programTitle"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <ProgramTitle
+                value={watch("programTitle")}
+                placeholder="프로그램 이름"
+                autoCapitalize="none"
+                returnKeyType="next"
+                placeholderTextColor="#999999"
+                onChangeText={(text) => setValue("programTitle", text)}
+              />
+            )}
           />
-        )}
-      />
+        </HeaderContainer>
 
-      {/* <TemplateArray
-          {...{
-            control,
-            getValues,
-            setValue,
-          }}
-        /> */}
+        {program?.templates.map((workout, workoutIndex) => {
+          return (
+            <WorkoutContainer key={workoutIndex}>
+              <WorkoutTitleContainer>
+                <WorkoutTitle>{workout.title}</WorkoutTitle>
+              </WorkoutTitleContainer>
 
-      {/* <>
-          {program?.templates.map((template, index) => {
-            return (
-              <WorkoutContainer key={index}>
-                <WorkoutTitle>{template.title}</WorkoutTitle>
-                <StartWorkoutButton
-                  text="워크아웃 시작"
-                  onPress={() => {
-                    navigation.navigate("Workout");
-                  }}
-                />
-              </WorkoutContainer>
-            );
-          })}
-        </> */}
-    </View>
+              <ExerciseContainer>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>스쿼트</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>오버헤드프레스</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
+              </ExerciseContainer>
+
+              <ExerciseContainer>
+                <ExerciseSubContainer>
+                  <ExerciseTitle>데드리프트</ExerciseTitle>
+                </ExerciseSubContainer>
+                <ExerciseSubContainer>
+                  <SetsbyReps>5x5</SetsbyReps>
+                </ExerciseSubContainer>
+              </ExerciseContainer>
+
+              {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
+                return (
+                  <ExerciseContainer key={exerciseIndex}>
+                    <ExerciseTitle>{exercise}</ExerciseTitle>)
+                  </ExerciseContainer>
+                );
+              })} */}
+            </WorkoutContainer>
+          );
+        })}
+      </Container>
+    </DismissKeyboard>
   );
 }

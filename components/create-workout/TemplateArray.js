@@ -7,7 +7,6 @@ import TemplateSetArray from "./TemplateSetArray";
 import ExpandSetButton from "./ExpandSetButton";
 
 const TemplateContainer = styled.View`
-  /* margin-bottom: 10px; */
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   padding: 10px;

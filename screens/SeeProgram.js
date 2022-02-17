@@ -1,7 +1,7 @@
-import CloseButton from "../components/modal-components/CloseButton";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -9,12 +9,19 @@ const Container = styled.ScrollView`
 
 const HeaderContainer = styled.View`
   margin: 30px 15px 15px 15px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const ProgramTitle = styled.Text`
   color: ${(props) => props.theme.orange};
   font-size: 25px;
   font-weight: 700;
+`;
+
+const EditProgramIcon = styled.TouchableOpacity`
+  color: ${(props) => props.theme.fontColor};
 `;
 
 const WorkoutContainer = styled.View`
@@ -74,6 +81,11 @@ export default function SeeProgram({ route, navigation }) {
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
+          <EditProgramIcon
+            onPress={() => navigation.navigate("EditProgram", { program })}
+          >
+            <FontAwesome5 name="edit" size={21} />
+          </EditProgramIcon>
         </HeaderContainer>
 
         {program?.templates.map((workout, workoutIndex) => {

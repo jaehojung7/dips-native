@@ -78,7 +78,7 @@ export default function WorkoutTab({ route }) {
             name="Warmup"
             component={Warmup}
             options={{
-              title: "Warm-up",
+              title: "Warm up",
             }}
             initialParams={{ workout }}
           />

@@ -6,50 +6,8 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0 15px 0;
-`;
-
 const Container = styled.ScrollView`
   margin: 20px 0;
-`;
-
-const ExerciseContainer = styled.View`
-  /* flex-direction: row;
-  align-items: center;
-  justify-content: space-between; */
-  margin-bottom: 10px;
-  background-color: ${(props) => props.theme.cardColor};
-  padding: 5px 10px;
-  border: 1px solid green;
-`;
-
-const ExerciseTitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
-  font-size: 25px;
-  font-weight: 700;
-`;
-
-const ExerciseTitle = styled.Text`
-  font-size: 20px;
-  font-weight: 700;
-  padding: 5px 10px;
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const WorkoutTitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 20px;
-  font-weight: 500;
-  border-radius: 15px;
 `;
 
 const ButtonContainer = styled.View`
@@ -230,7 +188,7 @@ export default function Workout({ route }) {
           <WorkoutButton
             text="워크아웃 기록 저장"
             // loading={loading}
-            // disabled={!watch("WorkoutTitle")}
+            disabled={!watch("WorkoutTitle")}
             onPress={handleSubmit(onSubmitValid)}
           />
         </ButtonContainer>

@@ -8,7 +8,7 @@ import AddSetButton from "./AddSetButton";
 import DeleteSetButton from "./DeleteSetButton";
 
 const Container = styled.View`
-  /* padding: 0 5px; */
+  margin-top: 10px;
 `;
 
 const MainContainer = styled.View`
@@ -27,7 +27,6 @@ const IndexContainer = styled.View`
 const WeightContainer = styled(IndexContainer)`
   width: 35%;
   justify-content: center;
-  /* border: 1px solid black; */
 `;
 
 const RepsContainer = styled(IndexContainer)`
@@ -73,7 +72,7 @@ const IndexText = styled.Text`
 `;
 
 const Warmup = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: black;
   font-weight: 700;
   font-size: 15px;
   text-align: center;
@@ -121,14 +120,6 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
               <SetButton>
                 <Warmup>W</Warmup>
               </SetButton>
-
-              <Modal
-                animationType="none"
-                transparent={true}
-                visible={modalVisible}
-              >
-                <SetModal {...{ setModalVisible, setIsWarmup }} />
-              </Modal>
             </SetContainer>
 
             <WeightContainer>
@@ -178,9 +169,9 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
 
             <CheckContainer onPress={() => setIsDone(!isDone)}>
               {isDone ? (
-                <FontAwesome5 name="check-circle" size={20} color="#32CD32" />
+                <FontAwesome5 name="check" size={23} color="#32CD32" />
               ) : (
-                <FontAwesome5 name="check-circle" size={20} color="#999999" />
+                <FontAwesome5 name="check" size={23} color="#999999" />
               )}
             </CheckContainer>
           </MainContainer>

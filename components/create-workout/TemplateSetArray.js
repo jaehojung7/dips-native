@@ -27,7 +27,6 @@ const IndexContainer = styled.View`
 const WeightContainer = styled(IndexContainer)`
   width: 35%;
   justify-content: center;
-  /* border: 1px solid black; */
 `;
 
 const RepsContainer = styled(IndexContainer)`
@@ -40,9 +39,6 @@ const SetContainer = styled(IndexContainer)`
 
 const CheckContainer = styled.TouchableOpacity`
   width: 10%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 `;
 
 const SetButton = styled.View`
@@ -118,7 +114,6 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
         <CheckContainer>
           <FontAwesome5 name="check" size={23} color="#999999" />
-          {/* <IndexText>OK</IndexText> */}
         </CheckContainer>
       </MainContainer>
 
