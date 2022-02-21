@@ -1,8 +1,8 @@
-import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
+import SaveProgramButton from "../components/Buttons/SaveProgramButton";
+import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -19,10 +19,6 @@ const ProgramTitle = styled.TextInput`
   color: ${(props) => props.theme.orange};
   font-size: 25px;
   font-weight: 700;
-`;
-
-const EditProgramIcon = styled.TouchableOpacity`
-  color: ${(props) => props.theme.fontColor};
 `;
 
 const WorkoutContainer = styled.View`
@@ -57,7 +53,7 @@ const ExerciseSubContainer = styled.View`
   width: 50%;
 `;
 
-const ExerciseTitle = styled.Text`
+const ExerciseTitle = styled.TextInput`
   font-size: 17px;
   font-weight: 500;
   color: ${(props) => props.theme.fontColor};
@@ -66,6 +62,13 @@ const ExerciseTitle = styled.Text`
 const SetsbyReps = styled(ExerciseTitle)`
   text-align: right;
 `;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const defaultValues = {
   templates: [
     {
@@ -116,12 +119,13 @@ export default function EditProgram({ route }) {
                 <ExerciseSubContainer>
                   <ExerciseTitle>스쿼트</ExerciseTitle>
                 </ExerciseSubContainer>
+
                 <ExerciseSubContainer>
                   <SetsbyReps>5x5</SetsbyReps>
                 </ExerciseSubContainer>
               </ExerciseContainer>
 
-              <ExerciseContainer>
+              {/* <ExerciseContainer>
                 <ExerciseSubContainer>
                   <ExerciseTitle>오버헤드프레스</ExerciseTitle>
                 </ExerciseSubContainer>
@@ -137,7 +141,7 @@ export default function EditProgram({ route }) {
                 <ExerciseSubContainer>
                   <SetsbyReps>5x5</SetsbyReps>
                 </ExerciseSubContainer>
-              </ExerciseContainer>
+              </ExerciseContainer> */}
 
               {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
                 return (
@@ -149,6 +153,11 @@ export default function EditProgram({ route }) {
             </WorkoutContainer>
           );
         })}
+        <ButtonContainer>
+          <SaveProgramButton text="저장" />
+
+          <DeleteProgramButton text="삭제" />
+        </ButtonContainer>
       </Container>
     </DismissKeyboard>
   );

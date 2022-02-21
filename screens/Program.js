@@ -22,6 +22,9 @@ const ME_QUERY = gql`
           }
         }
       }
+      exercises {
+        exercise
+      }
     }
   }
 `;
@@ -89,6 +92,7 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
+  console.log(data);
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>

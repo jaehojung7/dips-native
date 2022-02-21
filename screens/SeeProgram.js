@@ -20,8 +20,13 @@ const ProgramTitle = styled.Text`
   font-weight: 700;
 `;
 
-const EditProgramIcon = styled.TouchableOpacity`
+const EditProgram = styled.TouchableOpacity`
   color: ${(props) => props.theme.fontColor};
+`;
+
+const EditText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 15px;
 `;
 
 const WorkoutContainer = styled.View`
@@ -81,11 +86,11 @@ export default function SeeProgram({ route, navigation }) {
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          <EditProgramIcon
+          <EditProgram
             onPress={() => navigation.navigate("EditProgram", { program })}
           >
-            <FontAwesome5 name="edit" size={21} />
-          </EditProgramIcon>
+            <EditText>Edit</EditText>
+          </EditProgram>
         </HeaderContainer>
 
         {program?.templates.map((workout, workoutIndex) => {
