@@ -22,6 +22,10 @@ const ME_QUERY = gql`
           }
         }
       }
+      exercises {
+        exercise
+        bodyPart
+      }
     }
   }
 `;
@@ -68,6 +72,7 @@ export default function SearchTab() {
             options={{
               title: "운동 목록",
             }}
+            initialParams={{ exercises: data?.me?.exercises }}
           />
         </Tab.Navigator>
       </>

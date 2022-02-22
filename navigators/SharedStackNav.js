@@ -8,6 +8,7 @@ import Workout from "../screens/Workout";
 import CreateProgram from "../screens/CreateProgram";
 import SeeProgram from "../screens/SeeProgram";
 import EditProgram from "../screens/EditProgram";
+import CreateExercise from "../screens/CreateExercise";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export default function SharedStackNav({ screenName, route }) {
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
       <Stack.Screen name="StackWorkout" component={Workout} />
+      <Stack.Screen name="CreateExercise" component={CreateExercise} />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="EditProgram" component={EditProgram} />
       <Stack.Screen

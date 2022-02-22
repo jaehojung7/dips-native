@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -42,8 +42,11 @@ export default function Profile() {
             setSelectedLanguage(itemValue)
           }
         >
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
+          <Picker.Item label="Squat" value="sq" />
+          <Picker.Item label="Deadlift" value="dl" />
+          <Picker.Item label="Bench Press" value="bp" />
+          <Picker.Item label="Overhead Press" value="oh" />
+          <Picker.Item label="Barbell Row" value="ro" />
         </Picker>
       </Container>
     </DismissKeyboard>
