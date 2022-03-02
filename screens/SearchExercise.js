@@ -1,25 +1,46 @@
 import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
-import { FlatList, Modal, TouchableOpacity } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { FlatList, Modal, TouchableOpacity, View } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useFieldArray } from "react-hook-form";
+import { useState } from "react";
 
 const Container = styled.View`
+  flex: 1;
   margin: 20px 10px;
 `;
 
 const SearchContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin: 0 5px;
-  border-radius: 5px;
+  justify-content: center;
+  /* margin: 0 5px; */
+`;
+
+const SearchExerciseTab = styled.TextInput`
+  border-radius: 10px;
   background-color: ${(props) => props.theme.cardColor};
   padding: 10px 10px;
+  width: 75%;
+  font-size: 15px;
+`;
+
+const AddExerciseButton = styled.TouchableOpacity`
+  border-radius: 30px;
+  width: 10%;
+  margin-left: 5px;
+  padding: 5px;
+`;
+
+const ButtonText = styled.Text`
+  color: ${(props) => props.theme.blue};
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
 `;
 
 const ListContainer = styled.View`
-  margin: 20px 0;
-  /* background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px; */
+  margin: 15px 0;
 `;
 
 const ExerciseContainer = styled.View``;
@@ -38,6 +59,7 @@ const ExerciseTitle = styled.Text`
 const ExerciseBodypart = styled.Text`
   font-size: 16px;
   color: ${(props) => props.theme.gray};
+  /* opacity: 0.5 */
   margin-top: 5px;
   /* font-weight: 600; */
 `;
@@ -48,20 +70,23 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-const Button = styled.TouchableOpacity`
-  border-radius: 30px;
-  /* border: 1px solid black; */
+const Remove = styled.TouchableOpacity`
+  margin-left: 13px;
+  justify-content: center;
+  margin-top: -15px;
 `;
 
-const ButtonText = styled.Text`
-  color: ${(props) => props.theme.blue};
-  font-size: 15px;
-  font-weight: 600;
+const RemoveText = styled.Text`
+  color: tomato;
+  font-size: 13px;
+  font-weight: 500;
   text-align: center;
 `;
 
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
+  const [users, setUsers] = useState(exercises);
+
   const renderProgram = ({ item: exercise }) => {
     return (
       <TouchableOpacity
@@ -73,6 +98,13 @@ export default function SearchExercise({ route, navigation }) {
           <ExerciseTitleContainer>
             <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
             <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
+            <Remove
+              onPress={() => {
+                setUsers(users.filter((user) => user.id !== exercise.id));
+              }}
+            >
+              <RemoveText>X</RemoveText>
+            </Remove>
           </ExerciseTitleContainer>
           <BorderLine />
         </ExerciseContainer>
@@ -81,22 +113,26 @@ export default function SearchExercise({ route, navigation }) {
   };
 
   return (
-    <Container>
+    <Container showsVerticalScrollIndicator={false}>
       <SearchContainer>
-        <ExerciseContainer>
-          <ExerciseTitle>운동 찾기</ExerciseTitle>
-        </ExerciseContainer>
+        <SearchExerciseTab placeholder="운동 검색하기" />
 
-        <Button onPress={() => navigation.navigate("CreateExercise")}>
-          <ButtonText>운동 추가하기</ButtonText>
-        </Button>
+        <AddExerciseButton
+          onPress={() => navigation.navigate("CreateExercise")}
+        >
+          <ButtonText>
+            <FontAwesome5 name="plus" size={17} />
+          </ButtonText>
+        </AddExerciseButton>
       </SearchContainer>
+
       <ListContainer>
         <FlatList
-          data={exercises}
-          keyExtractor={(exercise, index) => "" + index}
+          data={users}
+          keyExtractor={(item, index) => "" + index}
           renderItem={renderProgram}
-          initialNumToRender={10}
+          contentContainerStyle={{ paddingBottom: 25 }}
+          // initialNumToRender={10}
           // windowSize={3}
         />
       </ListContainer>

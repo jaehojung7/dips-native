@@ -23,6 +23,7 @@ const ME_QUERY = gql`
         }
       }
       exercises {
+        id
         exercise
         bodyPart
       }
@@ -61,7 +62,7 @@ export default function SearchTab() {
             name="SearchProgram"
             component={SearchProgram}
             options={{
-              title: "내 프로그램",
+              title: "프로그램",
             }}
             initialParams={{ programs: data?.me?.programs }}
           />
