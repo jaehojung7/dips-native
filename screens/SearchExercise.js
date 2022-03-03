@@ -2,8 +2,17 @@ import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FlatList, Modal, TouchableOpacity, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { useFieldArray } from "react-hook-form";
+import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
+
+const DELETE_EXERCISE_MUTATION = gql`
+  mutation deleteExercise($id: Int!) {
+    deleteExercise(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const Container = styled.View`
   flex: 1;
@@ -86,6 +95,17 @@ const RemoveText = styled.Text`
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [users, setUsers] = useState(exercises);
+  console.log(exercises);
+
+  const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
+    variables: {
+      id,
+    },
+  });
+
+  const onClickDeleteExercise = () => {
+    deleteExerciseMutation();
+  };
 
   const renderProgram = ({ item: exercise }) => {
     return (
@@ -99,9 +119,12 @@ export default function SearchExercise({ route, navigation }) {
             <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
             <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
             <Remove
-              onPress={() => {
-                setUsers(users.filter((user) => user.id !== exercise.id));
-              }}
+              onPress={
+                (() => {
+                  setUsers(users.filter((user) => user.id !== exercise.id));
+                },
+                { onClickDeleteExercise, id })
+              }
             >
               <RemoveText>X</RemoveText>
             </Remove>
