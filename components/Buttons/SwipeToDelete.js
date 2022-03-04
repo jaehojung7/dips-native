@@ -4,14 +4,15 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import styled from "styled-components/native";
 
 const Button = styled.TouchableOpacity`
-  background-color: tomato;
+  margin-left: 13px;
+  justify-content: center;
+  margin-top: -15px;
 `;
 
 const ButtonText = styled.Text`
-  color: white;
+  color: tomato;
   font-size: 13px;
-  font-weight: 700;
-  margin: 0 5px;
+  font-weight: 500;
   text-align: center;
 `;
 
@@ -24,9 +25,9 @@ export default function SwipeToDelete({ children }) {
     });
 
     return (
-      <TouchableOpacity onPress={onPress}>
+      <Button onPress={onPress}>
         <ButtonText>Delete</ButtonText>
-      </TouchableOpacity>
+      </Button>
     );
   };
   return <Swipeable>{children}</Swipeable>;

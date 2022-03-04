@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { FontAwesome } from "@expo/vector-icons";
 import styled from "styled-components/native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const DELETE_EXERCISE_MUTATION = gql`
   mutation deleteExercise($id: Int!) {
@@ -29,6 +30,7 @@ export default function DeleteExerciseButton({
   items,
   setItems,
   exercise,
+  children,
 }) {
   const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
     variables: {
@@ -36,19 +38,37 @@ export default function DeleteExerciseButton({
     },
   });
 
-  const onfilterExercise = () => {
-    setItems(items.filter((item) => item.id !== exercise.id));
-  };
-
-  const onClickDeleteExercise = () => {
+  const onDeleteExercise = () => {
     deleteExerciseMutation();
   };
 
+  const onFilterExercise = () => {
+    setItems(items.filter((item) => item.id !== exercise.id));
+  };
+
+  const onClickfunction = () => {
+    onDeleteExercise();
+    onFilterExercise();
+  };
+
+  const renderRightActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [-150, 0],
+      outputRange: [1, 0],
+      extrapolate: "clamp",
+    });
+
+    return (
+      <Button onPress={onClickfunction}>
+        <ButtonText>Delete</ButtonText>
+      </Button>
+    );
+  };
+
   return (
-    <Button onPress={(onClickDeleteExercise, onfilterExercise)}>
-      <ButtonText>
-        <FontAwesome name="times" size={18} />
-      </ButtonText>
+    // <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
+    <Button onPress={onClickfunction}>
+      <ButtonText>Delete</ButtonText>
     </Button>
   );
 }

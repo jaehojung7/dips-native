@@ -6,15 +6,6 @@ import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import DeleteExerciseButton from "../components/DeleteExerciseButton";
 
-const DELETE_EXERCISE_MUTATION = gql`
-  mutation deleteExercise($id: Int!) {
-    deleteExercise(id: $id) {
-      ok
-      error
-    }
-  }
-`;
-
 const Container = styled.View`
   flex: 1;
   margin: 20px 10px;
@@ -80,43 +71,25 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-const Remove = styled.TouchableOpacity`
-  margin-left: 13px;
-  justify-content: center;
-  margin-top: -15px;
-`;
-
-const RemoveText = styled.Text`
-  color: tomato;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-`;
-
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [items, setItems] = useState(exercises);
 
   const renderProgram = ({ item: exercise }) => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          // navigation.navigate("SeeProgram", { program });
-        }}
-      >
-        <ExerciseContainer>
-          <ExerciseTitleContainer>
-            <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
-            <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-            <DeleteExerciseButton
-              id={exercise.id}
-              exercise={exercise}
-              {...{ items, setItems }}
-            />
-          </ExerciseTitleContainer>
-          <BorderLine />
-        </ExerciseContainer>
-      </TouchableOpacity>
+      <ExerciseContainer>
+        <ExerciseTitleContainer>
+          <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
+          <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
+
+          <DeleteExerciseButton
+            id={exercise.id}
+            exercise={exercise}
+            {...{ items, setItems }}
+          />
+        </ExerciseTitleContainer>
+        <BorderLine />
+      </ExerciseContainer>
     );
   };
 
