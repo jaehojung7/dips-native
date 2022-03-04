@@ -4,6 +4,7 @@ import { FlatList, Modal, TouchableOpacity, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
+import DeleteExerciseButton from "../components/DeleteExerciseButton";
 
 const DELETE_EXERCISE_MUTATION = gql`
   mutation deleteExercise($id: Int!) {
@@ -94,18 +95,7 @@ const RemoveText = styled.Text`
 
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
-  const [users, setUsers] = useState(exercises);
-  console.log(exercises);
-
-  const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
-    variables: {
-      id,
-    },
-  });
-
-  const onClickDeleteExercise = () => {
-    deleteExerciseMutation();
-  };
+  const [items, setItems] = useState(exercises);
 
   const renderProgram = ({ item: exercise }) => {
     return (
@@ -118,16 +108,11 @@ export default function SearchExercise({ route, navigation }) {
           <ExerciseTitleContainer>
             <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
             <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-            <Remove
-              onPress={
-                (() => {
-                  setUsers(users.filter((user) => user.id !== exercise.id));
-                },
-                { onClickDeleteExercise, id })
-              }
-            >
-              <RemoveText>X</RemoveText>
-            </Remove>
+            <DeleteExerciseButton
+              id={exercise.id}
+              exercise={exercise}
+              {...{ items, setItems }}
+            />
           </ExerciseTitleContainer>
           <BorderLine />
         </ExerciseContainer>
@@ -151,7 +136,7 @@ export default function SearchExercise({ route, navigation }) {
 
       <ListContainer>
         <FlatList
-          data={users}
+          data={items}
           keyExtractor={(item, index) => "" + index}
           renderItem={renderProgram}
           contentContainerStyle={{ paddingBottom: 25 }}

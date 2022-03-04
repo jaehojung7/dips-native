@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import CloseButton from "./CloseButton";
 
 const CenterView = styled.View`
