@@ -30,7 +30,6 @@ export default function DeleteExerciseButton({
   items,
   setItems,
   exercise,
-  children,
 }) {
   const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
     variables: {
@@ -66,9 +65,9 @@ export default function DeleteExerciseButton({
   };
 
   return (
-    // <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
-    <Button onPress={onClickfunction}>
-      <ButtonText>Delete</ButtonText>
-    </Button>
+    <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
+    // <Button onPress={onClickfunction}>
+    //   <ButtonText>Delete</ButtonText>
+    // </Button>
   );
 }

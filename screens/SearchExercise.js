@@ -6,8 +6,30 @@ import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import DeleteExerciseButton from "../components/DeleteExerciseButton";
 
+const DELETE_EXERCISE_MUTATION = gql`
+  mutation deleteExercise($id: Int!) {
+    deleteExercise(id: $id) {
+      ok
+      error
+    }
+  }
+`;
+
+const DeleteButton = styled.TouchableOpacity`
+  margin-left: 13px;
+  justify-content: center;
+  margin-top: -15px;
+`;
+
+const DeleteText = styled.Text`
+  color: tomato;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+`;
+
 const Container = styled.View`
-  flex: 1;
+  /* flex: 1; */
   margin: 20px 10px;
 `;
 
@@ -74,41 +96,85 @@ const BorderLine = styled.View`
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [items, setItems] = useState(exercises);
+  // const renderProgram = ({ item: exercise }) => {
+  //   console.log(exercise.id);
 
-  const renderProgram = ({ item: exercise }) => {
-    return (
-      <ExerciseContainer>
-        <ExerciseTitleContainer>
-          <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
-          <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-
-          <DeleteExerciseButton
-            id={exercise.id}
-            exercise={exercise}
-            {...{ items, setItems }}
-          />
-        </ExerciseTitleContainer>
-        <BorderLine />
-      </ExerciseContainer>
-    );
-  };
+  //   return (
+  //     <Swipeable renderRightActions={renderRightActions}>
+  //     <ExerciseContainer>
+  //       <ExerciseTitleContainer>
+  //         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
+  //         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
+  //         <DeleteExerciseButton
+  //           id={exercise.id}
+  //           exercise={exercise}
+  //           {...{ items, setItems }}
+  //         />
+  //       </ExerciseTitleContainer>
+  //       <BorderLine />
+  //     </ExerciseContainer>
+  //     // </Swipeable>
+  //   );
+  // };
 
   return (
-    <Container showsVerticalScrollIndicator={false}>
-      <SearchContainer>
-        <SearchExerciseTab placeholder="운동 검색하기" />
+    <Container>
+      <ExerciseContainer showsVerticalScrollIndicator={false}>
+        {exercises.map((exercise, exerciseIndex) => {
+          const id = exercise.id;
+          const [deleteExerciseMutation] = useMutation(
+            DELETE_EXERCISE_MUTATION,
+            {
+              variables: {
+                id,
+              },
+            }
+          );
 
-        <AddExerciseButton
-          onPress={() => navigation.navigate("CreateExercise")}
-        >
-          <ButtonText>
-            <FontAwesome5 name="plus" size={17} />
-          </ButtonText>
-        </AddExerciseButton>
-      </SearchContainer>
+          const onDeleteExercise = () => {
+            deleteExerciseMutation();
+          };
 
-      <ListContainer>
-        <FlatList
+          const onFilterExercise = () => {
+            setItems(items.filter((item) => item.id !== id));
+          };
+
+          const onClickfunction = () => {
+            onDeleteExercise();
+            onFilterExercise();
+          };
+
+          const renderRightActions = (progress, dragX) => {
+            const trans = dragX.interpolate({
+              inputRange: [-150, 0],
+              outputRange: [1, 0],
+              extrapolate: "clamp",
+            });
+
+            return (
+              <DeleteButton onPress={onClickfunction}>
+                <DeleteText>Delete</DeleteText>
+              </DeleteButton>
+            );
+          };
+          return (
+            <Swipeable
+              key={exerciseIndex}
+              renderRightActions={renderRightActions}
+            >
+              <ExerciseTitleContainer>
+                <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
+                <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
+              </ExerciseTitleContainer>
+              <BorderLine />
+            </Swipeable>
+          );
+        })}
+      </ExerciseContainer>
+    </Container>
+
+    /* <ListContainer>
+      <FlatList
           data={items}
           keyExtractor={(item, index) => "" + index}
           renderItem={renderProgram}
@@ -116,7 +182,6 @@ export default function SearchExercise({ route, navigation }) {
           // initialNumToRender={10}
           // windowSize={3}
         />
-      </ListContainer>
-    </Container>
+      </ListContainer> */
   );
 }
