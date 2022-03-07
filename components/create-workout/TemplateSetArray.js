@@ -211,7 +211,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         />
         <DeleteSetButton
           onPress={() => {
-            remove({});
+            remove(fields.length - 1);
           }}
         />
       </ButtonContainer>
