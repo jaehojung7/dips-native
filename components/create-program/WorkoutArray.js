@@ -76,7 +76,7 @@ export default function WorkoutArray({ control, setValue, getValues }) {
       <AddDeleteWorkoutButton
         text="워크아웃 삭제"
         onPress={() => {
-          remove({});
+          remove(fields.length - 1);
         }}
       />
     </Container>

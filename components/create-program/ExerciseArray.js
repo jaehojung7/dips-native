@@ -83,20 +83,6 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
     name: `templates[${templateIndex}].templateSets`,
   });
 
-  const renderRightActions = (progress, dragX, templateSetIndex) => {
-    const trans = dragX.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [1, 0],
-      extrapolate: "clamp",
-    });
-
-    return (
-      <Button onPress={() => remove(templateSetIndex)}>
-        <ButtonText>지우기</ButtonText>
-      </Button>
-    );
-  };
-
   return (
     <Container>
       <MainContainer>
@@ -113,74 +99,67 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
 
       {fields.map((item, templateSetIndex) => {
         return (
-          <Swipeable
-            key={item.id}
-            templateSetIndex={templateSetIndex}
-            renderRightActions={renderRightActions}
-          >
-            <MainContainer key={item.id}>
-              <SubContainer>
-                <Controller
-                  name={`templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`}
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <ExerciseTitle
-                      placeholder="운동 고르기"
-                      placeholderTextColor="#7b7b7b"
-                      onChangeText={(text) =>
-                        setValue(
-                          `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,
-                          text
-                        )
-                      }
-                    />
-                  )}
-                />
-              </SubContainer>
-              <SubContainer>
-                <Controller
-                  name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <InputCount
-                      keyboardType="numeric"
-                      type="number"
-                      placeholder="0"
-                      maxLength={3}
-                      placeholderTextColor="#7b7b7b"
-                      onChangeText={(text) =>
-                        setValue(
-                          `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
-                          text
-                        )
-                      }
-                    />
-                  )}
-                />
-                <IndexText>x</IndexText>
-                <Controller
-                  name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <InputCount
-                      keyboardType="numeric"
-                      type="number"
-                      placeholder="0"
-                      maxLength={3}
-                      placeholderTextColor="#7b7b7b"
-                      onChangeText={(text) =>
-                        setValue(
-                          `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
-                          text
-                        )
-                      }
-                    />
-                  )}
-                />
-              </SubContainer>
-            </MainContainer>
-            {/* <BorderLine /> */}
-          </Swipeable>
+          <MainContainer key={item.id}>
+            <SubContainer>
+              <Controller
+                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`}
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ExerciseTitle
+                    placeholder="운동 고르기"
+                    placeholderTextColor="#7b7b7b"
+                    onChangeText={(text) =>
+                      setValue(
+                        `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,
+                        text
+                      )
+                    }
+                  />
+                )}
+              />
+            </SubContainer>
+            <SubContainer>
+              <Controller
+                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputCount
+                    keyboardType="numeric"
+                    type="number"
+                    placeholder="0"
+                    maxLength={3}
+                    placeholderTextColor="#7b7b7b"
+                    onChangeText={(text) =>
+                      setValue(
+                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        text
+                      )
+                    }
+                  />
+                )}
+              />
+              <IndexText>x</IndexText>
+              <Controller
+                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputCount
+                    keyboardType="numeric"
+                    type="number"
+                    placeholder="0"
+                    maxLength={3}
+                    placeholderTextColor="#7b7b7b"
+                    onChangeText={(text) =>
+                      setValue(
+                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        text
+                      )
+                    }
+                  />
+                )}
+              />
+            </SubContainer>
+          </MainContainer>
         );
       })}
       <ButtonContainer>
@@ -193,7 +172,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
         <AddDeleteExerciseButton
           text="운동 삭제"
           onPress={() => {
-            remove({});
+            remove(fields.length - 1);
           }}
         />
       </ButtonContainer>

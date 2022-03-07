@@ -80,7 +80,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
         <AddDeleteExerciseButton
           text="운동 삭제"
           onPress={() => {
-            remove({});
+            remove(fields.length - 1);
           }}
         />
       </ButtonContainer>

@@ -185,7 +185,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
         />
         <DeleteSetButton
           onPress={() => {
-            remove({});
+            remove(fields.length - 1);
           }}
         />
       </ButtonContainer>
