@@ -56,15 +56,6 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-// const onDeleteExercise = () => {
-//   deleteExerciseMutation();
-// };
-
-// const onClickfunction = () => {
-//   // onDeleteExercise();
-//   onFilterExercise();
-// };
-
 const renderRightActions = (progress, dragX) => {
   const trans = dragX.interpolate({
     inputRange: [-150, 0],
