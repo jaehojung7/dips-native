@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const ExerciseContainer = styled.View``;
 
@@ -42,17 +43,30 @@ const DeleteText = styled.Text`
 `;
 
 function Exercise({ exercise, onDelete }) {
+  const renderRightActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [-150, 0],
+      outputRange: [1, 0],
+      extrapolate: "clamp",
+    });
+
+    return (
+      <DeleteButton onPress={() => onDelete(exercise.id)}>
+        <DeleteText>Delete</DeleteText>
+      </DeleteButton>
+    );
+  };
   return (
-    <>
+    <Swipeable renderRightActions={renderRightActions}>
       <ExerciseTitleContainer>
         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-        <DeleteButton onPress={() => onDelete(exercise.id)}>
+        {/* <DeleteButton onPress={() => onDelete(exercise.id)}>
           <DeleteText>Delete</DeleteText>
-        </DeleteButton>
+        </DeleteButton> */}
       </ExerciseTitleContainer>
       <BorderLine />
-    </>
+    </Swipeable>
   );
 }
 

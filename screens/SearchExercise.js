@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import ExerciseList from "./ExerciseList";
@@ -56,43 +55,32 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-const renderRightActions = (progress, dragX) => {
-  const trans = dragX.interpolate({
-    inputRange: [-150, 0],
-    outputRange: [1, 0],
-    extrapolate: "clamp",
-  });
-
-  return (
-    <DeleteButton onPress={onFilterExercise}>
-      <DeleteText>Delete</DeleteText>
-    </DeleteButton>
-  );
-};
-
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [items, setItems] = useState(exercises);
-  // const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
-  //   variables: {
-  //     id,
-  //   },
-  // });
+  const [deleteExerciseMutation, { id }] = useMutation(
+    DELETE_EXERCISE_MUTATION,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
 
-  // const onDeleteExercise = (id) => {
-  //   deleteExerciseMutation(id);
-  //   console.log(id);
-  // };
+  const onDeleteExercise = (id) => {
+    deleteExerciseMutation(id);
+    console.log(id);
+  };
 
   const onFilterExercise = (id) => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
     // = user.id 가 id 인 것을 제거함
-    setItems(items.filter((item) => item.id !== id));
-    console.log(id);
+    // setItems(items.filter((item) => item.id !== id));
+    // console.log(id);
   };
 
   const onDelete = (id) => {
-    // onDeleteExercise(id);
+    onDeleteExercise(id);
     onFilterExercise(id);
   };
 

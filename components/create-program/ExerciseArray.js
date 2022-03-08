@@ -1,7 +1,6 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 
 const Container = styled.View`
