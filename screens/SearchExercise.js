@@ -1,10 +1,9 @@
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { FlatList, Modal, TouchableOpacity, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
-import DeleteExerciseButton from "../components/DeleteExerciseButton";
+import ExerciseList from "./ExerciseList";
 
 const DELETE_EXERCISE_MUTATION = gql`
   mutation deleteExercise($id: Int!) {
@@ -15,20 +14,7 @@ const DELETE_EXERCISE_MUTATION = gql`
   }
 `;
 
-const DeleteButton = styled.TouchableOpacity`
-  margin-left: 13px;
-  justify-content: center;
-  margin-top: -15px;
-`;
-
-const DeleteText = styled.Text`
-  color: tomato;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-`;
-
-const Container = styled.View`
+const Container = styled.ScrollView`
   /* flex: 1; */
   margin: 20px 10px;
 `;
@@ -62,30 +48,7 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const ListContainer = styled.View`
-  margin: 15px 0;
-`;
-
 const ExerciseContainer = styled.View``;
-
-const ExerciseTitleContainer = styled.View`
-  margin: 5px 10px;
-`;
-
-const ExerciseTitle = styled.Text`
-  font-size: 18px;
-  color: ${(props) => props.theme.fontColor};
-  /* margin: 10px 5px; */
-  font-weight: 600;
-`;
-
-const ExerciseBodypart = styled.Text`
-  font-size: 16px;
-  color: ${(props) => props.theme.gray};
-  /* opacity: 0.5 */
-  margin-top: 5px;
-  /* font-weight: 600; */
-`;
 
 const BorderLine = styled.View`
   border-bottom-width: 1px;
@@ -93,95 +56,68 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
+// const onDeleteExercise = () => {
+//   deleteExerciseMutation();
+// };
+
+// const onClickfunction = () => {
+//   // onDeleteExercise();
+//   onFilterExercise();
+// };
+
+const renderRightActions = (progress, dragX) => {
+  const trans = dragX.interpolate({
+    inputRange: [-150, 0],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
+  return (
+    <DeleteButton onPress={onFilterExercise}>
+      <DeleteText>Delete</DeleteText>
+    </DeleteButton>
+  );
+};
+
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [items, setItems] = useState(exercises);
-  // const renderProgram = ({ item: exercise }) => {
-  //   console.log(exercise.id);
+  const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
+    variables: {
+      id,
+    },
+  });
 
-  //   return (
-  //     <Swipeable renderRightActions={renderRightActions}>
-  //     <ExerciseContainer>
-  //       <ExerciseTitleContainer>
-  //         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
-  //         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-  //         <DeleteExerciseButton
-  //           id={exercise.id}
-  //           exercise={exercise}
-  //           {...{ items, setItems }}
-  //         />
-  //       </ExerciseTitleContainer>
-  //       <BorderLine />
-  //     </ExerciseContainer>
-  //     // </Swipeable>
-  //   );
-  // };
+  const onDeleteExercise = () => {
+    deleteExerciseMutation();
+  };
+
+  const onFilterExercise = (id) => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    setItems(items.filter((item) => item.id !== id));
+    console.log(id);
+  };
+
+  const onDelete = (id) => {
+    onDeleteExercise();
+    onFilterExercise();
+  };
 
   return (
-    <Container>
-      <ExerciseContainer showsVerticalScrollIndicator={false}>
-        {exercises.map((exercise, exerciseIndex) => {
-          const id = exercise.id;
-          const [deleteExerciseMutation] = useMutation(
-            DELETE_EXERCISE_MUTATION,
-            {
-              variables: {
-                id,
-              },
-            }
-          );
+    <Container showsVerticalScrollIndicator={false}>
+      <SearchContainer>
+        <SearchExerciseTab placeholder="운동 검색하기" />
+        <AddExerciseButton
+          onPress={() => navigation.navigate("CreateExercise")}
+        >
+          <ButtonText>
+            <FontAwesome5 name="plus" size={17} />
+          </ButtonText>
+        </AddExerciseButton>
+      </SearchContainer>
 
-          const onDeleteExercise = () => {
-            deleteExerciseMutation();
-          };
-
-          const onFilterExercise = () => {
-            setItems(items.filter((item) => item.id !== id));
-          };
-
-          const onClickfunction = () => {
-            onDeleteExercise();
-            onFilterExercise();
-          };
-
-          const renderRightActions = (progress, dragX) => {
-            const trans = dragX.interpolate({
-              inputRange: [-150, 0],
-              outputRange: [1, 0],
-              extrapolate: "clamp",
-            });
-
-            return (
-              <DeleteButton onPress={onClickfunction}>
-                <DeleteText>Delete</DeleteText>
-              </DeleteButton>
-            );
-          };
-          return (
-            <Swipeable
-              key={exerciseIndex}
-              renderRightActions={renderRightActions}
-            >
-              <ExerciseTitleContainer>
-                <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
-                <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-              </ExerciseTitleContainer>
-              <BorderLine />
-            </Swipeable>
-          );
-        })}
-      </ExerciseContainer>
+      <ExerciseList exercises={exercises} onDelete={onDelete} />
     </Container>
-
-    /* <ListContainer>
-      <FlatList
-          data={items}
-          keyExtractor={(item, index) => "" + index}
-          renderItem={renderProgram}
-          contentContainerStyle={{ paddingBottom: 25 }}
-          // initialNumToRender={10}
-          // windowSize={3}
-        />
-      </ListContainer> */
   );
 }

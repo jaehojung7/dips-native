@@ -41,33 +41,5 @@ export default function DeleteExerciseButton({
     deleteExerciseMutation();
   };
 
-  const onFilterExercise = () => {
-    setItems(items.filter((item) => item.id !== exercise.id));
-  };
-
-  const onClickfunction = () => {
-    onDeleteExercise();
-    onFilterExercise();
-  };
-
-  const renderRightActions = (progress, dragX) => {
-    const trans = dragX.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [1, 0],
-      extrapolate: "clamp",
-    });
-
-    return (
-      <Button onPress={onClickfunction}>
-        <ButtonText>Delete</ButtonText>
-      </Button>
-    );
-  };
-
-  return (
-    <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
-    // <Button onPress={onClickfunction}>
-    //   <ButtonText>Delete</ButtonText>
-    // </Button>
-  );
+  return setItems(items.filter((item) => item.id !== exercise.id));
 }
