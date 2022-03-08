@@ -73,15 +73,16 @@ const renderRightActions = (progress, dragX) => {
 export default function SearchExercise({ route, navigation }) {
   const { exercises } = route.params;
   const [items, setItems] = useState(exercises);
-  const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
-    variables: {
-      id,
-    },
-  });
+  // const [deleteExerciseMutation] = useMutation(DELETE_EXERCISE_MUTATION, {
+  //   variables: {
+  //     id,
+  //   },
+  // });
 
-  const onDeleteExercise = () => {
-    deleteExerciseMutation();
-  };
+  // const onDeleteExercise = (id) => {
+  //   deleteExerciseMutation(id);
+  //   console.log(id);
+  // };
 
   const onFilterExercise = (id) => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
@@ -91,8 +92,8 @@ export default function SearchExercise({ route, navigation }) {
   };
 
   const onDelete = (id) => {
-    onDeleteExercise();
-    onFilterExercise();
+    // onDeleteExercise(id);
+    onFilterExercise(id);
   };
 
   return (
