@@ -1649,6 +1649,14 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@unimodules/react-native-adapter@^6.3.9":
+  "integrity" "sha512-i9/9Si4AQ8awls+YGAKkByFbeAsOPgUNeLoYeh2SQ3ddjxJ5ZJDtq/I74clDnpDcn8zS9pYlcDJ9fgVJa39Glw=="
+  "resolved" "https://registry.npmjs.org/@unimodules/react-native-adapter/-/react-native-adapter-6.3.9.tgz"
+  "version" "6.3.9"
+  dependencies:
+    "expo-modules-autolinking" "^0.0.3"
+    "invariant" "^2.2.4"
+
 "@wry/context@^0.6.0":
   "integrity" "sha512-LOmVnY1iTU2D8tv4Xf6MVMZZ+juIJ87Kt/plMijjN20NMAXGmH4u8bS1t0uT74cZ5gwpocYueV58YwyI8y+GKw=="
   "resolved" "https://registry.npmjs.org/@wry/context/-/context-0.6.1.tgz"
@@ -2784,6 +2792,17 @@
   "integrity" "sha512-kcBtoDGkm3RRe6BpKDvR7gof/ErajEia38u92pRvNRctdh+p8AFO7GQuiipyg3iMfhcCFVTCIV7h3tuA0g/yDw=="
   "resolved" "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-10.0.1.tgz"
   "version" "10.0.1"
+
+"expo-modules-autolinking@^0.0.3":
+  "integrity" "sha512-azkCRYj/DxbK4udDuDxA9beYzQTwpJ5a9QA0bBgha2jHtWdFGF4ZZWSY+zNA5mtU3KqzYt8jWHfoqgSvKyu1Aw=="
+  "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-0.0.3.tgz"
+  "version" "0.0.3"
+  dependencies:
+    "chalk" "^4.1.0"
+    "commander" "^7.2.0"
+    "fast-glob" "^3.2.5"
+    "find-up" "~5.0.0"
+    "fs-extra" "^9.1.0"
 
 "expo-modules-autolinking@~0.4.0":
   "integrity" "sha512-GRGHbQ4b/aOtEup/oA6YVS7OOBKqU4sNLhoiTkEJWXmYDRERZiRvp8N2krQtn54y5PqucftqlBrMbdCinTouqg=="

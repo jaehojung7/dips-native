@@ -1,6 +1,16 @@
 import React from "react";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { gql, useMutation } from "@apollo/client";
+
+const DELETE_EXERCISE_MUTATION = gql`
+  mutation deleteExercise($id: Int!) {
+    deleteExercise(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const ExerciseContainer = styled.View``;
 
@@ -42,7 +52,6 @@ const DeleteText = styled.Text`
   text-align: center;
 `;
 
-function Exercise({ exercise, onDelete }) {
   const renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [-150, 0],
@@ -61,20 +70,17 @@ function Exercise({ exercise, onDelete }) {
       <ExerciseTitleContainer>
         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-        {/* <DeleteButton onPress={() => onDelete(exercise.id)}>
-          <DeleteText>Delete</DeleteText>
-        </DeleteButton> */}
       </ExerciseTitleContainer>
       <BorderLine />
     </Swipeable>
   );
 }
 
-export default function ExerciseList({ exercises, onDelete }) {
+export default function ExerciseList({ exercises }) {
   return (
     <ExerciseContainer>
       {exercises.map((exercise) => (
-        <Exercise exercise={exercise} key={exercise.id} onDelete={onDelete} />
+        <Exercise exercise={exercise} key={exercise.id} />
       ))}
     </ExerciseContainer>
   );
