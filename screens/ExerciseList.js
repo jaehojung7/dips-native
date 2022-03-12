@@ -1,6 +1,16 @@
 import React from "react";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { gql, useMutation } from "@apollo/client";
+
+const DELETE_EXERCISE_MUTATION = gql`
+  mutation deleteExercise($id: Int!) {
+    deleteExercise(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const ExerciseContainer = styled.View``;
 
@@ -42,7 +52,11 @@ const DeleteText = styled.Text`
   text-align: center;
 `;
 
-function Exercise({ exercise, onDelete }) {
+function Exercise({ exercise }) {
+  const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION);
+
+  // Apollo cache 이용해서 프론트엔드에서도 실시간으로 지우기
+
   const renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [-150, 0],
@@ -51,30 +65,33 @@ function Exercise({ exercise, onDelete }) {
     });
 
     return (
-      <DeleteButton onPress={() => onDelete(exercise.id)}>
+      <DeleteButton
+        onPress={() =>
+          deleteExerciseFunction({ variables: { id: exercise.id } })
+        }
+      >
+        {/* onPress 실행 직전 경고 */}
         <DeleteText>Delete</DeleteText>
       </DeleteButton>
     );
   };
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <ExerciseTitleContainer>
         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
-        {/* <DeleteButton onPress={() => onDelete(exercise.id)}>
-          <DeleteText>Delete</DeleteText>
-        </DeleteButton> */}
       </ExerciseTitleContainer>
       <BorderLine />
     </Swipeable>
   );
 }
 
-export default function ExerciseList({ exercises, onDelete }) {
+export default function ExerciseList({ exercises }) {
   return (
     <ExerciseContainer>
       {exercises.map((exercise) => (
-        <Exercise exercise={exercise} key={exercise.id} onDelete={onDelete} />
+        <Exercise exercise={exercise} key={exercise.id} />
       ))}
     </ExerciseContainer>
   );
