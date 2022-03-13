@@ -12,7 +12,9 @@ const DELETE_EXERCISE_MUTATION = gql`
   }
 `;
 
-const ExerciseContainer = styled.View``;
+const ExerciseContainer = styled.View`
+  margin-top: 15px;
+`;
 
 const ExerciseTitleContainer = styled.View`
   margin: 7px 10px;
@@ -52,10 +54,27 @@ const DeleteText = styled.Text`
   text-align: center;
 `;
 
-function Exercise({ exercise }) {
-  const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION);
+function Exercise({ exercise, id }) {
+  const updateDeleteExercise = (cache, result) => {
+    const {
+      data: {
+        deleteExercise: { ok },
+      },
+    } = result;
+    if (ok) {
+      cache.evict({ id: `Exercise:${id}` });
+    }
+  };
+  const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateDeleteExercise,
+  });
 
-  // Apollo cache 이용해서 프론트엔드에서도 실시간으로 지우기
+  const onClickDelete = () => {
+    deleteExerciseFunction();
+  };
 
   const renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
@@ -65,11 +84,7 @@ function Exercise({ exercise }) {
     });
 
     return (
-      <DeleteButton
-        onPress={() =>
-          deleteExerciseFunction({ variables: { id: exercise.id } })
-        }
-      >
+      <DeleteButton onPress={onClickDelete}>
         {/* onPress 실행 직전 경고 */}
         <DeleteText>Delete</DeleteText>
       </DeleteButton>
@@ -91,7 +106,7 @@ export default function ExerciseList({ exercises }) {
   return (
     <ExerciseContainer>
       {exercises.map((exercise) => (
-        <Exercise exercise={exercise} key={exercise.id} />
+        <Exercise exercise={exercise} key={exercise.id} id={exercise.id} />
       ))}
     </ExerciseContainer>
   );
