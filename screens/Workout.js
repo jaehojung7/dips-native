@@ -17,7 +17,7 @@ const Header = styled.Text`
   color: ${(props) => props.theme.orange};
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 `;
 
 const WorkoutTitle = styled.Text`

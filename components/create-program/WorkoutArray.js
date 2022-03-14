@@ -10,23 +10,20 @@ const BorderLine = styled.View`
   margin: 10px 0 15px 0;
 `;
 
-const Container = styled.View``;
-
-const TemplateContainer = styled.View`
-  margin-bottom: 15px;
+const MainContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
+  margin-bottom: 15px;
   padding: 15px;
 `;
-
 const TitleContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 5px;
 `;
 
-const WorkoutTitle = styled.TextInput`
+const ContainerTitle = styled.TextInput`
   font-size: 20px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
@@ -39,16 +36,16 @@ export default function WorkoutArray({ control, setValue, getValues }) {
   });
 
   return (
-    <Container>
+    <>
       {fields.map((item, templateIndex) => {
         return (
-          <TemplateContainer key={item.id}>
+          <MainContainer key={item.id}>
             <TitleContainer>
               <Controller
                 name={`templates[${templateIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <WorkoutTitle
+                  <ContainerTitle
                     placeholder="워크아웃 이름"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
@@ -63,7 +60,7 @@ export default function WorkoutArray({ control, setValue, getValues }) {
               templateIndex={templateIndex}
               {...{ control, setValue }}
             />
-          </TemplateContainer>
+          </MainContainer>
         );
       })}
 
@@ -79,6 +76,6 @@ export default function WorkoutArray({ control, setValue, getValues }) {
           remove(fields.length - 1);
         }}
       />
-    </Container>
+    </>
   );
 }

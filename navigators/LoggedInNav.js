@@ -42,14 +42,14 @@ export default function LoggedInNav() {
       </Tabs.Screen>
 
       <Tabs.Screen
-        name="Stats"
+        name="Record"
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome name="bar-chart-o" size={22} color={color} />
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Stats" />}
+        {() => <SharedStackNav screenName="Record" />}
       </Tabs.Screen>
 
       <Tabs.Screen

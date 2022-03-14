@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Program from "../screens/Program";
-import Stats from "../screens/Stats";
+import Record from "../screens/Record";
 import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import Workout from "../screens/Workout";
@@ -23,8 +23,8 @@ export default function SharedStackNav({ screenName, route }) {
       {screenName === "Program" ? (
         <Stack.Screen name={"StackProgram"} component={Program} />
       ) : null}
-      {screenName === "Stats" ? (
-        <Stack.Screen name={"StackStats"} component={Stats} />
+      {screenName === "Record" ? (
+        <Stack.Screen name={"StackRecord"} component={Record} />
       ) : null}
       {screenName === "Search" ? (
         <Stack.Screen name={"StackSearch"} component={Search} />

@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import {
-  LayoutAnimation,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  UIManager,
-} from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
@@ -14,7 +7,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WarmupArray from "../components/create-workout/WarmupArray";
 
 const Container = styled.ScrollView`
-  margin: 20px 0;
+  margin: 20px 10px;
 `;
 
 const ButtonContainer = styled.View`

@@ -3,8 +3,8 @@ import { Controller, useFieldArray } from "react-hook-form";
 import { LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WarmupSetArray from "./WarmupSetArray";
-import ExpandSetButton from "./ExpandSetButton";
 
 const TemplateContainer = styled.View`
   border-radius: 20px;

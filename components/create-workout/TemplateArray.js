@@ -3,26 +3,26 @@ import { Controller, useFieldArray } from "react-hook-form";
 import { LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import ExpandSetButton from "../Buttons/ExpandSetButton";
 import TemplateSetArray from "./TemplateSetArray";
-import ExpandSetButton from "./ExpandSetButton";
 
-const TemplateContainer = styled.View`
+const MainContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 10px;
-  margin: 5px 10px;
+  margin-bottom: 15px;
+  padding: 15px;
 `;
 
-const ExerciseTitleContainer = styled.View`
+const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 5px;
 `;
 
-const ExerciseTitle = styled.TextInput`
+const ContainerTitle = styled.TextInput`
   font-size: 20px;
-  font-weight: 700;
-  padding: 0 10px;
+  font-weight: 600;
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -30,6 +30,7 @@ const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   margin: 7px 0;
+  border: 1px solid black;
 `;
 
 export default function TemplateArray({ control, setValue, getValues }) {
@@ -43,9 +44,9 @@ export default function TemplateArray({ control, setValue, getValues }) {
     <>
       {fields.map((item, templateIndex) => {
         return (
-          <TemplateContainer key={item.id}>
-            <ExerciseTitleContainer>
-              <ExerciseTitle
+          <MainContainer key={item.id}>
+            <TitleContainer>
+              <ContainerTitle
                 placeholder="운동 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) =>
@@ -60,14 +61,14 @@ export default function TemplateArray({ control, setValue, getValues }) {
                   setExpanded(!expanded);
                 }}
               />
-            </ExerciseTitleContainer>
+            </TitleContainer>
             {expanded && (
               <TemplateSetArray
                 templateIndex={templateIndex}
                 {...{ control, setValue }}
               />
             )}
-          </TemplateContainer>
+          </MainContainer>
         );
       })}
       <ButtonContainer>

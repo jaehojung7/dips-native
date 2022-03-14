@@ -58,11 +58,16 @@ function Exercise({ exercise, id }) {
   const updateDeleteExercise = (cache, result) => {
     const {
       data: {
-        deleteExercise: { ok },
+        deleteExercise: { ok, error },
       },
     } = result;
     if (ok) {
       cache.evict({ id: `Exercise:${id}` });
+    }
+    if (error) {
+      console.log("here is error");
+    } else {
+      console.log("whats going on");
     }
   };
   const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION, {

@@ -7,7 +7,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import TemplateArray from "../components/create-workout/TemplateArray";
 
 const Container = styled.ScrollView`
-  margin: 20px 0;
+  margin: 20px 10px;
 `;
 
 const ButtonContainer = styled.View`
@@ -92,76 +92,6 @@ export default function Workout({ route }) {
         workoutTitle: workout.title,
       },
     });
-
-  // const onCreateTemplateSetCompleted = (data) => {
-  //   const {
-  //     createTemplateSet: { ok, id: templateSetId, error },
-  //   } = data;
-  //   if (!ok) {
-  //     setError("result", {
-  //       message: error,
-  //     });
-  //   }
-  // };
-
-  // const onCreateTemplateCompleted = (data) => {
-  //   const {
-  //     createTemplate: { ok, programId, templateIndex, error },
-  //   } = data;
-  //   if (!ok) {
-  //     setError("result", {
-  //       message: error,
-  //     });
-  //   }
-
-  //   const submissionData = getValues();
-  //   submissionData.templates[templateIndex].templateSets.map((templateSet) => {
-  //     createTemplateSetFunction({
-  //       variables: {
-  //         programId,
-  //         templateIndex,
-  //         exercise: templateSet.exercise,
-  //         setCount: parseInt(templateSet.setCount),
-  //       },
-  //     });
-  //   });
-  // };
-
-  // const onCreateProgramCompleted = (data) => {
-  //   const {
-  //     createProgram: { ok, id: programId, error },
-  //   } = data;
-  //   if (!ok) {
-  //     setError("result", {
-  //       message: error,
-  //     });
-  //   }
-
-  //   const submissionData = getValues();
-  //   submissionData.templates.map((template, templateIndex) => {
-  //     createTemplateFunction({
-  //       variables: { programId, templateIndex, title: template.name },
-  //     });
-  //   });
-  // };
-
-  // const [createProgramFunction, { loading, error }] = useMutation(
-  //   CREATE_PROGRAM_MUTATION,
-  //   {
-  //     onCompleted: onCreateProgramCompleted,
-  //   }
-  // );
-
-  // const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
-  //   onCompleted: onCreateTemplateCompleted,
-  // });
-
-  // const [createTemplateSetFunction] = useMutation(
-  //   CREATE_TEMPLATE_SET_MUTATION,
-  //   {
-  //     onCompleted: onCreateTemplateSetCompleted,
-  //   }
-  // );
 
   const onSubmitValid = (submissionData) => {
     if (loading) {
