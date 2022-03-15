@@ -12,8 +12,17 @@ const DELETE_EXERCISE_MUTATION = gql`
   }
 `;
 
-const ExerciseContainer = styled.View`
-  margin-top: 15px;
+const DeleteButton = styled.TouchableOpacity`
+  padding: 0 10px;
+  justify-content: center;
+  background-color: tomato;
+`;
+
+const DeleteText = styled.Text`
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
 `;
 
 const ExerciseTitleContainer = styled.View`
@@ -41,40 +50,23 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-const DeleteButton = styled.TouchableOpacity`
-  padding: 0 10px;
-  justify-content: center;
-  background-color: tomato;
-`;
-
-const DeleteText = styled.Text`
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-`;
-
-function Exercise({ exercise, id }) {
-  const updateDeleteExercise = (cache, result) => {
+export default function Exercise({ exercise }) {
+  const deleteExerciseUpdate = (cache, result) => {
     const {
       data: {
         deleteExercise: { ok, error },
       },
     } = result;
     if (ok) {
-      cache.evict({ id: `Exercise:${id}` });
-    }
-    if (error) {
-      console.log("here is error");
-    } else {
-      console.log("whats going on");
+      cache.evict({ id: `Exercise:${exercise.id}` });
     }
   };
+
   const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION, {
     variables: {
-      id,
+      id: exercise.id,
     },
-    update: updateDeleteExercise,
+    update: deleteExerciseUpdate,
   });
 
   const onClickDelete = () => {
@@ -104,15 +96,5 @@ function Exercise({ exercise, id }) {
       </ExerciseTitleContainer>
       <BorderLine />
     </Swipeable>
-  );
-}
-
-export default function ExerciseList({ exercises }) {
-  return (
-    <ExerciseContainer>
-      {exercises.map((exercise) => (
-        <Exercise exercise={exercise} key={exercise.id} id={exercise.id} />
-      ))}
-    </ExerciseContainer>
   );
 }
