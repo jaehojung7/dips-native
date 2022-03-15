@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import MainButton from "../components/Buttons/MainButton";
+import MainButton from "../components/buttons/MainButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { logUserIn } from "../apollo";
 import styled from "styled-components/native";

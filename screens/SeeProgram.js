@@ -1,7 +1,6 @@
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;

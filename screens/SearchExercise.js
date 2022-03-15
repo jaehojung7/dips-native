@@ -1,6 +1,19 @@
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import ExerciseList from "./ExerciseList";
+import Exercise from "../components/Exercise";
+import { gql, useQuery } from "@apollo/client";
+
+const ME_QUERY = gql`
+  query me {
+    me {
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -34,14 +47,13 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  opacity: 0.5;
+const ExerciseContainer = styled.View`
+  margin-top: 15px;
 `;
 
-export default function SearchExercise({ route, navigation }) {
-  const { exercises } = route.params;
+export default function SearchExercise({ navigation }) {
+  const { data, loading } = useQuery(ME_QUERY);
+  // 종목이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -56,7 +68,11 @@ export default function SearchExercise({ route, navigation }) {
         </AddExerciseButton>
       </SearchContainer>
 
-      <ExerciseList exercises={exercises} />
+      <ExerciseContainer>
+        {data?.me?.exercises.map((exercise) => (
+          <Exercise exercise={exercise} key={exercise.id} />
+        ))}
+      </ExerciseContainer>
     </Container>
   );
 }

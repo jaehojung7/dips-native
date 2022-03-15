@@ -1,35 +1,9 @@
-import React, { useEffect } from "react";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchProgram from "./SearchProgram";
 import SearchExercise from "./SearchExercise";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      programs {
-        id
-        title
-        description
-        templates {
-          title
-          templateIndex
-          createdAt
-          templateSets {
-            id
-          }
-        }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-    }
-  }
-`;
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -44,7 +18,6 @@ const Header = styled.Text`
 `;
 
 export default function SearchTab() {
-  const { data, loading } = useQuery(ME_QUERY);
   return (
     <DismissKeyboard>
       <>
@@ -64,7 +37,6 @@ export default function SearchTab() {
             options={{
               title: "프로그램",
             }}
-            initialParams={{ programs: data?.me?.programs }}
           />
 
           <Tab.Screen
@@ -73,7 +45,6 @@ export default function SearchTab() {
             options={{
               title: "운동 목록",
             }}
-            initialParams={{ exercises: data?.me?.exercises }}
           />
         </Tab.Navigator>
       </>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import MainButton from "../components/Buttons/MainButton";
+import MainButton from "../components/buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/modal-components/ProgramCards";
-import WorkoutButton from "../components/Buttons/WorkoutButton";
+import WorkoutButton from "../components/buttons/WorkoutButton";
 
 const ME_QUERY = gql`
   query me {

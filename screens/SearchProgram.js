@@ -1,8 +1,25 @@
-import { FlatList, Modal, TouchableOpacity } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
 import styled from "styled-components/native";
-import { useState } from "react";
-import SeeProgram from "./SeeProgram";
+import { gql, useQuery } from "@apollo/client";
+
+const ME_QUERY = gql`
+  query me {
+    me {
+      programs {
+        id
+        title
+        description
+        templates {
+          title
+          templateIndex
+          createdAt
+          templateSets {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 0 10px;
@@ -27,29 +44,16 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function SearchProgram({ route, navigation }) {
-  const { programs } = route.params;
-  const renderProgram = ({ item: program }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("SeeProgram", { program });
-        }}
-      >
-        <TitleContainer>
-          <ProgramTitle>{program.title}</ProgramTitle>
-          <BorderLine />
-        </TitleContainer>
-      </TouchableOpacity>
-    );
-  };
+export default function SearchProgram({ navigation }) {
+  const { data, loading } = useQuery(ME_QUERY);
+  // 프로그램이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
 
   return (
     <Container>
       <ListContainer>
-        {programs.map((program, programIndex) => {
+        {data?.me?.programs.map((program) => {
           return (
-            <ProgramContainer key={programIndex}>
+            <ProgramContainer key={program.id}>
               <TitleContainer
                 onPress={() => {
                   navigation.navigate("SeeProgram", { program });
@@ -62,14 +66,6 @@ export default function SearchProgram({ route, navigation }) {
           );
         })}
       </ListContainer>
-
-      {/* <FlatList
-        data={programs}
-        keyExtractor={(program, index) => "" + index}
-        renderItem={renderProgram}
-        initialNumToRender={10}
-        // windowSize={3}
-      /> */}
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import AddDeleteExerciseButton from "../buttons/AddDeleteExerciseButton";
 
 const Container = styled.View`
   /* padding: 0 5px; */
