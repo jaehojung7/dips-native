@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import styled from "styled-components/native";
 import { LayoutAnimation } from "react-native";
-import ExpandSetButton from "../buttons/ExpandSetButton";
+import ExpandSetButton from "../Buttons/ExpandSetButton";
 import ExerciseRecordSet from "./ExerciseRecordSet";
 
 const TitleContainer = styled.View`

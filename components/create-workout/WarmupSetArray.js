@@ -107,10 +107,6 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
         <RepsContainer>
           <IndexText>Reps</IndexText>
         </RepsContainer>
-
-        <CheckContainer>
-          <FontAwesome5 name="check-circle" size={20} color="#999999" />
-        </CheckContainer>
       </MainContainer>
 
       {fields.map((item, templateSetIndex) => {
@@ -166,14 +162,6 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
                 )}
               />
             </RepsContainer>
-
-            <CheckContainer onPress={() => setIsDone(!isDone)}>
-              {isDone ? (
-                <FontAwesome5 name="check" size={23} color="#32CD32" />
-              ) : (
-                <FontAwesome5 name="check" size={23} color="#999999" />
-              )}
-            </CheckContainer>
           </MainContainer>
         );
       })}

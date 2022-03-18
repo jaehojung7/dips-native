@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm, Controller } from "react-hook-form";
-import SaveProgramButton from "../components/buttons/SaveProgramButton";
-import DeleteProgramButton from "../components/buttons/DeleteProgramButton";
+import SaveProgramButton from "../components/Buttons/SaveProgramButton";
+import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;

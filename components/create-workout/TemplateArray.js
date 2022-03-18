@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import { LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
-import AddDeleteExerciseButton from "../buttons/AddDeleteExerciseButton";
-import ExpandSetButton from "../buttons/ExpandSetButton";
+import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import ExpandSetButton from "../Buttons/ExpandSetButton";
 import TemplateSetArray from "./TemplateSetArray";
 
 const MainContainer = styled.View`

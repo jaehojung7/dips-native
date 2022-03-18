@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
-import MainButton from "../components/buttons/MainButton";
+import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
@@ -211,19 +211,6 @@ export default function CreateProgram() {
               />
             )}
           />
-          {/* <Controller
-            name="description"
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <DescriptionInput
-                placeholder="프로그램 설명 (max.50)"
-                placeholderTextColor="#999999"
-                multiline={true}
-                maxLength={50}
-                onChangeText={(text) => setValue("description", text)}
-              />
-            )}
-          /> */}
         </TitleContainer>
 
         {/* <ToggleContainer>
