@@ -83,8 +83,7 @@ const ButtonText = styled.Text`
 
 export default function CreateExercise({ navigation }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
-  // const [exercise, setExercise] = useState("");
-  const [bodyPart, setBodyPart] = useState("");
+  const [bodyPart, setBodyPart] = useState();
 
   const onCompleted = (data) => {
     const {
@@ -104,12 +103,11 @@ export default function CreateExercise({ navigation }) {
 
   const onSubmitValid = (submissionData) => {
     console.log(submissionData);
-    if (!loading) {
-      // const { exercise, bodyPart } = getValues();
-      createExerciseFunction({
-        variables: { ...submissionData },
-      });
-    }
+    // if (!loading) {
+    //   createExerciseFunction({
+    //     variables: { ...submissionData },
+    //   });
+    // }
   };
 
   return (
@@ -142,32 +140,36 @@ export default function CreateExercise({ navigation }) {
           <BodyPartTitle>운동 부위</BodyPartTitle>
           <BorderLine />
           <PickerContainer>
-            <Controller
+            {/* <Controller
               name="bodyPart"
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Picker
-                  itemStyle={{
-                    height: 150,
-                    color: "black",
-                    fontSize: 19,
-                  }}
-                  selectedValue={bodyPart}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setBodyPart(itemValue)
-                  }
-                  onChangeText={(text) => setValue({ selectedValue }, text)}
-                >
-                  <Picker.Item label="등 - Back" value="Back" />
-                  <Picker.Item label="가슴 - Chest" value="Chest" />
-                  <Picker.Item label="하체 - Leg" value="Leg" />
-                  <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
-                  <Picker.Item label="코어 - Core" value="Core" />
-                  <Picker.Item label="팔 - Arm" value="Arm" />
-                </Picker>
-              )}
-            />
+              render={({ field: { onValueChange, onBlur, value } }) => ( */}
+            <Picker
+              itemStyle={{
+                height: 150,
+                color: "black",
+                fontSize: 19,
+              }}
+              selectedValue={bodyPart}
+              onValueChange={(value, index) => {
+                // setBodyPart("bodyPart", value);
+                console.log(value);
+              }}
+
+              // onValueChange={(c) => {
+              //   field.onChange(c.value);
+              // }}
+            >
+              <Picker.Item label="등 - Back" value="Back" />
+              <Picker.Item label="가슴 - Chest" value="Chest" />
+              <Picker.Item label="하체 - Leg" value="Leg" />
+              <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
+              <Picker.Item label="코어 - Core" value="Core" />
+              <Picker.Item label="팔 - Arm" value="Arm" />
+            </Picker>
+            {/* )}
+            /> */}
           </PickerContainer>
           <BorderLine />
         </BodyPartContainer>
