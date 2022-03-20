@@ -140,36 +140,36 @@ export default function CreateExercise({ navigation }) {
           <BodyPartTitle>운동 부위</BodyPartTitle>
           <BorderLine />
           <PickerContainer>
-            {/* <Controller
+            <Controller
               name="bodyPart"
               control={control}
               rules={{ required: true }}
-              render={({ field: { onValueChange, onBlur, value } }) => ( */}
-            <Picker
-              itemStyle={{
-                height: 150,
-                color: "black",
-                fontSize: 19,
-              }}
-              selectedValue={bodyPart}
-              onValueChange={(value, index) => {
-                // setBodyPart("bodyPart", value);
-                console.log(value);
-              }}
+              render={({ field: { onValueChange, onBlur, value } }) => (
+                <Picker
+                  itemStyle={{
+                    height: 150,
+                    color: "black",
+                    fontSize: 19,
+                  }}
+                  selectedValue={bodyPart}
+                  onValueChange={(value, index) => {
+                    // setBodyPart("bodyPart", value);
+                    console.log(value);
+                  }}
 
-              // onValueChange={(c) => {
-              //   field.onChange(c.value);
-              // }}
-            >
-              <Picker.Item label="등 - Back" value="Back" />
-              <Picker.Item label="가슴 - Chest" value="Chest" />
-              <Picker.Item label="하체 - Leg" value="Leg" />
-              <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
-              <Picker.Item label="코어 - Core" value="Core" />
-              <Picker.Item label="팔 - Arm" value="Arm" />
-            </Picker>
-            {/* )}
-            /> */}
+                  // onValueChange={(c) => {
+                  //   field.onChange(c.value);
+                  // }}
+                >
+                  <Picker.Item label="등 - Back" value="Back" />
+                  <Picker.Item label="가슴 - Chest" value="Chest" />
+                  <Picker.Item label="하체 - Leg" value="Leg" />
+                  <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
+                  <Picker.Item label="코어 - Core" value="Core" />
+                  <Picker.Item label="팔 - Arm" value="Arm" />
+                </Picker>
+              )}
+            />
           </PickerContainer>
           <BorderLine />
         </BodyPartContainer>
