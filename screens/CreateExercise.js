@@ -10,6 +10,7 @@ const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
     createExercise(exercise: $exercise, bodyPart: $bodyPart) {
       ok
+      id
       error
     }
   }
@@ -83,9 +84,31 @@ const ButtonText = styled.Text`
 
 export default function CreateExercise({ navigation }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
+  const createExerciseUpdate = (cache, result) => {
+    const { exercise, bodyPart } = getValues();
+    const {
+      data: {
+        createExercise: { ok, id },
+      },
+    } = result;
+    if (ok) {
+      const newExercise = {
+        __typename: "Exercise",
+        id,
+        exercise,
+        bodyPart,
+      };
+    }
+  };
 
   const onCompleted = (data) => {
     // 내 운동 목록으로 돌아가기
+    const {
+      createExercise: { ok },
+    } = data;
+    if (ok) {
+      navigation.goBack();
+    }
     // 새 종목 캐시에 추가하여 보여주기
   };
 
@@ -97,7 +120,6 @@ export default function CreateExercise({ navigation }) {
   );
 
   const onSubmitValid = (submissionData) => {
-
     if (loading) {
       return;
     }
@@ -105,7 +127,6 @@ export default function CreateExercise({ navigation }) {
     createExerciseFunction({
       variables: { exercise, bodyPart },
     });
-
   };
 
   return (
@@ -142,22 +163,16 @@ export default function CreateExercise({ navigation }) {
               name="bodyPart"
               control={control}
               rules={{ required: true }}
-
               defaultValue="Back"
               render={({ value }) => (
-
-             
                 <Picker
                   itemStyle={{
                     height: 150,
                     color: "black",
                     fontSize: 19,
                   }}
-
                   selectedValue={value}
                   onValueChange={(itemValue) => setValue("bodyPart", itemValue)}
-
-                 
                 >
                   <Picker.Item label="등 - Back" value="Back" />
                   <Picker.Item label="가슴 - Chest" value="Chest" />
