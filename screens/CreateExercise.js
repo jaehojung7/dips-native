@@ -97,6 +97,7 @@ export default function CreateExercise({ navigation }) {
   );
 
   const onSubmitValid = (submissionData) => {
+
     if (loading) {
       return;
     }
@@ -104,6 +105,7 @@ export default function CreateExercise({ navigation }) {
     createExerciseFunction({
       variables: { exercise, bodyPart },
     });
+
   };
 
   return (
@@ -140,16 +142,22 @@ export default function CreateExercise({ navigation }) {
               name="bodyPart"
               control={control}
               rules={{ required: true }}
+
               defaultValue="Back"
               render={({ value }) => (
+
+             
                 <Picker
                   itemStyle={{
                     height: 150,
                     color: "black",
                     fontSize: 19,
                   }}
+
                   selectedValue={value}
                   onValueChange={(itemValue) => setValue("bodyPart", itemValue)}
+
+                 
                 >
                   <Picker.Item label="등 - Back" value="Back" />
                   <Picker.Item label="가슴 - Chest" value="Chest" />
