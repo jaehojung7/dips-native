@@ -44,7 +44,7 @@ const Header = styled.Text`
 const ExerciseTitle = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.inputBackground};
-  padding: 15px
+  padding: 15px;
   font-size: 20px;
   border-radius: 20px;
 `;
@@ -83,15 +83,10 @@ const ButtonText = styled.Text`
 
 export default function CreateExercise({ navigation }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
-  const [bodyPart, setBodyPart] = useState();
 
   const onCompleted = (data) => {
-    const {
-      createExercise: { ok, id, error },
-    } = data;
-    if (ok) {
-      console.log("onCompleted");
-    }
+    // 내 운동 목록으로 돌아가기
+    // 새 종목 캐시에 추가하여 보여주기
   };
 
   const [createExerciseFunction, { loading }] = useMutation(
@@ -102,12 +97,15 @@ export default function CreateExercise({ navigation }) {
   );
 
   const onSubmitValid = (submissionData) => {
-    console.log(submissionData);
-    // if (!loading) {
-    //   createExerciseFunction({
-    //     variables: { ...submissionData },
-    //   });
-    // }
+
+    if (loading) {
+      return;
+    }
+    const { exercise, bodyPart } = getValues();
+    createExerciseFunction({
+      variables: { exercise, bodyPart },
+    });
+
   };
 
   return (
@@ -124,7 +122,7 @@ export default function CreateExercise({ navigation }) {
           name="exercise"
           control={control}
           rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({ onChange, onBlur, value }) => (
             <ExerciseTitle
               placeholder="운동 이름"
               autoCapitalize="none"
@@ -144,22 +142,22 @@ export default function CreateExercise({ navigation }) {
               name="bodyPart"
               control={control}
               rules={{ required: true }}
-              render={({ field: { onValueChange, onBlur, value } }) => (
+
+              defaultValue="Back"
+              render={({ value }) => (
+
+             
                 <Picker
                   itemStyle={{
                     height: 150,
                     color: "black",
                     fontSize: 19,
                   }}
-                  selectedValue={bodyPart}
-                  onValueChange={(value, index) => {
-                    // setBodyPart("bodyPart", value);
-                    console.log(value);
-                  }}
 
-                  // onValueChange={(c) => {
-                  //   field.onChange(c.value);
-                  // }}
+                  selectedValue={value}
+                  onValueChange={(itemValue) => setValue("bodyPart", itemValue)}
+
+                 
                 >
                   <Picker.Item label="등 - Back" value="Back" />
                   <Picker.Item label="가슴 - Chest" value="Chest" />
@@ -177,7 +175,7 @@ export default function CreateExercise({ navigation }) {
         <MainButton
           text="운동 만들기"
           disabled={false}
-          // loading={loading}
+          loading={loading}
           onPress={handleSubmit(onSubmitValid)}
         />
       </Container>
