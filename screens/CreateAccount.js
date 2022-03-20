@@ -32,7 +32,6 @@ export default function CreateAccount({ navigation }) {
     const {
       createAccount: { ok, id },
     } = data;
-    console.log(ok, id);
     const { email } = getValues();
     if (ok) {
       navigation.navigate("LogIn", {
