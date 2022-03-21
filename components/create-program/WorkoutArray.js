@@ -32,24 +32,24 @@ const ContainerTitle = styled.TextInput`
 export default function WorkoutArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "templates",
+    name: "workouts",
   });
 
   return (
     <>
-      {fields.map((item, templateIndex) => {
+      {fields.map((item, workoutIndex) => {
         return (
           <MainContainer key={item.id}>
             <TitleContainer>
               <Controller
-                name={`templates[${templateIndex}].name`}
+                name={`workouts[${workoutIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     placeholder="워크아웃 이름"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`templates[${templateIndex}].name`, text)
+                      setValue(`workouts[${workoutIndex}].name`, text)
                     }
                   />
                 )}
@@ -57,7 +57,7 @@ export default function WorkoutArray({ control, setValue, getValues }) {
             </TitleContainer>
             <BorderLine />
             <ExerciseArray
-              templateIndex={templateIndex}
+              workoutIndex={workoutIndex}
               {...{ control, setValue }}
             />
           </MainContainer>

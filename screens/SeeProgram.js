@@ -70,10 +70,10 @@ const SetsbyReps = styled(ExerciseTitle)`
   text-align: right;
 `;
 const defaultValues = {
-  templates: [
+  workouts: [
     {
       name: "",
-      templateSets: [{ exercise: "", setCount: "" }],
+      workoutSets: [{ exercise: "", setCount: "" }],
     },
   ],
 };
@@ -92,7 +92,7 @@ export default function SeeProgram({ route, navigation }) {
           </EditProgram>
         </HeaderContainer>
 
-        {program?.templates.map((workout, workoutIndex) => {
+        {program?.workouts.map((workout, workoutIndex) => {
           return (
             <WorkoutContainer key={workoutIndex}>
               <WorkoutTitleContainer>
@@ -132,7 +132,7 @@ export default function SeeProgram({ route, navigation }) {
                 </ExerciseSubContainer>
               </ExerciseContainer>
 
-              {/* {workout?.templateSets.map((exercise, exerciseIndex) => {
+              {/* {workout?.workoutSets.map((exercise, exerciseIndex) => {
                 return (
                   <ExerciseContainer key={exerciseIndex}>
                     <ExerciseTitle>{exercise}</ExerciseTitle>)

@@ -4,7 +4,7 @@ import { LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
-import TemplateSetArray from "./TemplateSetArray";
+import WorkoutSetArray from "./WorkoutSetArray";
 
 const MainContainer = styled.View`
   border-radius: 20px;
@@ -33,16 +33,16 @@ const ButtonContainer = styled.View`
   border: 1px solid black;
 `;
 
-export default function TemplateArray({ control, setValue, getValues }) {
+export default function WorkoutArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "templates",
+    name: "workouts",
   });
   const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      {fields.map((item, templateIndex) => {
+      {fields.map((item, workoutIndex) => {
         return (
           <MainContainer key={item.id}>
             <TitleContainer>
@@ -50,7 +50,7 @@ export default function TemplateArray({ control, setValue, getValues }) {
                 placeholder="운동 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) =>
-                  setValue(`templates[${templateIndex}].name`, text)
+                  setValue(`workouts[${workoutIndex}].name`, text)
                 }
               />
               <ExpandSetButton
@@ -63,8 +63,8 @@ export default function TemplateArray({ control, setValue, getValues }) {
               />
             </TitleContainer>
             {expanded && (
-              <TemplateSetArray
-                templateIndex={templateIndex}
+              <WorkoutSetArray
+                workoutIndex={workoutIndex}
                 {...{ control, setValue }}
               />
             )}

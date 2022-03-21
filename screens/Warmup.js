@@ -32,35 +32,35 @@ const CREATE_PROGRAM_MUTATION = gql`
   }
 `;
 
-const CREATE_TEMPLATE_MUTATION = gql`
-  mutation createTemplate(
+const CREATE_WORKOUT_MUTATION = gql`
+  mutation createWorkout(
     $programId: Int!
-    $templateIndex: Int!
+    $workoutIndex: Int!
     $title: String!
   ) {
-    createTemplate(
+    createWorkout(
       programId: $programId
-      templateIndex: $templateIndex
+      workoutIndex: $workoutIndex
       title: $title
     ) {
       ok
       programId
-      templateIndex
+      workoutIndex
       error
     }
   }
 `;
 
-const CREATE_TEMPLATE_SET_MUTATION = gql`
-  mutation createTemplateSet(
+const CREATE_WORKOUT_SET_MUTATION = gql`
+  mutation createWorkoutSet(
     $programId: Int!
-    $templateIndex: Int!
+    $workoutIndex: Int!
     $exercise: [String]
     $setCount: Int! # $rir: Int
   ) {
-    createTemplateSet(
+    createWorkoutSet(
       programId: $programId
-      templateIndex: $templateIndex
+      workoutIndex: $workoutIndex
       exercise: $exercise
       setCount: $setCount # rir: $rir
     ) {
@@ -73,10 +73,10 @@ const CREATE_TEMPLATE_SET_MUTATION = gql`
 
 // Passing empty strings as default values creates one empty form automatically
 const defaultValues = {
-  templates: [
+  workouts: [
     {
       name: "",
-      templateSets: [{ exercise: "", setCount: "" }],
+      workoutSets: [{ exercise: "", setCount: "" }],
     },
   ],
 };
@@ -93,9 +93,9 @@ export default function Workout({ route }) {
       },
     });
   const [expanded, setExpanded] = useState(false);
-  // const onCreateTemplateSetCompleted = (data) => {
+  // const onCreateWorkoutSetCompleted = (data) => {
   //   const {
-  //     createTemplateSet: { ok, id: templateSetId, error },
+  //     createWorkoutSet: { ok, id: workoutSetId, error },
   //   } = data;
   //   if (!ok) {
   //     setError("result", {
@@ -104,9 +104,9 @@ export default function Workout({ route }) {
   //   }
   // };
 
-  // const onCreateTemplateCompleted = (data) => {
+  // const onCreateWorkoutCompleted = (data) => {
   //   const {
-  //     createTemplate: { ok, programId, templateIndex, error },
+  //     createWorkout: { ok, programId, workoutIndex, error },
   //   } = data;
   //   if (!ok) {
   //     setError("result", {
@@ -115,13 +115,13 @@ export default function Workout({ route }) {
   //   }
 
   //   const submissionData = getValues();
-  //   submissionData.templates[templateIndex].templateSets.map((templateSet) => {
-  //     createTemplateSetFunction({
+  //   submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
+  //     createWorkoutSetFunction({
   //       variables: {
   //         programId,
-  //         templateIndex,
-  //         exercise: templateSet.exercise,
-  //         setCount: parseInt(templateSet.setCount),
+  //         workoutIndex,
+  //         exercise: workoutSet.exercise,
+  //         setCount: parseInt(workoutSet.setCount),
   //       },
   //     });
   //   });
@@ -138,9 +138,9 @@ export default function Workout({ route }) {
   //   }
 
   //   const submissionData = getValues();
-  //   submissionData.templates.map((template, templateIndex) => {
-  //     createTemplateFunction({
-  //       variables: { programId, templateIndex, title: template.name },
+  //   submissionData.workouts.map((workout, workoutIndex) => {
+  //     createWorkoutFunction({
+  //       variables: { programId, workoutIndex, title: workout.name },
   //     });
   //   });
   // };
@@ -152,14 +152,14 @@ export default function Workout({ route }) {
   //   }
   // );
 
-  // const [createTemplateFunction] = useMutation(CREATE_TEMPLATE_MUTATION, {
-  //   onCompleted: onCreateTemplateCompleted,
+  // const [createWorkoutFunction] = useMutation(CREATE_WORKOUT_MUTATION, {
+  //   onCompleted: onCreateWorkoutCompleted,
   // });
 
-  // const [createTemplateSetFunction] = useMutation(
-  //   CREATE_TEMPLATE_SET_MUTATION,
+  // const [createWorkoutSetFunction] = useMutation(
+  //   CREATE_WORKOUT_SET_MUTATION,
   //   {
-  //     onCompleted: onCreateTemplateSetCompleted,
+  //     onCompleted: onCreateWorkoutSetCompleted,
   //   }
   // );
 

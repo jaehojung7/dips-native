@@ -8,11 +8,11 @@ const ME_QUERY = gql`
         id
         title
         description
-        templates {
+        workouts {
           title
-          templateIndex
+          workoutIndex
           createdAt
-          templateSets {
+          workoutSets {
             id
           }
         }

@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import SetModal from "../modal-components/SetModal";
 import { Modal } from "react-native";
 import AddSetButton from "./AddSetButton";
@@ -88,10 +88,10 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function TemplateSetArray({ templateIndex, control, setValue }) {
+export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `templates[${templateIndex}].templateSets`,
+    name: `workouts[${workoutIndex}].workoutSets`,
   });
   const [isDone, setIsDone] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -117,7 +117,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
         </CheckContainer>
       </MainContainer>
 
-      {fields.map((item, templateSetIndex) => {
+      {fields.map((item, workoutSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
@@ -135,7 +135,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     setModalVisible(true);
                   }}
                 >
-                  <Mainset>{parseInt(`${templateSetIndex}`) + 1}</Mainset>
+                  <Mainset>{parseInt(`${workoutSetIndex}`) + 1}</Mainset>
                 </SetButton>
               )}
 
@@ -150,7 +150,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
             <WeightContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -161,7 +161,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
                         text
                       )
                     }
@@ -173,7 +173,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
 
             <RepsContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -184,7 +184,7 @@ export default function TemplateSetArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`,
                         text
                       )
                     }

@@ -6,7 +6,7 @@ import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WarmupSetArray from "./WarmupSetArray";
 
-const TemplateContainer = styled.View`
+const WorkoutContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   padding: 10px;
@@ -35,21 +35,21 @@ const ButtonContainer = styled.View`
 export default function WarmupArray({ control, setValue, getValues }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "templates",
+    name: "workouts",
   });
   const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      {fields.map((item, templateIndex) => {
+      {fields.map((item, workoutIndex) => {
         return (
-          <TemplateContainer key={item.id}>
+          <WorkoutContainer key={item.id}>
             <ExerciseTitleContainer>
               <ExerciseTitle
                 placeholder="운동 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) =>
-                  setValue(`templates[${templateIndex}].name`, text)
+                  setValue(`workouts[${workoutIndex}].name`, text)
                 }
               />
               <ExpandSetButton
@@ -63,11 +63,11 @@ export default function WarmupArray({ control, setValue, getValues }) {
             </ExerciseTitleContainer>
             {expanded && (
               <WarmupSetArray
-                templateIndex={templateIndex}
+                workoutIndex={workoutIndex}
                 {...{ control, setValue }}
               />
             )}
-          </TemplateContainer>
+          </WorkoutContainer>
         );
       })}
       <ButtonContainer>
