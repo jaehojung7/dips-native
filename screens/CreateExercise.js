@@ -82,7 +82,8 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function CreateExercise({ navigation }) {
+export default function CreateExercise({ navigation, userid }) {
+  console.log(userid);
   const { register, handleSubmit, setValue, getValues, control } = useForm();
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
