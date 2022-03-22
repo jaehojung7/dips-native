@@ -47,7 +47,7 @@ export default function ProgramCards({ programs }) {
               : program.description}
           </Description> */}
 
-          {program?.templates.map((workout, workoutIndex) => {
+          {program?.workouts.map((workout, workoutIndex) => {
             return (
               <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
             );

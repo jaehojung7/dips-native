@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import TemplateArray from "../components/create-workout/TemplateArray";
+import WorkoutArray from "../components/create-workout/WorkoutArray";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -32,35 +32,35 @@ const CREATE_PROGRAM_MUTATION = gql`
   }
 `;
 
-const CREATE_TEMPLATE_MUTATION = gql`
-  mutation createTemplate(
+const CREATE_WORKOUT_MUTATION = gql`
+  mutation createWorkout(
     $programId: Int!
-    $templateIndex: Int!
+    $workoutIndex: Int!
     $title: String!
   ) {
-    createTemplate(
+    createWorkout(
       programId: $programId
-      templateIndex: $templateIndex
+      workoutIndex: $workoutIndex
       title: $title
     ) {
       ok
       programId
-      templateIndex
+      workoutIndex
       error
     }
   }
 `;
 
-const CREATE_TEMPLATE_SET_MUTATION = gql`
-  mutation createTemplateSet(
+const CREATE_WORKOUT_SET_MUTATION = gql`
+  mutation createWorkoutSet(
     $programId: Int!
-    $templateIndex: Int!
+    $workoutIndex: Int!
     $exercise: [String]
     $setCount: Int! # $rir: Int
   ) {
-    createTemplateSet(
+    createWorkoutSet(
       programId: $programId
-      templateIndex: $templateIndex
+      workoutIndex: $workoutIndex
       exercise: $exercise
       setCount: $setCount # rir: $rir
     ) {
@@ -73,10 +73,10 @@ const CREATE_TEMPLATE_SET_MUTATION = gql`
 
 // Passing empty strings as default values creates one empty form automatically
 const defaultValues = {
-  templates: [
+  workouts: [
     {
       name: "",
-      templateSets: [{ exercise: "", setCount: "" }],
+      workoutSets: [{ exercise: "", setCount: "" }],
     },
   ],
 };
@@ -106,7 +106,7 @@ export default function Workout({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <TemplateArray
+        <WorkoutArray
           {...{
             control,
             getValues,

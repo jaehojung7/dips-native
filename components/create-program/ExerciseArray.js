@@ -76,10 +76,10 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function ExerciseArray({ templateIndex, control, setValue }) {
+export default function ExerciseArray({ workoutIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `templates[${templateIndex}].templateSets`,
+    name: `workouts[${workoutIndex}].workoutSets`,
   });
 
   return (
@@ -96,12 +96,12 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
         </SubContainer>
       </MainContainer>
 
-      {fields.map((item, templateSetIndex) => {
+      {fields.map((item, workoutSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SubContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ExerciseTitle
@@ -109,7 +109,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].exercise`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
                         text
                       )
                     }
@@ -119,7 +119,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
             </SubContainer>
             <SubContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
@@ -130,7 +130,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
                         text
                       )
                     }
@@ -139,7 +139,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
               />
               <IndexText>x</IndexText>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
@@ -150,7 +150,7 @@ export default function ExerciseArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
                         text
                       )
                     }

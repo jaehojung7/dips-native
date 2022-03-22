@@ -84,10 +84,10 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function WarmupSetArray({ templateIndex, control, setValue }) {
+export default function WarmupSetArray({ workoutIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `templates[${templateIndex}].templateSets`,
+    name: `workouts[${workoutIndex}].workoutSets`,
   });
   const [isDone, setIsDone] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -109,7 +109,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
         </RepsContainer>
       </MainContainer>
 
-      {fields.map((item, templateSetIndex) => {
+      {fields.map((item, workoutSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
@@ -120,7 +120,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
 
             <WeightContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -131,7 +131,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
                         text
                       )
                     }
@@ -143,7 +143,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
 
             <RepsContainer>
               <Controller
-                name={`templates[${templateIndex}].templateSets[${templateSetIndex}].InputCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -154,7 +154,7 @@ export default function WarmupSetArray({ templateIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `templates[${templateIndex}].templateSets[${templateSetIndex}].setCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`,
                         text
                       )
                     }
