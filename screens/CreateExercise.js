@@ -82,13 +82,12 @@ const ButtonText = styled.Text`
 `;
 
 export default function CreateExercise({ navigation, route }) {
-  const { register, handleSubmit, setValue, getValues, control } = useForm();
+  const { handleSubmit, setValue, getValues, control } = useForm();
+  const [selectedBodyPart, setSelectedBodyPart] = useState("Back");
   const { user } = route.params;
-  console.log(user.id);
 
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
-    console.log(exercise);
     const {
       data: {
         createExercise: { ok, id },
@@ -102,12 +101,11 @@ export default function CreateExercise({ navigation, route }) {
         exercise,
         bodyPart,
       };
-      console.log(newExercise);
 
       const newExerciseCache = cache.writeFragment({
         data: newExercise,
         fragment: gql`
-          fragment Name on Exercise {
+          fragment newExerciseFragment on Exercise {
             id
             exercise
             bodyPart
@@ -123,12 +121,10 @@ export default function CreateExercise({ navigation, route }) {
           },
         },
       });
-      console.log(newExerciseCache);
     }
   };
 
   const onCompleted = (data) => {
-    // 내 운동 목록으로 돌아가기
     const {
       createExercise: { ok },
     } = data;
@@ -197,8 +193,11 @@ export default function CreateExercise({ navigation, route }) {
                     color: "black",
                     fontSize: 19,
                   }}
-                  selectedValue={value}
-                  onValueChange={(itemValue) => setValue("bodyPart", itemValue)}
+                  selectedValue={selectedBodyPart}
+                  onValueChange={(itemValue) => {
+                    setValue("bodyPart", itemValue);
+                    setSelectedBodyPart(itemValue);
+                  }}
                 >
                   <Picker.Item label="등 - Back" value="Back" />
                   <Picker.Item label="가슴 - Chest" value="Chest" />

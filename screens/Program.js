@@ -9,6 +9,7 @@ import WorkoutButton from "../components/Buttons/WorkoutButton";
 const ME_QUERY = gql`
   query me {
     me {
+      id
       programs {
         id
         title
