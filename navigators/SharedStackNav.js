@@ -37,7 +37,7 @@ export default function SharedStackNav({ screenName, route }) {
       <Stack.Screen
         name="CreateExercise"
         component={CreateExercise}
-        options={{ presentation: "modal" }}
+        // options={{ presentation: "modal" }}
       />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="EditProgram" component={EditProgram} />

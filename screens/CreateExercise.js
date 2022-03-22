@@ -5,6 +5,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { gql, useMutation } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
+import useUser from "../hooks/useUser";
 
 const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
@@ -83,6 +84,8 @@ const ButtonText = styled.Text`
 export default function CreateExercise({ navigation, route }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
   const { user } = route.params;
+  console.log(user.id);
+
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
     const {
@@ -110,14 +113,15 @@ export default function CreateExercise({ navigation, route }) {
           }
         `,
       });
-      // cache.modify({
-      //   id: `User:${user.id}`,
-      //   fields: {
-      //     exercises(prev) {
-      //       return [...prev, newExerciseCache];
-      //     },
-      //   },
-      // });
+
+      cache.modify({
+        id: `User:${user.id}`,
+        fields: {
+          exercises(prev) {
+            return [...prev, newExercise];
+          },
+        },
+      });
       console.log(newExerciseCache);
     }
   };
@@ -128,15 +132,15 @@ export default function CreateExercise({ navigation, route }) {
       createExercise: { ok },
     } = data;
     if (ok) {
-      navigation.goBack();
+      navigation.navigate("SearchExercise");
     }
-    // 새 종목 캐시에 추가하여 보여주기
   };
 
   const [createExerciseFunction, { loading }] = useMutation(
     CREATE_EXERCISE_MUTATION,
     {
       update: createExerciseUpdate,
+      onCompleted,
     }
   );
 
