@@ -92,7 +92,6 @@ export default function Workout({ route }) {
         workoutTitle: workout.title,
       },
     });
-  const [expanded, setExpanded] = useState(false);
 
   const onSubmitValid = (submissionData) => {
     if (loading) {

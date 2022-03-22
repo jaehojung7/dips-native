@@ -88,6 +88,7 @@ export default function CreateExercise({ navigation, route }) {
 
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
+    console.log(exercise);
     const {
       data: {
         createExercise: { ok, id },
@@ -118,7 +119,7 @@ export default function CreateExercise({ navigation, route }) {
         id: `User:${user.id}`,
         fields: {
           exercises(prev) {
-            return [...prev, newExercise];
+            return [...prev, newExerciseCache];
           },
         },
       });
