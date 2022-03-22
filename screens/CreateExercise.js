@@ -51,8 +51,6 @@ const ExerciseTitle = styled.TextInput`
 `;
 
 const BodyPartContainer = styled.View`
-  /* flex-direction: row; */
-  /* align-items: center; */
   justify-content: space-around;
   border-radius: 20px;
   margin: 25px 0;
@@ -82,9 +80,9 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function CreateExercise({ navigation, userid }) {
-  console.log(userid);
+export default function CreateExercise({ navigation, route }) {
   const { register, handleSubmit, setValue, getValues, control } = useForm();
+  const { user } = route.params;
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
     const {
@@ -92,6 +90,7 @@ export default function CreateExercise({ navigation, userid }) {
         createExercise: { ok, id },
       },
     } = result;
+
     if (ok) {
       const newExercise = {
         __typename: "Exercise",
@@ -99,6 +98,27 @@ export default function CreateExercise({ navigation, userid }) {
         exercise,
         bodyPart,
       };
+      console.log(newExercise);
+
+      const newExerciseCache = cache.writeFragment({
+        data: newExercise,
+        fragment: gql`
+          fragment Name on Exercise {
+            id
+            exercise
+            bodyPart
+          }
+        `,
+      });
+      // cache.modify({
+      //   id: `User:${user.id}`,
+      //   fields: {
+      //     exercises(prev) {
+      //       return [...prev, newExerciseCache];
+      //     },
+      //   },
+      // });
+      console.log(newExerciseCache);
     }
   };
 
@@ -116,15 +136,15 @@ export default function CreateExercise({ navigation, userid }) {
   const [createExerciseFunction, { loading }] = useMutation(
     CREATE_EXERCISE_MUTATION,
     {
-      onCompleted,
+      update: createExerciseUpdate,
     }
   );
 
   const onSubmitValid = (submissionData) => {
+    const { exercise, bodyPart } = submissionData;
     if (loading) {
       return;
     }
-    const { exercise, bodyPart } = getValues();
     createExerciseFunction({
       variables: { exercise, bodyPart },
     });

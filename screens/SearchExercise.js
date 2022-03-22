@@ -60,6 +60,8 @@ const wait = (timeout) => {
 
 export default function SearchExercise({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
+  const user = data?.me;
+
   // 종목이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
   const [refreshing, setRefreshing] = useState(false);
 
@@ -78,9 +80,7 @@ export default function SearchExercise({ navigation }) {
       <SearchContainer>
         <SearchExerciseTab placeholder="운동 검색하기" />
         <AddExerciseButton
-          onPress={() =>
-            navigation.navigate("CreateExercise", { userid: data?.me.id })
-          }
+          onPress={() => navigation.navigate("CreateExercise", { user })}
         >
           <ButtonText>
             <FontAwesome5 name="plus" size={17} />

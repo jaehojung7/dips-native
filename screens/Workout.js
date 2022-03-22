@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Mainset from "./Mainset";
 import Warmup from "./Warmup";
