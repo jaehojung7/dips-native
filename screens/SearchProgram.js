@@ -4,6 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 const ME_QUERY = gql`
   query me {
     me {
+      id
       programs {
         id
         title
