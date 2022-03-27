@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
-import ProgramCards from "../components/modal-components/ProgramCards";
+import ProgramCards from "../components/ProgramCards";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 
 const ME_QUERY = gql`
@@ -13,20 +13,12 @@ const ME_QUERY = gql`
       programs {
         id
         title
-        description
         workouts {
           title
-          workoutIndex
-          createdAt
           workoutSets {
             id
           }
         }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
       }
     }
   }
@@ -34,10 +26,11 @@ const ME_QUERY = gql`
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
+  /* border: 1px solid black; */
 `;
 
 const HeaderContainer = styled.View`
-  margin: 30px 15px 15px 15px;
+  margin: 25px 15px 15px 15px;
 `;
 
 const Header = styled.Text`
@@ -98,7 +91,7 @@ export default function Program({ navigation }) {
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
-        <Header>프로그램</Header>
+        <Header>워크아웃</Header>
       </HeaderContainer>
       <WorkoutContainer>
         <ProgramTitle>진행중인 프로그램</ProgramTitle>

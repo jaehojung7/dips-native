@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import ExerciseArray from "./ExerciseArray";
+import WorkoutSetArray from "./WorkoutSetArray";
 import AddDeleteWorkoutButton from "./AddDeleteWorkoutButton";
 
 const BorderLine = styled.View`
@@ -56,7 +56,7 @@ export default function WorkoutArray({ control, setValue, getValues }) {
               />
             </TitleContainer>
             <BorderLine />
-            <ExerciseArray
+            <WorkoutSetArray
               workoutIndex={workoutIndex}
               {...{ control, setValue }}
             />

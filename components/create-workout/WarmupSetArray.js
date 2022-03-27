@@ -1,9 +1,6 @@
 import { React, useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import SetModal from "../modal-components/SetModal";
-import { Modal } from "react-native";
 import AddSetButton from "./AddSetButton";
 import DeleteSetButton from "./DeleteSetButton";
 
@@ -25,20 +22,16 @@ const IndexContainer = styled.View`
 `;
 
 const WeightContainer = styled(IndexContainer)`
-  width: 35%;
+  width: 40%;
   justify-content: center;
 `;
 
 const RepsContainer = styled(IndexContainer)`
-  width: 20%;
+  width: 25%;
 `;
 
 const SetContainer = styled(IndexContainer)`
-  width: 15%;
-`;
-
-const CheckContainer = styled(IndexContainer)`
-  width: 10%;
+  width: 20%;
 `;
 
 const SetButton = styled.View`

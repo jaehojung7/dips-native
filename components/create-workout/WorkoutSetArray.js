@@ -1,9 +1,6 @@
 import { React, useState } from "react";
-import { Controller, useFieldArray } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import SetModal from "../modal-components/SetModal";
-import { Modal } from "react-native";
 import AddSetButton from "./AddSetButton";
 import DeleteSetButton from "./DeleteSetButton";
 
@@ -25,20 +22,16 @@ const IndexContainer = styled.View`
 `;
 
 const WeightContainer = styled(IndexContainer)`
-  width: 35%;
+  width: 40%;
   justify-content: center;
 `;
 
 const RepsContainer = styled(IndexContainer)`
-  width: 20%;
+  width: 25%;
 `;
 
 const SetContainer = styled(IndexContainer)`
-  width: 15%;
-`;
-
-const CheckContainer = styled.TouchableOpacity`
-  width: 10%;
+  width: 20%;
 `;
 
 const SetButton = styled.View`
@@ -88,7 +81,24 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
+// const defaultValues = {
+//   workouts: [
+//     {
+//       name: "",
+//       workoutSets: [{ weight: "5", repCount: "5" }],
+//     },
+//   ],
+// };
+
+export default function WorkoutSetArray({ workoutIndex }) {
+  const { handleSubmit, setValue, getValues, control, watch, setError } =
+    useForm({
+      defaultValues: {
+        weight: "5",
+        repCount: "5",
+      },
+    });
+
   const { fields, remove, append } = useFieldArray({
     control,
     name: `workouts[${workoutIndex}].workoutSets`,
@@ -111,41 +121,15 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
         <RepsContainer>
           <IndexText>Reps</IndexText>
         </RepsContainer>
-
-        <CheckContainer>
-          <FontAwesome5 name="check" size={23} color="#999999" />
-        </CheckContainer>
       </MainContainer>
 
       {fields.map((item, workoutSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
-              {isWarmup ? (
-                <SetButton
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}
-                >
-                  <Warmup>W</Warmup>
-                </SetButton>
-              ) : (
-                <SetButton
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}
-                >
-                  <Mainset>{parseInt(`${workoutSetIndex}`) + 1}</Mainset>
-                </SetButton>
-              )}
-
-              <Modal
-                animationType="none"
-                transparent={true}
-                visible={modalVisible}
-              >
-                <SetModal {...{ setModalVisible, setIsWarmup }} />
-              </Modal>
+              <SetButton>
+                <Mainset>{parseInt(`${workoutSetIndex}`) + 1}</Mainset>
+              </SetButton>
             </SetContainer>
 
             <WeightContainer>
@@ -192,14 +176,6 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                 )}
               />
             </RepsContainer>
-
-            <CheckContainer onPress={() => setIsDone(!isDone)}>
-              {isDone ? (
-                <FontAwesome5 name="check" size={23} color="#32CD32" />
-              ) : (
-                <FontAwesome5 name="check" size={23} color="#999999" />
-              )}
-            </CheckContainer>
           </MainContainer>
         );
       })}

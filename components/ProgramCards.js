@@ -30,8 +30,6 @@ const WorkoutTitle = styled.Text`
 `;
 
 export default function ProgramCards({ programs }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [programModalContent, setProgramModalContent] = useState();
   const navigation = useNavigation();
 
   const renderProgram = ({ item: program }) => {
@@ -41,12 +39,6 @@ export default function ProgramCards({ programs }) {
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          {/* <Description>
-            {program.description && program.description.length > 35
-              ? `${program.description.substring(0, 35)}...`
-              : program.description}
-          </Description> */}
-
           {program?.workouts.map((workout, workoutIndex) => {
             return (
               <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>

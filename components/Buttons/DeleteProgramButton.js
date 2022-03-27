@@ -1,6 +1,15 @@
 import React from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
 import styled from "styled-components/native";
+import { gql, useMutation } from "@apollo/client";
+
+const DELETE_PROGRAM_MUTATION = gql`
+  mutation deleteProgram($id: Int!) {
+    deleteProgram(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const ButtonContainer = styled.TouchableOpacity`
   padding: 10px 25px;
@@ -18,10 +27,22 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function EditProgramButton({ onPress, text }) {
+export default function DeleteProgramButton({ program }) {
+  const [deleteProgramFunction] = useMutation(DELETE_PROGRAM_MUTATION, {
+    variables: {
+      id: program.id,
+    },
+    onClickDelete,
+  });
+
+  const onClickDelete = () => {
+    deleteProgramFunction();
+  };
+
   return (
-    <ButtonContainer onPress={onPress}>
-      <ButtonText>{text}</ButtonText>
+    <ButtonContainer onPress={onClickDelete}>
+      {/* onPress 실행 직전 경고 */}
+      <ButtonText>Delete</ButtonText>
     </ButtonContainer>
   );
 }

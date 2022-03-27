@@ -8,19 +8,11 @@ import WorkoutArray from "../components/create-program/WorkoutArray";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin: 30px 15px 15px 15px;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
-  font-size: 25px;
-  font-weight: 700;
+  /* border: 1px solid black; */
 `;
 
 const TitleContainer = styled.View`
+  margin-top: 50px;
   margin-bottom: 15px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
@@ -77,12 +69,14 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
     $workoutIndex: Int!
     $exercise: [String]
     $setCount: Int! # $rir: Int
+    $repCount: Int
   ) {
     createWorkoutSet(
       programId: $programId
       workoutIndex: $workoutIndex
       exercise: $exercise
       setCount: $setCount # rir: $rir
+      repCount: $repCount
     ) {
       ok
       id
@@ -96,7 +90,7 @@ const defaultValues = {
   workouts: [
     {
       name: "",
-      workoutSets: [{ exercise: "", setCount: "" }],
+      workoutSets: [{ exercise: "Squat", setCount: "5", repCount: "5" }],
     },
   ],
 };
@@ -140,6 +134,7 @@ export default function CreateProgram() {
           workoutIndex,
           exercise: workoutSet.exercise,
           setCount: parseInt(workoutSet.setCount),
+          repCount: parseInt(workoutSet.repCount),
         },
       });
     });
@@ -191,9 +186,9 @@ export default function CreateProgram() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <HeaderContainer>
+        {/* <HeaderContainer>
           <Header>프로그램</Header>
-        </HeaderContainer>
+        </HeaderContainer> */}
 
         <TitleContainer>
           <Controller

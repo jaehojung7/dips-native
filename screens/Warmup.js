@@ -81,16 +81,14 @@ const defaultValues = {
   ],
 };
 
-export default function Workout({ route }) {
+export default function Warmup({ route }) {
   let { workout } = route?.params;
   if (workout === undefined) {
     workout = {};
   }
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
-      defaultValues: {
-        workoutTitle: workout.title,
-      },
+      defaultValues,
     });
 
   const onSubmitValid = (submissionData) => {

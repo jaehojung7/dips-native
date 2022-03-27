@@ -9,7 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 const Tab = createMaterialTopTabNavigator();
 
 const HeaderContainer = styled.View`
-  margin: 50px 25px 5px 25px;
+  margin: 70px 25px 5px 25px;
 `;
 
 const Header = styled.Text`
@@ -38,7 +38,7 @@ export default function WorkoutTab({ route }) {
     <DismissKeyboard>
       <>
         <HeaderContainer>
-          <Header>프로그램 이름</Header>
+          {/* <Header>프로그램 이름</Header> */}
           {workout === undefined ? (
             <Controller
               name="WorkoutTitle"

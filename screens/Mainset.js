@@ -76,21 +76,19 @@ const defaultValues = {
   workouts: [
     {
       name: "",
-      workoutSets: [{ exercise: "", setCount: "" }],
+      workoutSets: [{ exercise: "", setCount: "5", repCount: "5" }],
     },
   ],
 };
 
-export default function Workout({ route }) {
+export default function Mainset({ route }) {
   let { workout } = route?.params;
   if (workout === undefined) {
     workout = {};
   }
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
-      defaultValues: {
-        workoutTitle: workout.title,
-      },
+      defaultValues,
     });
 
   const onSubmitValid = (submissionData) => {
@@ -111,6 +109,7 @@ export default function Workout({ route }) {
             control,
             getValues,
             setValue,
+            watch,
           }}
         />
 

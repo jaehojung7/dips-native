@@ -30,10 +30,9 @@ const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   margin: 7px 0;
-  border: 1px solid black;
 `;
 
-export default function WorkoutArray({ control, setValue, getValues }) {
+export default function WorkoutArray({ control, setValue, watch }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
@@ -65,7 +64,7 @@ export default function WorkoutArray({ control, setValue, getValues }) {
             {expanded && (
               <WorkoutSetArray
                 workoutIndex={workoutIndex}
-                {...{ control, setValue }}
+                {...{ control, setValue, watch }}
               />
             )}
           </MainContainer>

@@ -139,7 +139,7 @@ export default function ExerciseArray({ workoutIndex, control, setValue }) {
               />
               <IndexText>x</IndexText>
               <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount

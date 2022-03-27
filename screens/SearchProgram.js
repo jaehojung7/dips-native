@@ -8,11 +8,8 @@ const ME_QUERY = gql`
       programs {
         id
         title
-        description
         workouts {
           title
-          workoutIndex
-          createdAt
           workoutSets {
             id
           }

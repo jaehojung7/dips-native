@@ -125,24 +125,6 @@ export default function EditProgram({ route }) {
                 </ExerciseSubContainer>
               </ExerciseContainer>
 
-              {/* <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>오버헤드프레스</ExerciseTitle>
-                </ExerciseSubContainer>
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer>
-
-              <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>데드리프트</ExerciseTitle>
-                </ExerciseSubContainer>
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer> */}
-
               {/* {workout?.workoutSets.map((exercise, exerciseIndex) => {
                 return (
                   <ExerciseContainer key={exerciseIndex}>
@@ -155,8 +137,7 @@ export default function EditProgram({ route }) {
         })}
         <ButtonContainer>
           <SaveProgramButton text="저장" />
-
-          <DeleteProgramButton text="삭제" />
+          <DeleteProgramButton text="삭제" program={program} />
         </ButtonContainer>
       </Container>
     </DismissKeyboard>

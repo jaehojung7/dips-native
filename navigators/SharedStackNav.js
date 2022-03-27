@@ -16,8 +16,12 @@ export default function SharedStackNav({ screenName, route }) {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
+        // headerShown: false,
         headerMode: "screen",
+        headerBackTitleVisible: false,
+        headerTitle: "",
+        headerTransparent: true,
+        headerStyle: { shadowColor: "transparent" },
       }}
     >
       {screenName === "Program" ? (
@@ -37,7 +41,7 @@ export default function SharedStackNav({ screenName, route }) {
       <Stack.Screen
         name="CreateExercise"
         component={CreateExercise}
-        // options={{ presentation: "modal" }}
+        options={{ presentation: "modal", headerShown: false }}
       />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="EditProgram" component={EditProgram} />
