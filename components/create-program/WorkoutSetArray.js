@@ -76,7 +76,7 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function ExerciseArray({ workoutIndex, control, setValue }) {
+export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
     name: `workouts[${workoutIndex}].workoutSets`,
@@ -130,7 +130,7 @@ export default function ExerciseArray({ workoutIndex, control, setValue }) {
                     placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`,
                         text
                       )
                     }
@@ -150,7 +150,7 @@ export default function ExerciseArray({ workoutIndex, control, setValue }) {
                     placeholderTextColor="#7b7b7b"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`,
                         text
                       )
                     }

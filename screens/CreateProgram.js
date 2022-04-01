@@ -67,7 +67,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
   mutation createWorkoutSet(
     $programId: Int!
     $workoutIndex: Int!
-    $exercise: [String]
+    $exercise: String
     $setCount: Int! # $rir: Int
     $repCount: Int
   ) {
@@ -151,6 +151,7 @@ export default function CreateProgram() {
     }
 
     const submissionData = getValues();
+    console.log(submissionData);
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
         variables: { programId, workoutIndex, title: workout.name },
@@ -222,7 +223,6 @@ export default function CreateProgram() {
         <WorkoutArray
           {...{
             control,
-            getValues,
             setValue,
           }}
         />
