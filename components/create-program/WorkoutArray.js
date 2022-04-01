@@ -29,7 +29,7 @@ const ContainerTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-export default function WorkoutArray({ control, setValue, getValues }) {
+export default function WorkoutArray({ control, setValue }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
