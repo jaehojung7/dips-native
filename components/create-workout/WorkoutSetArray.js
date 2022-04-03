@@ -81,31 +81,11 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-// const defaultValues = {
-//   workouts: [
-//     {
-//       name: "",
-//       workoutSets: [{ weight: "5", repCount: "5" }],
-//     },
-//   ],
-// };
-
-export default function WorkoutSetArray({ workoutIndex }) {
-  const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({
-      defaultValues: {
-        weight: "5",
-        repCount: "5",
-      },
-    });
-
+export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
     name: `workouts[${workoutIndex}].workoutSets`,
   });
-  const [isDone, setIsDone] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isWarmup, setIsWarmup] = useState(false);
 
   return (
     <Container>
@@ -134,7 +114,7 @@ export default function WorkoutSetArray({ workoutIndex }) {
 
             <WeightContainer>
               <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].weight`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -145,7 +125,7 @@ export default function WorkoutSetArray({ workoutIndex }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].weight`,
                         text
                       )
                     }
@@ -157,7 +137,7 @@ export default function WorkoutSetArray({ workoutIndex }) {
 
             <RepsContainer>
               <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`}
+                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -168,7 +148,7 @@ export default function WorkoutSetArray({ workoutIndex }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`,
+                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`,
                         text
                       )
                     }

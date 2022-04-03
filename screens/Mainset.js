@@ -76,7 +76,7 @@ const defaultValues = {
   workouts: [
     {
       name: "",
-      workoutSets: [{ exercise: "", setCount: "5", repCount: "5" }],
+      workoutSets: [{}],
     },
   ],
 };
@@ -107,7 +107,6 @@ export default function Mainset({ route }) {
         <WorkoutArray
           {...{
             control,
-            getValues,
             setValue,
             watch,
           }}

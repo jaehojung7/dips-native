@@ -95,7 +95,7 @@ export default function Program({ navigation }) {
       </HeaderContainer>
       <WorkoutContainer>
         <ProgramTitle>진행중인 프로그램</ProgramTitle>
-        <WorkoutTitle>이전 워크아웃: Back Shoulder Workout</WorkoutTitle>
+        <WorkoutTitle>이전 워크아웃: Workout A</WorkoutTitle>
         <WorkoutTitle>다음 워크아웃: Leg Core Workout</WorkoutTitle>
 
         <ButtonContainer>

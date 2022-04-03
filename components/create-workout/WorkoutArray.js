@@ -37,7 +37,7 @@ export default function WorkoutArray({ control, setValue, watch }) {
     control,
     name: "workouts",
   });
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   return (
     <>
@@ -45,13 +45,20 @@ export default function WorkoutArray({ control, setValue, watch }) {
         return (
           <MainContainer key={item.id}>
             <TitleContainer>
-              <ContainerTitle
-                placeholder="운동 이름"
-                placeholderTextColor="#999999"
-                onChangeText={(text) =>
-                  setValue(`workouts[${workoutIndex}].name`, text)
-                }
+              <Controller
+                name={`workouts[${workoutIndex}].name`}
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ContainerTitle
+                    placeholder="운동 선택"
+                    placeholderTextColor="#999999"
+                    onChangeText={(text) =>
+                      setValue(`workouts[${workoutIndex}].name`, text)
+                    }
+                  />
+                )}
               />
+
               <ExpandSetButton
                 onPress={() => {
                   LayoutAnimation.configureNext(

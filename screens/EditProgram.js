@@ -9,7 +9,7 @@ const Container = styled.ScrollView`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 30px 15px 15px 15px;
+  margin: 50px 15px 15px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

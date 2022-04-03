@@ -90,7 +90,7 @@ const defaultValues = {
   workouts: [
     {
       name: "",
-      workoutSets: [{ exercise: "Squat", setCount: "5", repCount: "5" }],
+      workoutSets: [{}],
     },
   ],
 };
