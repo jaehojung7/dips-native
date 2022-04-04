@@ -39,6 +39,12 @@ export default function WorkoutArray({ control, setValue, watch }) {
   });
   const [expanded, setExpanded] = useState(true);
 
+  const handleClick = (id) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpanded((expanded) => !expanded, id);
+    // setExpanded((expanded) => ({ ...expanded, [id]: !expanded[id] }));
+  };
+
   return (
     <>
       {fields.map((item, workoutIndex) => {
@@ -61,10 +67,18 @@ export default function WorkoutArray({ control, setValue, watch }) {
 
               <ExpandSetButton
                 onPress={() => {
-                  LayoutAnimation.configureNext(
-                    LayoutAnimation.Presets.easeInEaseOut
-                  );
-                  setExpanded(!expanded);
+                  handleClick(workoutIndex);
+
+                  // LayoutAnimation.configureNext(
+                  //   LayoutAnimation.Presets.easeInEaseOut
+                  // );
+
+                  // setExpanded((expanded) => ({
+                  //   ...expanded,
+                  //   [workoutIndex]: !expanded[workoutIndex],
+                  // }));
+
+                  // setExpanded((expanded) => !expanded, workoutIndex);\
                 }}
               />
             </TitleContainer>
