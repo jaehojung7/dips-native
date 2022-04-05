@@ -32,17 +32,16 @@ const ButtonContainer = styled.View`
   margin: 7px 0;
 `;
 
-export default function WorkoutArray({ control, setValue, watch }) {
+export default function ExerciseArray({ control, setValue, watch }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
   });
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState([true]);
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpanded((expanded) => !expanded, id);
-    // setExpanded((expanded) => ({ ...expanded, [id]: !expanded[id] }));
+    setExpanded((arr) => [...arr.slice(0, id), !arr[id], ...arr.slice(id + 1)]);
   };
 
   return (
@@ -68,21 +67,10 @@ export default function WorkoutArray({ control, setValue, watch }) {
               <ExpandSetButton
                 onPress={() => {
                   handleClick(workoutIndex);
-
-                  // LayoutAnimation.configureNext(
-                  //   LayoutAnimation.Presets.easeInEaseOut
-                  // );
-
-                  // setExpanded((expanded) => ({
-                  //   ...expanded,
-                  //   [workoutIndex]: !expanded[workoutIndex],
-                  // }));
-
-                  // setExpanded((expanded) => !expanded, workoutIndex);\
                 }}
               />
             </TitleContainer>
-            {expanded && (
+            {expanded[workoutIndex] && (
               <WorkoutSetArray
                 workoutIndex={workoutIndex}
                 {...{ control, setValue, watch }}
@@ -96,12 +84,14 @@ export default function WorkoutArray({ control, setValue, watch }) {
           text="운동 추가"
           onPress={() => {
             append({});
+            setExpanded((arr) => [...arr, true]);
           }}
         />
         <AddDeleteExerciseButton
           text="운동 삭제"
           onPress={() => {
             remove(fields.length - 1);
+            setExpanded((arr) => arr.slice(0, -1));
           }}
         />
       </ButtonContainer>

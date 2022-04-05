@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import WorkoutArray from "../components/create-workout/WorkoutArray";
+import ExerciseArray from "../components/create-workout/ExerciseArray";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -104,7 +104,7 @@ export default function Mainset({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <WorkoutArray
+        <ExerciseArray
           {...{
             control,
             setValue,
