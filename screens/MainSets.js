@@ -71,22 +71,19 @@ export default function MainSets({ route }) {
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          {workout === undefined ? (
-            <Controller
-              name="recordTitle"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <WorkoutTitleInput
-                  placeholder="워크아웃 이름"
-                  placeholderTextColor="#999999"
-                  onChangeText={(text) => setValue("recordTitle", text)}
-                />
-              )}
-            />
-          ) : (
-            <WorkoutTitle>{workout.title}</WorkoutTitle>
-          )}
+          <Controller
+            name="recordTitle"
+            control={control}
+            defaultValue={workout ? workout.title : ""}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <WorkoutTitleInput
+                placeholder="워크아웃 이름"
+                placeholderTextColor="#999999"
+                onChangeText={(text) => setValue("recordTitle", text)}
+              />
+            )}
+          />
         </HeaderContainer>
 
         <ExerciseArray
