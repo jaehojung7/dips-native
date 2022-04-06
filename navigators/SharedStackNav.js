@@ -4,7 +4,7 @@ import Program from "../screens/Program";
 import Record from "../screens/Record";
 import Search from "../screens/Search";
 import Profile from "../screens/Profile";
-import Workout from "../screens/Workout";
+import CreateRecord from "../screens/CreateRecord";
 import CreateProgram from "../screens/CreateProgram";
 import SeeProgram from "../screens/SeeProgram";
 import EditProgram from "../screens/EditProgram";
@@ -37,7 +37,7 @@ export default function SharedStackNav({ screenName, route }) {
       {screenName === "Profile" ? (
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
-      <Stack.Screen name="StackWorkout" component={Workout} />
+      <Stack.Screen name="StackWorkout" component={CreateRecord} />
       <Stack.Screen
         name="CreateExercise"
         component={CreateExercise}
