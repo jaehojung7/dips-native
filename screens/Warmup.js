@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import WarmupArray from "../components/create-workout/WarmupArray";
+import WarmupArray from "../components/create-record/WarmupArray";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;

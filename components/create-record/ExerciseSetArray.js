@@ -81,10 +81,10 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
+export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `workouts[${workoutIndex}].workoutSets`,
+    name: `exercises[${exerciseIndex}].exerciseSets`,
   });
 
   return (
@@ -103,18 +103,18 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
         </RepsContainer>
       </MainContainer>
 
-      {fields.map((item, workoutSetIndex) => {
+      {fields.map((item, exerciseSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
               <SetButton>
-                <Mainset>{parseInt(`${workoutSetIndex}`) + 1}</Mainset>
+                <Mainset>{parseInt(`${exerciseSetIndex}`) + 1}</Mainset>
               </SetButton>
             </SetContainer>
 
             <WeightContainer>
               <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].weight`}
+                name={`exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].weight`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -125,7 +125,7 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].weight`,
+                        `exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].weight`,
                         text
                       )
                     }
@@ -137,7 +137,7 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
 
             <RepsContainer>
               <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`}
+                name={`exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -148,7 +148,7 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`,
+                        `exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].repCount`,
                         text
                       )
                     }

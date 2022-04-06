@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Welcome from "../screens/Welcome";
 import LogIn from "../screens/LogIn";
 import CreateAccount from "../screens/CreateAccount";
-import Workout from "../screens/Workout";
+import Workout from "../screens/CreateRecord";
 
 const Stack = createStackNavigator();
 

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
-import { LayoutAnimation, Platform, UIManager } from "react-native";
+import { LayoutAnimation } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
-import WorkoutSetArray from "./WorkoutSetArray";
+import ExerciseSetArray from "./ExerciseSetArray";
 
 const MainContainer = styled.View`
   border-radius: 20px;
@@ -32,13 +32,15 @@ const ButtonContainer = styled.View`
   margin: 7px 0;
 `;
 
-export default function ExerciseArray({ control, setValue, watch }) {
+export default function ExerciseArray({ control, setValue }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "workouts",
+    name: "exercises",
   });
   const [expanded, setExpanded] = useState([true]);
 
+  // https://www.codingdeft.com/posts/react-usestate-array/
+  // https://stackoverflow.com/questions/37601282/javascript-array-splice-vs-slice#:~:text=Splice%20and%20Slice%20both%20are%20Javascript%20Array%20functions.&text=The%20splice()%20method%20returns,t%20change%20the%20original%20array.
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded((arr) => [...arr.slice(0, id), !arr[id], ...arr.slice(id + 1)]);
@@ -46,19 +48,19 @@ export default function ExerciseArray({ control, setValue, watch }) {
 
   return (
     <>
-      {fields.map((item, workoutIndex) => {
+      {fields.map((item, exerciseIndex) => {
         return (
           <MainContainer key={item.id}>
             <TitleContainer>
               <Controller
-                name={`workouts[${workoutIndex}].name`}
+                name={`exercises[${exerciseIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     placeholder="운동 선택"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`workouts[${workoutIndex}].name`, text)
+                      setValue(`exercises[${exerciseIndex}].name`, text)
                     }
                   />
                 )}
@@ -66,14 +68,14 @@ export default function ExerciseArray({ control, setValue, watch }) {
 
               <ExpandSetButton
                 onPress={() => {
-                  handleClick(workoutIndex);
+                  handleClick(exerciseIndex);
                 }}
               />
             </TitleContainer>
-            {expanded[workoutIndex] && (
-              <WorkoutSetArray
-                workoutIndex={workoutIndex}
-                {...{ control, setValue, watch }}
+            {expanded[exerciseIndex] && (
+              <ExerciseSetArray
+                exerciseIndex={exerciseIndex}
+                {...{ control, setValue }}
               />
             )}
           </MainContainer>
