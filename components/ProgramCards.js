@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const ProgramContainer = styled.View`
-  margin: 25px 15px 0 0;
+  margin: 15px 15px 0 0;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
   padding: 15px 20px;

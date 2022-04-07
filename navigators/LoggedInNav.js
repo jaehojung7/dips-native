@@ -8,7 +8,7 @@ const Tabs = createBottomTabNavigator();
 export default function LoggedInNav() {
   return (
     <Tabs.Navigator
-      initialRouteName="Program"
+      // initialRouteName="Search"
       screenOptions={{
         headerShown: false,
         headerTitleAlign: "left",
@@ -32,7 +32,7 @@ export default function LoggedInNav() {
         name="Workout"
         options={{
           // title: "프로그램",
-          // tabBarLabel: "Program",
+          tabBarLabel: "Program",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="running" size={22} color={color} />
           ),

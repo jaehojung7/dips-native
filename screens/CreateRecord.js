@@ -3,6 +3,21 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import MainSets from "./MainSets";
 import Warmup from "./Warmup";
 import DismissKeyboard from "../components/DismissKeyboard";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  /* margin: 30px 25px 5px 25px; */
+`;
+
+const HeaderContainer = styled.View`
+  margin: 50px 25px 5px 25px;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
+`;
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,6 +30,7 @@ export default function CreateRecord({ route }) {
   return (
     <DismissKeyboard>
       <>
+        <HeaderContainer>{/* <Header>검색</Header> */}</HeaderContainer>
         <Tab.Navigator
           screenOptions={{
             tabBarLabelStyle: { fontSize: 16 },

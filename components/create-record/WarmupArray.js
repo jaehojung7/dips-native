@@ -6,13 +6,12 @@ import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WarmupSetArray from "./WarmupSetArray";
 
-const WorkoutContainer = styled.View`
+const MainContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 10px;
-  margin: 5px 10px;
+  margin-bottom: 15px;
+  padding: 15px;
 `;
-
 const ExerciseTitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -43,7 +42,7 @@ export default function WarmupArray({ control, setValue, getValues }) {
     <>
       {fields.map((item, workoutIndex) => {
         return (
-          <WorkoutContainer key={item.id}>
+          <MainContainer key={item.id}>
             <ExerciseTitleContainer>
               <ExerciseTitle
                 placeholder="운동 이름"
@@ -67,7 +66,7 @@ export default function WarmupArray({ control, setValue, getValues }) {
                 {...{ control, setValue }}
               />
             )}
-          </WorkoutContainer>
+          </MainContainer>
         );
       })}
       <ButtonContainer>

@@ -26,7 +26,6 @@ const ME_QUERY = gql`
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
-  /* border: 1px solid black; */
 `;
 
 const HeaderContainer = styled.View`
@@ -39,7 +38,7 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-const WorkoutContainer = styled.View`
+const WorkoutContainer = styled.TouchableOpacity`
   padding: 25px 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
@@ -60,7 +59,7 @@ const WorkoutTitle = styled.Text`
 `;
 
 const ProgramContainer = styled.View`
-  margin: 20px 0;
+  margin: 15px 0;
 `;
 
 const TitleContainer = styled.View`
@@ -70,7 +69,7 @@ const TitleContainer = styled.View`
 `;
 
 const RecentProgram = styled.Text`
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
   padding: 0 5px;
@@ -82,34 +81,35 @@ const MoreProgram = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
-  margin-top: 5px;
+  margin: 15px 0;
   justify-content: space-between;
 `;
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
+  console.log(data);
+  const program = data?.me.programs[0];
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
         <Header>워크아웃</Header>
       </HeaderContainer>
-      <WorkoutContainer>
-        <ProgramTitle>진행중인 프로그램</ProgramTitle>
+      <WorkoutContainer
+        onPress={() => navigation.navigate("SeeProgram", { program })}
+      >
+        <ProgramTitle>최근에 운동한 프로그램</ProgramTitle>
         <WorkoutTitle>이전 워크아웃: Workout A</WorkoutTitle>
-        <WorkoutTitle>다음 워크아웃: Leg Core Workout</WorkoutTitle>
-
-        <ButtonContainer>
-          <WorkoutButton text="다음 워크아웃 시작" onPress={() => {}} />
-          <WorkoutButton
-            text="새 템플릿으로 시작"
-            onPress={() => navigation.navigate("StackWorkout", {})}
-          />
-        </ButtonContainer>
+        <WorkoutTitle>다음 워크아웃: Workout B</WorkoutTitle>
       </WorkoutContainer>
-
+      <ButtonContainer>
+        <WorkoutButton
+          text="새 템플릿으로 시작"
+          onPress={() => navigation.navigate("StackWorkout", {})}
+        />
+      </ButtonContainer>
       <ProgramContainer>
         <TitleContainer>
-          <RecentProgram>최근에 사용한 프로그램</RecentProgram>
+          <RecentProgram>내 프로그램</RecentProgram>
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>

@@ -10,65 +10,14 @@ const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
 
-const ButtonContainer = styled.View`
-  padding: 0 15px;
+const HeaderContainer = styled.View`
+  margin: 0px 15px 15px 15px;
 `;
 
-const CREATE_PROGRAM_MUTATION = gql`
-  mutation createProgram(
-    $title: String!
-    $description: String
-    $isPrivate: Boolean!
-  ) {
-    createProgram(
-      title: $title
-      description: $description
-      isPrivate: $isPrivate
-    ) {
-      ok
-      id
-      error
-    }
-  }
-`;
-
-const CREATE_WORKOUT_MUTATION = gql`
-  mutation createWorkout(
-    $programId: Int!
-    $workoutIndex: Int!
-    $title: String!
-  ) {
-    createWorkout(
-      programId: $programId
-      workoutIndex: $workoutIndex
-      title: $title
-    ) {
-      ok
-      programId
-      workoutIndex
-      error
-    }
-  }
-`;
-
-const CREATE_WORKOUT_SET_MUTATION = gql`
-  mutation createWorkoutSet(
-    $programId: Int!
-    $workoutIndex: Int!
-    $exercise: [String]
-    $setCount: Int! # $rir: Int
-  ) {
-    createWorkoutSet(
-      programId: $programId
-      workoutIndex: $workoutIndex
-      exercise: $exercise
-      setCount: $setCount # rir: $rir
-    ) {
-      ok
-      id
-      error
-    }
-  }
+const WorkoutTitle = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 23px;
+  font-weight: 700;
 `;
 
 // Passing empty strings as default values creates one empty form automatically
@@ -104,6 +53,9 @@ export default function Warmup({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
+        <HeaderContainer>
+          <WorkoutTitle>웜업 세트</WorkoutTitle>
+        </HeaderContainer>
         <WarmupArray
           {...{
             control,
@@ -111,14 +63,6 @@ export default function Warmup({ route }) {
             setValue,
           }}
         />
-        <ButtonContainer>
-          <WorkoutButton
-            text="워크아웃 기록 저장"
-            // loading={loading}
-            disabled={!watch("WorkoutTitle")}
-            onPress={handleSubmit(onSubmitValid)}
-          />
-        </ButtonContainer>
       </Container>
     </DismissKeyboard>
   );

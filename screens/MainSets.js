@@ -15,7 +15,7 @@ const ButtonContainer = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 70px 25px 5px 25px;
+  margin: 0px 15px 15px 15px;
 `;
 
 const WorkoutTitle = styled.Text`
