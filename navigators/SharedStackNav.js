@@ -37,7 +37,7 @@ export default function SharedStackNav({ screenName, route }) {
       {screenName === "Profile" ? (
         <Stack.Screen name={"StackProfile"} component={Profile} />
       ) : null}
-      <Stack.Screen name="StackWorkout" component={CreateRecord} />
+      <Stack.Screen name="StackRecord" component={CreateRecord} />
       <Stack.Screen
         name="CreateExercise"
         component={CreateExercise}

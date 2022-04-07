@@ -59,10 +59,10 @@ const ExerciseTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const SetsbyReps = styled(ExerciseTitle)`
-  text-align: right;
+const SetbyRepContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;
-
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
@@ -73,7 +73,7 @@ const defaultValues = {
   workouts: [
     {
       name: "",
-      workoutSets: [{ exercise: "", setCount: "" }],
+      // workoutSets: [{ exercise: "", setCount: "" }],
     },
   ],
 };
@@ -115,23 +115,22 @@ export default function EditProgram({ route }) {
                 <WorkoutTitle>{workout.title}</WorkoutTitle>
               </WorkoutTitleContainer>
 
-              <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>스쿼트</ExerciseTitle>
-                </ExerciseSubContainer>
-
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer>
-
-              {/* {workout?.workoutSets.map((exercise, exerciseIndex) => {
+              {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
+                console.log(workoutSet);
                 return (
-                  <ExerciseContainer key={exerciseIndex}>
-                    <ExerciseTitle>{exercise}</ExerciseTitle>)
+                  <ExerciseContainer key={workoutSetIndex}>
+                    <ExerciseSubContainer>
+                      <ExerciseTitle>{workoutSet?.exercise}</ExerciseTitle>
+                    </ExerciseSubContainer>
+
+                    <SetbyRepContainer>
+                      <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle>
+                      <ExerciseTitle> x </ExerciseTitle>
+                      <ExerciseTitle>{workoutSet.repCount}</ExerciseTitle>
+                    </SetbyRepContainer>
                   </ExerciseContainer>
                 );
-              })} */}
+              })}
             </WorkoutContainer>
           );
         })}

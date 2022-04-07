@@ -30,7 +30,7 @@ export default function CreateRecord({ route }) {
   return (
     <DismissKeyboard>
       <>
-        <HeaderContainer>{/* <Header>검색</Header> */}</HeaderContainer>
+        <HeaderContainer>{/* <Header>Record</Header> */}</HeaderContainer>
         <Tab.Navigator
           screenOptions={{
             tabBarLabelStyle: { fontSize: 16 },

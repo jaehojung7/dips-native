@@ -17,6 +17,9 @@ const ME_QUERY = gql`
           title
           workoutSets {
             id
+            # exercise
+            setCount
+            repCount
           }
         }
       }
@@ -87,7 +90,6 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
-  console.log(data);
   const program = data?.me.programs[0];
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -97,14 +99,14 @@ export default function Program({ navigation }) {
       <WorkoutContainer
         onPress={() => navigation.navigate("SeeProgram", { program })}
       >
-        <ProgramTitle>최근에 운동한 프로그램</ProgramTitle>
-        <WorkoutTitle>이전 워크아웃: Workout A</WorkoutTitle>
-        <WorkoutTitle>다음 워크아웃: Workout B</WorkoutTitle>
+        <ProgramTitle>Recent Program</ProgramTitle>
+        <WorkoutTitle>Prev workout: Workout A</WorkoutTitle>
+        <WorkoutTitle>Next workout: Workout B</WorkoutTitle>
       </WorkoutContainer>
       <ButtonContainer>
         <WorkoutButton
           text="새 템플릿으로 시작"
-          onPress={() => navigation.navigate("StackWorkout", {})}
+          onPress={() => navigation.navigate("StackRecord", {})}
         />
       </ButtonContainer>
       <ProgramContainer>

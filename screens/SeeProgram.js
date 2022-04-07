@@ -60,15 +60,17 @@ const ExerciseSubContainer = styled.View`
   width: 50%;
 `;
 
+const SetbyRepContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 const ExerciseTitle = styled.Text`
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 700;
   color: ${(props) => props.theme.fontColor};
 `;
 
-const SetsbyReps = styled(ExerciseTitle)`
-  text-align: right;
-`;
 const defaultValues = {
   workouts: [
     {
@@ -80,6 +82,7 @@ const defaultValues = {
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
+  console.log(program);
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -100,45 +103,27 @@ export default function SeeProgram({ route, navigation }) {
                 <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
-                    navigation.navigate("StackWorkout", { workout });
+                    navigation.navigate("StackRecord", { workout });
                   }}
                 />
               </WorkoutTitleContainer>
 
-              <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>스쿼트</ExerciseTitle>
-                </ExerciseSubContainer>
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer>
-
-              <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>벤치프레스</ExerciseTitle>
-                </ExerciseSubContainer>
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer>
-
-              <ExerciseContainer>
-                <ExerciseSubContainer>
-                  <ExerciseTitle>바벨로우</ExerciseTitle>
-                </ExerciseSubContainer>
-                <ExerciseSubContainer>
-                  <SetsbyReps>5x5</SetsbyReps>
-                </ExerciseSubContainer>
-              </ExerciseContainer>
-
-              {/* {workout?.workoutSets.map((exercise, exerciseIndex) => {
+              {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
+                console.log(workoutSet);
                 return (
-                  <ExerciseContainer key={exerciseIndex}>
-                    <ExerciseTitle>{exercise}</ExerciseTitle>)
+                  <ExerciseContainer key={workoutSetIndex}>
+                    <ExerciseSubContainer>
+                      <ExerciseTitle>{workoutSet?.exercise}</ExerciseTitle>
+                    </ExerciseSubContainer>
+
+                    <SetbyRepContainer>
+                      <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle>
+                      <ExerciseTitle> x </ExerciseTitle>
+                      <ExerciseTitle>{workoutSet.repCount}</ExerciseTitle>
+                    </SetbyRepContainer>
                   </ExerciseContainer>
                 );
-              })} */}
+              })}
             </WorkoutContainer>
           );
         })}
