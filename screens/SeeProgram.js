@@ -82,7 +82,6 @@ const defaultValues = {
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
-  console.log(program);
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -103,13 +102,12 @@ export default function SeeProgram({ route, navigation }) {
                 <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
-                    navigation.navigate("StackRecord", { workout });
+                    navigation.navigate("CreateRecord", { workout });
                   }}
                 />
               </WorkoutTitleContainer>
 
               {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
-                console.log(workoutSet);
                 return (
                   <ExerciseContainer key={workoutSetIndex}>
                     <ExerciseSubContainer>

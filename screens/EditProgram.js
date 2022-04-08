@@ -3,6 +3,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm, Controller } from "react-hook-form";
 import SaveProgramButton from "../components/Buttons/SaveProgramButton";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
+import { Text } from "react-native";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -28,18 +29,12 @@ const WorkoutContainer = styled.View`
   padding: 15px 25px;
 `;
 
-const WorkoutTitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-`;
-
-const WorkoutTitle = styled.Text`
+const WorkoutTitle = styled.TextInput`
   font-size: 20px;
   font-weight: 700;
+  margin-bottom: 10px;
   color: ${(props) => props.theme.fontColor};
-  width: 50%;
+  border: 1px solid black;
 `;
 
 const ExerciseContainer = styled.View`
@@ -49,8 +44,9 @@ const ExerciseContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-const ExerciseSubContainer = styled.View`
+const ExerciseTitleContainer = styled.View`
   width: 50%;
+  border: 1px solid blue;
 `;
 
 const ExerciseTitle = styled.TextInput`
@@ -63,6 +59,7 @@ const SetbyRepContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
+
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
@@ -81,12 +78,7 @@ const defaultValues = {
 export default function EditProgram({ route }) {
   const { program } = route.params;
   const { register, handleSubmit, setValue, getValues, watch, control } =
-    useForm({
-      defaultValues: {
-        programTitle: program?.title,
-        // workoutTitle: program?.username,
-      },
-    });
+    useForm({});
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -99,6 +91,7 @@ export default function EditProgram({ route }) {
               <ProgramTitle
                 value={watch("programTitle")}
                 placeholder="프로그램 이름"
+                defaultValue={program.title}
                 autoCapitalize="none"
                 returnKeyType="next"
                 placeholderTextColor="#999999"
@@ -111,22 +104,88 @@ export default function EditProgram({ route }) {
         {program?.workouts.map((workout, workoutIndex) => {
           return (
             <WorkoutContainer key={workoutIndex}>
-              <WorkoutTitleContainer>
-                <WorkoutTitle>{workout.title}</WorkoutTitle>
-              </WorkoutTitleContainer>
+              <Controller
+                name="workoutTitle"
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <WorkoutTitle
+                    value={watch("workoutTitle")}
+                    placeholder="워크아웃 이름"
+                    defaultValue={workout.title}
+                    autoCapitalize="none"
+                    returnKeyType="next"
+                    placeholderTextColor="#999999"
+                    onChangeText={(text) => setValue("workoutTitle", text)}
+                  />
+                )}
+              />
 
               {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
-                console.log(workoutSet);
                 return (
                   <ExerciseContainer key={workoutSetIndex}>
-                    <ExerciseSubContainer>
-                      <ExerciseTitle>{workoutSet?.exercise}</ExerciseTitle>
-                    </ExerciseSubContainer>
+                    <ExerciseTitleContainer>
+                      {/* <Controller
+                        name="exerciseTitle"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <ExerciseTitle
+                            value={watch("exerciseTitle")}
+                            placeholder="운동 이름"
+                            defaultValue={workoutSet ? exercise : ""}
+                            autoCapitalize="none"
+                            returnKeyType="next"
+                            placeholderTextColor="#999999"
+                            onChangeText={(text) =>
+                              setValue("exerciseTitle", text)
+                            }
+                          />
+                        )}
+                      /> */}
+                    </ExerciseTitleContainer>
 
                     <SetbyRepContainer>
-                      <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle>
-                      <ExerciseTitle> x </ExerciseTitle>
-                      <ExerciseTitle>{workoutSet.repCount}</ExerciseTitle>
+                      {/* <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle> */}
+                      <Controller
+                        name="exerciseSets"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <ExerciseTitle
+                            // value={watch("exerciseSets")}
+                            keyboardType="numeric"
+                            type="number"
+                            defaultValue={workoutSet.setCount.toString()}
+                            maxLength={3}
+                            placeholderTextColor="#999999"
+                            onChangeText={(text) =>
+                              setValue("exerciseSets", text)
+                            }
+                          />
+                        )}
+                      />
+
+                      <Text> x </Text>
+
+                      <Controller
+                        name="exerciseReps"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <ExerciseTitle
+                            keyboardType="numeric"
+                            type="number"
+                            // placeholder={workoutSet.repCount}
+                            defaultValue={workoutSet.repCount.toString()}
+                            maxLength={3}
+                            placeholderTextColor="#999999"
+                            onChangeText={(text) =>
+                              setValue("exerciseReps", text)
+                            }
+                          />
+                        )}
+                      />
                     </SetbyRepContainer>
                   </ExerciseContainer>
                 );

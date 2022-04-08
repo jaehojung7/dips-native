@@ -74,11 +74,11 @@ export default function MainSets({ route }) {
           <Controller
             name="recordTitle"
             control={control}
-            defaultValue={workout ? workout.title : ""}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <WorkoutTitleInput
-                placeholder="워크아웃 이름"
+                placeholder="워크아웃 제목"
+                defaultValue={workout ? workout.title : ""}
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("recordTitle", text)}
               />

@@ -90,6 +90,7 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
+  console.log(data?.me.programs);
   const program = data?.me.programs[0];
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -100,13 +101,17 @@ export default function Program({ navigation }) {
         onPress={() => navigation.navigate("SeeProgram", { program })}
       >
         <ProgramTitle>Recent Program</ProgramTitle>
-        <WorkoutTitle>Prev workout: Workout A</WorkoutTitle>
-        <WorkoutTitle>Next workout: Workout B</WorkoutTitle>
+
+        {program?.workouts.map((workout, workoutIndex) => {
+          return (
+            <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
+          );
+        })}
       </WorkoutContainer>
       <ButtonContainer>
         <WorkoutButton
           text="새 템플릿으로 시작"
-          onPress={() => navigation.navigate("StackRecord", {})}
+          onPress={() => navigation.navigate("CreateRecord", {})}
         />
       </ButtonContainer>
       <ProgramContainer>
