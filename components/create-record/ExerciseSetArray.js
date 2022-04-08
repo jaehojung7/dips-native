@@ -71,10 +71,6 @@ const Mainset = styled.Text`
   text-align: center;
 `;
 
-const Warmup = styled(Mainset)`
-  color: ${(props) => props.theme.orange};
-`;
-
 const ButtonContainer = styled.View`
   margin: 5px 0;
   flex-direction: row;

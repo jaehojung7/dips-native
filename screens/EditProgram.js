@@ -57,7 +57,28 @@ const ExerciseTitle = styled.TextInput`
 
 const SetbyRepContainer = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  /* justify-content: space-evenly; */
+  border: 1px solid black;
+  width: 40%;
+`;
+
+const SetbyRep = styled.TextInput`
+  color: black;
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px 5px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 5px;
+  text-align: center;
+  width: 40%;
+`;
+
+const IndexText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 5px;
 `;
 
 const ButtonContainer = styled.View`
@@ -65,15 +86,6 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
   align-items: center;
 `;
-
-const defaultValues = {
-  workouts: [
-    {
-      name: "",
-      // workoutSets: [{ exercise: "", setCount: "" }],
-    },
-  ],
-};
 
 export default function EditProgram({ route }) {
   const { program } = route.params;
@@ -152,7 +164,7 @@ export default function EditProgram({ route }) {
                         control={control}
                         rules={{ required: true }}
                         render={({ field: { onChange, onBlur, value } }) => (
-                          <ExerciseTitle
+                          <SetbyRep
                             // value={watch("exerciseSets")}
                             keyboardType="numeric"
                             type="number"
@@ -165,15 +177,13 @@ export default function EditProgram({ route }) {
                           />
                         )}
                       />
-
-                      <Text> x </Text>
-
+                      <IndexText>x</IndexText>
                       <Controller
                         name="exerciseReps"
                         control={control}
                         rules={{ required: true }}
                         render={({ field: { onChange, onBlur, value } }) => (
-                          <ExerciseTitle
+                          <SetbyRep
                             keyboardType="numeric"
                             type="number"
                             // placeholder={workoutSet.repCount}
