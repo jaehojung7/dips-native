@@ -33,22 +33,30 @@ export default function WorkoutRecordSet() {
   return (
     <>
       <IndexContainer>
-        <IndexText>운동</IndexText>
-        <IndexText>총 볼륨 (kg)</IndexText>
+        <IndexText>Set</IndexText>
+        <IndexText>Weight</IndexText>
+        <IndexText>Reps</IndexText>
       </IndexContainer>
       <BorderLine />
 
       <RecordSetContainer>
-        <IndexText>Squat</IndexText>
-        <IndexText>1250 kg</IndexText>
+        <IndexText>1</IndexText>
+        <IndexText>55 kg</IndexText>
+        <IndexText>5</IndexText>
       </RecordSetContainer>
       <RecordSetContainer>
-        <IndexText>Bench Press</IndexText>
-        <IndexText>1250 kg</IndexText>
+        <IndexText>2</IndexText>
+        <IndexText>55 kg</IndexText>
+        <IndexText>5</IndexText>
       </RecordSetContainer>
       <RecordSetContainer>
-        <IndexText>Barbell Row</IndexText>
-        <IndexText>1250 kg</IndexText>
+        <IndexText>3</IndexText>
+        <IndexText>55 kg</IndexText>
+        <IndexText>5</IndexText>
+      </RecordSetContainer>
+      <RecordSetContainer>
+        <IndexText>Total Volume</IndexText>
+        <IndexText>825 kg</IndexText>
       </RecordSetContainer>
     </>
   );

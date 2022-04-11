@@ -42,7 +42,7 @@ export default function DeleteProgramButton({ program }) {
   return (
     <ButtonContainer onPress={onClickDelete}>
       {/* onPress 실행 직전 경고 */}
-      <ButtonText>Delete</ButtonText>
+      <ButtonText>삭제</ButtonText>
     </ButtonContainer>
   );
 }

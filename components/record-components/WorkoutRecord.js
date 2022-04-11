@@ -4,6 +4,8 @@ import { LayoutAnimation } from "react-native";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WorkoutRecordSet from "./WorkoutRecordSet";
 
+const DateContainer = styled.View``;
+
 const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -36,7 +38,7 @@ export default function WorkoutRecord() {
   return (
     <>
       <TitleContainer>
-        <ContainerTitle>Mar. 15 2022</ContainerTitle>
+        <ContainerTitle>Barbell Row</ContainerTitle>
         <ExpandSetButton
           onPress={() => {
             LayoutAnimation.configureNext(

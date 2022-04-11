@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import ExerciseRecord from "../components/record-components/ExerciseRecord";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 
 const Container = styled.ScrollView`
@@ -25,6 +24,16 @@ const MainContainer = styled.View`
   padding: 15px;
 `;
 
+const DateContainer = styled.View`
+  margin: 10px 0 15px 15px;
+`;
+
+const DateText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  color: ${(props) => props.theme.fontColor};
+`;
+
 export default function Record({ navigation }) {
   return (
     <DismissKeyboard>
@@ -33,9 +42,9 @@ export default function Record({ navigation }) {
           <Header>운동기록</Header>
         </HeaderContainer>
 
-        <MainContainer>
-          <ExerciseRecord />
-        </MainContainer>
+        <DateContainer>
+          <DateText>4/11 2022-1</DateText>
+        </DateContainer>
 
         <MainContainer>
           <WorkoutRecord />

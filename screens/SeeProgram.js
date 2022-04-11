@@ -56,7 +56,7 @@ const ExerciseContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-const ExerciseSubContainer = styled.View`
+const ExerciseTitleContainer = styled.View`
   width: 50%;
 `;
 
@@ -110,9 +110,9 @@ export default function SeeProgram({ route, navigation }) {
               {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
                 return (
                   <ExerciseContainer key={workoutSetIndex}>
-                    <ExerciseSubContainer>
+                    <ExerciseTitleContainer>
                       <ExerciseTitle>{workoutSet?.exercise}</ExerciseTitle>
-                    </ExerciseSubContainer>
+                    </ExerciseTitleContainer>
 
                     <SetbyRepContainer>
                       <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle>

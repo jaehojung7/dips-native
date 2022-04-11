@@ -18,7 +18,7 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function EditProgramButton({ onPress, text }) {
+export default function SaveProgramButton({ onPress, text }) {
   return (
     <ButtonContainer onPress={onPress}>
       <ButtonText>{text}</ButtonText>

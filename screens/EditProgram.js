@@ -3,7 +3,6 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm, Controller } from "react-hook-form";
 import SaveProgramButton from "../components/Buttons/SaveProgramButton";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
-import { Text } from "react-native";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -34,7 +33,6 @@ const WorkoutTitle = styled.TextInput`
   font-weight: 700;
   margin-bottom: 10px;
   color: ${(props) => props.theme.fontColor};
-  border: 1px solid black;
 `;
 
 const ExerciseContainer = styled.View`
