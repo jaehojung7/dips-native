@@ -17,7 +17,7 @@ const ME_QUERY = gql`
           title
           workoutSets {
             id
-            # exercise
+            exercise
             setCount
             repCount
           }
@@ -90,7 +90,6 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
-  console.log(data?.me.programs);
   const program = data?.me.programs[0];
   return (
     <Container showsVerticalScrollIndicator={false}>

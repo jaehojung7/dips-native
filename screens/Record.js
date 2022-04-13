@@ -43,7 +43,7 @@ export default function Record({ navigation }) {
         </HeaderContainer>
 
         <DateContainer>
-          <DateText>4/11 2022-1</DateText>
+          <DateText>4/11 2022-1 (날짜 선택 옵션)</DateText>
         </DateContainer>
 
         <MainContainer>

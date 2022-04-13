@@ -12,7 +12,7 @@ const ME_QUERY = gql`
           title
           workoutSets {
             id
-            # exercise
+            exercise
             setCount
             repCount
           }

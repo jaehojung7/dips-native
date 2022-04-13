@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
@@ -41,7 +42,6 @@ const ExerciseBodypart = styled.Text`
   color: ${(props) => props.theme.gray};
   /* opacity: 0.5 */
   margin-top: 3px;
-  /* font-weight: 600; */
 `;
 
 const BorderLine = styled.View`
@@ -70,7 +70,18 @@ export default function Exercise({ exercise }) {
   });
 
   const onClickDelete = () => {
-    deleteExerciseFunction();
+    Alert.alert("이 운동을 삭제할까요?", "", [
+      {
+        text: "Delete",
+        onPress: () => deleteExerciseFunction(),
+        style: "destructive",
+      },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+    ]);
   };
 
   const renderRightActions = (progress, dragX) => {
@@ -82,7 +93,6 @@ export default function Exercise({ exercise }) {
 
     return (
       <DeleteButton onPress={onClickDelete}>
-        {/* onPress 실행 직전 경고 */}
         <DeleteText>Delete</DeleteText>
       </DeleteButton>
     );

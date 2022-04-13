@@ -58,6 +58,7 @@ export default function ExerciseArray({ control, setValue }) {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     placeholder="운동 선택"
+                    defaultValue={workout ? workout.title : ""}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(`exercises[${exerciseIndex}].name`, text)

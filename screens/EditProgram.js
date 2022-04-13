@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { gql, useMutation } from "@apollo/client";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm, Controller } from "react-hook-form";
 import SaveProgramButton from "../components/Buttons/SaveProgramButton";
@@ -202,7 +203,7 @@ export default function EditProgram({ route }) {
           );
         })}
         <ButtonContainer>
-          <SaveProgramButton text="저장" />
+          <SaveProgramButton text="저장" program={program} />
           <DeleteProgramButton text="삭제" program={program} />
         </ButtonContainer>
       </Container>

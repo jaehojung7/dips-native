@@ -57,12 +57,12 @@ const ExerciseContainer = styled.View`
 `;
 
 const ExerciseTitleContainer = styled.View`
-  width: 50%;
+  width: 65%;
 `;
 
 const SetbyRepContainer = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: center; */
 `;
 
 const ExerciseTitle = styled.Text`

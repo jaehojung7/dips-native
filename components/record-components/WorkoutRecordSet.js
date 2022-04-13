@@ -11,7 +11,7 @@ const IndexContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin: 10px 0;
 `;
 
 const IndexText = styled.Text`
@@ -37,22 +37,21 @@ export default function WorkoutRecordSet() {
         <IndexText>Weight</IndexText>
         <IndexText>Reps</IndexText>
       </IndexContainer>
-      <BorderLine />
+      {/* <BorderLine /> */}
 
       <RecordSetContainer>
         <IndexText>1</IndexText>
-        <IndexText>55 kg</IndexText>
-        <IndexText>5</IndexText>
+        <IndexText>55 kg x 5</IndexText>
       </RecordSetContainer>
       <RecordSetContainer>
         <IndexText>2</IndexText>
-        <IndexText>55 kg</IndexText>
+        <IndexText>57.5 kg</IndexText>
         <IndexText>5</IndexText>
       </RecordSetContainer>
       <RecordSetContainer>
         <IndexText>3</IndexText>
-        <IndexText>55 kg</IndexText>
-        <IndexText>5</IndexText>
+
+        <IndexText>57.5 kg x 5</IndexText>
       </RecordSetContainer>
       <RecordSetContainer>
         <IndexText>Total Volume</IndexText>

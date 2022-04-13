@@ -4,8 +4,6 @@ import { LayoutAnimation } from "react-native";
 import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WorkoutRecordSet from "./WorkoutRecordSet";
 
-const DateContainer = styled.View``;
-
 const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -17,20 +15,6 @@ const ContainerTitle = styled.Text`
   font-size: 20px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
-`;
-
-const IndexContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-  padding: 0 5px;
 `;
 
 export default function WorkoutRecord() {

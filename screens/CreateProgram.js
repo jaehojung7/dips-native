@@ -6,20 +6,6 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 
-const Container = styled.ScrollView`
-  margin: 20px 10px;
-  /* border: 1px solid black; */
-`;
-
-const TitleContainer = styled.View`
-  margin-top: 50px;
-  margin-bottom: 15px;
-  padding: 15px 25px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-  /* border: 1px solid ${(props) => props.theme.gray}; */
-`;
-
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 22px;
@@ -83,6 +69,20 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
       error
     }
   }
+`;
+
+const Container = styled.ScrollView`
+  margin: 20px 10px;
+  /* border: 1px solid black; */
+`;
+
+const TitleContainer = styled.View`
+  margin-top: 50px;
+  margin-bottom: 15px;
+  padding: 15px 25px;
+  background-color: ${(props) => props.theme.cardColor};
+  border-radius: 20px;
+  /* border: 1px solid ${(props) => props.theme.gray}; */
 `;
 
 // Passing empty strings as default values creates one empty form automatically
@@ -151,7 +151,6 @@ export default function CreateProgram() {
     }
 
     const submissionData = getValues();
-    console.log(submissionData);
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
         variables: { programId, workoutIndex, title: workout.name },
