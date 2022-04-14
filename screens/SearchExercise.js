@@ -18,15 +18,15 @@ const ME_QUERY = gql`
   }
 `;
 
-const Container = styled.ScrollView`
-  margin: 20px 10px;
+const Container = styled.View`
+  padding-bottom: 15px;
 `;
 
 const SearchContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin: 20px 0 15px 0;
 `;
 
 const SearchExerciseTab = styled.TextInput`
@@ -63,6 +63,19 @@ export default function SearchExercise({ navigation }) {
   const renderItem = ({ item: exercise }) => {
     return <Exercise exercise={exercise} />;
   };
+
+  const SearchBox = (
+    <SearchContainer>
+      <SearchExerciseTab placeholder="운동 검색하기" />
+      <AddExerciseButton
+        onPress={() => navigation.navigate("CreateExercise", { user })}
+      >
+        <ButtonText>
+          <FontAwesome5 name="plus" size={17} />
+        </ButtonText>
+      </AddExerciseButton>
+    </SearchContainer>
+  );
   // 종목이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
   // const [refreshing, setRefreshing] = useState(false);
 
@@ -72,22 +85,13 @@ export default function SearchExercise({ navigation }) {
   // }, []);
 
   return (
-    <Container
-      showsVerticalScrollIndicator={false}
-      // refreshControl={
-      //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      // }
-    >
-      <SearchContainer>
-        <SearchExerciseTab placeholder="운동 검색하기" />
-        <AddExerciseButton
-          onPress={() => navigation.navigate("CreateExercise", { user })}
-        >
-          <ButtonText>
-            <FontAwesome5 name="plus" size={17} />
-          </ButtonText>
-        </AddExerciseButton>
-      </SearchContainer>
+    <Container>
+      {/* <ScrollContainer
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      > */}
 
       <FlatList
         data={exercises}
@@ -95,7 +99,7 @@ export default function SearchExercise({ navigation }) {
         renderItem={renderItem}
         initialNumToRender={3}
         windowSize={3}
-        showsHorizontalScrollIndicator={false}
+        ListHeaderComponent={SearchBox}
       />
     </Container>
   );

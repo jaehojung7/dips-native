@@ -30,13 +30,12 @@ const ExerciseTitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 10px;
+  margin: 10px 15px;
 `;
 
 const ExerciseTitle = styled.Text`
   font-size: 18px;
   color: ${(props) => props.theme.fontColor};
-  /* margin: 10px 5px; */
   font-weight: 600;
 `;
 
