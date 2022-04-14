@@ -1,6 +1,5 @@
 import { FlatList, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const ProgramContainer = styled.View`
@@ -50,20 +49,14 @@ export default function ProgramCards({ programs }) {
   };
 
   return (
-    <>
-      <FlatList
-        data={programs}
-        keyExtractor={(program, index) => "" + index}
-        renderItem={renderProgram}
-        horizontal
-        initialNumToRender={3}
-        windowSize={3}
-        showsHorizontalScrollIndicator={false}
-      />
-
-      {/* <Modal animationType="none" transparent={true} visible={modalVisible}> */}
-      {/* <SeeProgram program={programModalContent} {...{ setModalVisible }} /> */}
-      {/* </Modal> */}
-    </>
+    <FlatList
+      data={programs}
+      keyExtractor={(program, index) => "" + index}
+      renderItem={renderProgram}
+      horizontal
+      initialNumToRender={3}
+      windowSize={3}
+      showsHorizontalScrollIndicator={false}
+    />
   );
 }

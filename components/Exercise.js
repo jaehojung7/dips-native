@@ -1,5 +1,5 @@
-import React from "react";
-import { Alert } from "react-native";
+import React, { useRef } from "react";
+import { Alert, FlatList } from "react-native";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
@@ -27,7 +27,10 @@ const DeleteText = styled.Text`
 `;
 
 const ExerciseTitleContainer = styled.View`
-  margin: 7px 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 10px;
 `;
 
 const ExerciseTitle = styled.Text`
@@ -51,6 +54,11 @@ const BorderLine = styled.View`
 `;
 
 export default function Exercise({ exercise }) {
+  const swipeableRef = useRef(null);
+  const closeSwipeable = () => {
+    swipeableRef.current.close();
+  };
+
   const deleteExerciseUpdate = (cache, result) => {
     const {
       data: {
@@ -78,7 +86,7 @@ export default function Exercise({ exercise }) {
       },
       {
         text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
+        onPress: () => closeSwipeable(),
         style: "cancel",
       },
     ]);
@@ -99,7 +107,7 @@ export default function Exercise({ exercise }) {
   };
 
   return (
-    <Swipeable renderRightActions={renderRightActions}>
+    <Swipeable ref={swipeableRef} renderRightActions={renderRightActions}>
       <ExerciseTitleContainer>
         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>

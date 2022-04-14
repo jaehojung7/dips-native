@@ -1,9 +1,9 @@
-import { React, useState, useCallback } from "react";
+import { React } from "react";
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Exercise from "../components/Exercise";
 import { gql, useQuery } from "@apollo/client";
-import { RefreshControl } from "react-native";
+import { RefreshControl, FlatList } from "react-native";
 
 const ME_QUERY = gql`
   query me {
@@ -26,6 +26,7 @@ const SearchContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 25px;
 `;
 
 const SearchExerciseTab = styled.TextInput`
@@ -50,10 +51,6 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const ExerciseContainer = styled.View`
-  margin-top: 15px;
-`;
-
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
@@ -61,21 +58,25 @@ const wait = (timeout) => {
 export default function SearchExercise({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   const user = data?.me;
+  const exercises = data?.me?.exercises;
 
+  const renderItem = ({ item: exercise }) => {
+    return <Exercise exercise={exercise} />;
+  };
   // 종목이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
-  const [refreshing, setRefreshing] = useState(false);
+  // const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+  // const onRefresh = useCallback(() => {
+  //   setRefreshing(true);
+  //   wait(2000).then(() => setRefreshing(false));
+  // }, []);
 
   return (
     <Container
       showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
+      // refreshControl={
+      //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      // }
     >
       <SearchContainer>
         <SearchExerciseTab placeholder="운동 검색하기" />
@@ -88,11 +89,14 @@ export default function SearchExercise({ navigation }) {
         </AddExerciseButton>
       </SearchContainer>
 
-      <ExerciseContainer>
-        {data?.me?.exercises.map((exercise) => (
-          <Exercise exercise={exercise} key={exercise.id} />
-        ))}
-      </ExerciseContainer>
+      <FlatList
+        data={exercises}
+        keyExtractor={(exercise, index) => "" + index}
+        renderItem={renderItem}
+        initialNumToRender={3}
+        windowSize={3}
+        showsHorizontalScrollIndicator={false}
+      />
     </Container>
   );
 }
