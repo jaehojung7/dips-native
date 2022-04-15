@@ -48,9 +48,9 @@ export default function ExerciseArray({ control, setValue }) {
 
   return (
     <>
-      {fields.map((item, exerciseIndex) => {
+      {fields.map((exercise, exerciseIndex) => {
         return (
-          <MainContainer key={item.id}>
+          <MainContainer key={exercise.id}>
             <TitleContainer>
               <Controller
                 name={`exercises[${exerciseIndex}].name`}
@@ -58,7 +58,7 @@ export default function ExerciseArray({ control, setValue }) {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     placeholder="운동 선택"
-                    defaultValue={workout ? workout.title : ""}
+                    defaultValue={exercise}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(`exercises[${exerciseIndex}].name`, text)

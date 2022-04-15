@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Exercise from "../components/Exercise";
@@ -60,6 +60,12 @@ export default function SearchExercise({ navigation }) {
   const user = data?.me;
   const exercises = data?.me?.exercises;
 
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   const renderItem = ({ item: exercise }) => {
     return <Exercise exercise={exercise} />;
   };
@@ -76,23 +82,13 @@ export default function SearchExercise({ navigation }) {
       </AddExerciseButton>
     </SearchContainer>
   );
-  // 종목이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
-  // const [refreshing, setRefreshing] = useState(false);
-
-  // const onRefresh = useCallback(() => {
-  //   setRefreshing(true);
-  //   wait(2000).then(() => setRefreshing(false));
-  // }, []);
 
   return (
-    <Container>
-      {/* <ScrollContainer
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      > */}
-
+    <Container
+    // refreshControl={
+    //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    // }
+    >
       <FlatList
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Alert, FlatList } from "react-native";
+import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
@@ -42,7 +42,6 @@ const ExerciseTitle = styled.Text`
 const ExerciseBodypart = styled.Text`
   font-size: 16px;
   color: ${(props) => props.theme.gray};
-  /* opacity: 0.5 */
   margin-top: 3px;
 `;
 
@@ -76,11 +75,15 @@ export default function Exercise({ exercise }) {
     update: deleteExerciseUpdate,
   });
 
+  const combinedFunctions = () => {
+    deleteExerciseFunction();
+    closeSwipeable();
+  };
   const onClickDelete = () => {
     Alert.alert("이 운동을 삭제할까요?", "", [
       {
         text: "Delete",
-        onPress: () => deleteExerciseFunction(),
+        onPress: () => combinedFunctions(),
         style: "destructive",
       },
       {
@@ -99,7 +102,9 @@ export default function Exercise({ exercise }) {
     });
 
     return (
-      <DeleteButton onPress={onClickDelete}>
+      <DeleteButton
+        onPress={Platform.OS === "web" ? deleteExerciseFunction : onClickDelete}
+      >
         <DeleteText>Delete</DeleteText>
       </DeleteButton>
     );
