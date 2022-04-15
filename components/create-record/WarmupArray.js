@@ -31,38 +31,40 @@ const ButtonContainer = styled.View`
   margin: 7px 0;
 `;
 
-export default function WarmupArray({ control, setValue, getValues }) {
+export default function WarmupArray({ control, setValue, workout }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "workouts",
+    name: "exercises",
   });
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState([false]);
+  const handleClick = (id) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpanded((arr) => [...arr.slice(0, id), !arr[id], ...arr.slice(id + 1)]);
+  };
 
   return (
     <>
-      {fields.map((item, workoutIndex) => {
+      {workout.workoutSets.map((workoutSet, workoutSetIndex) => {
         return (
-          <MainContainer key={item.id}>
+          <MainContainer key={workoutSet.id}>
             <ExerciseTitleContainer>
               <ExerciseTitle
+                defaultValue={workoutSet.exercise}
                 placeholder="운동 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) =>
-                  setValue(`workouts[${workoutIndex}].name`, text)
+                  setValue(`exercises[${workoutSetIndex}].name`, text)
                 }
               />
               <ExpandSetButton
                 onPress={() => {
-                  LayoutAnimation.configureNext(
-                    LayoutAnimation.Presets.easeInEaseOut
-                  );
-                  setExpanded(!expanded);
+                  handleClick(workoutSetIndex);
                 }}
               />
             </ExerciseTitleContainer>
-            {expanded && (
+            {expanded[workoutSetIndex] && (
               <WarmupSetArray
-                workoutIndex={workoutIndex}
+                workoutSetIndex={workoutSetIndex}
                 {...{ control, setValue }}
               />
             )}

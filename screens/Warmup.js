@@ -59,9 +59,9 @@ export default function Warmup({ route }) {
         <WarmupArray
           {...{
             control,
-            getValues,
             setValue,
           }}
+          workout={workout}
         />
       </Container>
     </DismissKeyboard>

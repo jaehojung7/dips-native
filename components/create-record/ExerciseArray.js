@@ -32,7 +32,7 @@ const ButtonContainer = styled.View`
   margin: 7px 0;
 `;
 
-export default function ExerciseArray({ control, setValue }) {
+export default function ExerciseArray({ control, setValue, workout }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "exercises",
@@ -48,20 +48,20 @@ export default function ExerciseArray({ control, setValue }) {
 
   return (
     <>
-      {fields.map((exercise, exerciseIndex) => {
+      {workout.workoutSets.map((workoutSet, workoutSetIndex) => {
         return (
-          <MainContainer key={exercise.id}>
+          <MainContainer key={workoutSet.id}>
             <TitleContainer>
               <Controller
-                name={`exercises[${exerciseIndex}].name`}
+                name={`exercises[${workoutSetIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
+                    defaultValue={workoutSet.exercise}
                     placeholder="운동 선택"
-                    defaultValue={exercise}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`exercises[${exerciseIndex}].name`, text)
+                      setValue(`exercises[${workoutSetIndex}].name`, text)
                     }
                   />
                 )}
@@ -69,13 +69,13 @@ export default function ExerciseArray({ control, setValue }) {
 
               <ExpandSetButton
                 onPress={() => {
-                  handleClick(exerciseIndex);
+                  handleClick(workoutSetIndex);
                 }}
               />
             </TitleContainer>
-            {expanded[exerciseIndex] && (
+            {expanded[workoutSetIndex] && (
               <ExerciseSetArray
-                exerciseIndex={exerciseIndex}
+                workoutSetIndex={workoutSetIndex}
                 {...{ control, setValue }}
               />
             )}

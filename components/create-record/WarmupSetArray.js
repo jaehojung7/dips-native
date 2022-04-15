@@ -77,15 +77,11 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function WarmupSetArray({ workoutIndex, control, setValue }) {
+export default function WarmupSetArray({ workoutSetIndex, control, setValue }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `workouts[${workoutIndex}].workoutSets`,
+    name: `exercises[${workoutSetIndex}].exerciseSets`,
   });
-  const [isDone, setIsDone] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isWarmup, setIsWarmup] = useState(false);
-
   return (
     <Container>
       <MainContainer>
@@ -102,7 +98,7 @@ export default function WarmupSetArray({ workoutIndex, control, setValue }) {
         </RepsContainer>
       </MainContainer>
 
-      {fields.map((item, workoutSetIndex) => {
+      {fields.map((item, exerciseSetIndex) => {
         return (
           <MainContainer key={item.id}>
             <SetContainer>
@@ -112,8 +108,21 @@ export default function WarmupSetArray({ workoutIndex, control, setValue }) {
             </SetContainer>
 
             <WeightContainer>
-              <Controller
-                name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
+              <WeightCount
+                keyboardType="numeric"
+                type="number"
+                placeholder="0"
+                maxLength={3}
+                placeholderTextColor="#999999"
+                onChangeText={(text) =>
+                  setValue(
+                    `workouts[${workoutSetIndex}].workoutSets[${exerciseSetIndex}].InputCount`,
+                    text
+                  )
+                }
+              />
+              {/* <Controller
+                name={`workouts[${workoutSetIndex}].workoutSets[${exerciseSetIndex}].setCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -130,12 +139,25 @@ export default function WarmupSetArray({ workoutIndex, control, setValue }) {
                     }
                   />
                 )}
-              />
+              /> */}
               <IndexText>kg</IndexText>
             </WeightContainer>
 
             <RepsContainer>
-              <Controller
+              <SetCount
+                keyboardType="numeric"
+                type="number"
+                placeholder="0"
+                maxLength={2}
+                placeholderTextColor="#999999"
+                onChangeText={(text) =>
+                  setValue(
+                    `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`,
+                    text
+                  )
+                }
+              />
+              {/* <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].InputCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -153,7 +175,7 @@ export default function WarmupSetArray({ workoutIndex, control, setValue }) {
                     }
                   />
                 )}
-              />
+              /> */}
             </RepsContainer>
           </MainContainer>
         );

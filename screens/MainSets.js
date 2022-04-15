@@ -91,6 +91,7 @@ export default function MainSets({ route }) {
             control,
             setValue,
           }}
+          workout={workout}
         />
 
         <ButtonContainer>

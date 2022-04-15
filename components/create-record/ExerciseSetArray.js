@@ -77,10 +77,14 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
+export default function ExerciseSetArray({
+  workoutSetIndex,
+  control,
+  setValue,
+}) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `exercises[${exerciseIndex}].exerciseSets`,
+    name: `exercises[${workoutSetIndex}].exerciseSets`,
   });
 
   return (
@@ -110,7 +114,7 @@ export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
 
             <WeightContainer>
               <Controller
-                name={`exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].weight`}
+                name={`exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].weight`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -121,7 +125,7 @@ export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].weight`,
+                        `exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].weight`,
                         text
                       )
                     }
@@ -133,7 +137,7 @@ export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
 
             <RepsContainer>
               <Controller
-                name={`exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].repCount`}
+                name={`exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -144,7 +148,7 @@ export default function ExerciseSetArray({ exerciseIndex, control, setValue }) {
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `exercises[${exerciseIndex}].exerciseSets[${exerciseSetIndex}].repCount`,
+                        `exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].repCount`,
                         text
                       )
                     }
