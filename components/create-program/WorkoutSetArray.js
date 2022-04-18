@@ -2,6 +2,7 @@ import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
   /* padding: 0 5px; */
@@ -37,8 +38,7 @@ const SetsReps = styled.Text`
   width: 30%;
 `;
 
-const ExerciseTitle = styled.TextInput`
-  color: black;
+const SelectExercise = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px 5px;
   font-size: 15px;
@@ -46,6 +46,23 @@ const ExerciseTitle = styled.TextInput`
   text-align: center;
   width: 100%;
 `;
+
+const ExerciseTitle = styled.Text`
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+// const ExerciseTitle = styled.TextInput`
+//   color: black;
+//   background-color: ${(props) => props.theme.inputBackground};
+//   padding: 5px 5px;
+//   font-size: 15px;
+//   border-radius: 5px;
+//   text-align: center;
+//   width: 100%;
+// `;
 
 const InputCount = styled.TextInput`
   color: black;
@@ -63,20 +80,8 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
 `;
 
-const Button = styled.TouchableOpacity`
-  margin-left: 13px;
-  justify-content: center;
-  margin-top: -15px;
-`;
-
-const ButtonText = styled.Text`
-  color: tomato;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-`;
-
 export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
+  const navigation = useNavigation();
   const { fields, remove, append } = useFieldArray({
     control,
     name: `workouts[${workoutIndex}].workoutSets`,
@@ -104,16 +109,22 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <ExerciseTitle
-                    placeholder="운동 고르기"
-                    placeholderTextColor="#7b7b7b"
-                    onChangeText={(text) =>
-                      setValue(
-                        `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
-                        text
-                      )
-                    }
-                  />
+                  <SelectExercise
+                    onPress={() => navigation.navigate("ExerciseListModal")}
+                  >
+                    <ExerciseTitle>운동 선택</ExerciseTitle>
+                  </SelectExercise>
+
+                  // <ExerciseTitle
+                  //   placeholder="운동 고르기"
+                  //   placeholderTextColor="#7b7b7b"
+                  //   onChangeText={(text) =>
+                  //     setValue(
+                  //       `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
+                  //       text
+                  //     )
+                  //   }
+                  // />
                 )}
               />
             </SubContainer>

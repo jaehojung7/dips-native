@@ -17,11 +17,6 @@ const SearchInput = styled.TextInput`
   padding: 0px;
 `;
 
-const SearchIcon = styled.Image`
-  width: 18px;
-  height: 18px;
-`;
-
 export default function SearchTab() {
   const [keyword, setKeyword] = useState("");
 
