@@ -74,6 +74,7 @@ const ButtonContainer = styled.View`
 export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
   const navigation = useNavigation();
   const [keyword, setKeyword] = useState("");
+  const [selectedExercise, setSelectedExercise] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const { fields, remove, append } = useFieldArray({
     control,
@@ -115,11 +116,15 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                     >
                       <ExerciseListModal
                         // program={programModalContent}
-                        {...{ setModalVisible }}
+                        {...{
+                          setModalVisible,
+                          setSelectedExercise,
+                          setValue,
+                        }}
                       />
                     </Modal>
-                    <ExerciseTitle
-                      placeholder="운동 선택"
+                    {/* <ExerciseTitle
+                      placeholder={selectedExercise}
                       placeholderTextColor="#7b7b7b"
                       onChangeText={(text) =>
                         setValue(
@@ -127,7 +132,8 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
                           text
                         )
                       }
-                    />
+                    /> */}
+                    <ExerciseTitle>{selectedExercise}</ExerciseTitle>
                   </SelectExercise>
                 )}
               />
