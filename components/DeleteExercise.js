@@ -51,7 +51,7 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function Exercise({ exercise }) {
+export default function DeleteExercise({ exercise }) {
   const swipeableRef = useRef(null);
   const closeSwipeable = () => {
     swipeableRef.current.close();

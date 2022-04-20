@@ -193,6 +193,7 @@ export default function CreateExercise({ navigation, route }) {
                     color: "black",
                     fontSize: 19,
                   }}
+                  // numberOfLines={1}
                   selectedValue={selectedBodyPart}
                   onValueChange={(itemValue) => {
                     setValue("bodyPart", itemValue);

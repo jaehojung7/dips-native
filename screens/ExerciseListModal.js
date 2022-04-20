@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { gql, useQuery } from "@apollo/client";
-import { FlatList } from "react-native";
-import Exercise from "../components/Exercise";
+import { FlatList, Modal } from "react-native";
+import { Controller } from "react-hook-form";
 
 const ME_QUERY = gql`
   query me {
@@ -18,14 +17,20 @@ const ME_QUERY = gql`
   }
 `;
 
+const ModalContainer = styled.View`
+  flex: 1;
+  padding: 10px 0;
+  background-color: ${(props) => props.theme.cardColor};
+`;
+
 const Container = styled.View`
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 `;
 
 const SearchContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 20px 0 15px 0;
 `;
 
@@ -40,25 +45,70 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function ExerciseListModal({ navigation }) {
+const ExerciseTitleContainer = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 15px;
+`;
+
+const ExerciseTitle = styled.Text`
+  font-size: 18px;
+  color: ${(props) => props.theme.fontColor};
+  font-weight: 600;
+`;
+
+const ExerciseBodypart = styled.Text`
+  font-size: 16px;
+  color: ${(props) => props.theme.gray};
+  margin-top: 3px;
+`;
+
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  opacity: 0.5;
+`;
+
+const SearchExerciseTab = styled.TextInput`
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.cardColor};
+  padding: 10px 10px;
+  width: 75%;
+  font-size: 15px;
+`;
+
+export default function ExerciseListModal({ navigation, setModalVisible }) {
   const { data, loading } = useQuery(ME_QUERY);
   const exercises = data?.me?.exercises;
 
   const renderItem = ({ item: exercise }) => {
-    return <Exercise exercise={exercise} />;
+    return (
+      <Container>
+        <ExerciseTitleContainer onPress={() => {}}>
+          <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
+          <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
+        </ExerciseTitleContainer>
+        <BorderLine />
+      </Container>
+    );
   };
 
   const SearchBox = (
     <SearchContainer>
-      {/* <SearchExerciseTab placeholder="운동 검색하기" /> */}
-      <Button onPress={() => navigation.goBack()}>
+      <SearchExerciseTab placeholder="운동 검색하기" />
+      <Button
+        onPress={() => {
+          setModalVisible(false);
+        }}
+      >
         <ButtonText>닫기</ButtonText>
       </Button>
     </SearchContainer>
   );
 
   return (
-    <Container>
+    <ModalContainer>
       <FlatList
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}
@@ -67,6 +117,6 @@ export default function ExerciseListModal({ navigation }) {
         windowSize={3}
         ListHeaderComponent={SearchBox}
       />
-    </Container>
+    </ModalContainer>
   );
 }

@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import CloseButton from "./CloseButton";
 
 const CenterView = styled.View`
   flex: 1;
@@ -27,13 +26,6 @@ const SetContainer = styled.TouchableOpacity`
   width: 30px;
 `;
 
-const Mainset = styled.Text`
-  color: black;
-  font-weight: 700;
-  font-size: 15px;
-  text-align: center;
-`;
-
 const Warmup = styled.Text`
   color: ${(props) => props.theme.orange};
   font-weight: 700;
@@ -48,7 +40,20 @@ const SetOption = styled.Text`
   color: black;
 `;
 
-export default function SetModal({ setModalVisible, setIsWarmup }) {
+const CloseButton = styled.TouchableOpacity`
+  border-radius: 30px;
+`;
+
+const ButtonText = styled.Text`
+  color: ${(props) => props.theme.blue};
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+`;
+
+export default function SetModal({ setModalVisible }) {
+  const [keyword, setKeyword] = useState("");
+
   return (
     <CenterView>
       <PopupView>
@@ -63,30 +68,13 @@ export default function SetModal({ setModalVisible, setIsWarmup }) {
           <SetOption>웜업세트 Warm-up</SetOption>
         </IconContainer>
 
-        <IconContainer
-          onPress={() => {
-            setIsWarmup(false);
-          }}
-        >
-          <SetContainer>
-            <Mainset>M</Mainset>
-          </SetContainer>
-          <SetOption>메인세트 Main Set</SetOption>
-        </IconContainer>
-
-        <IconContainer
-          onPress={() => {
-            setIsDropset(true);
-            setIsWarmup(false);
-          }}
-        ></IconContainer>
-
         <CloseButton
-          text="닫기"
           onPress={() => {
             setModalVisible(false);
           }}
-        />
+        >
+          <ButtonText>닫기</ButtonText>
+        </CloseButton>
       </PopupView>
     </CenterView>
   );

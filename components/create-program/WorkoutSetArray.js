@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
 import { useNavigation } from "@react-navigation/native";
+import { Modal } from "react-native";
+import ExerciseListModal from "../../screens/ExerciseListModal";
 
 const Container = styled.View`
   /* padding: 0 5px; */
@@ -50,19 +52,8 @@ const SelectExercise = styled.TouchableOpacity`
 const ExerciseTitle = styled.Text`
   color: black;
   font-size: 15px;
-  font-weight: 500;
   text-align: center;
 `;
-
-// const ExerciseTitle = styled.TextInput`
-//   color: black;
-//   background-color: ${(props) => props.theme.inputBackground};
-//   padding: 5px 5px;
-//   font-size: 15px;
-//   border-radius: 5px;
-//   text-align: center;
-//   width: 100%;
-// `;
 
 const InputCount = styled.TextInput`
   color: black;
@@ -82,6 +73,8 @@ const ButtonContainer = styled.View`
 
 export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
   const navigation = useNavigation();
+  const [keyword, setKeyword] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
   const { fields, remove, append } = useFieldArray({
     control,
     name: `workouts[${workoutIndex}].workoutSets`,
@@ -108,23 +101,34 @@ export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <SelectExercise
-                    onPress={() => navigation.navigate("ExerciseListModal")}
-                  >
-                    <ExerciseTitle>운동 선택</ExerciseTitle>
+                rules={{ required: true }}
+                render={({ value }) => (
+                  <SelectExercise onPress={() => setModalVisible(true)}>
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        // Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <ExerciseListModal
+                        // program={programModalContent}
+                        {...{ setModalVisible }}
+                      />
+                    </Modal>
+                    <ExerciseTitle
+                      placeholder="운동 선택"
+                      placeholderTextColor="#7b7b7b"
+                      onChangeText={(text) =>
+                        setValue(
+                          `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
+                          text
+                        )
+                      }
+                    />
                   </SelectExercise>
-
-                  // <ExerciseTitle
-                  //   placeholder="운동 고르기"
-                  //   placeholderTextColor="#7b7b7b"
-                  //   onChangeText={(text) =>
-                  //     setValue(
-                  //       `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
-                  //       text
-                  //     )
-                  //   }
-                  // />
                 )}
               />
             </SubContainer>

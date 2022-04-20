@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Exercise from "../components/Exercise";
+import DeleteExercise from "../components/DeleteExercise";
 import { gql, useQuery } from "@apollo/client";
 import { RefreshControl, FlatList } from "react-native";
 
@@ -67,7 +67,7 @@ export default function SearchExercise({ navigation }) {
   }, []);
 
   const renderItem = ({ item: exercise }) => {
-    return <Exercise exercise={exercise} />;
+    return <DeleteExercise exercise={exercise} />;
   };
 
   const SearchBox = (
@@ -88,6 +88,7 @@ export default function SearchExercise({ navigation }) {
     // refreshControl={
     //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
     // }
+    // FlatList에 내장된 refresh control로 대체가능한지 알아보기
     >
       <FlatList
         data={exercises}
