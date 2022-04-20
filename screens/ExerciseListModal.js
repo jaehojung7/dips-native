@@ -78,14 +78,30 @@ const SearchExerciseTab = styled.TextInput`
   font-size: 15px;
 `;
 
-export default function ExerciseListModal({ navigation, setModalVisible }) {
+export default function ExerciseListModal({
+  navigation,
+  setModalVisible,
+  setSelectedExercise,
+  setValue,
+  workoutIndex,
+  workoutSetIndex,
+}) {
   const { data, loading } = useQuery(ME_QUERY);
   const exercises = data?.me?.exercises;
 
   const renderItem = ({ item: exercise }) => {
     return (
       <Container>
-        <ExerciseTitleContainer onPress={() => {}}>
+        <ExerciseTitleContainer
+          onPress={() => {
+            setSelectedExercise(exercise.exercise);
+            setValue(
+              `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
+              exercise.exercise
+            );
+            setModalVisible(false);
+          }}
+        >
           <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
           <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
         </ExerciseTitleContainer>
