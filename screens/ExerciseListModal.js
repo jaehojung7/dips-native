@@ -20,7 +20,7 @@ const ME_QUERY = gql`
 const ModalContainer = styled.View`
   flex: 1;
   padding: 10px 0;
-  background-color: ${(props) => props.theme.cardColor};
+  background-color: ${(props) => props.theme.modalBackground};
 `;
 
 const Container = styled.View`
@@ -81,6 +81,7 @@ const SearchExerciseTab = styled.TextInput`
 export default function ExerciseListModal({ navigation, setModalVisible }) {
   const { data, loading } = useQuery(ME_QUERY);
   const exercises = data?.me?.exercises;
+  const [keyword, setKeyword] = useState("");
 
   const renderItem = ({ item: exercise }) => {
     return (

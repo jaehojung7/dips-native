@@ -8,6 +8,7 @@ export const darkTheme = {
   buttonText: "white",
   cardColor: "#222222",
   inputBackground: "#cacfd2",
+  modalBackground: "black",
 };
 
 export const lightTheme = {
@@ -18,4 +19,5 @@ export const lightTheme = {
   buttonText: "white",
   cardColor: "#ececec",
   inputBackground: "#cacfd2",
+  modalBackground: "#fbfbfb",
 };
