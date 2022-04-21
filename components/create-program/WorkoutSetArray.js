@@ -72,8 +72,6 @@ const ButtonContainer = styled.View`
 `;
 
 export default function WorkoutSetArray({ workoutIndex, control, setValue }) {
-  const navigation = useNavigation();
-  const [keyword, setKeyword] = useState("");
   const [selectedExercise, setSelectedExercise] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const { fields, remove, append } = useFieldArray({

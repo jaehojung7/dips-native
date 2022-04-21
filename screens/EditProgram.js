@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { gql, useMutation } from "@apollo/client";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm, Controller } from "react-hook-form";
 import SaveProgramButton from "../components/Buttons/SaveProgramButton";
@@ -87,9 +86,9 @@ const ButtonContainer = styled.View`
 `;
 
 export default function EditProgram({ route }) {
+  const { handleSubmit, setValue, getValues, watch, control } = useForm({});
   const { program } = route.params;
-  const { register, handleSubmit, setValue, getValues, watch, control } =
-    useForm({});
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -203,7 +202,11 @@ export default function EditProgram({ route }) {
           );
         })}
         <ButtonContainer>
-          <SaveProgramButton text="저장" program={program} />
+          <SaveProgramButton
+            text="저장"
+            program={program}
+            {...{ handleSubmit, getValues }}
+          />
           <DeleteProgramButton text="삭제" program={program} />
         </ButtonContainer>
       </Container>

@@ -36,6 +36,7 @@ export default function DeleteProgramButton({ program }) {
   });
 
   const onClickDelete = () => {
+    alert("Deleted");
     deleteProgramFunction();
   };
 

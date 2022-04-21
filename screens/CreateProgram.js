@@ -54,14 +54,14 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
     $programId: Int!
     $workoutIndex: Int!
     $exercise: String
-    $setCount: Int! # $rir: Int
+    $setCount: Int!
     $repCount: Int
   ) {
     createWorkoutSet(
       programId: $programId
       workoutIndex: $workoutIndex
       exercise: $exercise
-      setCount: $setCount # rir: $rir
+      setCount: $setCount
       repCount: $repCount
     ) {
       ok

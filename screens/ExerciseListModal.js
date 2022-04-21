@@ -79,7 +79,6 @@ const SearchExerciseTab = styled.TextInput`
 `;
 
 export default function ExerciseListModal({
-  navigation,
   setModalVisible,
   setSelectedExercise,
   setValue,
@@ -88,7 +87,6 @@ export default function ExerciseListModal({
 }) {
   const { data, loading } = useQuery(ME_QUERY);
   const exercises = data?.me?.exercises;
-  const [keyword, setKeyword] = useState("");
 
   const renderItem = ({ item: exercise }) => {
     return (
