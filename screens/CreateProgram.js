@@ -3,8 +3,10 @@ import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
+import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
+import ExerciseListModal from "./ExerciseListModal";
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
@@ -53,7 +55,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
   mutation createWorkoutSet(
     $programId: Int!
     $workoutIndex: Int!
-    $exercise: String
+    $exercise: String!
     $setCount: Int!
     $repCount: Int
   ) {
@@ -95,13 +97,16 @@ const defaultValues = {
   ],
 };
 
-export default function CreateProgram() {
+export default function CreateProgram({ route }) {
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
     });
-
+  const { exercises } = route.params;
   const [isPrivate, setIsPrivate] = useState(false);
+  const [workoutIndexState, setWorkoutIndexState] = useState(0);
+  const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
@@ -186,10 +191,6 @@ export default function CreateProgram() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        {/* <HeaderContainer>
-          <Header>프로그램</Header>
-        </HeaderContainer> */}
-
         <TitleContainer>
           <Controller
             name="programTitle"
@@ -223,6 +224,9 @@ export default function CreateProgram() {
           {...{
             control,
             setValue,
+            setWorkoutIndexState,
+            setWorkoutSetIndexState,
+            setModalVisible,
           }}
         />
 
@@ -232,6 +236,18 @@ export default function CreateProgram() {
           disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}
         />
+
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <ExerciseListModal
+            {...{
+              exercises,
+              setModalVisible,
+              workoutIndexState,
+              workoutSetIndexState,
+              setValue,
+            }}
+          />
+        </Modal>
       </Container>
     </DismissKeyboard>
   );

@@ -1,11 +1,75 @@
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { Controller, useForm, useFieldArray } from "react-hook-form";
+import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { useForm, Controller } from "react-hook-form";
-import SaveProgramButton from "../components/Buttons/SaveProgramButton";
-import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
+import AddDeleteWorkoutButton from "../components/Buttons/AddDeleteWorkoutButton";
+
+const EDIT_PROGRAM_MUTATION = gql`
+  mutation editProgram(
+    $id: Int!
+    $title: String!
+    $description: String
+    $isPrivate: Boolean!
+  ) {
+    editProgram(
+      id: $id
+      title: $title
+      description: $description
+      isPrivate: $isPrivate
+    ) {
+      ok
+      id
+      error
+    }
+  }
+`;
+
+const CREATE_WORKOUT_MUTATION = gql`
+  mutation createWorkout(
+    $programId: Int!
+    $workoutIndex: Int!
+    $title: String!
+  ) {
+    createWorkout(
+      programId: $programId
+      workoutIndex: $workoutIndex
+      title: $title
+    ) {
+      ok
+      programId
+      workoutIndex
+      error
+    }
+  }
+`;
+
+const CREATE_WORKOUT_SET_MUTATION = gql`
+  mutation createWorkoutSet(
+    $programId: Int!
+    $workoutIndex: Int!
+    $exercise: String
+    $setCount: Int!
+    $repCount: Int
+  ) {
+    createWorkoutSet(
+      programId: $programId
+      workoutIndex: $workoutIndex
+      exercise: $exercise
+      setCount: $setCount
+      repCount: $repCount
+    ) {
+      ok
+      id
+      error
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
+  /* border: 1px solid black; */
 `;
 
 const HeaderContainer = styled.View`
@@ -56,7 +120,6 @@ const ExerciseTitle = styled.TextInput`
 const SetbyRepContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-evenly; */
   border: 1px solid black;
   width: 40%;
 `;
@@ -79,15 +142,111 @@ const IndexText = styled.Text`
   margin: 0 5px;
 `;
 
-const ButtonContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
+// Passing empty strings as default values creates one empty form automatically
+const defaultValues = {
+  workouts: [
+    {
+      name: "",
+      workoutSets: [{}],
+    },
+  ],
+};
 
 export default function EditProgram({ route }) {
-  const { handleSubmit, setValue, getValues, watch, control } = useForm({});
+  const { handleSubmit, setValue, getValues, control, watch, setError } =
+    useForm({
+      defaultValues,
+    });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "workouts",
+  });
   const { program } = route.params;
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  const onCreateWorkoutSetCompleted = (data) => {
+    const {
+      createWorkoutSet: { ok, id: workoutSetId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+  };
+
+  const onCreateWorkoutCompleted = (data) => {
+    const {
+      createWorkout: { ok, programId, workoutIndex, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+
+    const submissionData = getValues();
+    submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
+      createWorkoutSetFunction({
+        variables: {
+          programId,
+          workoutIndex,
+          exercise: workoutSet.exercise,
+          setCount: parseInt(workoutSet.setCount),
+          repCount: parseInt(workoutSet.repCount),
+        },
+      });
+    });
+  };
+
+  const onEditProgramCompleted = (data) => {
+    console.log("onEditProgramCompleted");
+    const {
+      editProgram: { ok, id: programId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+
+    const submissionData = getValues();
+    submissionData.workouts.map((workout, workoutIndex) => {
+      createWorkoutFunction({
+        variables: { programId, workoutIndex, title: workout.name },
+      });
+    });
+  };
+
+  const [editProgramFunction, { loading, error }] = useMutation(
+    EDIT_PROGRAM_MUTATION,
+    {
+      onCompleted: onEditProgramCompleted,
+    }
+  );
+
+  const [createWorkoutFunction] = useMutation(CREATE_WORKOUT_MUTATION, {
+    onCompleted: onCreateWorkoutCompleted,
+  });
+
+  const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
+    onCompleted: onCreateWorkoutSetCompleted,
+  });
+
+  const onSubmitValid = (submissionData) => {
+    if (loading) {
+      return;
+    }
+    const { programTitle, description } = getValues();
+    editProgramFunction({
+      variables: {
+        id: program.id,
+        title: programTitle,
+        description,
+        isPrivate,
+      },
+    });
+  };
 
   return (
     <DismissKeyboard>
@@ -99,7 +258,6 @@ export default function EditProgram({ route }) {
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <ProgramTitle
-                value={watch("programTitle")}
                 placeholder="프로그램 이름"
                 defaultValue={program.title}
                 autoCapitalize="none"
@@ -120,7 +278,6 @@ export default function EditProgram({ route }) {
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WorkoutTitle
-                    value={watch("workoutTitle")}
                     placeholder="워크아웃 이름"
                     defaultValue={workout.title}
                     autoCapitalize="none"
@@ -135,15 +292,14 @@ export default function EditProgram({ route }) {
                 return (
                   <ExerciseContainer key={workoutSetIndex}>
                     <ExerciseTitleContainer>
-                      {/* <Controller
+                      <Controller
                         name="exerciseTitle"
                         control={control}
                         rules={{ required: true }}
-                        render={({ field: { onChange, onBlur, value } }) => (
+                        render={({ field: { value } }) => (
                           <ExerciseTitle
-                            value={watch("exerciseTitle")}
                             placeholder="운동 이름"
-                            defaultValue={workoutSet ? exercise : ""}
+                            defaultValue={workoutSet ? workoutSet.exercise : ""}
                             autoCapitalize="none"
                             returnKeyType="next"
                             placeholderTextColor="#999999"
@@ -152,7 +308,7 @@ export default function EditProgram({ route }) {
                             }
                           />
                         )}
-                      /> */}
+                      />
                     </ExerciseTitleContainer>
 
                     <SetbyRepContainer>
@@ -163,7 +319,6 @@ export default function EditProgram({ route }) {
                         rules={{ required: true }}
                         render={({ field: { onChange, onBlur, value } }) => (
                           <SetbyRep
-                            // value={watch("exerciseSets")}
                             keyboardType="numeric"
                             type="number"
                             defaultValue={workoutSet.setCount.toString()}
@@ -179,7 +334,7 @@ export default function EditProgram({ route }) {
                       <Controller
                         name="exerciseReps"
                         control={control}
-                        rules={{ required: true }}
+                        // rules={{ required: true }}
                         render={({ field: { onChange, onBlur, value } }) => (
                           <SetbyRep
                             keyboardType="numeric"
@@ -201,14 +356,25 @@ export default function EditProgram({ route }) {
             </WorkoutContainer>
           );
         })}
-        <ButtonContainer>
-          <SaveProgramButton
-            text="저장"
-            program={program}
-            {...{ handleSubmit, getValues }}
-          />
-          <DeleteProgramButton text="삭제" program={program} />
-        </ButtonContainer>
+        <AddDeleteWorkoutButton
+          text="워크아웃 추가"
+          onPress={() => {
+            console.log("Button pressed");
+            append({});
+          }}
+        />
+        <AddDeleteWorkoutButton
+          text="워크아웃 삭제"
+          onPress={() => {
+            remove(fields.length - 1);
+          }}
+        />
+        <MainButton
+          text="새 프로그램 저장"
+          loading={loading}
+          // disabled={!watch("programTitle")}
+          onPress={handleSubmit(onSubmitValid)}
+        />
       </Container>
     </DismissKeyboard>
   );

@@ -1,21 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { gql, useQuery } from "@apollo/client";
-import { FlatList, Modal } from "react-native";
-import { Controller } from "react-hook-form";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-    }
-  }
-`;
+import { FlatList } from "react-native";
 
 const ModalContainer = styled.View`
   flex: 1;
@@ -79,23 +64,19 @@ const SearchExerciseTab = styled.TextInput`
 `;
 
 export default function ExerciseListModal({
+  exercises,
   setModalVisible,
-  setSelectedExercise,
+  workoutIndexState,
+  workoutSetIndexState,
   setValue,
-  workoutIndex,
-  workoutSetIndex,
 }) {
-  const { data, loading } = useQuery(ME_QUERY);
-  const exercises = data?.me?.exercises;
-
   const renderItem = ({ item: exercise }) => {
     return (
       <Container>
         <ExerciseTitleContainer
           onPress={() => {
-            setSelectedExercise(exercise.exercise);
             setValue(
-              `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`,
+              `workouts[${workoutIndexState}].workoutSets[${workoutSetIndexState}].exercise`,
               exercise.exercise
             );
             setModalVisible(false);

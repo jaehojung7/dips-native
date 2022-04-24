@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import WorkoutSetArray from "./WorkoutSetArray";
-import AddDeleteWorkoutButton from "./AddDeleteWorkoutButton";
+import AddDeleteWorkoutButton from "../Buttons/AddDeleteWorkoutButton";
 
 const BorderLine = styled.View`
   border-bottom-width: 1px;
@@ -29,7 +29,13 @@ const ContainerTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-export default function WorkoutArray({ control, setValue }) {
+export default function WorkoutArray({
+  control,
+  setValue,
+  setWorkoutIndexState,
+  setWorkoutSetIndexState,
+  setModalVisible,
+}) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
@@ -58,7 +64,13 @@ export default function WorkoutArray({ control, setValue }) {
             <BorderLine />
             <WorkoutSetArray
               workoutIndex={workoutIndex}
-              {...{ control, setValue }}
+              {...{
+                control,
+                setValue,
+                setWorkoutIndexState,
+                setWorkoutSetIndexState,
+                setModalVisible,
+              }}
             />
           </MainContainer>
         );

@@ -23,6 +23,11 @@ const ME_QUERY = gql`
           }
         }
       }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
     }
   }
 `;
@@ -91,6 +96,9 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   const program = data?.me.programs[0];
+  const exercises = data?.me.exercises;
+  console.log(exercises);
+
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
@@ -126,7 +134,7 @@ export default function Program({ navigation }) {
       <MainButton
         text="새 프로그램 만들기"
         disabled={false}
-        onPress={() => navigation.navigate("CreateProgram")}
+        onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />
     </Container>
   );

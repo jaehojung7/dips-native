@@ -161,7 +161,7 @@ export default function SaveProgramButton({
     }
     const { programTitle } = getValues();
     editProgramFunction({
-      variables: { title: programTitle, isPrivate },
+      variables: { id: program.id, title: programTitle, isPrivate },
     });
   };
   return (
