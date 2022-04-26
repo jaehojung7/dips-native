@@ -7,6 +7,8 @@ import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import ExerciseListModal from "./ExerciseListModal";
+import SaveProgramButton from "../components/Buttons/SaveProgramButton";
+import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
