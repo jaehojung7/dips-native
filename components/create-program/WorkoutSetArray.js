@@ -96,9 +96,9 @@ export default function WorkoutSetArray({
         </SubContainer>
       </MainContainer>
 
-      {fields.map((item, workoutSetIndex) => {
+      {fields.map((workoutSet, workoutSetIndex) => {
         return (
-          <MainContainer key={item.id}>
+          <MainContainer key={workoutSet.id}>
             <SubContainer>
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
@@ -123,6 +123,7 @@ export default function WorkoutSetArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
+                    // defaultValue={workoutSet ? workoutSet.setCount : 0}
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
@@ -143,6 +144,7 @@ export default function WorkoutSetArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
+                    // defaultValue={workoutSet ? workoutSet.repCount : 0}
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"

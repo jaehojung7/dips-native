@@ -3,8 +3,10 @@ import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm, useFieldArray } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
+import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import AddDeleteWorkoutButton from "../components/Buttons/AddDeleteWorkoutButton";
+import WorkoutArray from "../components/create-program/WorkoutArray";
+import ExerciseListModal from "./ExerciseListModal";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -49,7 +51,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
   mutation createWorkoutSet(
     $programId: Int!
     $workoutIndex: Int!
-    $exercise: String
+    $exercise: String!
     $setCount: Int!
     $repCount: Int
   ) {
@@ -72,74 +74,18 @@ const Container = styled.ScrollView`
   /* border: 1px solid black; */
 `;
 
-const HeaderContainer = styled.View`
-  margin: 50px 15px 15px 15px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ProgramTitle = styled.TextInput`
-  color: ${(props) => props.theme.orange};
-  font-size: 25px;
-  font-weight: 700;
-`;
-
-const WorkoutContainer = styled.View`
+const TitleContainer = styled.View`
+  margin-top: 50px;
   margin-bottom: 15px;
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
   padding: 15px 25px;
+  background-color: ${(props) => props.theme.cardColor};
+  border-radius: 20px;
 `;
 
-const WorkoutTitle = styled.TextInput`
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
+const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
-`;
-
-const ExerciseContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const ExerciseTitleContainer = styled.View`
-  width: 50%;
-  border: 1px solid blue;
-`;
-
-const ExerciseTitle = styled.TextInput`
-  font-size: 17px;
-  font-weight: 500;
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const SetbyRepContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid black;
-  width: 40%;
-`;
-
-const SetbyRep = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 5px;
-  text-align: center;
-  width: 40%;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 15px;
-  font-weight: 500;
-  margin: 0 5px;
+  font-size: 22px;
+  font-weight: 600;
 `;
 
 // Passing empty strings as default values creates one empty form automatically
@@ -153,6 +99,10 @@ const defaultValues = {
 };
 
 export default function EditProgram({ route }) {
+  // let { workout } = route?.params;
+  // if (workout === undefined) {
+  //   workout = {};
+  // }
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
@@ -162,7 +112,13 @@ export default function EditProgram({ route }) {
     name: "workouts",
   });
   const { program } = route.params;
+  const { exercises } = route.params;
   const [isPrivate, setIsPrivate] = useState(false);
+  const [workoutIndexState, setWorkoutIndexState] = useState(0);
+  const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
   const onCreateWorkoutSetCompleted = (data) => {
     const {
@@ -200,9 +156,8 @@ export default function EditProgram({ route }) {
   };
 
   const onEditProgramCompleted = (data) => {
-    console.log("onEditProgramCompleted");
     const {
-      editProgram: { ok, id: programId, error },
+      createProgram: { ok, id: programId, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -218,7 +173,7 @@ export default function EditProgram({ route }) {
     });
   };
 
-  const [editProgramFunction, { loading, error }] = useMutation(
+  const [createProgramFunction, { loading, error }] = useMutation(
     EDIT_PROGRAM_MUTATION,
     {
       onCompleted: onEditProgramCompleted,
@@ -238,7 +193,7 @@ export default function EditProgram({ route }) {
       return;
     }
     const { programTitle, description } = getValues();
-    editProgramFunction({
+    createProgramFunction({
       variables: {
         id: program.id,
         title: programTitle,
@@ -251,130 +206,51 @@ export default function EditProgram({ route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <HeaderContainer>
+        <TitleContainer>
           <Controller
             name="programTitle"
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <ProgramTitle
-                placeholder="프로그램 이름"
+              <TitleInput
                 defaultValue={program.title}
-                autoCapitalize="none"
-                returnKeyType="next"
+                placeholder="프로그램 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
               />
             )}
           />
-        </HeaderContainer>
+        </TitleContainer>
 
-        {program?.workouts.map((workout, workoutIndex) => {
-          return (
-            <WorkoutContainer key={workoutIndex}>
-              <Controller
-                name="workoutTitle"
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <WorkoutTitle
-                    placeholder="워크아웃 이름"
-                    defaultValue={workout.title}
-                    autoCapitalize="none"
-                    returnKeyType="next"
-                    placeholderTextColor="#999999"
-                    onChangeText={(text) => setValue("workoutTitle", text)}
-                  />
-                )}
-              />
-
-              {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
-                return (
-                  <ExerciseContainer key={workoutSetIndex}>
-                    <ExerciseTitleContainer>
-                      <Controller
-                        name="exerciseTitle"
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value } }) => (
-                          <ExerciseTitle
-                            placeholder="운동 이름"
-                            defaultValue={workoutSet ? workoutSet.exercise : ""}
-                            autoCapitalize="none"
-                            returnKeyType="next"
-                            placeholderTextColor="#999999"
-                            onChangeText={(text) =>
-                              setValue("exerciseTitle", text)
-                            }
-                          />
-                        )}
-                      />
-                    </ExerciseTitleContainer>
-
-                    <SetbyRepContainer>
-                      {/* <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle> */}
-                      <Controller
-                        name="exerciseSets"
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <SetbyRep
-                            keyboardType="numeric"
-                            type="number"
-                            defaultValue={workoutSet.setCount.toString()}
-                            maxLength={3}
-                            placeholderTextColor="#999999"
-                            onChangeText={(text) =>
-                              setValue("exerciseSets", text)
-                            }
-                          />
-                        )}
-                      />
-                      <IndexText>x</IndexText>
-                      <Controller
-                        name="exerciseReps"
-                        control={control}
-                        // rules={{ required: true }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <SetbyRep
-                            keyboardType="numeric"
-                            type="number"
-                            // placeholder={workoutSet.repCount}
-                            defaultValue={workoutSet.repCount.toString()}
-                            maxLength={3}
-                            placeholderTextColor="#999999"
-                            onChangeText={(text) =>
-                              setValue("exerciseReps", text)
-                            }
-                          />
-                        )}
-                      />
-                    </SetbyRepContainer>
-                  </ExerciseContainer>
-                );
-              })}
-            </WorkoutContainer>
-          );
-        })}
-        <AddDeleteWorkoutButton
-          text="워크아웃 추가"
-          onPress={() => {
-            console.log("Button pressed");
-            append({});
+        <WorkoutArray
+          {...{
+            program,
+            control,
+            setValue,
+            setWorkoutIndexState,
+            setWorkoutSetIndexState,
+            setModalVisible,
           }}
         />
-        <AddDeleteWorkoutButton
-          text="워크아웃 삭제"
-          onPress={() => {
-            remove(fields.length - 1);
-          }}
-        />
+
         <MainButton
           text="새 프로그램 저장"
           loading={loading}
-          // disabled={!watch("programTitle")}
+          disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}
         />
+
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <ExerciseListModal
+            {...{
+              exercises,
+              setModalVisible,
+              workoutIndexState,
+              workoutSetIndexState,
+              setValue,
+            }}
+          />
+        </Modal>
       </Container>
     </DismissKeyboard>
   );
