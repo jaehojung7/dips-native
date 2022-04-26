@@ -97,7 +97,6 @@ export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   const program = data?.me.programs[0];
   const exercises = data?.me.exercises;
-  console.log(exercises);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -105,7 +104,7 @@ export default function Program({ navigation }) {
         <Header>워크아웃</Header>
       </HeaderContainer>
       <WorkoutContainer
-        onPress={() => navigation.navigate("SeeProgram", { program })}
+      // onPress={() => navigation.navigate("SeeProgram", { program })}
       >
         <ProgramTitle>Recent Program</ProgramTitle>
 
@@ -128,7 +127,10 @@ export default function Program({ navigation }) {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={data?.me?.programs} />
+        <ProgramCards
+          programs={data?.me?.programs}
+          exercises={data?.me.exercises}
+        />
       </ProgramContainer>
 
       <MainButton

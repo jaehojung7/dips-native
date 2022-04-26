@@ -28,13 +28,14 @@ const WorkoutTitle = styled.Text`
   /* text-align: center; */
 `;
 
-export default function ProgramCards({ programs }) {
+export default function ProgramCards({ programs, exercises }) {
   const navigation = useNavigation();
-
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("SeeProgram", { program })}
+        onPress={() =>
+          navigation.navigate("SeeProgram", { program, exercises })
+        }
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>

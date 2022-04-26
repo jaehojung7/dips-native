@@ -101,20 +101,18 @@ const defaultValues = {
 };
 
 export default function EditProgram({ route }) {
-  // let { workout } = route?.params;
-  // if (workout === undefined) {
-  //   workout = {};
-  // }
+  const { program } = route.params;
+  const { exercises } = route.params;
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
-      defaultValues,
+      defaultValues: {
+        workouts: route.params.program.workouts,
+      },
     });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
   });
-  const { program } = route.params;
-  const { exercises } = route.params;
   const [isPrivate, setIsPrivate] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);

@@ -82,13 +82,16 @@ const defaultValues = {
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
+  const { exercises } = route.params;
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
           <EditProgram
-            onPress={() => navigation.navigate("EditProgram", { program })}
+            onPress={() =>
+              navigation.navigate("EditProgram", { program, exercises })
+            }
           >
             <EditText>Edit</EditText>
           </EditProgram>

@@ -99,138 +99,46 @@ export default function WorkoutArray({
     control,
     name: "workouts",
   });
+  // let { program } = program.workouts;
+  if (program === undefined) {
+    program = {};
+  }
 
   return (
     <>
-      {program ? (
-        <>
-          {program?.workouts.map((workout, workoutIndex) => {
-            return (
-              <WorkoutContainer key={workoutIndex}>
-                <Controller
-                  name="workoutTitle"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <WorkoutTitle
-                      // value={watch("workoutTitle")}
-                      placeholder="워크아웃 이름"
-                      defaultValue={workout.title}
-                      autoCapitalize="none"
-                      returnKeyType="next"
-                      placeholderTextColor="#999999"
-                      onChangeText={(text) => setValue("workoutTitle", text)}
-                    />
-                  )}
-                />
-
-                {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {
-                  return (
-                    <ExerciseContainer key={workoutSetIndex}>
-                      <ExerciseTitleContainer>
-                        <Controller
-                          name="exerciseTitle"
-                          control={control}
-                          rules={{ required: true }}
-                          render={({ field: { value } }) => (
-                            <ExerciseTitle
-                              defaultValue={
-                                workoutSet ? workoutSet.exercise : ""
-                              }
-                              // value={watch("exerciseTitle")}
-                              placeholder="운동 이름"
-                              autoCapitalize="none"
-                              returnKeyType="next"
-                              placeholderTextColor="#999999"
-                              onChangeText={(text) =>
-                                setValue("exerciseTitle", text)
-                              }
-                            />
-                          )}
-                        />
-                      </ExerciseTitleContainer>
-
-                      <SetbyRepContainer>
-                        <Controller
-                          name="exerciseSets"
-                          control={control}
-                          rules={{ required: true }}
-                          render={({ field: { value } }) => (
-                            <SetbyRep
-                              defaultValue={workoutSet.setCount.toString()}
-                              // value={watch("exerciseSets")}
-                              keyboardType="numeric"
-                              type="number"
-                              maxLength={3}
-                              placeholderTextColor="#999999"
-                              onChangeText={(text) =>
-                                setValue("exerciseSets", text)
-                              }
-                            />
-                          )}
-                        />
-                        <IndexText>x</IndexText>
-                        <Controller
-                          name="exerciseReps"
-                          control={control}
-                          render={({ field: { value } }) => (
-                            <SetbyRep
-                              defaultValue={workoutSet.repCount.toString()}
-                              keyboardType="numeric"
-                              type="number"
-                              maxLength={3}
-                              placeholderTextColor="#999999"
-                              onChangeText={(text) =>
-                                setValue("exerciseReps", text)
-                              }
-                            />
-                          )}
-                        />
-                      </SetbyRepContainer>
-                    </ExerciseContainer>
-                  );
-                })}
-              </WorkoutContainer>
-            );
-          })}
-        </>
-      ) : (
-        <>
-          {fields.map((workout, workoutIndex) => {
-            return (
-              <MainContainer key={workout.id}>
-                <TitleContainer>
-                  <Controller
-                    name={`workouts[${workoutIndex}].name`}
-                    control={control}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <ContainerTitle
-                        defaultValues={workout.title}
-                        placeholder="워크아웃 이름"
-                        placeholderTextColor="#999999"
-                        onChangeText={(text) =>
-                          setValue(`workouts[${workoutIndex}].name`, text)
-                        }
-                      />
-                    )}
+      {fields.map((workout, workoutIndex) => {
+        return (
+          <MainContainer key={workout.id}>
+            <TitleContainer>
+              <Controller
+                name={`workouts[${workoutIndex}].name`}
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <ContainerTitle
+                    defaultValues={workout.title}
+                    placeholder="워크아웃 이름"
+                    placeholderTextColor="#999999"
+                    onChangeText={(text) =>
+                      setValue(`workouts[${workoutIndex}].name`, text)
+                    }
                   />
-                </TitleContainer>
-                <BorderLine />
-                <WorkoutSetArray
-                  workoutIndex={workoutIndex}
-                  {...{
-                    control,
-                    setValue,
-                    setWorkoutIndexState,
-                    setWorkoutSetIndexState,
-                    setModalVisible,
-                  }}
-                />
-              </MainContainer>
-            );
-          })}
-        </>
-      )}
+                )}
+              />
+            </TitleContainer>
+            <BorderLine />
+            <WorkoutSetArray
+              workoutIndex={workoutIndex}
+              {...{
+                control,
+                setValue,
+                setWorkoutIndexState,
+                setWorkoutSetIndexState,
+                setModalVisible,
+              }}
+            />
+          </MainContainer>
+        );
+      })}
 
       <AddDeleteWorkoutButton
         text="워크아웃 추가"
