@@ -132,13 +132,13 @@ export default function WorkoutArray({
                           name="exerciseTitle"
                           control={control}
                           rules={{ required: true }}
-                          render={({ field: { onChange, onBlur, value } }) => (
+                          render={({ field: { value } }) => (
                             <ExerciseTitle
-                              // value={watch("exerciseTitle")}
-                              placeholder="운동 이름"
                               defaultValue={
                                 workoutSet ? workoutSet.exercise : ""
                               }
+                              // value={watch("exerciseTitle")}
+                              placeholder="운동 이름"
                               autoCapitalize="none"
                               returnKeyType="next"
                               placeholderTextColor="#999999"
@@ -151,17 +151,16 @@ export default function WorkoutArray({
                       </ExerciseTitleContainer>
 
                       <SetbyRepContainer>
-                        {/* <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle> */}
                         <Controller
                           name="exerciseSets"
                           control={control}
                           rules={{ required: true }}
-                          render={({ field: { onChange, onBlur, value } }) => (
+                          render={({ field: { value } }) => (
                             <SetbyRep
+                              defaultValue={workoutSet.setCount.toString()}
                               // value={watch("exerciseSets")}
                               keyboardType="numeric"
                               type="number"
-                              defaultValue={workoutSet.setCount.toString()}
                               maxLength={3}
                               placeholderTextColor="#999999"
                               onChangeText={(text) =>
@@ -174,13 +173,11 @@ export default function WorkoutArray({
                         <Controller
                           name="exerciseReps"
                           control={control}
-                          // rules={{ required: true }}
-                          render={({ field: { onChange, onBlur, value } }) => (
+                          render={({ field: { value } }) => (
                             <SetbyRep
+                              defaultValue={workoutSet.repCount.toString()}
                               keyboardType="numeric"
                               type="number"
-                              // placeholder={workoutSet.repCount}
-                              defaultValue={workoutSet.repCount.toString()}
                               maxLength={3}
                               placeholderTextColor="#999999"
                               onChangeText={(text) =>

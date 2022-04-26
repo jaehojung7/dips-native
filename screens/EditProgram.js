@@ -233,12 +233,12 @@ export default function EditProgram({ route }) {
           }}
         />
 
-        <MainButton
-          text="새 프로그램 저장"
-          loading={loading}
-          disabled={!watch("programTitle")}
-          onPress={handleSubmit(onSubmitValid)}
+        <SaveProgramButton
+          text="저장"
+          program={program}
+          {...{ handleSubmit, getValues }}
         />
+        <DeleteProgramButton text="삭제" program={program} />
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModal
