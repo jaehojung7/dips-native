@@ -73,6 +73,7 @@ export default function WorkoutSetArray({
   workoutIndex,
   control,
   setValue,
+  watch,
   setWorkoutIndexState,
   setWorkoutSetIndexState,
   setModalVisible,
@@ -123,7 +124,9 @@ export default function WorkoutSetArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
-                    // defaultValue={workoutSet ? workoutSet.setCount : 0}
+                    value={watch(
+                      `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`
+                    )}
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
@@ -144,7 +147,9 @@ export default function WorkoutSetArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputCount
-                    // defaultValue={workoutSet ? workoutSet.repCount : 0}
+                    value={watch(
+                      `workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].repCount`
+                    )}
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"

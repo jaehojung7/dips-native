@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { Controller, useForm, useFieldArray } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
 import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -89,29 +89,38 @@ const TitleInput = styled.TextInput`
   font-weight: 600;
 `;
 
-// Passing empty strings as default values creates one empty form automatically
-const defaultValues = {
-  workouts: [
-    {
-      name: "",
-      workoutSets: [{}],
-    },
-  ],
-};
-
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
   const { exercises } = route.params;
+
+  const processDefaultValues = (program) => {
+    const processWorkoutSets = (workoutSets) => {
+      return workoutSets.map((workoutSet) => ({
+        exercise: workoutSet.exercise,
+        setCount: workoutSet.setCount,
+        repCount: workoutSet.repCount,
+      }));
+    };
+
+    const processWorkouts = (workouts) => {
+      return workouts.map((workout) => ({
+        title: workout.title,
+        workoutSets: processWorkoutSets(workout.workoutSets),
+      }));
+    };
+
+    return {
+      programTitle: program.title,
+      workouts: processWorkouts(program.workouts),
+    };
+  };
+
+  const defaultValues = processDefaultValues(program);
+
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
-      defaultValues: {
-        workouts: route.params.program.workouts,
-      },
+      defaultValues,
     });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "workouts",
-  });
   const [isPrivate, setIsPrivate] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
@@ -156,7 +165,7 @@ export default function EditProgram({ navigation, route }) {
 
   const onEditProgramCompleted = (data) => {
     const {
-      createProgram: { ok, id: programId, error },
+      editProgram: { ok, id: programId, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -167,12 +176,12 @@ export default function EditProgram({ navigation, route }) {
     const submissionData = getValues();
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
-        variables: { programId, workoutIndex, title: workout.name },
+        variables: { programId, workoutIndex, title: workout.title },
       });
     });
   };
 
-  const [createProgramFunction, { loading, error }] = useMutation(
+  const [editProgramFunction, { loading, error }] = useMutation(
     EDIT_PROGRAM_MUTATION,
     {
       onCompleted: onEditProgramCompleted,
@@ -192,7 +201,7 @@ export default function EditProgram({ navigation, route }) {
       return;
     }
     const { programTitle, description } = getValues();
-    createProgramFunction({
+    editProgramFunction({
       variables: {
         id: program.id,
         title: programTitle,
@@ -210,9 +219,9 @@ export default function EditProgram({ navigation, route }) {
             name="programTitle"
             control={control}
             rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { value } }) => (
               <TitleInput
-                defaultValue={program.title}
+                value={watch("programTitle")}
                 placeholder="프로그램 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
@@ -223,9 +232,9 @@ export default function EditProgram({ navigation, route }) {
 
         <WorkoutArray
           {...{
-            program,
             control,
             setValue,
+            watch,
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
