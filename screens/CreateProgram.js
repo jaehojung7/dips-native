@@ -7,6 +7,7 @@ import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import ExerciseListModal from "./ExerciseListModal";
+import { ME_QUERY } from "./Program";
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
@@ -97,7 +98,7 @@ const defaultValues = {
   ],
 };
 
-export default function CreateProgram({ route }) {
+export default function CreateProgram({ navigation, route }) {
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
@@ -114,6 +115,9 @@ export default function CreateProgram({ route }) {
     const {
       createWorkoutSet: { ok, id: workoutSetId, error },
     } = data;
+    if (ok) {
+      navigation.navigate("StackProgram");
+    }
     if (!ok) {
       setError("result", {
         message: error,
@@ -176,6 +180,7 @@ export default function CreateProgram({ route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onSubmitValid = (submissionData) => {

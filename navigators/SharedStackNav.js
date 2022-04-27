@@ -10,6 +10,7 @@ import SeeProgram from "../screens/SeeProgram";
 import EditProgram from "../screens/EditProgram";
 import CreateExercise from "../screens/CreateExercise";
 import ExerciseListModal from "../screens/ExerciseListModal";
+import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 
 const Stack = createStackNavigator();
 

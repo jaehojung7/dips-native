@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm, useFieldArray } from "react-hook-form";
-import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -100,7 +99,7 @@ const defaultValues = {
   ],
 };
 
-export default function EditProgram({ route }) {
+export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
   const { exercises } = route.params;
   const { handleSubmit, setValue, getValues, control, watch, setError } =
@@ -238,7 +237,11 @@ export default function EditProgram({ route }) {
           program={program}
           {...{ handleSubmit, getValues }}
         />
-        <DeleteProgramButton text="삭제" program={program} />
+        <DeleteProgramButton
+          text="삭제"
+          program={program}
+          {...{ navigation }}
+        />
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModal

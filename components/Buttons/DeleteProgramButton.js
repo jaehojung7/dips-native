@@ -1,6 +1,8 @@
 import React from "react";
+import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
+import { ME_QUERY } from "../../screens/Program";
 
 const DELETE_PROGRAM_MUTATION = gql`
   mutation deleteProgram($id: Int!) {
@@ -15,7 +17,6 @@ const ButtonContainer = styled.TouchableOpacity`
   padding: 10px 25px;
   border-radius: 20px;
   background-color: tomato;
-  /* margin: 10px; */
   width: 45%;
 `;
 
@@ -27,22 +28,43 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function DeleteProgramButton({ program }) {
+export default function DeleteProgramButton({ navigation, program }) {
+  const onCompleted = (data) => {
+    const {
+      deleteProgram: { ok, error },
+    } = data;
+    if (ok) {
+      navigation.navigate("StackProgram");
+    }
+  };
+
   const [deleteProgramFunction] = useMutation(DELETE_PROGRAM_MUTATION, {
     variables: {
       id: program.id,
     },
-    onClickDelete,
+    onCompleted,
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onClickDelete = () => {
-    alert("Deleted");
-    deleteProgramFunction();
+    Alert.alert("이 프로그램을 삭제할까요?", "", [
+      {
+        text: "Delete",
+        onPress: () => deleteProgramFunction(),
+        style: "destructive",
+      },
+      {
+        text: "Cancel",
+        // onPress: () => closeSwipeable(),
+        style: "cancel",
+      },
+    ]);
   };
 
   return (
-    <ButtonContainer onPress={onClickDelete}>
-      {/* onPress 실행 직전 경고 */}
+    <ButtonContainer
+      onPress={Platform.OS === "web" ? deleteProgramFunction : onClickDelete}
+    >
       <ButtonText>삭제</ButtonText>
     </ButtonContainer>
   );

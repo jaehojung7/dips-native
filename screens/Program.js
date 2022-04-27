@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 
-const ME_QUERY = gql`
+export const ME_QUERY = gql`
   query me {
     me {
       id
