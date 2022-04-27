@@ -115,9 +115,6 @@ export default function CreateProgram({ navigation, route }) {
     const {
       createWorkoutSet: { ok, id: workoutSetId, error },
     } = data;
-    if (ok) {
-      navigation.navigate("StackProgram");
-    }
     if (!ok) {
       setError("result", {
         message: error,
@@ -165,6 +162,7 @@ export default function CreateProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.name },
       });
     });
+    navigation.navigate("StackProgram");
   };
 
   const [createProgramFunction, { loading, error }] = useMutation(
@@ -180,7 +178,7 @@ export default function CreateProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    refetchQueries: [{ query: ME_QUERY }],
+    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
   });
 
   const onSubmitValid = (submissionData) => {

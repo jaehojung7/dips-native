@@ -88,9 +88,9 @@ const IndexText = styled.Text`
 `;
 
 export default function WorkoutArray({
-  program,
   control,
   setValue,
+  watch,
   setWorkoutIndexState,
   setWorkoutSetIndexState,
   setModalVisible,
@@ -99,10 +99,6 @@ export default function WorkoutArray({
     control,
     name: "workouts",
   });
-  // let { program } = program.workouts;
-  if (program === undefined) {
-    program = {};
-  }
 
   return (
     <>
@@ -111,15 +107,15 @@ export default function WorkoutArray({
           <MainContainer key={workout.id}>
             <TitleContainer>
               <Controller
-                name={`workouts[${workoutIndex}].name`}
+                name={`workouts[${workoutIndex}].title`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
-                    defaultValues={workout.title}
+                    value={watch(`workouts[${workoutIndex}].title`)}
                     placeholder="워크아웃 이름"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`workouts[${workoutIndex}].name`, text)
+                      setValue(`workouts[${workoutIndex}].title`, text)
                     }
                   />
                 )}
@@ -131,6 +127,7 @@ export default function WorkoutArray({
               {...{
                 control,
                 setValue,
+                watch,
                 setWorkoutIndexState,
                 setWorkoutSetIndexState,
                 setModalVisible,
