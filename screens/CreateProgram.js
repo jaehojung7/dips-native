@@ -56,6 +56,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
   mutation createWorkoutSet(
     $programId: Int!
     $workoutIndex: Int!
+    $workoutSetIndex: Int!
     $exercise: String!
     $setCount: Int!
     $repCount: Int
@@ -63,6 +64,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
     createWorkoutSet(
       programId: $programId
       workoutIndex: $workoutIndex
+      workoutSetIndex: $workoutSetIndex
       exercise: $exercise
       setCount: $setCount
       repCount: $repCount
@@ -88,17 +90,23 @@ const TitleContainer = styled.View`
   /* border: 1px solid ${(props) => props.theme.gray}; */
 `;
 
-// Passing empty strings as default values creates one empty form automatically
-const defaultValues = {
-  workouts: [
-    {
-      name: "",
-      workoutSets: [{}],
-    },
-  ],
-};
-
 export default function CreateProgram({ navigation, route }) {
+  // Passing empty strings as default values creates one empty form automatically
+  const defaultValues = {
+    title: "",
+    workouts: [
+      {
+        title: "",
+        workoutSets: [
+          {
+            exercise: "",
+            setCount: "",
+            repCount: "",
+          },
+        ],
+      },
+    ],
+  };
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
@@ -133,17 +141,20 @@ export default function CreateProgram({ navigation, route }) {
     }
 
     const submissionData = getValues();
-    submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
-      createWorkoutSetFunction({
-        variables: {
-          programId,
-          workoutIndex,
-          exercise: workoutSet.exercise,
-          setCount: parseInt(workoutSet.setCount),
-          repCount: parseInt(workoutSet.repCount),
-        },
-      });
-    });
+    submissionData.workouts[workoutIndex].workoutSets.map(
+      (workoutSet, workoutSetIndex) => {
+        createWorkoutSetFunction({
+          variables: {
+            programId,
+            workoutIndex,
+            workoutSetIndex,
+            exercise: workoutSet.exercise,
+            setCount: parseInt(workoutSet.setCount),
+            repCount: parseInt(workoutSet.repCount),
+          },
+        });
+      }
+    );
   };
 
   const onCreateProgramCompleted = (data) => {
@@ -159,9 +170,10 @@ export default function CreateProgram({ navigation, route }) {
     const submissionData = getValues();
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
-        variables: { programId, workoutIndex, title: workout.name },
+        variables: { programId, workoutIndex, title: workout.title },
       });
     });
+
     navigation.navigate("StackProgram");
   };
 
@@ -227,6 +239,7 @@ export default function CreateProgram({ navigation, route }) {
           {...{
             control,
             setValue,
+            defaultValues,
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
