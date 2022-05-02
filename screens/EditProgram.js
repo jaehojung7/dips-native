@@ -8,6 +8,8 @@ import WorkoutArray from "../components/create-program/WorkoutArray";
 import ExerciseListModal from "./ExerciseListModal";
 import SaveProgramButton from "../components/Buttons/SaveProgramButton";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
+import { ME_QUERY } from "./Program";
+import MainButton from "../components/Buttons/MainButton";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -52,6 +54,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
   mutation createWorkoutSet(
     $programId: Int!
     $workoutIndex: Int!
+    $workoutSetIndex: Int!
     $exercise: String!
     $setCount: Int!
     $repCount: Int
@@ -59,6 +62,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
     createWorkoutSet(
       programId: $programId
       workoutIndex: $workoutIndex
+      workoutSetIndex: $workoutSetIndex
       exercise: $exercise
       setCount: $setCount
       repCount: $repCount
@@ -118,9 +122,7 @@ export default function EditProgram({ navigation, route }) {
   const defaultValues = processDefaultValues(program);
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({
-      defaultValues,
-    });
+    useForm({ defaultValues });
   const [isPrivate, setIsPrivate] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
@@ -150,17 +152,20 @@ export default function EditProgram({ navigation, route }) {
     }
 
     const submissionData = getValues();
-    submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
-      createWorkoutSetFunction({
-        variables: {
-          programId,
-          workoutIndex,
-          exercise: workoutSet.exercise,
-          setCount: parseInt(workoutSet.setCount),
-          repCount: parseInt(workoutSet.repCount),
-        },
-      });
-    });
+    submissionData.workouts[workoutIndex].workoutSets.map(
+      (workoutSet, workoutSetIndex) => {
+        createWorkoutSetFunction({
+          variables: {
+            programId,
+            workoutIndex,
+            workoutSetIndex,
+            exercise: workoutSet.exercise,
+            setCount: parseInt(workoutSet.setCount),
+            repCount: parseInt(workoutSet.repCount),
+          },
+        });
+      }
+    );
   };
 
   const onEditProgramCompleted = (data) => {
@@ -179,6 +184,8 @@ export default function EditProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
+
+    navigation.navigate("StackProgram");
   };
 
   const [editProgramFunction, { loading, error }] = useMutation(
@@ -194,6 +201,7 @@ export default function EditProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
+    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
   });
 
   const onSubmitValid = (submissionData) => {
@@ -221,7 +229,8 @@ export default function EditProgram({ navigation, route }) {
             rules={{ required: true }}
             render={({ field: { value } }) => (
               <TitleInput
-                value={watch("programTitle")}
+                // value={watch("programTitle")}
+                defaultValue={defaultValues.programTitle}
                 placeholder="프로그램 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
@@ -234,17 +243,24 @@ export default function EditProgram({ navigation, route }) {
           {...{
             control,
             setValue,
-            watch,
+            defaultValues,
+            // watch,
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
           }}
         />
 
-        <SaveProgramButton
+        {/* <SaveProgramButton
           text="저장"
           program={program}
           {...{ handleSubmit, getValues }}
+        /> */}
+        <MainButton
+          text="저장"
+          loading={loading}
+          disabled={!watch("programTitle")}
+          onPress={handleSubmit(onSubmitValid)}
         />
         <DeleteProgramButton
           text="삭제"

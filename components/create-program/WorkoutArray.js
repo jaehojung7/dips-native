@@ -90,7 +90,8 @@ const IndexText = styled.Text`
 export default function WorkoutArray({
   control,
   setValue,
-  watch,
+  defaultValues,
+  // watch,
   setWorkoutIndexState,
   setWorkoutSetIndexState,
   setModalVisible,
@@ -111,7 +112,7 @@ export default function WorkoutArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
-                    value={watch(`workouts[${workoutIndex}].title`)}
+                    defaultValue={defaultValues?.workouts[workoutIndex]?.title}
                     placeholder="워크아웃 이름"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
@@ -127,7 +128,8 @@ export default function WorkoutArray({
               {...{
                 control,
                 setValue,
-                watch,
+                defaultValues,
+                // watch,
                 setWorkoutIndexState,
                 setWorkoutSetIndexState,
                 setModalVisible,
