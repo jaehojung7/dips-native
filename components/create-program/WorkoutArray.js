@@ -29,20 +29,6 @@ const ContainerTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const WorkoutContainer = styled.View`
-  margin-bottom: 15px;
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  padding: 15px 25px;
-`;
-
-const WorkoutTitle = styled.TextInput`
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: ${(props) => props.theme.fontColor};
-`;
-
 export default function WorkoutArray({
   control,
   setValue,

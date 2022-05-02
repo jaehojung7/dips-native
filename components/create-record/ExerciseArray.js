@@ -54,7 +54,7 @@ export default function ExerciseArray({ control, setValue, workout }) {
           <MainContainer key={recordExercise.id}>
             <TitleContainer>
               <Controller
-                name={`exercises[${recordExerciseIndex}].name`}
+                name={`recordExercises[${recordExerciseIndex}].exercise`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
@@ -62,7 +62,10 @@ export default function ExerciseArray({ control, setValue, workout }) {
                     placeholder="운동 선택"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`exercises[${recordExerciseIndex}].name`, text)
+                      setValue(
+                        `recordExercises[${recordExerciseIndex}].exercise`,
+                        text
+                      )
                     }
                   />
                 )}
@@ -76,7 +79,7 @@ export default function ExerciseArray({ control, setValue, workout }) {
             </TitleContainer>
             {expanded[recordExerciseIndex] && (
               <ExerciseSetArray
-                workoutSetIndex={recordExerciseIndex}
+                recordExerciseIndex={recordExerciseIndex}
                 {...{ control, setValue }}
               />
             )}

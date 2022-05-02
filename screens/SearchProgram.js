@@ -10,6 +10,7 @@ const ME_QUERY = gql`
         title
         workouts {
           title
+          workoutIndex
           workoutSets {
             id
             exercise

@@ -101,20 +101,28 @@ const defaultValues = {
   ],
 };
 
-export default function MainSets({ route }) {
+export default function MainSets({ navigation, route }) {
+  let { program } = route.params;
+  if (program === undefined) {
+    program = {};
+  }
+  const baseProgramId = program.id;
+
   let { workout } = route?.params;
   if (workout === undefined) {
     workout = {};
   }
+  const baseWorkoutIndex = workout.workoutIndex;
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({
       defaultValues,
     });
 
+  // #3
   const onCreateRecordExerciseSetCompleted = (data) => {
     const {
-      createRecordExerciseSet: { ok, id: workoutSetId, error },
+      createRecordExerciseSet: { ok, id: recordExerciseSetId, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -123,9 +131,10 @@ export default function MainSets({ route }) {
     }
   };
 
+  // #2
   const onCreateRecordExerciseCompleted = (data) => {
     const {
-      createRecordExercise: { ok, recordId, workoutIndex, error },
+      createRecordExercise: { ok, recordId, recordExerciseIndex, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -134,19 +143,22 @@ export default function MainSets({ route }) {
     }
 
     const submissionData = getValues();
-    submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
-      createWorkoutSetFunction({
-        variables: {
-          programId,
-          workoutIndex,
-          exercise: workoutSet.exercise,
-          setCount: parseInt(workoutSet.setCount),
-          repCount: parseInt(workoutSet.repCount),
-        },
-      });
-    });
+    submissionData.recordExercises[recordExerciseIndex].recordExerciseSets.map(
+      (recordExerciseSet, recordExerciseSetIndex) => {
+        createRecordExerciseSetFunction({
+          variables: {
+            recordId,
+            recordExerciseIndex,
+            recordExerciseSetIndex,
+            weight: parseInt(recordExerciseSet.weight),
+            repCount: parseInt(recordExerciseSet.repCount),
+          },
+        });
+      }
+    );
   };
 
+  // #1
   const onCreateRecordCompleted = (data) => {
     const {
       createRecord: { ok, id: recordId, error },
@@ -158,12 +170,18 @@ export default function MainSets({ route }) {
     }
 
     const submissionData = getValues();
-    submissionData.workouts.map((workout, workoutIndex) => {
-      createWorkoutFunction({
-        variables: { programId, workoutIndex, title: workout.name },
-      });
-    });
-    navigation.navigate("StackRecord");
+    submissionData.recordExercises.map(
+      (recordExercise, recordExerciseIndex) => {
+        createRecordExerciseFunction({
+          variables: {
+            recordId,
+            recordExerciseIndex,
+            exercise: recordExercise.exercise,
+          },
+        });
+      }
+    );
+    navigation.navigate("StackProgram");
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(
@@ -180,7 +198,7 @@ export default function MainSets({ route }) {
     }
   );
 
-  const [createWorkoutSetFunction] = useMutation(
+  const [createRecordExerciseSetFunction] = useMutation(
     CREATE_RECORD_EXERCISE_SET_MUTATION,
     {
       onCompleted: onCreateRecordExerciseSetCompleted,
@@ -190,10 +208,12 @@ export default function MainSets({ route }) {
   );
 
   const onSubmitValid = (submissionData) => {
+    console.log(submissionData);
     if (loading) {
       return;
     }
-    const { recordTitle } = getValues();
+    const { recordTitle, description, baseProgramId, baseWorkoutIndex } =
+      getValues();
     createRecordFunction({
       variables: {
         title: recordTitle,
@@ -234,8 +254,8 @@ export default function MainSets({ route }) {
         <ButtonContainer>
           <WorkoutButton
             text="워크아웃 기록 저장"
-            // loading={loading}
-            disabled={!watch("recordTitle")}
+            loading={loading}
+            // disabled={!watch("recordTitle")}
             onPress={handleSubmit(onSubmitValid)}
           />
         </ButtonContainer>

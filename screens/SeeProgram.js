@@ -82,6 +82,7 @@ const defaultValues = {
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
+  console.log(program);
   const { exercises } = route.params;
   return (
     <DismissKeyboard>
@@ -105,7 +106,7 @@ export default function SeeProgram({ route, navigation }) {
                 <StartWorkoutButton
                   text="워크아웃 시작"
                   onPress={() => {
-                    navigation.navigate("CreateRecord", { workout });
+                    navigation.navigate("CreateRecord", { workout, program });
                   }}
                 />
               </WorkoutTitleContainer>

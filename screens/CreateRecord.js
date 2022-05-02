@@ -22,7 +22,11 @@ const Header = styled.Text`
 const Tab = createMaterialTopTabNavigator();
 
 export default function CreateRecord({ route }) {
-  let { workout } = route?.params;
+  let { program } = route.params;
+  if (program === undefined) {
+    program = {};
+  }
+  let { workout } = route.params;
   if (workout === undefined) {
     workout = {};
   }
@@ -43,7 +47,7 @@ export default function CreateRecord({ route }) {
             options={{
               title: "Main Sets",
             }}
-            initialParams={{ workout }}
+            initialParams={{ program, workout }}
           />
 
           <Tab.Screen
