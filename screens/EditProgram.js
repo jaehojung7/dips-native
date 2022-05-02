@@ -6,10 +6,8 @@ import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import ExerciseListModal from "./ExerciseListModal";
-import SaveProgramButton from "../components/Buttons/SaveProgramButton";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import { ME_QUERY } from "./Program";
-import MainButton from "../components/Buttons/MainButton";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -91,6 +89,27 @@ const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 22px;
   font-weight: 600;
+`;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const SaveProgramButton = styled.TouchableOpacity`
+  padding: 12px 25px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.blue};
+  margin: 5px 0;
+  width: 49%;
+`;
+
+const ButtonText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 5px;
+  text-align: center;
 `;
 
 export default function EditProgram({ navigation, route }) {
@@ -244,30 +263,26 @@ export default function EditProgram({ navigation, route }) {
             control,
             setValue,
             defaultValues,
-            // watch,
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
           }}
         />
+        <ButtonContainer>
+          <SaveProgramButton
+            loading={loading}
+            disabled={!watch("programTitle")}
+            onPress={handleSubmit(onSubmitValid)}
+          >
+            <ButtonText>저장</ButtonText>
+          </SaveProgramButton>
 
-        {/* <SaveProgramButton
-          text="저장"
-          program={program}
-          {...{ handleSubmit, getValues }}
-        /> */}
-        <MainButton
-          text="저장"
-          loading={loading}
-          disabled={!watch("programTitle")}
-          onPress={handleSubmit(onSubmitValid)}
-        />
-        <DeleteProgramButton
-          text="삭제"
-          program={program}
-          {...{ navigation }}
-        />
-
+          <DeleteProgramButton
+            text="삭제"
+            program={program}
+            {...{ navigation }}
+          />
+        </ButtonContainer>
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModal
             {...{

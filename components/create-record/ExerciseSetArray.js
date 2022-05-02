@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddSetButton from "./AddSetButton";
 import DeleteSetButton from "./DeleteSetButton";
@@ -78,13 +78,13 @@ const ButtonContainer = styled.View`
 `;
 
 export default function ExerciseSetArray({
-  workoutSetIndex,
+  recordExerciseIndex,
   control,
   setValue,
 }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `exercises[${workoutSetIndex}].exerciseSets`,
+    name: `recordExercises[${recordExerciseIndex}].recordExerciseSets`,
   });
 
   return (
@@ -103,18 +103,18 @@ export default function ExerciseSetArray({
         </RepsContainer>
       </MainContainer>
 
-      {fields.map((item, exerciseSetIndex) => {
+      {fields.map((recordExerciseSet, recordExerciseSetIndex) => {
         return (
-          <MainContainer key={item.id}>
+          <MainContainer key={recordExerciseSet.id}>
             <SetContainer>
               <SetButton>
-                <Mainset>{parseInt(`${exerciseSetIndex}`) + 1}</Mainset>
+                <Mainset>{parseInt(`${recordExerciseSetIndex}`) + 1}</Mainset>
               </SetButton>
             </SetContainer>
 
             <WeightContainer>
               <Controller
-                name={`exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].weight`}
+                name={`recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].weight`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
@@ -125,7 +125,7 @@ export default function ExerciseSetArray({
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].weight`,
+                        `recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].weight`,
                         text
                       )
                     }
@@ -137,7 +137,7 @@ export default function ExerciseSetArray({
 
             <RepsContainer>
               <Controller
-                name={`exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].repCount`}
+                name={`recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SetCount
@@ -148,7 +148,7 @@ export default function ExerciseSetArray({
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
-                        `exercises[${workoutSetIndex}].exerciseSets[${exerciseSetIndex}].repCount`,
+                        `recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].repCount`,
                         text
                       )
                     }

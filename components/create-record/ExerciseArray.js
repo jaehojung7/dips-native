@@ -35,8 +35,9 @@ const ButtonContainer = styled.View`
 export default function ExerciseArray({ control, setValue, workout }) {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "exercises",
+    name: "recordExercises",
   });
+
   const [expanded, setExpanded] = useState([true]);
 
   // https://www.codingdeft.com/posts/react-usestate-array/
@@ -48,20 +49,20 @@ export default function ExerciseArray({ control, setValue, workout }) {
 
   return (
     <>
-      {workout.workoutSets.map((workoutSet, workoutSetIndex) => {
+      {fields.map((recordExercise, recordExerciseIndex) => {
         return (
-          <MainContainer key={workoutSet.id}>
+          <MainContainer key={recordExercise.id}>
             <TitleContainer>
               <Controller
-                name={`exercises[${workoutSetIndex}].name`}
+                name={`exercises[${recordExerciseIndex}].name`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
-                    defaultValue={workoutSet.exercise}
+                    defaultValue={recordExercise.exercise}
                     placeholder="운동 선택"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
-                      setValue(`exercises[${workoutSetIndex}].name`, text)
+                      setValue(`exercises[${recordExerciseIndex}].name`, text)
                     }
                   />
                 )}
@@ -69,13 +70,13 @@ export default function ExerciseArray({ control, setValue, workout }) {
 
               <ExpandSetButton
                 onPress={() => {
-                  handleClick(workoutSetIndex);
+                  handleClick(recordExerciseIndex);
                 }}
               />
             </TitleContainer>
-            {expanded[workoutSetIndex] && (
+            {expanded[recordExerciseIndex] && (
               <ExerciseSetArray
-                workoutSetIndex={workoutSetIndex}
+                workoutSetIndex={recordExerciseIndex}
                 {...{ control, setValue }}
               />
             )}

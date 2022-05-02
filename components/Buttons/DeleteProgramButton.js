@@ -14,10 +14,11 @@ const DELETE_PROGRAM_MUTATION = gql`
 `;
 
 const ButtonContainer = styled.TouchableOpacity`
-  padding: 10px 25px;
+  margin: 5px 0;
+  padding: 12px 25px;
   border-radius: 20px;
   background-color: tomato;
-  width: 45%;
+  width: 49%;
 `;
 
 const ButtonText = styled.Text`

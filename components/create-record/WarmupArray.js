@@ -44,27 +44,27 @@ export default function WarmupArray({ control, setValue, workout }) {
 
   return (
     <>
-      {workout.workoutSets.map((workoutSet, workoutSetIndex) => {
+      {fields.map((exercise, exerciseIndex) => {
         return (
-          <MainContainer key={workoutSet.id}>
+          <MainContainer key={exercise.id}>
             <ExerciseTitleContainer>
               <ExerciseTitle
-                defaultValue={workoutSet.exercise}
+                defaultValue={exercise.exercise}
                 placeholder="운동 이름"
                 placeholderTextColor="#999999"
                 onChangeText={(text) =>
-                  setValue(`exercises[${workoutSetIndex}].name`, text)
+                  setValue(`exercises[${exerciseIndex}].name`, text)
                 }
               />
               <ExpandSetButton
                 onPress={() => {
-                  handleClick(workoutSetIndex);
+                  handleClick(exerciseIndex);
                 }}
               />
             </ExerciseTitleContainer>
-            {expanded[workoutSetIndex] && (
+            {expanded[exerciseIndex] && (
               <WarmupSetArray
-                workoutSetIndex={workoutSetIndex}
+                exerciseIndex={exerciseIndex}
                 {...{ control, setValue }}
               />
             )}

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Welcome from "../screens/Welcome";
 import LogIn from "../screens/LogIn";
 import CreateAccount from "../screens/CreateAccount";
-import Workout from "../screens/CreateRecord";
+import CreateRecord from "../screens/CreateRecord";
 
 const Stack = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function LoggedOutNav() {
       />
       <Stack.Screen
         name="Workout"
-        component={Workout}
+        component={CreateRecord}
         options={{ title: "운동하기" }}
       />
       <Stack.Screen

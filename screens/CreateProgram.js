@@ -78,7 +78,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
-  /* border: 1px solid black; */
 `;
 
 const TitleContainer = styled.View`
@@ -87,7 +86,6 @@ const TitleContainer = styled.View`
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
-  /* border: 1px solid ${(props) => props.theme.gray}; */
 `;
 
 export default function CreateProgram({ navigation, route }) {
@@ -237,6 +235,7 @@ export default function CreateProgram({ navigation, route }) {
 
         <WorkoutArray
           {...{
+            watch,
             control,
             setValue,
             defaultValues,

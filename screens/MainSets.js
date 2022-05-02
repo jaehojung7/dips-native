@@ -6,6 +6,66 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 
+const CREATE_RECORD_MUTATION = gql`
+  mutation createRecord(
+    $title: String!
+    $description: String
+    $baseProgramId: Int
+    $baseWorkoutIndex: Int
+  ) {
+    createRecord(
+      title: $title
+      description: $description
+      baseProgramId: $baseProgramId
+      baseWorkoutIndex: $baseWorkoutIndex
+    ) {
+      ok
+      id
+      error
+    }
+  }
+`;
+
+const CREATE_RECORD_EXERCISE_MUTATION = gql`
+  mutation createWorkout(
+    $recordId: Int!
+    $recordExerciseIndex: Int!
+    $exercise: String!
+  ) {
+    createWorkout(
+      recordId: $recordId
+      recordExerciseIndex: $recordExerciseIndex
+      exercise: $exercise
+    ) {
+      ok
+      recordId
+      recordExerciseIndex
+      error
+    }
+  }
+`;
+
+const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
+  mutation createWorkoutSet(
+    $recordId: Int!
+    $recordExerciseIndex: Int!
+    $weight: Int!
+    $repCount: Int!
+  ) {
+    createWorkoutSet(
+      recordId: $recordId
+      recordExerciseIndex: $recordExerciseIndex
+      exercise: $exercise
+      weight: $weight
+      repCount: $repCount
+    ) {
+      ok
+      id
+      error
+    }
+  }
+`;
+
 const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
@@ -30,18 +90,13 @@ const WorkoutTitleInput = styled.TextInput`
   font-weight: 700;
 `;
 
-// const CREATE_RECORD_MUTATION = gql``;
-
-// const CREATE_RECORD_EXERCISE_MUTATION = gql``;
-
-// const CREATE_RECORD_EXERCISE_SET_MUTATION = gql``;
-
 // Passing empty strings as default values creates one empty form automatically
+
 const defaultValues = {
-  exercises: [
+  recordExercises: [
     {
       name: "",
-      exerciseSets: [{}],
+      recordExerciseSets: [{}],
     },
   ],
 };
@@ -57,14 +112,96 @@ export default function MainSets({ route }) {
       defaultValues,
     });
 
+  const onCreateRecordExerciseSetCompleted = (data) => {
+    const {
+      createRecordExerciseSet: { ok, id: workoutSetId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+  };
+
+  const onCreateRecordExerciseCompleted = (data) => {
+    const {
+      createRecordExercise: { ok, recordId, workoutIndex, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+
+    const submissionData = getValues();
+    submissionData.workouts[workoutIndex].workoutSets.map((workoutSet) => {
+      createWorkoutSetFunction({
+        variables: {
+          programId,
+          workoutIndex,
+          exercise: workoutSet.exercise,
+          setCount: parseInt(workoutSet.setCount),
+          repCount: parseInt(workoutSet.repCount),
+        },
+      });
+    });
+  };
+
+  const onCreateRecordCompleted = (data) => {
+    const {
+      createRecord: { ok, id: recordId, error },
+    } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+
+    const submissionData = getValues();
+    submissionData.workouts.map((workout, workoutIndex) => {
+      createWorkoutFunction({
+        variables: { programId, workoutIndex, title: workout.name },
+      });
+    });
+    navigation.navigate("StackRecord");
+  };
+
+  const [createRecordFunction, { loading, error }] = useMutation(
+    CREATE_RECORD_MUTATION,
+    {
+      onCompleted: onCreateRecordCompleted,
+    }
+  );
+
+  const [createRecordExerciseFunction] = useMutation(
+    CREATE_RECORD_EXERCISE_MUTATION,
+    {
+      onCompleted: onCreateRecordExerciseCompleted,
+    }
+  );
+
+  const [createWorkoutSetFunction] = useMutation(
+    CREATE_RECORD_EXERCISE_SET_MUTATION,
+    {
+      onCompleted: onCreateRecordExerciseSetCompleted,
+      // Creating a new program object directly in Apollo cache is probably better
+      // refetchQueries: [{ query: ME_QUERY }],
+    }
+  );
+
   const onSubmitValid = (submissionData) => {
     if (loading) {
       return;
     }
     const { recordTitle } = getValues();
-    // createProgramFunction({
-    //   variables: { title: programTitle, description },
-    // });
+    createRecordFunction({
+      variables: {
+        title: recordTitle,
+        description,
+        baseProgramId,
+        baseWorkoutIndex,
+      },
+    });
   };
 
   return (

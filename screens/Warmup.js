@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { Controller, useForm } from "react-hook-form";
-import WorkoutButton from "../components/Buttons/WorkoutButton";
+import React from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WarmupArray from "../components/create-record/WarmupArray";

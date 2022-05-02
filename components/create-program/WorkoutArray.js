@@ -43,50 +43,6 @@ const WorkoutTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const ExerciseContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const ExerciseTitleContainer = styled.View`
-  width: 50%;
-  border: 1px solid blue;
-`;
-
-const ExerciseTitle = styled.TextInput`
-  font-size: 17px;
-  font-weight: 500;
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const SetbyRepContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  /* justify-content: space-evenly; */
-  border: 1px solid black;
-  width: 40%;
-`;
-
-const SetbyRep = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 5px;
-  text-align: center;
-  width: 40%;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 15px;
-  font-weight: 500;
-  margin: 0 5px;
-`;
-
 export default function WorkoutArray({
   control,
   setValue,
@@ -129,7 +85,6 @@ export default function WorkoutArray({
                 control,
                 setValue,
                 defaultValues,
-                // watch,
                 setWorkoutIndexState,
                 setWorkoutSetIndexState,
                 setModalVisible,

@@ -31,7 +31,6 @@ const IndexText = styled.Text`
 
 const SetsReps = styled.Text`
   color: ${(props) => props.theme.fontColor};
-  /* border: 1px solid ${(props) => props.theme.inputBackground}; */
   font-size: 16px;
   font-weight: 600;
   text-align: center;
