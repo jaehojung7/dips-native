@@ -63,12 +63,11 @@ const SearchExerciseTab = styled.TextInput`
   font-size: 15px;
 `;
 
-export default function ExerciseListModal({
+export default function EditListModal({
   exercises,
   setValue,
   setModalVisible,
-  workoutIndexState,
-  workoutSetIndexState,
+  recordExerciseIndexState,
 }) {
   const renderItem = ({ item: exercise }) => {
     return (
@@ -76,8 +75,8 @@ export default function ExerciseListModal({
         <ExerciseTitleContainer
           onPress={() => {
             setValue(
-              `workouts[${workoutIndexState}].workoutSets[${workoutSetIndexState}].exercise`,
-              exercise.exercise
+              `recordExercises[${recordExerciseIndexState}].exercise`,
+              recordExercise.exercise
             );
             setModalVisible(false);
           }}

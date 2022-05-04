@@ -10,6 +10,7 @@ import SeeProgram from "../screens/SeeProgram";
 import EditProgram from "../screens/EditProgram";
 import CreateExercise from "../screens/CreateExercise";
 import ExerciseListModal from "../screens/ExerciseListModal";
+import EditListModal from "../screens/EditListModal";
 import MainSets from "../screens/MainSets";
 
 const Stack = createStackNavigator();
@@ -49,6 +50,11 @@ export default function SharedStackNav({ screenName, route }) {
       <Stack.Screen
         name="ExerciseListModal"
         component={ExerciseListModal}
+        options={{ presentation: "modal", headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditListModal"
+        component={EditListModal}
         options={{ presentation: "modal", headerShown: false }}
       />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />

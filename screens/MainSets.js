@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Modal } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
+import EditListModal from "./EditListModal";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 
 const CREATE_RECORD_MUTATION = gql`
@@ -95,23 +97,28 @@ const WorkoutTitleInput = styled.TextInput`
 const defaultValues = {
   recordExercises: [
     {
-      name: "",
+      title: "",
       recordExerciseSets: [{}],
     },
   ],
 };
 
 export default function MainSets({ navigation, route }) {
+  const [recordExerciseIndexState, setRecordExerciseIndexState] = useState(0);
+  const [recordExerciseSetIndexState, setRecordExerciseSetIndexState] =
+    useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
   let { program } = route.params;
   if (program === undefined) {
     program = {};
   }
-  const baseProgramId = program.id;
-
   let { workout } = route?.params;
   if (workout === undefined) {
     workout = {};
   }
+  const { exercises } = route.params;
+
+  const baseProgramId = program.id;
   const baseWorkoutIndex = workout.workoutIndex;
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
@@ -247,6 +254,10 @@ export default function MainSets({ navigation, route }) {
           {...{
             control,
             setValue,
+            defaultValues,
+            setRecordExerciseIndexState,
+            setRecordExerciseSetIndexState,
+            setModalVisible,
           }}
           workout={workout}
         />
@@ -259,6 +270,18 @@ export default function MainSets({ navigation, route }) {
             onPress={handleSubmit(onSubmitValid)}
           />
         </ButtonContainer>
+
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <EditListModal
+            {...{
+              exercises,
+              setModalVisible,
+              recordExerciseIndexState,
+              recordExerciseSetIndexState,
+              setValue,
+            }}
+          />
+        </Modal>
       </Container>
     </DismissKeyboard>
   );

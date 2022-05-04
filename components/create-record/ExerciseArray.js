@@ -26,13 +26,36 @@ const ContainerTitle = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
 `;
 
+const SelectExercise = styled.TouchableOpacity`
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px 5px;
+  font-size: 15px;
+  border-radius: 5px;
+  text-align: center;
+  width: 85%;
+`;
+
+const ExerciseTitle = styled.Text`
+  color: black;
+  font-size: 15px;
+  text-align: center;
+`;
+
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   margin: 7px 0;
 `;
 
-export default function ExerciseArray({ control, setValue, workout }) {
+export default function ExerciseArray({
+  control,
+  setValue,
+  defaultValues,
+  workout,
+  setRecordExerciseIndexState,
+  setRecordExerciseSetIndexState,
+  setModalVisible,
+}) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "recordExercises",
@@ -56,18 +79,17 @@ export default function ExerciseArray({ control, setValue, workout }) {
               <Controller
                 name={`recordExercises[${recordExerciseIndex}].exercise`}
                 control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <ContainerTitle
-                    defaultValue={recordExercise.exercise}
-                    placeholder="운동 선택"
-                    placeholderTextColor="#999999"
-                    onChangeText={(text) =>
-                      setValue(
-                        `recordExercises[${recordExerciseIndex}].exercise`,
-                        text
-                      )
-                    }
-                  />
+                rules={{ required: true }}
+                render={({ field: { value } }) => (
+                  <SelectExercise
+                    onPress={() => {
+                      setRecordExerciseIndexState(recordExerciseIndex);
+                      // setRecordExerciseSetIndexState(recordExerciseSetIndex);
+                      setModalVisible(true);
+                    }}
+                  >
+                    <ExerciseTitle>{value ? value : "운동 선택"}</ExerciseTitle>
+                  </SelectExercise>
                 )}
               />
 

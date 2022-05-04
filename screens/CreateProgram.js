@@ -192,6 +192,7 @@ export default function CreateProgram({ navigation, route }) {
   });
 
   const onSubmitValid = (submissionData) => {
+    console.log(submissionData);
     if (loading) {
       return;
     }

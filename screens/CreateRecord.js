@@ -30,6 +30,7 @@ export default function CreateRecord({ route }) {
   if (workout === undefined) {
     workout = {};
   }
+  const { exercises } = route.params;
 
   return (
     <DismissKeyboard>
@@ -47,7 +48,7 @@ export default function CreateRecord({ route }) {
             options={{
               title: "Main Sets",
             }}
-            initialParams={{ program, workout }}
+            initialParams={{ program, workout, exercises }}
           />
 
           <Tab.Screen
@@ -56,7 +57,7 @@ export default function CreateRecord({ route }) {
             options={{
               title: "Warm up",
             }}
-            initialParams={{ workout }}
+            initialParams={{ workout, exercises }}
           />
         </Tab.Navigator>
       </>
