@@ -19,6 +19,11 @@ const ME_QUERY = gql`
           }
         }
       }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
     }
   }
 `;
