@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
-import ExerciseListModal from "../../screens/ExerciseListModal";
 
 const Container = styled.View`
   /* padding: 0 5px; */

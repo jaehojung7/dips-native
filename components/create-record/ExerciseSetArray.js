@@ -52,7 +52,7 @@ const WeightCount = styled.TextInput`
   text-align: center;
 `;
 
-const SetCount = styled(WeightCount)`
+const RepCount = styled(WeightCount)`
   width: 100%;
 `;
 
@@ -81,6 +81,7 @@ export default function ExerciseSetArray({
   recordExerciseIndex,
   control,
   setValue,
+  defaultValues,
 }) {
   const { fields, remove, append } = useFieldArray({
     control,
@@ -118,10 +119,14 @@ export default function ExerciseSetArray({
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
+                    defaultValue={
+                      defaultValues?.recordExercises[recordExerciseIndex]
+                        ?.recordExerciseSets[recordExerciseSetIndex]?.weight
+                    }
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
-                    maxLength={3}
+                    maxLength={5}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
@@ -140,7 +145,11 @@ export default function ExerciseSetArray({
                 name={`recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].repCount`}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <SetCount
+                  <RepCount
+                    defaultValue={
+                      defaultValues?.recordExercises[recordExerciseIndex]
+                        ?.recordExerciseSets[recordExerciseSetIndex]?.repCount
+                    }
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"

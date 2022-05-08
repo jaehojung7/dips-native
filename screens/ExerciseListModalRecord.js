@@ -63,7 +63,7 @@ const SearchExerciseTab = styled.TextInput`
   font-size: 15px;
 `;
 
-export default function EditListModal({
+export default function ExerciseListModalRecord({
   exercises,
   setValue,
   setModalVisible,
@@ -76,7 +76,7 @@ export default function EditListModal({
           onPress={() => {
             setValue(
               `recordExercises[${recordExerciseIndexState}].exercise`,
-              recordExercise.exercise
+              exercise.exercise
             );
             setModalVisible(false);
           }}

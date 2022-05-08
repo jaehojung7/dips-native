@@ -33,7 +33,6 @@ export default function WorkoutArray({
   control,
   setValue,
   defaultValues,
-  // watch,
   setWorkoutIndexState,
   setWorkoutSetIndexState,
   setModalVisible,
@@ -52,6 +51,7 @@ export default function WorkoutArray({
               <Controller
                 name={`workouts[${workoutIndex}].title`}
                 control={control}
+                rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     defaultValue={defaultValues?.workouts[workoutIndex]?.title}

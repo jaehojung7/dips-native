@@ -6,8 +6,8 @@ import styled from "styled-components/native";
 import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
-import ExerciseListModal from "./ExerciseListModal";
 import { ME_QUERY } from "./Program";
+import ExerciseListModalProgram from "./ExerciseListModalProgram";
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
@@ -91,7 +91,7 @@ const TitleContainer = styled.View`
 export default function CreateProgram({ navigation, route }) {
   // Passing empty strings as default values creates one empty form automatically
   const defaultValues = {
-    title: "",
+    programTitle: "",
     workouts: [
       {
         title: "",
@@ -106,9 +106,7 @@ export default function CreateProgram({ navigation, route }) {
     ],
   };
   const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({
-      defaultValues,
-    });
+    useForm({ defaultValues });
   const { exercises } = route.params;
   const [isPrivate, setIsPrivate] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
@@ -192,7 +190,6 @@ export default function CreateProgram({ navigation, route }) {
   });
 
   const onSubmitValid = (submissionData) => {
-    console.log(submissionData);
     if (loading) {
       return;
     }
@@ -236,7 +233,6 @@ export default function CreateProgram({ navigation, route }) {
 
         <WorkoutArray
           {...{
-            watch,
             control,
             setValue,
             defaultValues,
@@ -254,7 +250,7 @@ export default function CreateProgram({ navigation, route }) {
         />
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <ExerciseListModal
+          <ExerciseListModalProgram
             {...{
               exercises,
               setModalVisible,

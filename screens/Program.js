@@ -96,7 +96,8 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
-  const program = data?.me.programs[0];
+  const recentProgram = data?.me.programs[0];
+  // const recentProgram = data?.me?.recentProgram;
   const exercises = data?.me.exercises;
 
   return (
@@ -109,7 +110,7 @@ export default function Program({ navigation }) {
       >
         <ProgramTitle>Recent Program</ProgramTitle>
 
-        {program?.workouts.map((workout, workoutIndex) => {
+        {recentProgram?.workouts.map((workout, workoutIndex) => {
           return (
             <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
           );
@@ -128,10 +129,7 @@ export default function Program({ navigation }) {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards
-          programs={data?.me?.programs}
-          exercises={data?.me.exercises}
-        />
+        <ProgramCards programs={data?.me.programs} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

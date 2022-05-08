@@ -5,8 +5,9 @@ import { Controller, useForm } from "react-hook-form";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
-import EditListModal from "./EditListModal";
+import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
+import { ME_QUERY } from "./Program";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -29,12 +30,12 @@ const CREATE_RECORD_MUTATION = gql`
 `;
 
 const CREATE_RECORD_EXERCISE_MUTATION = gql`
-  mutation createWorkout(
+  mutation createRecordExercise(
     $recordId: Int!
     $recordExerciseIndex: Int!
     $exercise: String!
   ) {
-    createWorkout(
+    createRecordExercise(
       recordId: $recordId
       recordExerciseIndex: $recordExerciseIndex
       exercise: $exercise
@@ -48,16 +49,17 @@ const CREATE_RECORD_EXERCISE_MUTATION = gql`
 `;
 
 const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
-  mutation createWorkoutSet(
+  mutation createRecordExerciseSet(
     $recordId: Int!
     $recordExerciseIndex: Int!
+    $recordExerciseSetIndex: Int!
     $weight: Int!
     $repCount: Int!
   ) {
-    createWorkoutSet(
+    createRecordExerciseSet(
       recordId: $recordId
       recordExerciseIndex: $recordExerciseIndex
-      exercise: $exercise
+      recordExerciseSetIndex: $recordExerciseSetIndex
       weight: $weight
       repCount: $repCount
     ) {
@@ -97,41 +99,59 @@ const WorkoutTitleInput = styled.TextInput`
   font-weight: 700;
 `;
 
-// Passing empty strings as default values creates one empty form automatically
-
-const defaultValues = {
-  recordExercises: [
-    {
-      title: "",
-      recordExerciseSets: [{}],
-    },
-  ],
-};
-
 export default function CreateRecord({ navigation, route }) {
-  const [recordExerciseIndexState, setRecordExerciseIndexState] = useState(0);
-  const [recordExerciseSetIndexState, setRecordExerciseSetIndexState] =
-    useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
-  let { program } = route.params;
-  if (program === undefined) {
-    program = {};
-  }
-  let { workout } = route?.params;
+  const { baseProgramId } = route.params;
+  const { programTitle } = route.params;
+  let { workout } = route.params;
   if (workout === undefined) {
-    workout = {};
+    workout = {
+      title: "",
+      workoutSets: [
+        {
+          exercise: "",
+          setCount: 1,
+          repCount: "",
+        },
+      ],
+    };
   }
   const { exercises } = route.params;
 
-  const baseProgramId = program.id;
-  const baseWorkoutIndex = workout.workoutIndex;
+  const processDefaultValues = (programTitle, workout) => {
+    // Create a string for today's date
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    today = yyyy + "-" + mm + "-" + dd;
+
+    // https://stackoverflow.com/questions/12503146/create-an-array-with-same-element-repeated-multiple-times
+    const processRecordExercises = (workoutSets) => {
+      return workoutSets.map((workoutSet) => ({
+        exercise: workoutSet.exercise,
+        recordExerciseSets: Array(workoutSet.setCount).fill({
+          weight: "",
+          repCount: workoutSet.repCount,
+        }),
+      }));
+    };
+
+    return {
+      recordTitle: programTitle
+        ? `${today} > ${programTitle} > ${workout.title}`
+        : `${today} > 새로운 워크아웃`,
+      recordExercises: processRecordExercises(workout?.workoutSets),
+    };
+  };
+
+  const defaultValues = processDefaultValues(programTitle, workout);
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({
-      defaultValues,
-    });
+    useForm({ defaultValues });
 
-  // #3
+  const [recordExerciseIndexState, setRecordExerciseIndexState] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const onCreateRecordExerciseSetCompleted = (data) => {
     const {
       createRecordExerciseSet: { ok, id: recordExerciseSetId, error },
@@ -143,7 +163,6 @@ export default function CreateRecord({ navigation, route }) {
     }
   };
 
-  // #2
   const onCreateRecordExerciseCompleted = (data) => {
     const {
       createRecordExercise: { ok, recordId, recordExerciseIndex, error },
@@ -170,7 +189,6 @@ export default function CreateRecord({ navigation, route }) {
     );
   };
 
-  // #1
   const onCreateRecordCompleted = (data) => {
     const {
       createRecord: { ok, id: recordId, error },
@@ -193,7 +211,7 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackProgram");
+    navigation.navigate("Record");
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(
@@ -215,23 +233,21 @@ export default function CreateRecord({ navigation, route }) {
     {
       onCompleted: onCreateRecordExerciseSetCompleted,
       // Creating a new program object directly in Apollo cache is probably better
-      // refetchQueries: [{ query: ME_QUERY }],
+      refetchQueries: [{ query: ME_QUERY }],
     }
   );
 
   const onSubmitValid = (submissionData) => {
-    console.log(submissionData);
     if (loading) {
       return;
     }
-    const { recordTitle, description, baseProgramId, baseWorkoutIndex } =
-      getValues();
+    const { recordTitle, description } = getValues();
     createRecordFunction({
       variables: {
         title: recordTitle,
         description,
         baseProgramId,
-        baseWorkoutIndex,
+        baseWorkoutIndex: workout?.workoutIndex,
       },
     });
   };
@@ -244,10 +260,10 @@ export default function CreateRecord({ navigation, route }) {
             name="recordTitle"
             control={control}
             rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { value } }) => (
               <WorkoutTitleInput
+                defaultValue={defaultValues.recordTitle}
                 placeholder="워크아웃 제목"
-                defaultValue={workout ? workout.title : ""}
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("recordTitle", text)}
               />
@@ -261,28 +277,25 @@ export default function CreateRecord({ navigation, route }) {
             setValue,
             defaultValues,
             setRecordExerciseIndexState,
-            setRecordExerciseSetIndexState,
             setModalVisible,
           }}
-          workout={workout}
         />
 
         <ButtonContainer>
           <WorkoutButton
             text="워크아웃 기록 저장"
             loading={loading}
-            // disabled={!watch("recordTitle")}
+            disabled={!watch("recordTitle")}
             onPress={handleSubmit(onSubmitValid)}
           />
         </ButtonContainer>
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <EditListModal
+          <ExerciseListModalRecord
             {...{
               exercises,
               setModalVisible,
               recordExerciseIndexState,
-              recordExerciseSetIndexState,
               setValue,
             }}
           />

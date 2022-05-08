@@ -63,7 +63,7 @@ const SearchExerciseTab = styled.TextInput`
   font-size: 15px;
 `;
 
-export default function ExerciseListModal({
+export default function ExerciseListModalProgram({
   exercises,
   setValue,
   setModalVisible,

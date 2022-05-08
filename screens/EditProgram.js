@@ -5,9 +5,9 @@ import styled from "styled-components/native";
 import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
-import ExerciseListModal from "./ExerciseListModal";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import { ME_QUERY } from "./Program";
+import ExerciseListModalProgram from "./ExerciseListModalProgram";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -248,7 +248,6 @@ export default function EditProgram({ navigation, route }) {
             rules={{ required: true }}
             render={({ field: { value } }) => (
               <TitleInput
-                // value={watch("programTitle")}
                 defaultValue={defaultValues.programTitle}
                 placeholder="프로그램 이름"
                 placeholderTextColor="#999999"
@@ -284,7 +283,7 @@ export default function EditProgram({ navigation, route }) {
           />
         </ButtonContainer>
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <ExerciseListModal
+          <ExerciseListModalProgram
             {...{
               exercises,
               setModalVisible,

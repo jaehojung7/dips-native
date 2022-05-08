@@ -17,7 +17,7 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-export default function SearchTab() {
+export default function SearchTab({ navigation }) {
   return (
     <DismissKeyboard>
       <>

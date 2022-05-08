@@ -51,9 +51,7 @@ export default function ExerciseArray({
   control,
   setValue,
   defaultValues,
-  workout,
   setRecordExerciseIndexState,
-  setRecordExerciseSetIndexState,
   setModalVisible,
 }) {
   const { fields, append, remove } = useFieldArray({
@@ -61,7 +59,9 @@ export default function ExerciseArray({
     name: "recordExercises",
   });
 
-  const [expanded, setExpanded] = useState([true]);
+  const [expanded, setExpanded] = useState(
+    Array(defaultValues.recordExercises.length).fill([true])
+  );
 
   // https://www.codingdeft.com/posts/react-usestate-array/
   // https://stackoverflow.com/questions/37601282/javascript-array-splice-vs-slice#:~:text=Splice%20and%20Slice%20both%20are%20Javascript%20Array%20functions.&text=The%20splice()%20method%20returns,t%20change%20the%20original%20array.
@@ -84,7 +84,6 @@ export default function ExerciseArray({
                   <SelectExercise
                     onPress={() => {
                       setRecordExerciseIndexState(recordExerciseIndex);
-                      // setRecordExerciseSetIndexState(recordExerciseSetIndex);
                       setModalVisible(true);
                     }}
                   >
@@ -102,7 +101,7 @@ export default function ExerciseArray({
             {expanded[recordExerciseIndex] && (
               <ExerciseSetArray
                 recordExerciseIndex={recordExerciseIndex}
-                {...{ control, setValue }}
+                {...{ control, setValue, defaultValues }}
               />
             )}
           </MainContainer>
