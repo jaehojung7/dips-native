@@ -17,22 +17,40 @@ const ContainerTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-export default function WorkoutRecord() {
+export default function WorkoutRecord({ recordExercises }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <>
-      <TitleContainer>
-        <ContainerTitle>Barbell Row</ContainerTitle>
-        <ExpandSetButton
-          onPress={() => {
-            LayoutAnimation.configureNext(
-              LayoutAnimation.Presets.easeInEaseOut
+      {recordExercises.map((recordExercise, recordExerciseIndex) => {
+        return (
+          <TitleContainer key={recordExerciseIndex}>
+            <ContainerTitle>{recordExercise.exercise}</ContainerTitle>
+            <ExpandSetButton
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut
+                );
+                setExpanded(!expanded);
+              }}
+            />
+          </TitleContainer>
+        );
+      })}
+
+      {
+        expanded &&
+          recordExercises.map((recordExercise, recordExerciseIndex) => {
+            return (
+              <WorkoutRecordSet
+                key={recordExerciseIndex}
+                recordExerciseSets={recordExercise.recordExerciseSets}
+              />
             );
-            setExpanded(!expanded);
-          }}
-        />
-      </TitleContainer>
-      {expanded && <WorkoutRecordSet />}
+          })
+        // <WorkoutRecordSet
+        //   recordExerciseSets={recordExercise.recordExerciseSets}
+        // />
+      }
     </>
   );
 }

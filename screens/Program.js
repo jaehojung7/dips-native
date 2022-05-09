@@ -24,6 +24,20 @@ export const ME_QUERY = gql`
           }
         }
       }
+      # records {
+      #   id
+      #   title
+      #   recordExercises {
+      #     recordId
+      #     exercise
+      #     recordExerciseSets {
+      #       recordExerciseId
+      #       recordExerciseSetIndex
+      #       weight
+      #       repCount
+      #     }
+      #   }
+      # }
       exercises {
         id
         exercise
