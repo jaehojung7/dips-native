@@ -12,6 +12,7 @@ const ME_QUERY = gql`
         id
         title
         recordExercises {
+          id
           recordExerciseIndex
           exercise
           recordExerciseSets {
