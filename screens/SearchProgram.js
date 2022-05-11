@@ -54,7 +54,6 @@ const BorderLine = styled.View`
 export default function SearchProgram({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   // 프로그램이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
-
   return (
     <Container>
       <ListContainer>

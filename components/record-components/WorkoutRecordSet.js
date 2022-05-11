@@ -29,7 +29,7 @@ const RecordSetContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-export default function WorkoutRecordSet() {
+export default function WorkoutRecordSet({ recordExerciseSets }) {
   return (
     <>
       <IndexContainer>
@@ -39,24 +39,17 @@ export default function WorkoutRecordSet() {
       </IndexContainer>
       {/* <BorderLine /> */}
 
-      <RecordSetContainer>
-        <IndexText>1</IndexText>
-        <IndexText>55 kg x 5</IndexText>
-      </RecordSetContainer>
-      <RecordSetContainer>
-        <IndexText>2</IndexText>
-        <IndexText>57.5 kg</IndexText>
-        <IndexText>5</IndexText>
-      </RecordSetContainer>
-      <RecordSetContainer>
-        <IndexText>3</IndexText>
-
-        <IndexText>57.5 kg x 5</IndexText>
-      </RecordSetContainer>
-      <RecordSetContainer>
-        <IndexText>Total Volume</IndexText>
-        <IndexText>825 kg</IndexText>
-      </RecordSetContainer>
+      {recordExerciseSets.map((recordExerciseSet, recordExerciseSetIndex) => {
+        return (
+          <RecordSetContainer key={recordExerciseSetIndex}>
+            <IndexText>
+              {recordExerciseSet.recordExerciseSetIndex + 1}
+            </IndexText>
+            <IndexText>{recordExerciseSet.weight}</IndexText>
+            <IndexText>{recordExerciseSet.repCount}</IndexText>
+          </RecordSetContainer>
+        );
+      })}
     </>
   );
 }

@@ -17,22 +17,44 @@ const ContainerTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-export default function WorkoutRecord() {
-  const [expanded, setExpanded] = useState(false);
+const MainContainer = styled.View`
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.cardColor};
+  margin-bottom: 15px;
+  padding: 15px;
+`;
+
+export default function WorkoutRecord({ recordExercises }) {
+  const [expanded, setExpanded] = useState(
+    Array(recordExercises.length).fill([true])
+  );
+
+  const handleClick = (id) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpanded((arr) => [...arr.slice(0, id), !arr[id], ...arr.slice(id + 1)]);
+  };
+
   return (
     <>
-      <TitleContainer>
-        <ContainerTitle>Barbell Row</ContainerTitle>
-        <ExpandSetButton
-          onPress={() => {
-            LayoutAnimation.configureNext(
-              LayoutAnimation.Presets.easeInEaseOut
-            );
-            setExpanded(!expanded);
-          }}
-        />
-      </TitleContainer>
-      {expanded && <WorkoutRecordSet />}
+      {recordExercises.map((recordExercise, recordExerciseIndex) => {
+        return (
+          <MainContainer key={recordExercise.id}>
+            <TitleContainer>
+              <ContainerTitle>{recordExercise.exercise}</ContainerTitle>
+              <ExpandSetButton
+                onPress={() => {
+                  handleClick(recordExerciseIndex);
+                }}
+              />
+            </TitleContainer>
+            {expanded[recordExerciseIndex] && (
+              <WorkoutRecordSet
+                recordExerciseSets={recordExercise.recordExerciseSets}
+              />
+            )}
+          </MainContainer>
+        );
+      })}
     </>
   );
 }
