@@ -26,7 +26,7 @@ const MainContainer = styled.View`
 
 export default function WorkoutRecord({ recordExercises }) {
   const [expanded, setExpanded] = useState(
-    Array(recordExercises.length).fill([true])
+    Array(recordExercises.length).fill([false])
   );
 
   const handleClick = (id) => {

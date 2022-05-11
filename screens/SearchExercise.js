@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import DeleteExercise from "../components/DeleteExercise";
 import { gql, useQuery } from "@apollo/client";
-import { RefreshControl, FlatList } from "react-native";
+import { FlatList } from "react-native";
 
 const ME_QUERY = gql`
   query me {
@@ -56,15 +56,16 @@ const wait = (timeout) => {
 };
 
 export default function SearchExercise({ navigation }) {
-  const { data, loading } = useQuery(ME_QUERY);
+  const { data, loading, refetch } = useQuery(ME_QUERY);
   const user = data?.me;
   const exercises = data?.me?.exercises;
 
-  const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = useCallback(() => {
+  const refresh = async () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+    await refetch();
+    setRefreshing(false);
+  };
+  const [refreshing, setRefreshing] = useState(false);
 
   const renderItem = ({ item: exercise }) => {
     return <DeleteExercise exercise={exercise} />;
@@ -91,6 +92,8 @@ export default function SearchExercise({ navigation }) {
     // FlatList에 내장된 refresh control로 대체가능한지 알아보기
     >
       <FlatList
+        refreshing={refreshing}
+        onRefresh={refresh}
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}
         renderItem={renderItem}
