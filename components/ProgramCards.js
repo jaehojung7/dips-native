@@ -52,7 +52,7 @@ export default function ProgramCards({ programs, exercises }) {
   return (
     <FlatList
       data={programs}
-      keyExtractor={(program, index) => "" + index}
+      keyExtractor={(item, index) => "" + index}
       renderItem={renderProgram}
       horizontal
       initialNumToRender={3}

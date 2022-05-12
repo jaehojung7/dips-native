@@ -8,20 +8,24 @@ const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5px;
+  margin-bottom: 5px;
 `;
 
 const ContainerTitle = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
 `;
 
 const MainContainer = styled.View`
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  margin-bottom: 15px;
-  padding: 15px;
+  margin-top: 3px;
+`;
+
+const TotalVolume = styled.View`
+  /* border: 1px solid black; */
+  /* width: 50%; */
+  flex-direction: row;
+  /* justify-content: space-evenly; */
 `;
 
 export default function WorkoutRecord({ recordExercises }) {
@@ -52,6 +56,12 @@ export default function WorkoutRecord({ recordExercises }) {
                 recordExerciseSets={recordExercise.recordExerciseSets}
               />
             )}
+            {/* <TotalVolume>
+              <ContainerTitle>전체 운동량</ContainerTitle>
+              <ContainerTitle>
+                {recordExerciseSet.weight * recordExerciseSet.repCount}
+              </ContainerTitle>
+            </TotalVolume> */}
           </MainContainer>
         );
       })}

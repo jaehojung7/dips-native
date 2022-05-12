@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
+import { FlatList } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 
@@ -16,7 +17,6 @@ const ME_QUERY = gql`
           recordExerciseIndex
           exercise
           recordExerciseSets {
-            # recordExerciseId
             recordExerciseSetIndex
             weight
             repCount
@@ -27,16 +27,8 @@ const ME_QUERY = gql`
   }
 `;
 
-const Container = styled.ScrollView`
-  margin: 20px 10px;
-`;
-
-const RecordContainer = styled.ScrollView`
-  /* margin: 20px 10px; */
-`;
-
 const HeaderContainer = styled.View`
-  margin: 30px 15px 15px 15px;
+  margin: 50px 25px 5px 25px;
 `;
 
 const Header = styled.Text`
@@ -45,46 +37,55 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-const MainContainer = styled.View`
+const RecordContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  margin-bottom: 15px;
+  margin: 20px 10px 0 10px;
   padding: 15px;
 `;
 
-const DateContainer = styled.View`
-  margin: 10px 0 15px 15px;
-`;
-
-const DateText = styled.Text`
-  font-size: 20px;
+const RecordTitle = styled.Text`
+  font-size: 18px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
+  margin-bottom: 7px;
 `;
 
 export default function Record({ navigation }) {
   const { data } = useQuery(ME_QUERY);
-  console.log(data);
-  return (
-    <DismissKeyboard>
-      <Container showsVerticalScrollIndicator={false}>
-        <HeaderContainer>
-          <Header>운동기록</Header>
-        </HeaderContainer>
-        {data?.me?.records.map((record, recordIndex) => {
-          return (
-            <RecordContainer key={recordIndex}>
-              <DateContainer>
-                <DateText>{record.title}</DateText>
-              </DateContainer>
+  const records = data?.me?.records;
+  console.log(records);
 
-              <MainContainer>
-                <WorkoutRecord recordExercises={record.recordExercises} />
-              </MainContainer>
-            </RecordContainer>
-          );
-        })}
-      </Container>
-    </DismissKeyboard>
+  const renderRecord = ({ item: record }) => {
+    return (
+      <RecordContainer>
+        <RecordTitle>{record.title}</RecordTitle>
+        <WorkoutRecord recordExercises={record.recordExercises} />
+      </RecordContainer>
+    );
+  };
+
+  return (
+    <>
+      <HeaderContainer>
+        <Header>운동기록</Header>
+      </HeaderContainer>
+      <FlatList
+        data={records}
+        keyExtractor={(item, index) => "" + index}
+        renderItem={renderRecord}
+        initialNumToRender={3}
+        windowSize={2}
+        maxToRenderPerBatch={1}
+        // onEndReachedThreshold={0}
+        // onEndReached={() =>
+        //   fetchMore({
+        //     variables: {
+        //       offset: data?.me?.length,
+        //     },
+        //   })
+        // }
+      />
+    </>
   );
 }

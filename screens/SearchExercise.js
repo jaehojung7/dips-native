@@ -59,6 +59,7 @@ export default function SearchExercise({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const user = data?.me;
   const exercises = data?.me?.exercises;
+  console.log(exercises);
 
   const refresh = async () => {
     setRefreshing(true);
@@ -85,17 +86,12 @@ export default function SearchExercise({ navigation }) {
   );
 
   return (
-    <Container
-    // refreshControl={
-    //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    // }
-    // FlatList에 내장된 refresh control로 대체가능한지 알아보기
-    >
+    <Container>
       <FlatList
         refreshing={refreshing}
         onRefresh={refresh}
         data={exercises}
-        keyExtractor={(exercise, index) => "" + index}
+        keyExtractor={(item, index) => "" + index}
         renderItem={renderItem}
         initialNumToRender={3}
         windowSize={3}
