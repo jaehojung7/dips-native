@@ -48,21 +48,17 @@ export default function WorkoutRecordSet({ recordExerciseSets }) {
     <>
       {recordExerciseSets.map((recordExerciseSet, recordExerciseSetIndex) => {
         return (
-          <>
-            <RecordSetContainer key={recordExerciseSetIndex}>
-              <SetContainer>
-                <SetText>
-                  {recordExerciseSet.recordExerciseSetIndex + 1}
-                </SetText>
-              </SetContainer>
+          <RecordSetContainer key={recordExerciseSetIndex}>
+            <SetContainer>
+              <SetText>{recordExerciseSet.recordExerciseSetIndex + 1}</SetText>
+            </SetContainer>
 
-              <WeightbyReps>
-                <RecordText>{recordExerciseSet.weight} kg</RecordText>
-                <RecordText>x</RecordText>
-                <RecordText>{recordExerciseSet.repCount}</RecordText>
-              </WeightbyReps>
-            </RecordSetContainer>
-          </>
+            <WeightbyReps>
+              <RecordText>{recordExerciseSet.weight} kg</RecordText>
+              <RecordText>x</RecordText>
+              <RecordText>{recordExerciseSet.repCount}</RecordText>
+            </WeightbyReps>
+          </RecordSetContainer>
         );
       })}
     </>
