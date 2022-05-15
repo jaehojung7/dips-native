@@ -2,21 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import DeleteExercise from "../components/DeleteExercise";
-import { gql, useQuery } from "@apollo/client";
 import { FlatList } from "react-native";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-    }
-  }
-`;
 
 const Container = styled.View`
   padding-bottom: 15px;
@@ -55,10 +41,9 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-export default function SearchExercise({ navigation }) {
-  const { data, loading, refetch } = useQuery(ME_QUERY);
-  const user = data?.me;
-  const exercises = data?.me?.exercises;
+export default function SearchExercise({ navigation, route }) {
+  const { userId } = route.params;
+  const { exercises } = route.params;
 
   const refresh = async () => {
     setRefreshing(true);
@@ -75,7 +60,7 @@ export default function SearchExercise({ navigation }) {
     <SearchContainer>
       <SearchExerciseTab placeholder="운동 검색하기" />
       <AddExerciseButton
-        onPress={() => navigation.navigate("CreateExercise", { user })}
+        onPress={() => navigation.navigate("CreateExercise", { userId })}
       >
         <ButtonText>
           <FontAwesome5 name="plus" size={17} />

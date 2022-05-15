@@ -1,33 +1,8 @@
 import { React, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import { FlatList, LayoutAnimation } from "react-native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import ExpandSetButton from "../components/Buttons/ExpandSetButton";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      records {
-        id
-        title
-        date
-        recordExercises {
-          id
-          recordExerciseIndex
-          exercise
-          recordExerciseSets {
-            recordExerciseSetIndex
-            weight
-            repCount
-          }
-        }
-      }
-    }
-  }
-`;
 
 const HeaderContainer = styled.View`
   margin: 50px 25px 5px 25px;
@@ -67,12 +42,13 @@ const RecordDate = styled.Text`
   text-align: right;
 `;
 
-export default function Record({ navigation }) {
-  const { data } = useQuery(ME_QUERY);
-  const records = data?.me?.records;
+export default function Record({ navigation, route }) {
+  const { records } = route.params;
 
   const [expanded, setExpanded] = useState(
-    Array(data?.me?.records.length).fill([true])
+    records.length > 0
+      ? [true].concat(Array(records.length - 1).fill(false))
+      : [false]
   );
 
   const handleClick = (id) => {

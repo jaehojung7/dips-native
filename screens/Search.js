@@ -17,7 +17,11 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-export default function Search({ navigation }) {
+export default function Search({ navigation, route }) {
+  const { userId } = route.params;
+  const { programs } = route.params;
+  const { exercises } = route.params;
+
   return (
     <DismissKeyboard>
       <>
@@ -37,6 +41,7 @@ export default function Search({ navigation }) {
             options={{
               title: "프로그램",
             }}
+            initialParams={{ programs }}
           />
 
           <Tab.Screen
@@ -45,6 +50,7 @@ export default function Search({ navigation }) {
             options={{
               title: "운동 목록",
             }}
+            initialParams={{ userId, exercises }}
           />
         </Tab.Navigator>
       </>

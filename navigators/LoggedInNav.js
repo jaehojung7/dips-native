@@ -1,11 +1,75 @@
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import SharedStackNav from "./SharedStackNav";
+import Program from "../screens/Program";
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      programs {
+        id
+        title
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+      recentProgram {
+        id
+        title
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      recentWorkoutIndex
+      records {
+        id
+        title
+        date
+        recordExercises {
+          id
+          recordExerciseIndex
+          exercise
+          recordExerciseSets {
+            recordExerciseSetIndex
+            weight
+            repCount
+          }
+        }
+      }
+    }
+  }
+`;
 
 const Tabs = createBottomTabNavigator();
 
 export default function LoggedInNav() {
+  const { data, loading } = useQuery(ME_QUERY);
+  if (loading) return "Loading...";
+
+  const me = data?.me;
+
   return (
     <Tabs.Navigator
       // initialRouteName="Search"
@@ -38,7 +102,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Program" />}
+        {() => <SharedStackNav screenName="Program" data={me} />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -49,7 +113,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Record" />}
+        {() => <SharedStackNav screenName="Record" data={me} />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -60,7 +124,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Search" />}
+        {() => <SharedStackNav screenName="Search" data={me} />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -71,7 +135,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Profile" />}
+        {() => <SharedStackNav screenName="Profile" data={me} />}
       </Tabs.Screen>
     </Tabs.Navigator>
   );
