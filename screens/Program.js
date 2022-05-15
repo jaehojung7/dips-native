@@ -44,14 +44,14 @@ export const ME_QUERY = gql`
         }
       }
       recentWorkoutIndex
-      # records {
-      #   title
-      #   baseProgramId
-      #   baseWorkoutIndex
-      #   recordExercises {
-      #     exercise
-      #   }
-      # }
+      records {
+        title
+        baseProgramId
+        baseWorkoutIndex
+        recordExercises {
+          exercise
+        }
+      }
     }
   }
 `;
@@ -126,11 +126,12 @@ export default function Program({ navigation }) {
   const recentProgram = data?.me.recentProgram;
   const recentWorkoutIndex = data?.me.recentWorkoutIndex;
   let nextWorkoutIndex = 0;
-  if (recentWorkoutIndex < recentProgram.workouts.length - 1) {
+  if (recentWorkoutIndex < recentProgram?.workouts.length - 1) {
     nextWorkoutIndex = recentWorkoutIndex + 1;
   } else {
     nextWorkoutIndex = 0;
   }
+  const records = data?.me.records;
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -141,32 +142,32 @@ export default function Program({ navigation }) {
       // onPress={() => navigation.navigate("SeeProgram", { program })}
       >
         <ProgramTitle>
-          Recent Program: {recentProgram ? recentProgram.title : "없음"}
+          Recent Program: {recentProgram ? recentProgram?.title : "없음"}
         </ProgramTitle>
         {recentProgram ? (
           <WorkoutTitle>
-            최근 워크아웃: {recentProgram.workouts[recentWorkoutIndex].title}
-            다음 워크아웃: {recentProgram.workouts[nextWorkoutIndex].title}
-            <StartWorkoutButton
+            최근 워크아웃: {recentProgram?.workouts[recentWorkoutIndex].title}
+            다음 워크아웃: {recentProgram?.workouts[nextWorkoutIndex].title}
+            {/* <StartWorkoutButton
               text="워크아웃 시작"
               onPress={() => {
                 navigation.navigate("CreateRecord", {
                   baseProgramId: recentProgram?.id,
                   programTitle: recentProgram?.title,
-                  workout: recentProgram?.workouts[nextWorkoutIndex],
+                  workout: recentProgram?.workouts[nextWorkoutIndex]
                   exercises,
                 });
               }}
-            />
+            /> */}
           </WorkoutTitle>
         ) : (
-          ""
+          <WorkoutTitle></WorkoutTitle>
         )}
-        {recentProgram?.workouts.map((workout, workoutIndex) => {
+        {/* {recentProgram?.workouts.map((workout, workoutIndex) => {
           return (
             <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
           );
-        })}
+        })} */}
       </WorkoutContainer>
       <ButtonContainer>
         <WorkoutButton
