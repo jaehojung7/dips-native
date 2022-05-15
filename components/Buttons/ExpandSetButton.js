@@ -15,7 +15,7 @@ export default function ExpandSetButton({ onPress }) {
   return (
     <Button onPress={onPress}>
       <ButtonText>
-        <FontAwesome name="caret-down" size={25} />
+        <FontAwesome5 name="angle-down" size={25} />
       </ButtonText>
     </Button>
   );

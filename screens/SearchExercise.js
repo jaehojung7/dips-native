@@ -59,7 +59,6 @@ export default function SearchExercise({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const user = data?.me;
   const exercises = data?.me?.exercises;
-  console.log(exercises);
 
   const refresh = async () => {
     setRefreshing(true);
