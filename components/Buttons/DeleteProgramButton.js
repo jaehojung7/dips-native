@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
-import { ME_QUERY } from "../../navigators/LoggedInNav";
+import { ME_QUERY } from "../../screens/Program";
 
 const DELETE_PROGRAM_MUTATION = gql`
   mutation deleteProgram($id: Int!) {
@@ -22,7 +22,7 @@ const ButtonContainer = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: white;
+  color: white
   font-size: 16px;
   font-weight: 600;
   margin: 0 5px;

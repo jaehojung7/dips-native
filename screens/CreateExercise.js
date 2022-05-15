@@ -84,7 +84,7 @@ const ButtonText = styled.Text`
 export default function CreateExercise({ navigation, route }) {
   const { handleSubmit, setValue, getValues, control } = useForm();
   const [selectedBodyPart, setSelectedBodyPart] = useState("Back");
-  const { userId } = route.params;
+  const { user } = route.params;
 
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
@@ -114,19 +114,13 @@ export default function CreateExercise({ navigation, route }) {
       });
 
       cache.modify({
-        id: `User:${userId}`,
+        id: `User:${user.id}`,
         fields: {
           exercises(prev) {
             return [...prev, newExerciseCache];
           },
         },
       });
-      // cache.modify({
-      //   id: `Exercise:${id}`,
-      //   fields: {
-      //     newExerciseCache,
-      //   },
-      // });
     }
   };
 

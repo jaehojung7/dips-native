@@ -1,4 +1,32 @@
 import styled from "styled-components/native";
+import { gql, useQuery } from "@apollo/client";
+
+const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      programs {
+        id
+        title
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 0 10px;
@@ -23,13 +51,13 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function SearchProgram({ navigation, route }) {
-  const { programs } = route.params;
-
+export default function SearchProgram({ navigation }) {
+  const { data, loading } = useQuery(ME_QUERY);
+  // 프로그램이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
   return (
     <Container>
       <ListContainer>
-        {programs.map((program) => {
+        {data?.me?.programs.map((program) => {
           return (
             <ProgramContainer key={program.id}>
               <TitleContainer

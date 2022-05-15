@@ -1,9 +1,60 @@
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      programs {
+        id
+        title
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+      recentProgram {
+        id
+        title
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      recentWorkoutIndex
+      records {
+        title
+        baseProgramId
+        baseWorkoutIndex
+        recordExercises {
+          exercise
+        }
+      }
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -66,18 +117,21 @@ const ButtonContainer = styled.View`
   justify-content: space-between;
 `;
 
-export default function Program({ navigation, route }) {
-  const { me } = route.params;
+export default function Program({ navigation }) {
+  const { data, loading } = useQuery(ME_QUERY);
 
-  const exercises = me.exercises;
-  const recentProgram = me.recentProgram;
-  const recentWorkoutIndex = me.recentWorkoutIndex;
+  if (loading) return "";
+
+  const exercises = data?.me.exercises;
+  const recentProgram = data?.me.recentProgram;
+  const recentWorkoutIndex = data?.me.recentWorkoutIndex;
   let nextWorkoutIndex = 0;
   if (recentWorkoutIndex < recentProgram?.workouts.length - 1) {
     nextWorkoutIndex = recentWorkoutIndex + 1;
   } else {
     nextWorkoutIndex = 0;
   }
+  const records = data?.me.records;
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -109,6 +163,11 @@ export default function Program({ navigation, route }) {
         ) : (
           <WorkoutTitle></WorkoutTitle>
         )}
+        {/* {recentProgram?.workouts.map((workout, workoutIndex) => {
+          return (
+            <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
+          );
+        })} */}
       </WorkoutContainer>
       <ButtonContainer>
         <WorkoutButton
@@ -123,7 +182,7 @@ export default function Program({ navigation, route }) {
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={me.programs} exercises={exercises} />
+        <ProgramCards programs={data?.me.programs} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

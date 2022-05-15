@@ -6,8 +6,8 @@ import styled from "styled-components/native";
 import { Modal } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
+import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { ME_QUERY } from "../navigators/LoggedInNav";
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};

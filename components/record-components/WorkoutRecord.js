@@ -25,7 +25,7 @@ export default function WorkoutRecord({ recordExercises }) {
     <>
       {recordExercises.map((recordExercise, recordExerciseIndex) => {
         return (
-          <MainContainer key={recordExerciseIndex}>
+          <MainContainer key={recordExercise.id}>
             <TitleContainer>
               <ContainerTitle>{recordExercise.exercise}</ContainerTitle>
             </TitleContainer>

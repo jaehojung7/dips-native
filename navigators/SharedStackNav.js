@@ -14,13 +14,7 @@ import ExerciseListModalRecord from "../screens/ExerciseListModalRecord";
 
 const Stack = createStackNavigator();
 
-export default function SharedStackNav({ screenName, data }) {
-  const me = data;
-  const userId = me.id;
-  const records = me.records;
-  const programs = me.programs;
-  const exercises = me.exercises;
-
+export default function SharedStackNav({ screenName, route }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -33,25 +27,13 @@ export default function SharedStackNav({ screenName, data }) {
       }}
     >
       {screenName === "Program" ? (
-        <Stack.Screen
-          name={"StackProgram"}
-          component={Program}
-          initialParams={{ me }}
-        />
+        <Stack.Screen name={"StackProgram"} component={Program} />
       ) : null}
       {screenName === "Record" ? (
-        <Stack.Screen
-          name={"StackRecord"}
-          component={Record}
-          initialParams={{ records }}
-        />
+        <Stack.Screen name={"StackRecord"} component={Record} />
       ) : null}
       {screenName === "Search" ? (
-        <Stack.Screen
-          name={"StackSearch"}
-          component={Search}
-          initialParams={{ userId, programs, exercises }}
-        />
+        <Stack.Screen name={"StackSearch"} component={Search} />
       ) : null}
 
       {screenName === "Profile" ? (
