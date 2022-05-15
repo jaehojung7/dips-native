@@ -118,13 +118,6 @@ export default function CreateRecord({ navigation, route }) {
   const { exercises } = route.params;
 
   const processDefaultValues = (programTitle, workout) => {
-    // Create a string for today's date
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear();
-    today = yyyy + "-" + mm + "-" + dd;
-
     // https://stackoverflow.com/questions/12503146/create-an-array-with-same-element-repeated-multiple-times
     const processRecordExercises = (workoutSets) => {
       return workoutSets.map((workoutSet) => ({
@@ -138,8 +131,8 @@ export default function CreateRecord({ navigation, route }) {
 
     return {
       recordTitle: programTitle
-        ? `${today} > ${programTitle} > ${workout.title}`
-        : `${today} > 새로운 워크아웃`,
+        ? `${programTitle} > ${workout.title}`
+        : `새로운 워크아웃`,
       recordExercises: processRecordExercises(workout?.workoutSets),
     };
   };
