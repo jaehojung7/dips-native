@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";

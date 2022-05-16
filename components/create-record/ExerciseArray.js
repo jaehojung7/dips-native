@@ -91,19 +91,11 @@ export default function ExerciseArray({
                   </SelectExercise>
                 )}
               />
-
-              <ExpandSetButton
-                onPress={() => {
-                  handleClick(recordExerciseIndex);
-                }}
-              />
             </TitleContainer>
-            {expanded[recordExerciseIndex] && (
-              <ExerciseSetArray
-                recordExerciseIndex={recordExerciseIndex}
-                {...{ control, setValue, defaultValues }}
-              />
-            )}
+            <ExerciseSetArray
+              recordExerciseIndex={recordExerciseIndex}
+              {...{ control, setValue, defaultValues }}
+            />
           </MainContainer>
         );
       })}

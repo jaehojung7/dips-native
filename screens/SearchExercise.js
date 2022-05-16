@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { FontAwesome5 } from "@expo/vector-icons";
 import DeleteExercise from "../components/DeleteExercise";
 import { gql, useQuery } from "@apollo/client";
 import { FlatList } from "react-native";
@@ -22,33 +21,22 @@ const Container = styled.View`
   padding-bottom: 15px;
 `;
 
-const SearchContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 0 15px 0;
-`;
-
-const SearchExerciseTab = styled.TextInput`
-  border-radius: 10px;
-  background-color: ${(props) => props.theme.cardColor};
-  padding: 10px 10px;
-  width: 75%;
-  font-size: 15px;
-`;
-
-const AddExerciseButton = styled.TouchableOpacity`
-  border-radius: 30px;
-  width: 10%;
-  margin-left: 5px;
-  padding: 5px;
+const ButtonContainer = styled.TouchableOpacity`
+  margin: 10px 0;
 `;
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  text-align: center;
+  text-align: right;
+  margin: 10px 15px 5px 0;
+`;
+
+const BorderLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) => props.theme.gray};
+  opacity: 0.5;
 `;
 
 const wait = (timeout) => {
@@ -71,17 +59,15 @@ export default function SearchExercise({ navigation }) {
     return <DeleteExercise exercise={exercise} />;
   };
 
-  const SearchBox = (
-    <SearchContainer>
-      <SearchExerciseTab placeholder="운동 검색하기" />
-      <AddExerciseButton
+  const CreateExerciseButton = (
+    <>
+      <ButtonContainer
         onPress={() => navigation.navigate("CreateExercise", { user })}
       >
-        <ButtonText>
-          <FontAwesome5 name="plus" size={17} />
-        </ButtonText>
-      </AddExerciseButton>
-    </SearchContainer>
+        <ButtonText>추가</ButtonText>
+      </ButtonContainer>
+      <BorderLine />
+    </>
   );
 
   return (
@@ -94,7 +80,7 @@ export default function SearchExercise({ navigation }) {
         renderItem={renderItem}
         initialNumToRender={3}
         windowSize={3}
-        ListHeaderComponent={SearchBox}
+        ListHeaderComponent={CreateExerciseButton}
       />
     </Container>
   );
