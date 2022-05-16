@@ -12,22 +12,15 @@ const Container = styled.View`
   padding-bottom: 5px;
 `;
 
-const SearchContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 20px 0 15px 0;
-`;
-
-const Button = styled.TouchableOpacity`
-  border-radius: 30px;
+const ButtonContainer = styled.TouchableOpacity`
+  margin: 10px 15px 5px 0;
 `;
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
-  text-align: center;
+  text-align: right;
 `;
 
 const ExerciseTitleContainer = styled.TouchableOpacity`
@@ -53,14 +46,6 @@ const BorderLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.gray};
   opacity: 0.5;
-`;
-
-const SearchExerciseTab = styled.TextInput`
-  border-radius: 10px;
-  background-color: ${(props) => props.theme.cardColor};
-  padding: 10px 10px;
-  width: 75%;
-  font-size: 15px;
 `;
 
 export default function ExerciseListModalProgram({
@@ -91,16 +76,13 @@ export default function ExerciseListModalProgram({
   };
 
   const SearchBox = (
-    <SearchContainer>
-      <SearchExerciseTab placeholder="운동 검색하기" />
-      <Button
-        onPress={() => {
-          setModalVisible(false);
-        }}
-      >
-        <ButtonText>닫기</ButtonText>
-      </Button>
-    </SearchContainer>
+    <ButtonContainer
+      onPress={() => {
+        setModalVisible(false);
+      }}
+    >
+      <ButtonText>닫기</ButtonText>
+    </ButtonContainer>
   );
 
   return (

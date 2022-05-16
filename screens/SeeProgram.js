@@ -24,8 +24,9 @@ const EditProgram = styled.TouchableOpacity`
 `;
 
 const EditText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 15px;
+  color: ${(props) => props.theme.blue};
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 const WorkoutContainer = styled.View`
