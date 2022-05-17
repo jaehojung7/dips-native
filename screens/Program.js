@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 import WorkoutButton from "../components/Buttons/WorkoutButton";
+import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 
 export const ME_QUERY = gql`
   query me {
@@ -79,7 +80,7 @@ const WorkoutContainer = styled.TouchableOpacity`
 const ProgramTitle = styled.Text`
   font-size: 23px;
   font-weight: 700;
-  text-align: center;
+  /* text-align: center; */
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -139,39 +140,41 @@ export default function Program({ navigation }) {
         <Header>워크아웃</Header>
       </HeaderContainer>
       <WorkoutContainer
-      // onPress={() => navigation.navigate("SeeProgram", { program })}
+        onPress={() =>
+          navigation.navigate("SeeProgram", { program: recentProgram })
+        }
       >
+        <ProgramTitle>운동중인 프로그램</ProgramTitle>
         <ProgramTitle>
-          Recent Program: {recentProgram ? recentProgram?.title : "없음"}
+          {recentProgram ? recentProgram?.title : "없음"}{" "}
         </ProgramTitle>
         {recentProgram ? (
-          <WorkoutTitle>
-            최근 워크아웃: {recentProgram?.workouts[recentWorkoutIndex].title}
-            다음 워크아웃: {recentProgram?.workouts[nextWorkoutIndex].title}
-            {/* <StartWorkoutButton
-              text="워크아웃 시작"
-              onPress={() => {
-                navigation.navigate("CreateRecord", {
-                  baseProgramId: recentProgram?.id,
-                  programTitle: recentProgram?.title,
-                  workout: recentProgram?.workouts[nextWorkoutIndex]
-                  exercises,
-                });
-              }}
-            /> */}
-          </WorkoutTitle>
+          <>
+            <WorkoutTitle>
+              이전 워크아웃: {recentProgram?.workouts[recentWorkoutIndex].title}
+            </WorkoutTitle>
+            <WorkoutTitle>
+              다음 워크아웃: {recentProgram?.workouts[nextWorkoutIndex].title}
+              {/* <StartWorkoutButton
+                text="워크아웃 시작"
+                onPress={() => {
+                  navigation.navigate("CreateRecord", {
+                    baseProgramId: recentProgram?.id,
+                    programTitle: recentProgram?.title,
+                    workout: recentProgram?.workouts[nextWorkoutIndex],
+                    exercises,
+                  });
+                }}
+              /> */}
+            </WorkoutTitle>
+          </>
         ) : (
           <WorkoutTitle></WorkoutTitle>
         )}
-        {/* {recentProgram?.workouts.map((workout, workoutIndex) => {
-          return (
-            <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
-          );
-        })} */}
       </WorkoutContainer>
       <ButtonContainer>
         <WorkoutButton
-          text="새 템플릿으로 시작"
+          text="새 워크아웃 시작"
           onPress={() => navigation.navigate("CreateRecord", { exercises })}
         />
       </ButtonContainer>
