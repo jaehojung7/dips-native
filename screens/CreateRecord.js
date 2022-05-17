@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
-import WorkoutButton from "../components/Buttons/WorkoutButton";
+import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
@@ -275,7 +275,7 @@ export default function CreateRecord({ navigation, route }) {
         />
 
         <ButtonContainer>
-          <WorkoutButton
+          <MainButton
             text="워크아웃 기록 저장"
             loading={loading}
             disabled={!watch("recordTitle")}

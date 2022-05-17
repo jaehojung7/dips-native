@@ -12,6 +12,7 @@ import CreateExercise from "../screens/CreateExercise";
 import ExerciseListModalProgram from "../screens/ExerciseListModalProgram";
 import ExerciseListModalRecord from "../screens/ExerciseListModalRecord";
 import SearchExercise from "../screens/SearchExercise";
+import SearchProgram from "../screens/SearchProgram";
 
 const Stack = createStackNavigator();
 
@@ -59,29 +60,8 @@ export default function SharedStackNav({ screenName, route }) {
       />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="EditProgram" component={EditProgram} />
-      <Stack.Screen
-        name="SeeProgram"
-        component={SeeProgram}
-        // options={{
-        //   headerBackTitleVisible: false,
-        //   headerTintColor: "#42a5f5",
-        //   headerShown: true,
-        //   title: "프로그램 이름",
-        //   headerTitleStyle: {
-        //     fontSize: 22,
-        //     fontWeight: "700",
-        //   },
-        //   headerTitleContainerStyle: {
-        //     marginTop: 15,
-        //   },
-        //   headerLeftContainerStyle: {
-        //     marginTop: 15,
-        //   },
-        //   headerStyle: {
-        //     shadowColor: "transparent",
-        //   },
-        // }}
-      />
+      <Stack.Screen name="SeeProgram" component={SeeProgram} />
+      <Stack.Screen name="SearchProgram" component={SearchProgram} />
     </Stack.Navigator>
   );
 }

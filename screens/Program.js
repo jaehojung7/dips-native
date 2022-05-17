@@ -4,8 +4,6 @@ import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
-import WorkoutButton from "../components/Buttons/WorkoutButton";
-import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 
 export const ME_QUERY = gql`
   query me {
@@ -128,7 +126,7 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
 
-  if (loading) return "";
+  // if (loading) return "";
 
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;
@@ -147,9 +145,11 @@ export default function Program({ navigation }) {
         <Header>프로그램</Header>
       </HeaderContainer>
       <WorkoutContainer
-        onPress={() =>
-          navigation.navigate("SeeProgram", { program: recentProgram })
-        }
+        onPress={() => {
+          recentProgram
+            ? navigation.navigate("SeeProgram", { program: recentProgram })
+            : navigation.navigate("CreateProgram", { exercises });
+        }}
       >
         <RecentTitle>운동중인 프로그램</RecentTitle>
         <ProgramTitle>
@@ -180,7 +180,7 @@ export default function Program({ navigation }) {
         )}
       </WorkoutContainer>
       <ButtonContainer>
-        <WorkoutButton
+        <MainButton
           text="새 워크아웃 시작"
           onPress={() => navigation.navigate("CreateRecord", { exercises })}
         />
@@ -188,7 +188,9 @@ export default function Program({ navigation }) {
       <ProgramContainer>
         <TitleContainer>
           <RecentProgram>내 프로그램</RecentProgram>
-          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("SearchProgram")}
+          >
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
