@@ -62,7 +62,7 @@ const Container = styled.ScrollView`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 25px 15px 15px 15px;
+  margin: 20px 15px 15px 15px;
 `;
 
 const Header = styled.Text`
@@ -77,15 +77,22 @@ const WorkoutContainer = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.cardColor};
 `;
 
-const ProgramTitle = styled.Text`
-  font-size: 23px;
+const RecentTitle = styled.Text`
+  font-size: 18px;
   font-weight: 700;
-  /* text-align: center; */
   color: ${(props) => props.theme.fontColor};
+  margin-bottom: 5px;
+`;
+
+const ProgramTitle = styled.Text`
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: ${(props) => props.theme.orange};
 `;
 
 const WorkoutTitle = styled.Text`
-  margin-top: 20px;
+  margin-bottom: 10px;
   font-weight: 600;
   font-size: 18px;
   color: ${(props) => props.theme.fontColor};
@@ -137,14 +144,14 @@ export default function Program({ navigation }) {
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
-        <Header>워크아웃</Header>
+        <Header>프로그램</Header>
       </HeaderContainer>
       <WorkoutContainer
         onPress={() =>
           navigation.navigate("SeeProgram", { program: recentProgram })
         }
       >
-        <ProgramTitle>운동중인 프로그램</ProgramTitle>
+        <RecentTitle>운동중인 프로그램</RecentTitle>
         <ProgramTitle>
           {recentProgram ? recentProgram?.title : "없음"}{" "}
         </ProgramTitle>

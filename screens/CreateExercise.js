@@ -129,7 +129,7 @@ export default function CreateExercise({ navigation, route }) {
       createExercise: { ok },
     } = data;
     if (ok) {
-      navigation.navigate("SearchExercise");
+      navigation.navigate("StackSearch");
     }
   };
 

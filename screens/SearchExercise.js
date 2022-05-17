@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { gql, useQuery } from "@apollo/client";
 import { FlatList } from "react-native";
 
@@ -17,26 +18,25 @@ const ME_QUERY = gql`
   }
 `;
 
-const Container = styled.View`
-  padding-bottom: 15px;
+const HeaderContainer = styled.View`
+  margin: 40px 25px 15px 25px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const ButtonContainer = styled.TouchableOpacity`
-  margin: 10px 0;
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
 `;
+
+const ButtonContainer = styled.TouchableOpacity``;
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-size: 16px;
   font-weight: 600;
   text-align: right;
-  margin: 10px 15px 5px 0;
-`;
-
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  opacity: 0.5;
 `;
 
 const wait = (timeout) => {
@@ -59,19 +59,19 @@ export default function SearchExercise({ navigation }) {
     return <DeleteExercise exercise={exercise} />;
   };
 
-  const CreateExerciseButton = (
-    <>
-      <ButtonContainer
-        onPress={() => navigation.navigate("CreateExercise", { user })}
-      >
-        <ButtonText>추가</ButtonText>
-      </ButtonContainer>
-      <BorderLine />
-    </>
-  );
-
   return (
-    <Container>
+    <>
+      <HeaderContainer>
+        <Header>운동목록</Header>
+        <ButtonContainer
+          onPress={() => navigation.navigate("CreateExercise", { user })}
+        >
+          <ButtonText>
+            <FontAwesome5 name="plus" size={16} />
+          </ButtonText>
+        </ButtonContainer>
+      </HeaderContainer>
+
       <FlatList
         refreshing={refreshing}
         onRefresh={refresh}
@@ -80,8 +80,8 @@ export default function SearchExercise({ navigation }) {
         renderItem={renderItem}
         initialNumToRender={3}
         windowSize={3}
-        ListHeaderComponent={CreateExerciseButton}
+        // ListHeaderComponent={CreateExerciseButton}
       />
-    </Container>
+    </>
   );
 }

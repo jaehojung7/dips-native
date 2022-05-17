@@ -30,7 +30,7 @@ const ME_QUERY = gql`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 50px 25px 5px 25px;
+  margin: 40px 25px 5px 25px;
 `;
 
 const Header = styled.Text`
@@ -42,7 +42,7 @@ const Header = styled.Text`
 const RecordContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  margin: 20px 10px 0 10px;
+  margin: 20px 10px;
   padding: 15px;
 `;
 

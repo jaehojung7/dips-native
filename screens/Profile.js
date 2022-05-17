@@ -8,7 +8,7 @@ const Container = styled.ScrollView`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 30px 15px 15px 15px;
+  margin: 20px 15px 15px 15px;
 `;
 
 const Header = styled.Text`
