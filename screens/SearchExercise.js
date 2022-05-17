@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { gql, useQuery } from "@apollo/client";
-import { FlatList } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 
 const ME_QUERY = gql`
   query me {
@@ -45,6 +45,7 @@ const wait = (timeout) => {
 
 export default function SearchExercise({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
+  if (loading) return <ActivityIndicator />;
   const user = data?.me;
   const exercises = data?.me?.exercises;
 

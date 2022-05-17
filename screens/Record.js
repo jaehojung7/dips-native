@@ -1,8 +1,8 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
+import { ActivityIndicator } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
-import { FlatList, LayoutAnimation, ActivityIndicator } from "react-native";
-import DismissKeyboard from "../components/DismissKeyboard";
+import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import ExpandSetButton from "../components/Buttons/ExpandSetButton";
 
@@ -68,18 +68,22 @@ const RecordDate = styled.Text`
 `;
 
 export default function Record({ navigation }) {
+  // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading } = useQuery(ME_QUERY);
-  // if (loading) return <ActivityIndicator />;
-  const records = data?.me?.records;
+  const [expanded, setExpanded] = useState([false]);
 
-  const [expanded, setExpanded] = useState(
-    // Array(data?.me?.records.length).fill(true)
-    data?.me?.records.length > 0
-      ? [true].concat(Array(data?.me?.records.length - 1).fill(false))
-      : [false]
-  );
+  useEffect(() => {
+    if (loading === false && data) {
+      data.me.records.length > 0
+        ? setExpanded(
+            [true].concat(Array(data.me.records.length - 1).fill(false))
+          )
+        : setExpanded([false]);
+    }
+  }, [loading, data]);
 
-  console.log(expanded);
+  if (loading) return <ActivityIndicator />;
+  const records = data?.me.records;
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -90,16 +94,16 @@ export default function Record({ navigation }) {
     return (
       <RecordContainer>
         <RecordTitleContainer>
-          <RecordTitle>{record.title}</RecordTitle>
+          <RecordTitle>{record?.title}</RecordTitle>
           <ExpandSetButton
             onPress={() => {
               handleClick(index);
             }}
           />
         </RecordTitleContainer>
-        <RecordDate>{record.date}</RecordDate>
+        <RecordDate>{record?.date}</RecordDate>
         {expanded[index] && (
-          <WorkoutRecord recordExercises={record.recordExercises} />
+          <WorkoutRecord recordExercises={record?.recordExercises} />
         )}
       </RecordContainer>
     );
@@ -116,7 +120,6 @@ export default function Record({ navigation }) {
         renderItem={renderRecord}
         initialNumToRender={3}
         windowSize={2}
-        maxToRenderPerBatch={1}
         // onEndReachedThreshold={0}
         // onEndReached={() =>
         //   fetchMore({
