@@ -45,7 +45,7 @@ const Header = styled.Text`
 
 const ExerciseTitle = styled.TextInput`
   color: black;
-  background-color: ${(props) => props.theme.inputBackground};
+  background-color: ${(props) => props.theme.cardColor};
   padding: 15px;
   font-size: 20px;
   border-radius: 20px;
@@ -214,7 +214,7 @@ export default function CreateExercise({ navigation, route }) {
         </BodyPartContainer>
 
         <MainButton
-          text="운동 만들기"
+          text="새 운동 추가하기"
           disabled={false}
           loading={loading}
           onPress={handleSubmit(onSubmitValid)}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Text, ActivityIndicator } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
@@ -126,7 +127,7 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
 
-  // if (loading) return "";
+  if (loading) return <ActivityIndicator />;
 
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;
@@ -162,17 +163,6 @@ export default function Program({ navigation }) {
             </WorkoutTitle>
             <WorkoutTitle>
               다음 워크아웃: {recentProgram?.workouts[nextWorkoutIndex].title}
-              {/* <StartWorkoutButton
-                text="워크아웃 시작"
-                onPress={() => {
-                  navigation.navigate("CreateRecord", {
-                    baseProgramId: recentProgram?.id,
-                    programTitle: recentProgram?.title,
-                    workout: recentProgram?.workouts[nextWorkoutIndex],
-                    exercises,
-                  });
-                }}
-              /> */}
             </WorkoutTitle>
           </>
         ) : (

@@ -79,7 +79,6 @@ const ButtonContainer = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-  /* margin: 50px 15px 15px 15px; */
   margin-top: 50px;
   margin-bottom: 15px;
   padding: 15px 25px;
