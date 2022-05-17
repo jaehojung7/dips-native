@@ -1,43 +1,28 @@
+import React, { useState } from "react";
 import styled from "styled-components/native";
-import { gql, useQuery } from "@apollo/client";
+import { FlatList } from "react-native";
 
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      programs {
-        id
-        title
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-    }
-  }
+const HeaderContainer = styled.View`
+  margin: 40px 25px 15px 25px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const Container = styled.ScrollView`
-  margin: 0 10px;
+const Header = styled.Text`
+  color: ${(props) => props.theme.orange};
+  font-size: 25px;
+  font-weight: 700;
 `;
-const ProgramContainer = styled.View``;
-const TitleContainer = styled.TouchableOpacity``;
+
+const TitleContainer = styled.TouchableOpacity`
+  justify-content: space-between;
+  margin: 10px 15px;
+`;
 
 const ProgramTitle = styled.Text`
   font-size: 18px;
   color: ${(props) => props.theme.fontColor};
-  margin: 13px 5px;
   font-weight: 600;
 `;
 
@@ -51,27 +36,43 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function SearchProgram({ navigation }) {
-  const { data, loading } = useQuery(ME_QUERY);
-  // 프로그램이 많아서 loading 이 길어질 경우 loading 을 어떻게 사용할지 생각해 볼 것
+export default function SearchProgram({ route, navigation }) {
+  const { programs } = route.params;
+
+  const refresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+  const [refreshing, setRefreshing] = useState(false);
+
+  const renderItem = ({ item: program }) => {
+    return (
+      <>
+        <TitleContainer
+          onPress={() => {
+            navigation.navigate("SeeProgram", { program });
+          }}
+        >
+          <ProgramTitle>{program.title}</ProgramTitle>
+        </TitleContainer>
+        <BorderLine />
+      </>
+    );
+  };
+
   return (
-    <Container>
-      <ListContainer>
-        {data?.me?.programs.map((program) => {
-          return (
-            <ProgramContainer key={program.id}>
-              <TitleContainer
-                onPress={() => {
-                  navigation.navigate("SeeProgram", { program });
-                }}
-              >
-                <ProgramTitle>{program.title}</ProgramTitle>
-              </TitleContainer>
-              <BorderLine />
-            </ProgramContainer>
-          );
-        })}
-      </ListContainer>
-    </Container>
+    <>
+      <HeaderContainer></HeaderContainer>
+      <FlatList
+        refreshing={refreshing}
+        onRefresh={refresh}
+        data={programs}
+        keyExtractor={(item, index) => "" + index}
+        renderItem={renderItem}
+        initialNumToRender={3}
+        windowSize={3}
+      />
+    </>
   );
 }

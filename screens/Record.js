@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
-import { FlatList, LayoutAnimation } from "react-native";
+import { FlatList, LayoutAnimation, ActivityIndicator } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import ExpandSetButton from "../components/Buttons/ExpandSetButton";
@@ -68,12 +68,18 @@ const RecordDate = styled.Text`
 `;
 
 export default function Record({ navigation }) {
-  const { data } = useQuery(ME_QUERY);
+  const { data, loading } = useQuery(ME_QUERY);
+  // if (loading) return <ActivityIndicator />;
   const records = data?.me?.records;
 
   const [expanded, setExpanded] = useState(
-    Array(data?.me?.records.length).fill([true])
+    // Array(data?.me?.records.length).fill(true)
+    data?.me?.records.length > 0
+      ? [true].concat(Array(data?.me?.records.length - 1).fill(false))
+      : [false]
   );
+
+  console.log(expanded);
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

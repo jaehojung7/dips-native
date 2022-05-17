@@ -128,7 +128,7 @@ export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
 
   if (loading) return <ActivityIndicator />;
-
+  const programs = data?.me.programs;
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;
   const recentWorkoutIndex = data?.me.recentWorkoutIndex;
@@ -179,7 +179,7 @@ export default function Program({ navigation }) {
         <TitleContainer>
           <RecentProgram>내 프로그램</RecentProgram>
           <TouchableOpacity
-            onPress={() => navigation.navigate("SearchProgram")}
+            onPress={() => navigation.navigate("SearchProgram", { programs })}
           >
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>

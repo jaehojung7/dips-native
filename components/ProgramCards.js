@@ -57,6 +57,7 @@ export default function ProgramCards({ programs, exercises }) {
       horizontal
       initialNumToRender={3}
       windowSize={3}
+      maxToRenderPerBatch={2}
       showsHorizontalScrollIndicator={false}
     />
   );
