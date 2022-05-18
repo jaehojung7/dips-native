@@ -25,8 +25,8 @@ const EditProgram = styled.TouchableOpacity`
 
 const EditText = styled.Text`
   color: ${(props) => props.theme.blue};
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
 `;
 
 const WorkoutContainer = styled.View`
@@ -104,7 +104,7 @@ export default function SeeProgram({ route, navigation }) {
               <WorkoutTitleContainer>
                 <WorkoutTitle>{workout.title}</WorkoutTitle>
                 <StartWorkoutButton
-                  text="워크아웃 시작"
+                  text="운동 시작"
                   onPress={() => {
                     navigation.navigate("CreateRecord", {
                       baseProgramId: program?.id,

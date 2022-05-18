@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Program from "../screens/Program";
 import Record from "../screens/Record";
-import Search from "../screens/Search";
-import Profile from "../screens/Profile";
+import Exercise from "../screens/Exercise";
+import Setting from "../screens/Setting";
 import CreateRecord from "../screens/CreateRecord";
 import CreateProgram from "../screens/CreateProgram";
 import SeeProgram from "../screens/SeeProgram";
@@ -11,7 +11,6 @@ import EditProgram from "../screens/EditProgram";
 import CreateExercise from "../screens/CreateExercise";
 import ExerciseListModalProgram from "../screens/ExerciseListModalProgram";
 import ExerciseListModalRecord from "../screens/ExerciseListModalRecord";
-import SearchExercise from "../screens/SearchExercise";
 import SearchProgram from "../screens/SearchProgram";
 
 const Stack = createStackNavigator();
@@ -34,12 +33,12 @@ export default function SharedStackNav({ screenName, route }) {
       {screenName === "Record" ? (
         <Stack.Screen name={"StackRecord"} component={Record} />
       ) : null}
-      {screenName === "Search" ? (
-        <Stack.Screen name={"StackSearch"} component={SearchExercise} />
+      {screenName === "Exercise" ? (
+        <Stack.Screen name={"StackExercise"} component={Exercise} />
       ) : null}
 
-      {screenName === "Profile" ? (
-        <Stack.Screen name={"StackProfile"} component={Profile} />
+      {screenName === "Setting" ? (
+        <Stack.Screen name={"StackSetting"} component={Setting} />
       ) : null}
       <Stack.Screen name="CreateRecord" component={CreateRecord} />
 

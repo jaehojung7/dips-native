@@ -27,12 +27,12 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-export default function Profile() {
+export default function Setting() {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <Header>프로필</Header>
+          <Header>설정</Header>
         </HeaderContainer>
         <Button onPress={() => logUserOut()}>
           <ButtonText>로그아웃</ButtonText>

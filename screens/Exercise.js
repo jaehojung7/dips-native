@@ -18,6 +18,11 @@ const ME_QUERY = gql`
   }
 `;
 
+const IndicatorContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 const HeaderContainer = styled.View`
   margin: 40px 25px 15px 25px;
   flex-direction: row;
@@ -43,9 +48,15 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-export default function SearchExercise({ navigation }) {
+export default function Exercise({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
-  if (loading) return <ActivityIndicator />;
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator color="#FF7F50" />
+      </IndicatorContainer>
+    );
+
   const user = data?.me;
   const exercises = data?.me?.exercises;
 

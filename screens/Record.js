@@ -29,6 +29,11 @@ const ME_QUERY = gql`
   }
 `;
 
+const IndicatorContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 const HeaderContainer = styled.View`
   margin: 40px 25px 5px 25px;
 `;
@@ -82,7 +87,13 @@ export default function Record({ navigation }) {
     }
   }, [loading, data]);
 
-  if (loading) return <ActivityIndicator />;
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator color="#FF7F50" />
+      </IndicatorContainer>
+    );
+
   const records = data?.me.records;
 
   const handleClick = (id) => {

@@ -56,6 +56,11 @@ export const ME_QUERY = gql`
   }
 `;
 
+const IndicatorContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
@@ -115,7 +120,7 @@ const RecentProgram = styled.Text`
 `;
 
 const MoreProgram = styled.Text`
-  font-weight: 700;
+  font-weight: 600;
   color: ${(props) => props.theme.blue};
 `;
 
@@ -127,7 +132,12 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
 
-  if (loading) return <ActivityIndicator />;
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator color="#FF7F50" />
+      </IndicatorContainer>
+    );
   const programs = data?.me.programs;
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;

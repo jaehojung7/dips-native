@@ -34,7 +34,7 @@ export default function LoggedInNav() {
           // title: "프로그램",
           tabBarLabel: "Program",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="running" size={22} color={color} />
+            <FontAwesome5 name="calendar-check" size={22} color={color} />
           ),
         }}
       >
@@ -53,25 +53,25 @@ export default function LoggedInNav() {
       </Tabs.Screen>
 
       <Tabs.Screen
-        name="Search"
+        name="Exercise"
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="search" size={22} color={color} />
+            <FontAwesome5 name="list-ul" size={22} color={color} />
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Search" />}
+        {() => <SharedStackNav screenName="Exercise" />}
       </Tabs.Screen>
 
       <Tabs.Screen
-        name="Profile"
+        name="Setting"
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" size={22} color={color} />
+            <FontAwesome name="gear" size={22} color={color} />
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Profile" />}
+        {() => <SharedStackNav screenName="Setting" />}
       </Tabs.Screen>
     </Tabs.Navigator>
   );
