@@ -128,7 +128,6 @@ export default function EditRecord({ navigation, route }) {
   };
 
   const defaultValues = processDefaultValues(record);
-  console.log(defaultValues);
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({ defaultValues });
@@ -195,8 +194,7 @@ export default function EditRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackProgram");
-    navigation.navigate("Record");
+    navigation.navigate("StackRecord");
   };
 
   const [editRecordFunction, { loading, error }] = useMutation(
@@ -229,7 +227,7 @@ export default function EditRecord({ navigation, route }) {
     const { recordTitle, description } = getValues();
     editRecordFunction({
       variables: {
-        id: recordId,
+        id: record.id,
         title: recordTitle,
         description,
       },
