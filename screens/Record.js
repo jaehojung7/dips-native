@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
-import ExpandSetButton from "../components/Buttons/ExpandSetButton";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const ME_QUERY = gql`
   query me {
@@ -72,6 +72,15 @@ const RecordDate = styled.Text`
   text-align: right;
 `;
 
+const Button = styled.TouchableOpacity`
+  padding: 5px 10px;
+  align-items: center;
+`;
+
+const ButtonText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+`;
+
 export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading } = useQuery(ME_QUERY);
@@ -104,11 +113,19 @@ export default function Record({ navigation }) {
       <RecordContainer>
         <RecordTitleContainer>
           <RecordTitle>{record?.title}</RecordTitle>
-          <ExpandSetButton
+          <Button
             onPress={() => {
               handleClick(index);
             }}
-          />
+          >
+            <ButtonText>
+              {expanded[index] ? (
+                <FontAwesome5 name="angle-up" size={25} />
+              ) : (
+                <FontAwesome5 name="angle-down" size={25} />
+              )}
+            </ButtonText>
+          </Button>
         </RecordTitleContainer>
         <RecordDate>{record?.date}</RecordDate>
         {expanded[index] && (
