@@ -3,7 +3,6 @@ import { Controller, useFieldArray } from "react-hook-form";
 import { LayoutAnimation } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
-import ExpandSetButton from "../Buttons/ExpandSetButton";
 import ExerciseSetArray from "./ExerciseSetArray";
 
 const MainContainer = styled.View`

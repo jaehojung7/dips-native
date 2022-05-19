@@ -72,15 +72,6 @@ const ExerciseTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const defaultValues = {
-  workouts: [
-    {
-      name: "",
-      workoutSets: [{ exercise: "", setCount: "" }],
-    },
-  ],
-};
-
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;

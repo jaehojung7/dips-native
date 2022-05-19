@@ -1,6 +1,5 @@
 import { React } from "react";
 import styled from "styled-components/native";
-import ExpandSetButton from "../Buttons/ExpandSetButton";
 import WorkoutRecordSet from "./WorkoutRecordSet";
 
 const TitleContainer = styled.View`

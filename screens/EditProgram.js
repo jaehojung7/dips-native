@@ -267,6 +267,7 @@ export default function EditProgram({ navigation, route }) {
             setModalVisible,
           }}
         />
+
         <ButtonContainer>
           <SaveProgramButton
             loading={loading}
@@ -282,6 +283,7 @@ export default function EditProgram({ navigation, route }) {
             {...{ navigation }}
           />
         </ButtonContainer>
+
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModalProgram
             {...{
