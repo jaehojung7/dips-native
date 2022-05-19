@@ -25,6 +25,11 @@ const ME_QUERY = gql`
           }
         }
       }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
     }
   }
 `;
@@ -64,12 +69,19 @@ const RecordTitle = styled.Text`
   margin-bottom: 7px;
 `;
 
+const RecordSecondHeaderContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 5px;
+  margin-bottom: 7px;
+`;
+
 const RecordDate = styled.Text`
   font-size: 15px;
   font-weight: 500;
   color: ${(props) => props.theme.gray};
   /* margin-bottom: 7px; */
-  text-align: right;
+  text-align: left;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -81,12 +93,23 @@ const ButtonText = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
+const EditRecord = styled.TouchableOpacity`
+  color: ${(props) => props.theme.fontColor};
+`;
+
+const EditText = styled.Text`
+  color: ${(props) => props.theme.blue};
+  font-size: 15px;
+  font-weight: 600;
+`;
+
 export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading } = useQuery(ME_QUERY);
   const [expanded, setExpanded] = useState([false]);
 
   const records = data?.me.records;
+  const exercises = data?.me.exercises;
 
   useEffect(() => {
     if (loading === false && data) {
@@ -127,7 +150,16 @@ export default function Record({ navigation }) {
             </ButtonText>
           </Button>
         </RecordTitleContainer>
-        <RecordDate>{record?.date}</RecordDate>
+        <RecordSecondHeaderContainer>
+          <RecordDate>{record?.date}</RecordDate>
+          <EditRecord
+            onPress={() =>
+              navigation.navigate("EditRecord", { record, exercises })
+            }
+          >
+            <EditText>Edit</EditText>
+          </EditRecord>
+        </RecordSecondHeaderContainer>
         {expanded[index] && (
           <WorkoutRecord recordExercises={record?.recordExercises} />
         )}

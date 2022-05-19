@@ -9,12 +9,6 @@ import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 
-const TitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 22px;
-  font-weight: 600;
-`;
-
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
     $title: String!
@@ -86,6 +80,12 @@ const TitleContainer = styled.View`
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
+`;
+
+const TitleInput = styled.TextInput`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 22px;
+  font-weight: 600;
 `;
 
 export default function CreateProgram({ navigation, route }) {
