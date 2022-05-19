@@ -26,26 +26,14 @@ const ProgramTitle = styled.Text`
   font-weight: 600;
 `;
 
-const ListContainer = styled.View`
-  /* margin: 10px 0; */
-`;
-
 const BorderLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.gray};
   opacity: 0.5;
 `;
 
-export default function SearchProgram({ route, navigation }) {
+export default function ProgramList({ route, navigation }) {
   const { programs } = route.params;
-
-  const refresh = async () => {
-    setRefreshing(true);
-    await refetch();
-    setRefreshing(false);
-  };
-  const [refreshing, setRefreshing] = useState(false);
-
   const renderItem = ({ item: program }) => {
     return (
       <>
@@ -65,8 +53,6 @@ export default function SearchProgram({ route, navigation }) {
     <>
       <HeaderContainer></HeaderContainer>
       <FlatList
-        refreshing={refreshing}
-        onRefresh={refresh}
         data={programs}
         keyExtractor={(item, index) => "" + index}
         renderItem={renderItem}

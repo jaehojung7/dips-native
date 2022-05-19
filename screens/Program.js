@@ -44,14 +44,6 @@ export const ME_QUERY = gql`
         }
       }
       recentWorkoutIndex
-      records {
-        title
-        baseProgramId
-        baseWorkoutIndex
-        recordExercises {
-          exercise
-        }
-      }
     }
   }
 `;
@@ -148,7 +140,6 @@ export default function Program({ navigation }) {
   } else {
     nextWorkoutIndex = 0;
   }
-  const records = data?.me.records;
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -189,7 +180,7 @@ export default function Program({ navigation }) {
         <TitleContainer>
           <RecentProgram>내 프로그램</RecentProgram>
           <TouchableOpacity
-            onPress={() => navigation.navigate("SearchProgram", { programs })}
+            onPress={() => navigation.navigate("ProgramList", { programs })}
           >
             <MoreProgram>더보기</MoreProgram>
           </TouchableOpacity>

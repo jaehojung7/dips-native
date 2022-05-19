@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const darkTheme = {
   fontColor: "white",
   orange: "#FF7F50",
-  blue: "#2389da",
+  blue: "#42a5f5",
   gray: "#7c7c7c",
   buttonText: "white",
   cardColor: "#222222",

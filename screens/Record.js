@@ -77,12 +77,12 @@ export default function Record({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
   const [expanded, setExpanded] = useState([false]);
 
+  const records = data?.me.records;
+
   useEffect(() => {
     if (loading === false && data) {
-      data.me.records.length > 0
-        ? setExpanded(
-            [true].concat(Array(data.me.records.length - 1).fill(false))
-          )
+      records.length > 0
+        ? setExpanded([true].concat(Array(records.length - 1).fill(false)))
         : setExpanded([false]);
     }
   }, [loading, data]);
@@ -93,8 +93,6 @@ export default function Record({ navigation }) {
         <ActivityIndicator color="#FF7F50" />
       </IndicatorContainer>
     );
-
-  const records = data?.me.records;
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -123,7 +121,7 @@ export default function Record({ navigation }) {
   return (
     <>
       <HeaderContainer>
-        <Header>운동기록</Header>
+        <Header>기록</Header>
       </HeaderContainer>
       <FlatList
         data={records}

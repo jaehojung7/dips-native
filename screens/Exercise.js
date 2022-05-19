@@ -56,7 +56,6 @@ export default function Exercise({ navigation }) {
         <ActivityIndicator color="#FF7F50" />
       </IndicatorContainer>
     );
-
   const user = data?.me;
   const exercises = data?.me?.exercises;
 
@@ -90,9 +89,8 @@ export default function Exercise({ navigation }) {
         data={exercises}
         keyExtractor={(item, index) => "" + index}
         renderItem={renderItem}
-        initialNumToRender={3}
-        windowSize={3}
-        // ListHeaderComponent={CreateExerciseButton}
+        initialNumToRender={50}
+        maxToRenderPerBatch={50}
       />
     </>
   );

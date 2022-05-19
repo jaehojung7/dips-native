@@ -74,22 +74,12 @@ const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
 
-const ButtonContainer = styled.View`
-  padding: 0 15px;
-`;
-
 const HeaderContainer = styled.View`
   margin-top: 50px;
   margin-bottom: 15px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
-`;
-
-const WorkoutTitle = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 23px;
-  font-weight: 700;
 `;
 
 const WorkoutTitleInput = styled.TextInput`
@@ -203,6 +193,7 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
+    navigation.navigate("StackProgram");
     navigation.navigate("Record");
   };
 
@@ -273,14 +264,12 @@ export default function CreateRecord({ navigation, route }) {
           }}
         />
 
-        <ButtonContainer>
-          <MainButton
-            text="워크아웃 기록 저장"
-            loading={loading}
-            disabled={!watch("recordTitle")}
-            onPress={handleSubmit(onSubmitValid)}
-          />
-        </ButtonContainer>
+        <MainButton
+          text="워크아웃 기록 저장"
+          loading={loading}
+          disabled={!watch("recordTitle")}
+          onPress={handleSubmit(onSubmitValid)}
+        />
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModalRecord

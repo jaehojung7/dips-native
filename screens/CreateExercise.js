@@ -17,20 +17,15 @@ const CREATE_EXERCISE_MUTATION = gql`
   }
 `;
 
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0 15px 0;
-  opacity: 0.5;
-`;
-
-const Container = styled.ScrollView`
+const Container = styled.View`
   background-color: white;
-  padding: 0 20px;
+  padding: 0 15px;
+  justify-content: center;
+  opacity: 1;
 `;
 
 const HeaderContainer = styled.View`
-  margin: 25px 0;
+  margin: 30px 0 25px 0;
   padding: 0 10px;
   flex-direction: row;
   align-items: center;
@@ -46,28 +41,10 @@ const Header = styled.Text`
 const ExerciseTitle = styled.TextInput`
   color: black;
   background-color: ${(props) => props.theme.cardColor};
-  padding: 15px;
-  font-size: 20px;
-  border-radius: 20px;
-`;
-
-const BodyPartContainer = styled.View`
-  justify-content: space-around;
-  border-radius: 20px;
-  margin: 25px 0;
-`;
-
-const BodyPartTitle = styled.Text`
-  color: black;
-  font-size: 18px;
+  padding: 10px;
+  font-size: 21px;
   font-weight: 600;
-  /* text-align: center; */
-`;
-
-const PickerContainer = styled.View`
-  border-radius: 25px;
-  /* width: 60%; */
-  /* border: 1px solid black; */
+  border-radius: 10px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -77,7 +54,7 @@ const Button = styled.TouchableOpacity`
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.blue};
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
 `;
 
@@ -153,9 +130,9 @@ export default function CreateExercise({ navigation, route }) {
 
   return (
     <DismissKeyboard>
-      <Container showsVerticalScrollIndicator={false}>
+      <Container>
         <HeaderContainer>
-          <Header>운동 추가</Header>
+          <Header>새 운동 추가</Header>
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>닫기</ButtonText>
           </Button>
@@ -177,41 +154,35 @@ export default function CreateExercise({ navigation, route }) {
           )}
         />
 
-        <BodyPartContainer>
-          <BodyPartTitle>운동 부위</BodyPartTitle>
-          <BorderLine />
-          <PickerContainer>
-            <Controller
-              name="bodyPart"
-              control={control}
-              rules={{ required: true }}
-              defaultValue="Back"
-              render={({ value }) => (
-                <Picker
-                  itemStyle={{
-                    height: 150,
-                    color: "black",
-                    fontSize: 19,
-                  }}
-                  // numberOfLines={1}
-                  selectedValue={selectedBodyPart}
-                  onValueChange={(itemValue) => {
-                    setValue("bodyPart", itemValue);
-                    setSelectedBodyPart(itemValue);
-                  }}
-                >
-                  <Picker.Item label="등 - Back" value="Back" />
-                  <Picker.Item label="가슴 - Chest" value="Chest" />
-                  <Picker.Item label="하체 - Leg" value="Leg" />
-                  <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
-                  <Picker.Item label="코어 - Core" value="Core" />
-                  <Picker.Item label="팔 - Arm" value="Arm" />
-                </Picker>
-              )}
-            />
-          </PickerContainer>
-          <BorderLine />
-        </BodyPartContainer>
+        <Controller
+          name="bodyPart"
+          control={control}
+          rules={{ required: true }}
+          defaultValue="Back"
+          render={({ value }) => (
+            <Picker
+              itemStyle={{
+                height: 150,
+                color: "black",
+                fontSize: 18,
+                textAlign: "left",
+              }}
+              // numberOfLines={1}
+              selectedValue={selectedBodyPart}
+              onValueChange={(itemValue) => {
+                setValue("bodyPart", itemValue);
+                setSelectedBodyPart(itemValue);
+              }}
+            >
+              <Picker.Item label="등 - Back" value="Back" />
+              <Picker.Item label="가슴 - Chest" value="Chest" />
+              <Picker.Item label="하체 - Leg" value="Leg" />
+              <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
+              <Picker.Item label="코어 - Core" value="Core" />
+              <Picker.Item label="팔 - Arm" value="Arm" />
+            </Picker>
+          )}
+        />
 
         <MainButton
           text="새 운동 추가하기"
