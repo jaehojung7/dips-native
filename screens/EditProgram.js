@@ -91,6 +91,20 @@ const TitleInput = styled.TextInput`
   font-weight: 600;
 `;
 
+const ToggleContainer = styled.View`
+  margin-bottom: 7px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ToggleText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-weight: 500;
+  font-size: 15px;
+  margin-right: 10px;
+`;
+
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -99,7 +113,7 @@ const ButtonContainer = styled.View`
 const SaveProgramButton = styled.TouchableOpacity`
   padding: 12px 25px;
   border-radius: 20px;
-  background-color: ${(props) => props.theme.mainColor};
+  background-color: ${(props) => props.theme.blue};
   margin: 5px 0;
   width: 49%;
 `;
@@ -256,6 +270,16 @@ export default function EditProgram({ navigation, route }) {
           />
         </TitleContainer>
 
+        <ToggleContainer>
+          <ToggleText>Share this program</ToggleText>
+          <Switch
+            style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
+            // ios_backgroundColor="#cacfd2"
+            onValueChange={toggleSwitch}
+            value={isPrivate}
+          />
+        </ToggleContainer>
+
         <WorkoutArray
           {...{
             control,
@@ -273,7 +297,7 @@ export default function EditProgram({ navigation, route }) {
             disabled={!watch("programTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
-            <ButtonText>저장</ButtonText>
+            <ButtonText>Save</ButtonText>
           </SaveProgramButton>
 
           <DeleteProgramButton

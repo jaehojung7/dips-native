@@ -32,10 +32,10 @@ export default function Setting() {
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <Header>설정</Header>
+          <Header>Setting</Header>
         </HeaderContainer>
         <Button onPress={() => logUserOut()}>
-          <ButtonText>로그아웃</ButtonText>
+          <ButtonText>Logout</ButtonText>
         </Button>
       </Container>
     </DismissKeyboard>

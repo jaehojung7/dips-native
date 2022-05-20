@@ -75,8 +75,8 @@ const Container = styled.ScrollView`
 `;
 
 const TitleContainer = styled.View`
-  /* margin-top: 50px; */
-  margin-bottom: 15px;
+  margin-top: 50px;
+  margin-bottom: 10px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
@@ -89,19 +89,17 @@ const TitleInput = styled.TextInput`
 `;
 
 const ToggleContainer = styled.View`
-  /* border: 1px solid black; */
-  /* flex-direction: row; */
-  align-items: flex-end;
+  margin-bottom: 7px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ToggleText = styled.Text`
-  font-weight: 600;
+  color: ${(props) => props.theme.fontColor};
+  font-weight: 500;
   font-size: 15px;
-`;
-
-const ToggleSwitch = styled.View`
-  /* flex: 1; */
-  justify-content: center;
+  margin-right: 10px;
 `;
 
 export default function CreateProgram({ navigation, route }) {
@@ -218,20 +216,6 @@ export default function CreateProgram({ navigation, route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <ToggleContainer>
-          {/* <ToggleText>Public Program?</ToggleText> */}
-          <ToggleSwitch>
-            <Switch
-              trackColor={{ true: "#42a5f5" }}
-              // thumbColor="#42a5f5"
-              style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-              ios_backgroundColor="#cacfd2"
-              onValueChange={toggleSwitch}
-              value={isPrivate}
-            />
-          </ToggleSwitch>
-        </ToggleContainer>
-
         <TitleContainer>
           <Controller
             name="programTitle"
@@ -239,13 +223,22 @@ export default function CreateProgram({ navigation, route }) {
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
-                placeholder="프로그램 이름"
+                placeholder="Program title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
               />
             )}
           />
         </TitleContainer>
+        <ToggleContainer>
+          <ToggleText>Share this program</ToggleText>
+          <Switch
+            style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
+            // ios_backgroundColor="#cacfd2"
+            onValueChange={toggleSwitch}
+            value={isPrivate}
+          />
+        </ToggleContainer>
 
         <WorkoutArray
           {...{
@@ -259,7 +252,7 @@ export default function CreateProgram({ navigation, route }) {
         />
 
         <MainButton
-          text="새 프로그램 저장"
+          text="Create a new program"
           loading={loading}
           disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}

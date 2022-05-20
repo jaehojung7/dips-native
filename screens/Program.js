@@ -156,7 +156,7 @@ export default function Program({ navigation }) {
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
-        <Header>프로그램</Header>
+        <Header>Program</Header>
       </HeaderContainer>
       <WorkoutContainer
         onPress={() => {
@@ -187,7 +187,7 @@ export default function Program({ navigation }) {
       </WorkoutContainer>
       <ButtonContainer>
         <MainButton
-          text="Start a new workout"
+          text="Start a workout"
           onPress={() => navigation.navigate("CreateRecord", { exercises })}
         />
       </ButtonContainer>

@@ -112,7 +112,7 @@ export default function WorkoutSetArray({
                       setModalVisible(true);
                     }}
                   >
-                    <ExerciseTitle>{value ? value : "운동 선택"}</ExerciseTitle>
+                    <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
                   </SelectExercise>
                 )}
               />
@@ -173,13 +173,13 @@ export default function WorkoutSetArray({
       })}
       <ButtonContainer>
         <AddDeleteExerciseButton
-          text="운동 추가"
+          text="Add exercise"
           onPress={() => {
             append({});
           }}
         />
         <AddDeleteExerciseButton
-          text="운동 삭제"
+          text="Delete exercise"
           onPress={() => {
             remove(fields.length - 1);
           }}

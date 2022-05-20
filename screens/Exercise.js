@@ -44,10 +44,6 @@ const ButtonText = styled.Text`
   text-align: right;
 `;
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
 export default function Exercise({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   if (loading)
@@ -58,13 +54,12 @@ export default function Exercise({ navigation }) {
     );
   const user = data?.me;
   const exercises = data?.me?.exercises;
-
+  const [refreshing, setRefreshing] = useState(false);
   const refresh = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
   };
-  const [refreshing, setRefreshing] = useState(false);
 
   const renderItem = ({ item: exercise }) => {
     return <DeleteExercise exercise={exercise} />;
@@ -73,7 +68,7 @@ export default function Exercise({ navigation }) {
   return (
     <>
       <HeaderContainer>
-        <Header>운동목록</Header>
+        <Header>Exercise</Header>
         <ButtonContainer
           onPress={() => navigation.navigate("CreateExercise", { user })}
         >

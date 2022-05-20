@@ -55,7 +55,7 @@ export default function WorkoutArray({
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
                     defaultValue={defaultValues?.workouts[workoutIndex]?.title}
-                    placeholder="워크아웃 이름"
+                    placeholder="Workout title"
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(`workouts[${workoutIndex}].title`, text)
@@ -81,13 +81,13 @@ export default function WorkoutArray({
       })}
 
       <AddDeleteWorkoutButton
-        text="워크아웃 추가"
+        text="Add workout"
         onPress={() => {
           append({});
         }}
       />
       <AddDeleteWorkoutButton
-        text="워크아웃 삭제"
+        text="Delete workout"
         onPress={() => {
           remove(fields.length - 1);
         }}

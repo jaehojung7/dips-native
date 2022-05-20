@@ -121,7 +121,7 @@ export default function CreateRecord({ navigation, route }) {
     return {
       recordTitle: programTitle
         ? `${programTitle} > ${workout.title}`
-        : `새로운 워크아웃`,
+        : `New workout`,
       recordExercises: processRecordExercises(workout?.workoutSets),
     };
   };
@@ -246,7 +246,7 @@ export default function CreateRecord({ navigation, route }) {
             render={({ field: { value } }) => (
               <WorkoutTitleInput
                 defaultValue={defaultValues.recordTitle}
-                placeholder="워크아웃 제목"
+                placeholder="Workout title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("recordTitle", text)}
               />
@@ -265,7 +265,7 @@ export default function CreateRecord({ navigation, route }) {
         />
 
         <MainButton
-          text="워크아웃 기록 저장"
+          text="Record a workout"
           loading={loading}
           disabled={!watch("recordTitle")}
           onPress={handleSubmit(onSubmitValid)}

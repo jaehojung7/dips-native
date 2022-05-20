@@ -52,7 +52,7 @@ const Header = styled.Text`
 const RecordContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  margin: 20px 10px;
+  margin: 10px 10px;
   padding: 15px;
 `;
 
@@ -60,13 +60,13 @@ const RecordTitleContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
 const RecordTitle = styled.Text`
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 600;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 7px;
 `;
 
 const RecordSecondHeaderContainer = styled.View`
@@ -77,7 +77,7 @@ const RecordSecondHeaderContainer = styled.View`
 `;
 
 const RecordDate = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.gray};
   /* margin-bottom: 7px; */
@@ -99,7 +99,7 @@ const EditRecord = styled.TouchableOpacity`
 
 const EditText = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 `;
 
@@ -107,9 +107,16 @@ export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading } = useQuery(ME_QUERY);
   const [expanded, setExpanded] = useState([false]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const records = data?.me.records;
   const exercises = data?.me.exercises;
+
+  const refresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     if (loading === false && data) {
@@ -170,7 +177,7 @@ export default function Record({ navigation }) {
   return (
     <>
       <HeaderContainer>
-        <Header>기록</Header>
+        <Header>Record</Header>
       </HeaderContainer>
       <FlatList
         data={records}
@@ -178,14 +185,8 @@ export default function Record({ navigation }) {
         renderItem={renderRecord}
         initialNumToRender={3}
         windowSize={2}
-        // onEndReachedThreshold={0}
-        // onEndReached={() =>
-        //   fetchMore({
-        //     variables: {
-        //       offset: data?.me?.length,
-        //     },
-        //   })
-        // }
+        refreshing={refreshing}
+        onRefresh={refresh}
       />
     </>
   );

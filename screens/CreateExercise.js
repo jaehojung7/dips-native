@@ -5,7 +5,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { gql, useMutation } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
-import useUser from "../hooks/useUser";
+import { useColorScheme } from "react-native";
 
 const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
@@ -18,14 +18,13 @@ const CREATE_EXERCISE_MUTATION = gql`
 `;
 
 const Container = styled.View`
-  background-color: white;
-  padding: 0 15px;
+  padding: 10px 15px;
   justify-content: center;
   opacity: 1;
 `;
 
 const HeaderContainer = styled.View`
-  margin: 30px 0 25px 0;
+  margin: 10px 0 25px 0;
   padding: 0 10px;
   flex-direction: row;
   align-items: center;
@@ -47,6 +46,14 @@ const ExerciseTitle = styled.TextInput`
   border-radius: 10px;
 `;
 
+const Bodypart = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 20px;
+  text-align: center;
+`;
+
 const Button = styled.TouchableOpacity`
   border-radius: 30px;
 `;
@@ -60,8 +67,9 @@ const ButtonText = styled.Text`
 
 export default function CreateExercise({ navigation, route }) {
   const { handleSubmit, setValue, getValues, control } = useForm();
-  const [selectedBodyPart, setSelectedBodyPart] = useState("Back");
+  const [selectedBodyPart, setSelectedBodyPart] = useState("Leg");
   const { user } = route.params;
+  const scheme = useColorScheme();
 
   const createExerciseUpdate = (cache, result) => {
     const { exercise, bodyPart } = getValues();
@@ -132,7 +140,7 @@ export default function CreateExercise({ navigation, route }) {
     <DismissKeyboard>
       <Container>
         <HeaderContainer>
-          <Header>새 운동 추가</Header>
+          <Header>New exercise</Header>
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>닫기</ButtonText>
           </Button>
@@ -144,7 +152,7 @@ export default function CreateExercise({ navigation, route }) {
           rules={{ required: true }}
           render={({ onChange, onBlur, value }) => (
             <ExerciseTitle
-              placeholder="운동 이름"
+              placeholder="Exercise title"
               autoCapitalize="none"
               returnKeyType="done"
               returnKeyLabel="done"
@@ -153,7 +161,7 @@ export default function CreateExercise({ navigation, route }) {
             />
           )}
         />
-
+        <Bodypart>Select a body part</Bodypart>
         <Controller
           name="bodyPart"
           control={control}
@@ -163,9 +171,9 @@ export default function CreateExercise({ navigation, route }) {
             <Picker
               itemStyle={{
                 height: 150,
-                color: "black",
+                color: scheme === "dark" ? "white" : "black",
                 fontSize: 18,
-                textAlign: "left",
+                // textAlign: "left",
               }}
               // numberOfLines={1}
               selectedValue={selectedBodyPart}
@@ -174,18 +182,18 @@ export default function CreateExercise({ navigation, route }) {
                 setSelectedBodyPart(itemValue);
               }}
             >
-              <Picker.Item label="등 - Back" value="Back" />
-              <Picker.Item label="가슴 - Chest" value="Chest" />
-              <Picker.Item label="하체 - Leg" value="Leg" />
-              <Picker.Item label="어깨 - Shoulder" value="Shoulder" />
-              <Picker.Item label="코어 - Core" value="Core" />
-              <Picker.Item label="팔 - Arm" value="Arm" />
+              <Picker.Item label="Back" value="Back" />
+              <Picker.Item label="Chest" value="Chest" />
+              <Picker.Item label="Leg" value="Leg" />
+              <Picker.Item label="Shoulder" value="Shoulder" />
+              <Picker.Item label="Core" value="Core" />
+              <Picker.Item label="Arm" value="Arm" />
             </Picker>
           )}
         />
 
         <MainButton
-          text="새 운동 추가하기"
+          text="Add a new exercise"
           disabled={false}
           loading={loading}
           onPress={handleSubmit(onSubmitValid)}
