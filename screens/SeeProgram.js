@@ -20,8 +20,27 @@ const ProgramTitle = styled.Text`
   font-weight: 700;
 `;
 
-const StatusContainer = styled.View`
-  margin: 5px 0;
+const InfoContainer = styled.View`
+  margin: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
+const InfoText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 7px;
+`;
+
+const BookmarkContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const UnlockContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +74,7 @@ const WorkoutTitle = styled.Text`
   font-size: 20px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-  width: 50%;
+  width: 70%;
 `;
 
 const ExerciseContainer = styled.View`
@@ -66,12 +85,11 @@ const ExerciseContainer = styled.View`
 `;
 
 const ExerciseTitleContainer = styled.View`
-  width: 65%;
+  width: 70%;
 `;
 
 const SetbyRepContainer = styled.View`
   flex-direction: row;
-  /* justify-content: center; */
 `;
 
 const ExerciseTitle = styled.Text`
@@ -96,31 +114,35 @@ export default function SeeProgram({ route, navigation }) {
             <EditText>Edit</EditText>
           </EditProgram>
         </HeaderContainer>
-        <StatusContainer>
-          {program.isLiked ? (
-            <>
-              <FontAwesome name="lock" size={15} />
-              <EditText>marked</EditText>
-            </>
-          ) : (
-            <>
-              <FontAwesome5 name="bookmark" size={15} />
-              <EditText>unmarked</EditText>
-            </>
-          )}
 
-          {program.isPrivate ? (
-            <>
-              <FontAwesome5 name="lock" size={15} />
-              <EditText>Private</EditText>
-            </>
-          ) : (
-            <>
-              <FontAwesome5 name="lock" size={15} />
-              <EditText>Public</EditText>
-            </>
-          )}
-        </StatusContainer>
+        <InfoContainer>
+          <BookmarkContainer>
+            {program.isLiked ? (
+              <>
+                <FontAwesome name="bookmark" size={15} />
+                <InfoText>Marked</InfoText>
+              </>
+            ) : (
+              <>
+                <FontAwesome name="bookmark-o" size={15} />
+                <InfoText>Unmarked</InfoText>
+              </>
+            )}
+          </BookmarkContainer>
+          <UnlockContainer>
+            {program.isPrivate ? (
+              <>
+                <FontAwesome5 name="lock" size={15} />
+                <InfoText>Private</InfoText>
+              </>
+            ) : (
+              <>
+                <FontAwesome5 name="unlock" size={15} />
+                <InfoText>Public</InfoText>
+              </>
+            )}
+          </UnlockContainer>
+        </InfoContainer>
 
         {program?.workouts.map((workout, workoutIndex) => {
           return (
@@ -128,7 +150,7 @@ export default function SeeProgram({ route, navigation }) {
               <WorkoutTitleContainer>
                 <WorkoutTitle>{workout.title}</WorkoutTitle>
                 <StartWorkoutButton
-                  text="운동 시작"
+                  text="Start"
                   onPress={() => {
                     navigation.navigate("CreateRecord", {
                       baseProgramId: program?.id,

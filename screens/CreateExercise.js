@@ -173,7 +173,6 @@ export default function CreateExercise({ navigation, route }) {
                 height: 150,
                 color: scheme === "dark" ? "white" : "black",
                 fontSize: 18,
-                // textAlign: "left",
               }}
               // numberOfLines={1}
               selectedValue={selectedBodyPart}

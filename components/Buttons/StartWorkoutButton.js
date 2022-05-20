@@ -6,8 +6,8 @@ const Button = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: ${(props) => props.theme.NavigateBackButton};
-  font-size: 15px;
+  color: ${(props) => props.theme.mainColor};
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
 `;

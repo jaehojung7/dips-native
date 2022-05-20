@@ -4,7 +4,7 @@ import { FlatList } from "react-native";
 
 const ModalContainer = styled.View`
   flex: 1;
-  padding: 10px 0;
+  margin-top: 25px;
   background-color: ${(props) => props.theme.modalBackground};
 `;
 
@@ -13,7 +13,7 @@ const Container = styled.View`
 `;
 
 const ButtonContainer = styled.TouchableOpacity`
-  margin: 10px 15px 5px 0;
+  margin: 10px 15px 10px 0;
 `;
 
 const ButtonText = styled.Text`
@@ -75,25 +75,21 @@ export default function ExerciseListModalProgram({
     );
   };
 
-  const SearchBox = (
-    <ButtonContainer
-      onPress={() => {
-        setModalVisible(false);
-      }}
-    >
-      <ButtonText>닫기</ButtonText>
-    </ButtonContainer>
-  );
-
   return (
     <ModalContainer>
+      <ButtonContainer
+        onPress={() => {
+          setModalVisible(false);
+        }}
+      >
+        <ButtonText>닫기</ButtonText>
+      </ButtonContainer>
       <FlatList
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}
         renderItem={renderItem}
         initialNumToRender={3}
         windowSize={3}
-        ListHeaderComponent={SearchBox}
       />
     </ModalContainer>
   );

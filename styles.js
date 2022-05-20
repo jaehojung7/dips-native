@@ -1,7 +1,6 @@
 export const darkTheme = {
   fontColor: "white",
   mainColor: "#FF7F50",
-  blue: "#2389da",
   gray: "#7c7c7c",
   buttonText: "white",
   cardColor: "#222222",

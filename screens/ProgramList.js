@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
 
+const Container = styled.View`
+  margin: 20px 0;
+`;
+
 const HeaderContainer = styled.View`
-  margin: 40px 25px 15px 25px;
+  margin: 50px 0 10px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -50,8 +54,10 @@ export default function ProgramList({ route, navigation }) {
   };
 
   return (
-    <>
-      <HeaderContainer></HeaderContainer>
+    <Container>
+      <HeaderContainer>
+        <Header>Program List</Header>
+      </HeaderContainer>
       <FlatList
         data={programs}
         keyExtractor={(item, index) => "" + index}
@@ -59,6 +65,6 @@ export default function ProgramList({ route, navigation }) {
         initialNumToRender={3}
         windowSize={3}
       />
-    </>
+    </Container>
   );
 }

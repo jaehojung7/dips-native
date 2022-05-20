@@ -105,12 +105,18 @@ const EditText = styled.Text`
 
 export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
-  const { data, loading } = useQuery(ME_QUERY);
-  const [expanded, setExpanded] = useState([false]);
-  const [refreshing, setRefreshing] = useState(false);
-
+  const { data, loading, refetch } = useQuery(ME_QUERY);
+  // if (loading)
+  //   return (
+  //     <IndicatorContainer>
+  //       <ActivityIndicator />
+  //     </IndicatorContainer>
+  //   );
   const records = data?.me.records;
   const exercises = data?.me.exercises;
+
+  const [refreshing, setRefreshing] = useState(false);
+  const [expanded, setExpanded] = useState([false]);
 
   const refresh = async () => {
     setRefreshing(true);
@@ -125,13 +131,6 @@ export default function Record({ navigation }) {
         : setExpanded([false]);
     }
   }, [loading, data]);
-
-  if (loading)
-    return (
-      <IndicatorContainer>
-        <ActivityIndicator />
-      </IndicatorContainer>
-    );
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

@@ -17,7 +17,7 @@ const ButtonContainer = styled.TouchableOpacity`
   margin: 5px 0;
   padding: 12px 25px;
   border-radius: 20px;
-  background-color: tomato;
+  background-color: #cacfd2;
   width: 49%;
 `;
 
@@ -66,7 +66,7 @@ export default function DeleteProgramButton({ navigation, program }) {
     <ButtonContainer
       onPress={Platform.OS === "web" ? deleteProgramFunction : onClickDelete}
     >
-      <ButtonText>삭제</ButtonText>
+      <ButtonText>Delete</ButtonText>
     </ButtonContainer>
   );
 }
