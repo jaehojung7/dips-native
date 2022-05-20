@@ -129,6 +129,7 @@ const ButtonText = styled.Text`
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
   const { exercises } = route.params;
+  const [isPrivate, setIsPrivate] = useState(program.isPrivate);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 

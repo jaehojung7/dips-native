@@ -24,7 +24,7 @@ const IndicatorContainer = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 40px 25px 15px 25px;
+  margin: 40px 25px 15px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
