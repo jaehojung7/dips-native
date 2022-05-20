@@ -3,7 +3,7 @@ import { Text, ActivityIndicator } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Switch } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 
 export const ME_QUERY = gql`
@@ -13,6 +13,9 @@ export const ME_QUERY = gql`
       programs {
         id
         title
+        isLiked
+        isMine
+        isPrivate
         workouts {
           title
           workoutIndex
@@ -32,6 +35,9 @@ export const ME_QUERY = gql`
       recentProgram {
         id
         title
+        isLiked
+        isMine
+        isPrivate
         workouts {
           title
           workoutIndex
@@ -62,7 +68,7 @@ const HeaderContainer = styled.View`
 `;
 
 const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
 `;
@@ -73,18 +79,24 @@ const WorkoutContainer = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.cardColor};
 `;
 
+const RecentProgram = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const RecentTitle = styled.Text`
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const ProgramTitle = styled.Text`
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 15px;
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
 `;
 
 const WorkoutTitle = styled.Text`
@@ -104,7 +116,7 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `;
 
-const RecentProgram = styled.Text`
+const LikedProgram = styled.Text`
   font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
@@ -113,7 +125,7 @@ const RecentProgram = styled.Text`
 
 const MoreProgram = styled.Text`
   font-weight: 600;
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
 `;
 
 const ButtonContainer = styled.View`
@@ -127,7 +139,7 @@ export default function Program({ navigation }) {
   if (loading)
     return (
       <IndicatorContainer>
-        <ActivityIndicator color="#FF7F50" />
+        <ActivityIndicator />
       </IndicatorContainer>
     );
   const programs = data?.me.programs;
@@ -153,17 +165,20 @@ export default function Program({ navigation }) {
             : navigation.navigate("CreateProgram", { exercises });
         }}
       >
-        <RecentTitle>운동중인 프로그램</RecentTitle>
+        <RecentProgram>
+          <RecentTitle>Recent Program</RecentTitle>
+        </RecentProgram>
+
         <ProgramTitle>
           {recentProgram ? recentProgram?.title : "없음"}{" "}
         </ProgramTitle>
         {recentProgram ? (
           <>
             <WorkoutTitle>
-              이전 워크아웃: {recentProgram?.workouts[recentWorkoutIndex].title}
+              Prev Workout: {recentProgram?.workouts[recentWorkoutIndex].title}
             </WorkoutTitle>
             <WorkoutTitle>
-              다음 워크아웃: {recentProgram?.workouts[nextWorkoutIndex].title}
+              Next Workout: {recentProgram?.workouts[nextWorkoutIndex].title}
             </WorkoutTitle>
           </>
         ) : (
@@ -172,24 +187,24 @@ export default function Program({ navigation }) {
       </WorkoutContainer>
       <ButtonContainer>
         <MainButton
-          text="새 워크아웃 시작"
+          text="Start a new workout"
           onPress={() => navigation.navigate("CreateRecord", { exercises })}
         />
       </ButtonContainer>
       <ProgramContainer>
         <TitleContainer>
-          <RecentProgram>내 프로그램</RecentProgram>
+          <LikedProgram>Liked Program</LikedProgram>
           <TouchableOpacity
             onPress={() => navigation.navigate("ProgramList", { programs })}
           >
-            <MoreProgram>더보기</MoreProgram>
+            <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
         <ProgramCards programs={data?.me.programs} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton
-        text="새 프로그램 만들기"
+        text="Create a program"
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />

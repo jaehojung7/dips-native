@@ -3,7 +3,7 @@ import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
 const Button = styled.TouchableOpacity`
-  background-color: ${(props) => props.theme.blue};
+  background-color: ${(props) => props.theme.mainColor};
   padding: 14px;
   border-radius: 20px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};

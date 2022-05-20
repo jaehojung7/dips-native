@@ -31,7 +31,7 @@ const HeaderContainer = styled.View`
 `;
 
 const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
 `;
@@ -39,7 +39,7 @@ const Header = styled.Text`
 const ButtonContainer = styled.TouchableOpacity``;
 
 const ButtonText = styled.Text`
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
   font-weight: 600;
   text-align: right;
 `;
@@ -53,7 +53,7 @@ export default function Exercise({ navigation }) {
   if (loading)
     return (
       <IndicatorContainer>
-        <ActivityIndicator color="#FF7F50" />
+        <ActivityIndicator />
       </IndicatorContainer>
     );
   const user = data?.me;

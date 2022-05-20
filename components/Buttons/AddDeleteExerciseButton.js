@@ -3,13 +3,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import styled from "styled-components/native";
 
 const ButtonContainer = styled.TouchableOpacity`
-  /* border: 1px solid ${(props) => props.theme.blue}; */
   border-radius: 20px;
-  /* padding: 7px 15px; */
 `;
 
 const ButtonText = styled.Text`
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
   font-size: 16px;
   font-weight: 600;
   text-align: center;

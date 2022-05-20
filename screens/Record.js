@@ -44,7 +44,7 @@ const HeaderContainer = styled.View`
 `;
 
 const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
 `;
@@ -98,7 +98,7 @@ const EditRecord = styled.TouchableOpacity`
 `;
 
 const EditText = styled.Text`
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
   font-size: 15px;
   font-weight: 600;
 `;
@@ -122,7 +122,7 @@ export default function Record({ navigation }) {
   if (loading)
     return (
       <IndicatorContainer>
-        <ActivityIndicator color="#FF7F50" />
+        <ActivityIndicator />
       </IndicatorContainer>
     );
 

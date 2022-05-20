@@ -87,7 +87,7 @@ const ButtonContainer = styled.View`
 const SaveRecordButton = styled.TouchableOpacity`
   padding: 12px 25px;
   border-radius: 20px;
-  background-color: ${(props) => props.theme.blue};
+  background-color: ${(props) => props.theme.mainColor};
   margin: 5px 0;
   width: 49%;
 `;

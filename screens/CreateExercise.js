@@ -33,7 +33,7 @@ const HeaderContainer = styled.View`
 `;
 
 const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
 `;
@@ -52,7 +52,7 @@ const Button = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
   font-size: 15px;
   font-weight: 700;
   text-align: center;

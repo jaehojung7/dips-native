@@ -12,7 +12,7 @@ const Container = styled.View`
 
 const LoginLink = styled.Text`
   font-size: 15px;
-  color: ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.mainColor};
   font-weight: 600;
   margin-top: 15px;
   text-align: center;

@@ -66,7 +66,7 @@ export default function DeleteRecordButton({ navigation, record }) {
     <ButtonContainer
       onPress={Platform.OS === "web" ? deleteRecordFunction : onClickDelete}
     >
-      <ButtonText>삭제</ButtonText>
+      <ButtonText>Delete</ButtonText>
     </ButtonContainer>
   );
 }

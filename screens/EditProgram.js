@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { Modal } from "react-native";
+import { Modal, Switch } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
@@ -99,7 +99,7 @@ const ButtonContainer = styled.View`
 const SaveProgramButton = styled.TouchableOpacity`
   padding: 12px 25px;
   border-radius: 20px;
-  background-color: ${(props) => props.theme.blue};
+  background-color: ${(props) => props.theme.mainColor};
   margin: 5px 0;
   width: 49%;
 `;
@@ -115,6 +115,8 @@ const ButtonText = styled.Text`
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
   const { exercises } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {
@@ -145,9 +147,6 @@ export default function EditProgram({ navigation, route }) {
   const [isPrivate, setIsPrivate] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
 
   const onCreateWorkoutSetCompleted = (data) => {
     const {

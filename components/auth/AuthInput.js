@@ -6,5 +6,5 @@ export const AuthInput = styled.TextInput`
   font-size: 15px;
   border-radius: 20px;
   margin-bottom: ${(props) => (props.lastOne ? "17" : 13)}px;
-  border: 1px solid ${(props) => props.theme.blue};
+  border: 1px solid ${(props) => props.theme.mainColor};
 `;

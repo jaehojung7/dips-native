@@ -3,7 +3,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { Modal } from "react-native";
+import { Modal, Switch } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
@@ -75,7 +75,7 @@ const Container = styled.ScrollView`
 `;
 
 const TitleContainer = styled.View`
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-bottom: 15px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
@@ -86,6 +86,22 @@ const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 22px;
   font-weight: 600;
+`;
+
+const ToggleContainer = styled.View`
+  /* border: 1px solid black; */
+  /* flex-direction: row; */
+  align-items: flex-end;
+`;
+
+const ToggleText = styled.Text`
+  font-weight: 600;
+  font-size: 15px;
+`;
+
+const ToggleSwitch = styled.View`
+  /* flex: 1; */
+  justify-content: center;
 `;
 
 export default function CreateProgram({ navigation, route }) {
@@ -202,6 +218,20 @@ export default function CreateProgram({ navigation, route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
+        <ToggleContainer>
+          {/* <ToggleText>Public Program?</ToggleText> */}
+          <ToggleSwitch>
+            <Switch
+              trackColor={{ true: "#42a5f5" }}
+              // thumbColor="#42a5f5"
+              style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
+              ios_backgroundColor="#cacfd2"
+              onValueChange={toggleSwitch}
+              value={isPrivate}
+            />
+          </ToggleSwitch>
+        </ToggleContainer>
+
         <TitleContainer>
           <Controller
             name="programTitle"
@@ -216,20 +246,6 @@ export default function CreateProgram({ navigation, route }) {
             )}
           />
         </TitleContainer>
-
-        {/* <ToggleContainer>
-            <ToggleText>프로그램 공개</ToggleText>
-            <ToggleSwitch>
-              <Switch
-                trackColor={{ true: "#42a5f5" }}
-                // thumbColor="#42a5f5"
-                style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-                ios_backgroundColor="#cacfd2"
-                onValueChange={toggleSwitch}
-                value={isPrivate}
-              />
-            </ToggleSwitch>
-          </ToggleContainer> */}
 
         <WorkoutArray
           {...{

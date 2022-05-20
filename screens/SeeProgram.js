@@ -1,22 +1,30 @@
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
 
 const HeaderContainer = styled.View`
-  margin: 50px 15px 15px 15px;
+  margin: 50px 15px 5px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `;
 
 const ProgramTitle = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
+`;
+
+const StatusContainer = styled.View`
+  margin: 5px 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -24,8 +32,8 @@ const EditProgram = styled.TouchableOpacity`
 `;
 
 const EditText = styled.Text`
-  color: ${(props) => props.theme.blue};
-  font-size: 15px;
+  color: ${(props) => props.theme.mainColor};
+  font-size: 16px;
   font-weight: 600;
 `;
 
@@ -88,6 +96,31 @@ export default function SeeProgram({ route, navigation }) {
             <EditText>Edit</EditText>
           </EditProgram>
         </HeaderContainer>
+        <StatusContainer>
+          {program.isLiked ? (
+            <>
+              <FontAwesome name="lock" size={15} />
+              <EditText>marked</EditText>
+            </>
+          ) : (
+            <>
+              <FontAwesome5 name="bookmark" size={15} />
+              <EditText>unmarked</EditText>
+            </>
+          )}
+
+          {program.isPrivate ? (
+            <>
+              <FontAwesome5 name="lock" size={15} />
+              <EditText>Private</EditText>
+            </>
+          ) : (
+            <>
+              <FontAwesome5 name="lock" size={15} />
+              <EditText>Public</EditText>
+            </>
+          )}
+        </StatusContainer>
 
         {program?.workouts.map((workout, workoutIndex) => {
           return (

@@ -10,7 +10,7 @@ const HeaderContainer = styled.View`
 `;
 
 const Header = styled.Text`
-  color: ${(props) => props.theme.orange};
+  color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
 `;
