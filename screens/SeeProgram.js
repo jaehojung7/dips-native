@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -34,7 +35,7 @@ const InfoText = styled.Text`
   margin-left: 7px;
 `;
 
-const BookmarkContainer = styled.View`
+const BookmarkContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -101,6 +102,7 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -116,7 +118,12 @@ export default function SeeProgram({ route, navigation }) {
         </HeaderContainer>
 
         <InfoContainer>
-          <BookmarkContainer>
+          <BookmarkContainer
+            onPress={() => {
+              setIsLiked((previousState) => !previousState);
+              console.log(isLiked);
+            }}
+          >
             {program.isLiked ? (
               <>
                 <FontAwesome name="bookmark" size={15} />

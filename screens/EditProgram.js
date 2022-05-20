@@ -158,7 +158,7 @@ export default function EditProgram({ navigation, route }) {
 
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({ defaultValues });
-  const [isPrivate, setIsPrivate] = useState(false);
+
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
 
@@ -276,7 +276,7 @@ export default function EditProgram({ navigation, route }) {
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             // ios_backgroundColor="#cacfd2"
             onValueChange={toggleSwitch}
-            value={isPrivate}
+            value={program?.isPrivate}
           />
         </ToggleContainer>
 
