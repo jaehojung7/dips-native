@@ -17,7 +17,7 @@ const ButtonContainer = styled.TouchableOpacity`
   margin: 5px 0;
   padding: 12px 25px;
   border-radius: 20px;
-  background-color: tomato;
+  background-color: #cacfd2;
   width: 49%;
 `;
 

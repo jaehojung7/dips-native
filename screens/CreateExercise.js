@@ -140,9 +140,9 @@ export default function CreateExercise({ navigation, route }) {
     <DismissKeyboard>
       <Container>
         <HeaderContainer>
-          <Header>New exercise</Header>
+          <Header>New Exercise</Header>
           <Button onPress={() => navigation.goBack()}>
-            <ButtonText>닫기</ButtonText>
+            <ButtonText>Close</ButtonText>
           </Button>
         </HeaderContainer>
 
@@ -161,7 +161,7 @@ export default function CreateExercise({ navigation, route }) {
             />
           )}
         />
-        <Bodypart>Select a body part</Bodypart>
+        <Bodypart>Select body part</Bodypart>
         <Controller
           name="bodyPart"
           control={control}
@@ -192,7 +192,7 @@ export default function CreateExercise({ navigation, route }) {
         />
 
         <MainButton
-          text="Add a new exercise"
+          text="Add exercise"
           disabled={false}
           loading={loading}
           onPress={handleSubmit(onSubmitValid)}

@@ -301,11 +301,7 @@ export default function EditProgram({ navigation, route }) {
             <ButtonText>Save</ButtonText>
           </SaveProgramButton>
 
-          <DeleteProgramButton
-            text="삭제"
-            program={program}
-            {...{ navigation }}
-          />
+          <DeleteProgramButton program={program} {...{ navigation }} />
         </ButtonContainer>
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>

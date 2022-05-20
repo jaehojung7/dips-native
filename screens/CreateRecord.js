@@ -265,7 +265,7 @@ export default function CreateRecord({ navigation, route }) {
         />
 
         <MainButton
-          text="Record a workout"
+          text="Save workout"
           loading={loading}
           disabled={!watch("recordTitle")}
           onPress={handleSubmit(onSubmitValid)}

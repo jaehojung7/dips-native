@@ -33,7 +33,7 @@ export default function LoggedInNav() {
         name="Workout"
         options={{
           // title: "프로그램",
-          tabBarLabel: "Program",
+          tabBarLabel: "Programs",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="calendar-check" size={22} color={color} />
           ),
@@ -43,7 +43,7 @@ export default function LoggedInNav() {
       </Tabs.Screen>
 
       <Tabs.Screen
-        name="Record"
+        name="Records"
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome name="bar-chart-o" size={22} color={color} />
@@ -65,7 +65,7 @@ export default function LoggedInNav() {
       </Tabs.Screen>
 
       <Tabs.Screen
-        name="Setting"
+        name="Settings"
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome name="gear" size={22} color={color} />

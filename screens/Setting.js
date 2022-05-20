@@ -32,7 +32,7 @@ export default function Setting() {
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <Header>Setting</Header>
+          <Header>Settings</Header>
         </HeaderContainer>
         <Button onPress={() => logUserOut()}>
           <ButtonText>Logout</ButtonText>
