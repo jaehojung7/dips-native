@@ -1,8 +1,18 @@
 import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -102,7 +112,35 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
-  const [isLiked, setIsLiked] = useState(false);
+  // const id = program.id;
+
+  const toggleLikeUpdate = (cache, result) => {
+    const {
+      data: {
+        toggleLike: { ok },
+      },
+    } = result;
+
+    if (ok) {
+      // const programId = `Program:${id}`;
+      cache.modify({
+        id: `Program:${program.id}`,
+        fields: {
+          isLiked(prev) {
+            return !prev;
+          },
+        },
+      });
+    }
+  };
+
+  const [toggleLikeFunction] = useMutation(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      id: program.id,
+    },
+    update: toggleLikeUpdate,
+  });
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -118,12 +156,7 @@ export default function SeeProgram({ route, navigation }) {
         </HeaderContainer>
 
         <InfoContainer>
-          <BookmarkContainer
-            onPress={() => {
-              setIsLiked((previousState) => !previousState);
-              console.log(isLiked);
-            }}
-          >
+          <BookmarkContainer onPress={toggleLikeFunction}>
             {program.isLiked ? (
               <>
                 <FontAwesome name="bookmark" size={15} />
