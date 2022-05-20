@@ -168,11 +168,11 @@ export default function Program({ navigation }) {
         {recentProgram ? (
           <>
             <WorkoutTitle>
-              Recent Workout:{" "}
+              Recent workout:{" "}
               {recentProgram?.workouts[recentWorkoutIndex].title}
             </WorkoutTitle>
             <WorkoutTitle>
-              Next Workout: {recentProgram?.workouts[nextWorkoutIndex].title}
+              Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
             </WorkoutTitle>
           </>
         ) : (
