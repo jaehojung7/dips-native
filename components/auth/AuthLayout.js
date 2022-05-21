@@ -1,5 +1,5 @@
 import React from "react";
-import { KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
+import { KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
 import DismissKeyboard from "../DismissKeyboard";
 
@@ -27,7 +27,7 @@ export default function AuthLayout({ children }) {
             width: "100%",
           }}
           behavior="position"
-          keyboardVerticalOffset={75}
+          keyboardVerticalOffset={15}
         >
           {/* <Logo
             resizeMode="contain"

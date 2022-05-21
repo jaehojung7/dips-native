@@ -18,6 +18,17 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
+const HeaderContainer = styled.View`
+  margin: 25px 0;
+  align-items: center;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 20px;
+  font-weight: 700;
+`;
+
 export default function Login({ route }) {
   const { register, handleSubmit, setValue, getValues, watch, control } =
     useForm({
@@ -66,6 +77,9 @@ export default function Login({ route }) {
 
   return (
     <AuthLayout>
+      <HeaderContainer>
+        <Header>Log in</Header>
+      </HeaderContainer>
       <Controller
         name="email"
         control={control}

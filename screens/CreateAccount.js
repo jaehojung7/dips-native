@@ -5,6 +5,7 @@ import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { gql, useMutation } from "@apollo/client";
 import { AuthInput } from "../components/auth/AuthInput";
+import styled from "styled-components/native";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
@@ -17,6 +18,17 @@ const CREATE_ACCOUNT_MUTATION = gql`
       error
     }
   }
+`;
+
+const HeaderContainer = styled.View`
+  margin: 25px 0;
+  align-items: center;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 export default function CreateAccount({ navigation }) {
@@ -71,6 +83,9 @@ export default function CreateAccount({ navigation }) {
 
   return (
     <AuthLayout>
+      <HeaderContainer>
+        <Header>Create your account</Header>
+      </HeaderContainer>
       <Controller
         name="username"
         control={control}
@@ -121,7 +136,7 @@ export default function CreateAccount({ navigation }) {
         )}
       />
       <MainButton
-        text="계정 만들기"
+        text="Sign up"
         disabled={false}
         loading={loading}
         onPress={handleSubmit(onSubmitValid)}

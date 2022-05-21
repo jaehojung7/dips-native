@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, ActivityIndicator } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { TouchableOpacity, Switch } from "react-native";
+import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 
 export const ME_QUERY = gql`

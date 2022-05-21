@@ -10,8 +10,26 @@ const Container = styled.View`
   padding: 0 15px;
 `;
 
+const HeaderContainer = styled.View`
+  margin: 25px 0;
+  align-items: center;
+`;
+
+const Header = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 45px;
+  font-weight: 800;
+  margin-bottom: 30px;
+`;
+
+const Subtitle = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 20px;
+  font-weight: 600;
+`;
+
 const LoginLink = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   color: ${(props) => props.theme.mainColor};
   font-weight: 600;
   margin-top: 15px;
@@ -25,10 +43,14 @@ export default function Welcome({ navigation }) {
 
   return (
     <Container>
-      <MainButton text="로그인" disabled={false} onPress={goToLogIn} />
-      <MainButton text="운동하기" disabled={false} onPress={goToWorkout} />
+      <HeaderContainer>
+        <Header>Dips</Header>
+        <Subtitle>Squat, dip, lift your workout</Subtitle>
+      </HeaderContainer>
+      <MainButton text="Log in" disabled={false} onPress={goToLogIn} />
+      <MainButton text="Start workout" disabled={false} onPress={goToWorkout} />
       <TouchableOpacity onPress={goToCreateAccount}>
-        <LoginLink>가입하기</LoginLink>
+        <LoginLink>Create an account</LoginLink>
       </TouchableOpacity>
     </Container>
   );
