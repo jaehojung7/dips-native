@@ -231,10 +231,9 @@ export default function CreateProgram({ navigation, route }) {
           />
         </TitleContainer>
         <ToggleContainer>
-          <ToggleText>Share this program</ToggleText>
+          <ToggleText>Private program for user only</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-            // ios_backgroundColor="#cacfd2"
             onValueChange={toggleSwitch}
             value={isPrivate}
           />

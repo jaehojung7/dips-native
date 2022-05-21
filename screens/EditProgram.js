@@ -128,6 +128,7 @@ const ButtonText = styled.Text`
 
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
+
   const { exercises } = route.params;
   const [isPrivate, setIsPrivate] = useState(program.isPrivate);
   const [modalVisible, setModalVisible] = useState(false);
@@ -272,12 +273,11 @@ export default function EditProgram({ navigation, route }) {
         </TitleContainer>
 
         <ToggleContainer>
-          <ToggleText>Share this program</ToggleText>
+          <ToggleText>Private program for user only</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-            // ios_backgroundColor="#cacfd2"
             onValueChange={toggleSwitch}
-            value={program?.isPrivate}
+            value={isPrivate}
           />
         </ToggleContainer>
 

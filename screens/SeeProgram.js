@@ -112,7 +112,6 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
-  // const id = program.id;
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -159,7 +158,10 @@ export default function SeeProgram({ route, navigation }) {
           <BookmarkContainer onPress={toggleLikeFunction}>
             {program.isLiked ? (
               <>
-                <FontAwesome name="bookmark" size={15} />
+                <FontAwesome
+                  name={program.isLiked ? "bookmark" : "bookmark-o"}
+                  size={15}
+                />
                 <InfoText>Marked</InfoText>
               </>
             ) : (
