@@ -15,7 +15,7 @@ export const ME_QUERY = gql`
         title
         isLiked
         isMine
-        isPrivate
+        isPublic
         workouts {
           title
           workoutIndex
@@ -37,7 +37,7 @@ export const ME_QUERY = gql`
         title
         isLiked
         isMine
-        isPrivate
+        isPublic
         workouts {
           title
           workoutIndex

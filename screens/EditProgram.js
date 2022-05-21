@@ -1,26 +1,27 @@
 import React, { useState } from "react";
+import { ME_QUERY } from "./Program";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { Modal, Switch } from "react-native";
+import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
-import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
     $id: Int!
     $title: String!
     $description: String
-    $isPrivate: Boolean!
+    $isPublic: Boolean!
   ) {
     editProgram(
       id: $id
       title: $title
       description: $description
-      isPrivate: $isPrivate
+      isPublic: $isPublic
     ) {
       ok
       id
@@ -130,9 +131,9 @@ export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
 
   const { exercises } = route.params;
-  const [isPrivate, setIsPrivate] = useState(program.isPrivate);
+  const [isPublic, setisPublic] = useState(program.isPublic);
   const [modalVisible, setModalVisible] = useState(false);
-  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
+  const toggleSwitch = () => setisPublic((previousState) => !previousState);
 
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {
@@ -248,7 +249,7 @@ export default function EditProgram({ navigation, route }) {
         id: program.id,
         title: programTitle,
         description,
-        isPrivate,
+        isPublic,
       },
     });
   };
@@ -273,11 +274,11 @@ export default function EditProgram({ navigation, route }) {
         </TitleContainer>
 
         <ToggleContainer>
-          <ToggleText>Private program for user only</ToggleText>
+          <ToggleText>Share this program</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             onValueChange={toggleSwitch}
-            value={isPrivate}
+            value={isPublic}
           />
         </ToggleContainer>
 

@@ -3,22 +3,23 @@ import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { Modal, Switch } from "react-native";
+import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
     $title: String!
     $description: String
-    $isPrivate: Boolean!
+    $isPublic: Boolean!
   ) {
     createProgram(
       title: $title
       description: $description
-      isPrivate: $isPrivate
+      isPublic: $isPublic
     ) {
       ok
       id
@@ -99,7 +100,15 @@ const ToggleText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-weight: 500;
   font-size: 15px;
-  margin-right: 10px;
+  margin-right: 5px;
+`;
+
+const ToggleInfoContainer = styled.TouchableOpacity`
+  margin-left: 20px;
+`;
+
+const ToggleInfoText = styled.Text`
+  color: ${(props) => props.theme.mainColor};
 `;
 
 export default function CreateProgram({ navigation, route }) {
@@ -122,12 +131,12 @@ export default function CreateProgram({ navigation, route }) {
   const { handleSubmit, setValue, getValues, control, watch, setError } =
     useForm({ defaultValues });
   const { exercises } = route.params;
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPublic, setisPublic] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const toggleSwitch = () => setIsPrivate((previousState) => !previousState);
+  const toggleSwitch = () => setisPublic((previousState) => !previousState);
 
   const onCreateWorkoutSetCompleted = (data) => {
     const {
@@ -209,8 +218,15 @@ export default function CreateProgram({ navigation, route }) {
     }
     const { programTitle, description } = getValues();
     createProgramFunction({
-      variables: { title: programTitle, description, isPrivate },
+      variables: { title: programTitle, description, isPublic },
     });
+  };
+
+  const onClickAlert = () => {
+    Alert.alert(
+      "Share your program",
+      "Turn on the toggle to allow other users can search this program"
+    );
   };
 
   return (
@@ -231,12 +247,18 @@ export default function CreateProgram({ navigation, route }) {
           />
         </TitleContainer>
         <ToggleContainer>
-          <ToggleText>Private program for user only</ToggleText>
+          <ToggleText>Share this program</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             onValueChange={toggleSwitch}
-            value={isPrivate}
+            value={isPublic}
           />
+
+          <ToggleInfoContainer onPress={onClickAlert}>
+            <ToggleInfoText>
+              <FontAwesome5 name="info-circle" size={20} />
+            </ToggleInfoText>
+          </ToggleInfoContainer>
         </ToggleContainer>
 
         <WorkoutArray

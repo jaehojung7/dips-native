@@ -172,15 +172,15 @@ export default function SeeProgram({ route, navigation }) {
             )}
           </BookmarkContainer>
           <UnlockContainer>
-            {program.isPrivate ? (
-              <>
-                <FontAwesome5 name="lock" size={15} />
-                <InfoText>Private</InfoText>
-              </>
-            ) : (
+            {program.isPublic ? (
               <>
                 <FontAwesome5 name="unlock" size={15} />
                 <InfoText>Public</InfoText>
+              </>
+            ) : (
+              <>
+                <FontAwesome5 name="lock" size={15} />
+                <InfoText>Private</InfoText>
               </>
             )}
           </UnlockContainer>
