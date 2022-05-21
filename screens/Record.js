@@ -69,7 +69,7 @@ const RecordTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const RecordSecondHeaderContainer = styled.View`
+const RecordSubheaderContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding-right: 5px;
@@ -158,7 +158,7 @@ export default function Record({ navigation }) {
             </ButtonText>
           </Button>
         </RecordTitleContainer>
-        <RecordSecondHeaderContainer>
+        <RecordSubheaderContainer>
           <RecordDate>{record?.date}</RecordDate>
           <EditRecord
             onPress={() =>
@@ -167,7 +167,7 @@ export default function Record({ navigation }) {
           >
             <EditText>Edit</EditText>
           </EditRecord>
-        </RecordSecondHeaderContainer>
+        </RecordSubheaderContainer>
         {expanded[index] && (
           <WorkoutRecord recordExercises={record?.recordExercises} />
         )}
@@ -178,7 +178,7 @@ export default function Record({ navigation }) {
   return (
     <>
       <HeaderContainer>
-        <Header>Record</Header>
+        <Header>Records</Header>
       </HeaderContainer>
       <FlatList
         data={records}

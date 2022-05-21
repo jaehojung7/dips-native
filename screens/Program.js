@@ -73,15 +73,10 @@ const Header = styled.Text`
   font-weight: 700;
 `;
 
-const WorkoutContainer = styled.TouchableOpacity`
+const RecentProgramContainer = styled.TouchableOpacity`
   padding: 25px 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-`;
-
-const RecentProgram = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 `;
 
@@ -116,7 +111,7 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `;
 
-const LikedProgram = styled.Text`
+const FavoritePrograms = styled.Text`
   font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
@@ -156,18 +151,16 @@ export default function Program({ navigation }) {
   return (
     <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
-        <Header>Program</Header>
+        <Header>Programs</Header>
       </HeaderContainer>
-      <WorkoutContainer
+      <RecentProgramContainer
         onPress={() => {
           recentProgram
             ? navigation.navigate("SeeProgram", { program: recentProgram })
             : navigation.navigate("CreateProgram", { exercises });
         }}
       >
-        <RecentProgram>
-          <RecentTitle>Recent Program</RecentTitle>
-        </RecentProgram>
+        <RecentTitle>Recent Program</RecentTitle>
 
         <ProgramTitle>
           {recentProgram ? recentProgram?.title : "없음"}{" "}
@@ -175,25 +168,26 @@ export default function Program({ navigation }) {
         {recentProgram ? (
           <>
             <WorkoutTitle>
-              Prev Workout: {recentProgram?.workouts[recentWorkoutIndex].title}
+              Recent workout:{" "}
+              {recentProgram?.workouts[recentWorkoutIndex].title}
             </WorkoutTitle>
             <WorkoutTitle>
-              Next Workout: {recentProgram?.workouts[nextWorkoutIndex].title}
+              Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
             </WorkoutTitle>
           </>
         ) : (
           <WorkoutTitle></WorkoutTitle>
         )}
-      </WorkoutContainer>
+      </RecentProgramContainer>
       <ButtonContainer>
         <MainButton
-          text="Start a workout"
+          text="Start an empty workout"
           onPress={() => navigation.navigate("CreateRecord", { exercises })}
         />
       </ButtonContainer>
       <ProgramContainer>
         <TitleContainer>
-          <LikedProgram>Liked Program</LikedProgram>
+          <FavoritePrograms>Favorite Programs</FavoritePrograms>
           <TouchableOpacity
             onPress={() => navigation.navigate("ProgramList", { programs })}
           >
@@ -204,7 +198,7 @@ export default function Program({ navigation }) {
       </ProgramContainer>
 
       <MainButton
-        text="Create a program"
+        text="Create a new program"
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />

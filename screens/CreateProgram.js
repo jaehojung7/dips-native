@@ -252,7 +252,7 @@ export default function CreateProgram({ navigation, route }) {
         />
 
         <MainButton
-          text="Create a new program"
+          text="Save program"
           loading={loading}
           disabled={!watch("programTitle")}
           onPress={handleSubmit(onSubmitValid)}

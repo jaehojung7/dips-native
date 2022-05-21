@@ -269,10 +269,10 @@ export default function EditRecord({ navigation, route }) {
             disabled={!watch("recordTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
-            <ButtonText>저장</ButtonText>
+            <ButtonText>Save</ButtonText>
           </SaveRecordButton>
 
-          <DeleteRecordButton text="삭제" record={record} {...{ navigation }} />
+          <DeleteRecordButton record={record} {...{ navigation }} />
         </ButtonContainer>
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
