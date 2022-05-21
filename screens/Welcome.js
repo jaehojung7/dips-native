@@ -50,7 +50,7 @@ export default function Welcome({ navigation }) {
       <MainButton text="Log in" disabled={false} onPress={goToLogIn} />
       <MainButton text="Start workout" disabled={false} onPress={goToWorkout} />
       <TouchableOpacity onPress={goToCreateAccount}>
-        <LoginLink>Create an account</LoginLink>
+        <LoginLink>Create account</LoginLink>
       </TouchableOpacity>
     </Container>
   );

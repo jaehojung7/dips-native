@@ -27,7 +27,7 @@ const HeaderContainer = styled.View`
 
 const Header = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 700;
 `;
 
