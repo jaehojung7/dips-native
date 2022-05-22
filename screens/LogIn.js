@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../components/auth/AuthLayout";
-import { logUserIn } from "../apollo";
+import client, { logUserIn } from "../apollo";
 import styled from "styled-components/native";
 import { AuthInput } from "../components/auth/AuthInput";
 
@@ -43,7 +43,7 @@ export default function Login({ route }) {
       login: { ok, token, error },
     } = data;
     if (ok) {
-      await logUserIn(token);
+      await logUserIn(token).then(() => client.resetStore());
     }
   };
 
