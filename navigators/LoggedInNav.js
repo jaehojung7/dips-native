@@ -53,7 +53,7 @@ export default function LoggedInNav() {
         {() => <SharedStackNav screenName="Record" />}
       </Tabs.Screen>
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="Exercise"
         options={{
           tabBarIcon: ({ color }) => (
@@ -62,6 +62,17 @@ export default function LoggedInNav() {
         }}
       >
         {() => <SharedStackNav screenName="Exercise" />}
+      </Tabs.Screen> */}
+
+      <Tabs.Screen
+        name="Search"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="search" size={22} color={color} />
+          ),
+        }}
+      >
+        {() => <SharedStackNav screenName="Search" />}
       </Tabs.Screen>
 
       <Tabs.Screen
