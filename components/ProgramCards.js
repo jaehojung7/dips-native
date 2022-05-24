@@ -25,6 +25,8 @@ const WorkoutTitle = styled.Text`
 `;
 
 export default function ProgramCards({ programs, exercises }) {
+  const likedPrograms = programs.filter((program) => program.isLiked == true);
+
   const navigation = useNavigation();
   const renderProgram = ({ item: program }) => {
     return (
@@ -43,7 +45,7 @@ export default function ProgramCards({ programs, exercises }) {
 
   return (
     <FlatList
-      data={programs}
+      data={likedPrograms}
       keyExtractor={(item, index) => "" + index}
       renderItem={renderProgram}
       horizontal

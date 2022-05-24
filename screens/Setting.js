@@ -118,6 +118,8 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
+  const myPrograms = programs.filter((program) => program.isMine == true);
+  const likedPrograms = programs.filter((program) => program.isLiked == true);
   const exercises = data?.me.exercises;
 
   return (
@@ -146,7 +148,9 @@ export default function Setting({ navigation }) {
             <BorderLine />
           </ListTouchable>
 
-          <ListTouchable>
+          <ListTouchable
+            onPress={() => navigation.navigate("MyPrograms", { likedPrograms })}
+          >
             <ListTextContainer>
               <ListText>Favorite programs</ListText>
               <ListText>
