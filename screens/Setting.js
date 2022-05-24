@@ -53,17 +53,17 @@ const Header = styled.Text`
 `;
 
 const ProfileContainer = styled.View`
-  margin-bottom: 20px;
-  padding: 25px 20px;
+  margin-bottom: 15px;
+  padding: 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
 `;
 
 const ProfileText = styled.Text`
   color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -132,8 +132,11 @@ export default function Setting({ navigation }) {
             {data?.me.email}
           </ProfileText>
         </ProfileContainer>
+
         <ListsContainer>
-          <ListTouchable>
+          <ListTouchable
+            onPress={() => navigation.navigate("MyPrograms", { programs })}
+          >
             <ListTextContainer>
               <ListText>My programs</ListText>
               <ListText>
@@ -142,6 +145,7 @@ export default function Setting({ navigation }) {
             </ListTextContainer>
             <BorderLine />
           </ListTouchable>
+
           <ListTouchable>
             <ListTextContainer>
               <ListText>Favorite programs</ListText>
@@ -151,6 +155,7 @@ export default function Setting({ navigation }) {
             </ListTextContainer>
             <BorderLine />
           </ListTouchable>
+
           <ListTouchable
             onPress={() => {
               navigation.navigate("ExerciseList", {

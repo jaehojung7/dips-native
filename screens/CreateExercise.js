@@ -38,7 +38,7 @@ const Header = styled.Text`
 `;
 
 const ExerciseTitle = styled.TextInput`
-  color: black;
+  color: ${(props) => props.theme.fontColor};
   background-color: ${(props) => props.theme.cardColor};
   padding: 10px;
   font-size: 21px;

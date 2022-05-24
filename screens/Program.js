@@ -77,7 +77,6 @@ const RecentProgramContainer = styled.TouchableOpacity`
   padding: 25px 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  align-items: center;
 `;
 
 const RecentTitle = styled.Text`
@@ -189,7 +188,7 @@ export default function Program({ navigation }) {
         <TitleContainer>
           <FavoritePrograms>Favorite Programs</FavoritePrograms>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ProgramList", { programs })}
+            onPress={() => navigation.navigate("MyPrograms", { programs })}
           >
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>

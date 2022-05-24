@@ -81,14 +81,14 @@ const Container = styled.ScrollView`
 const TitleContainer = styled.View`
   margin-top: 50px;
   margin-bottom: 15px;
-  padding: 15px 25px;
+  padding: 15px 20px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
 `;
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
 `;
 
@@ -264,6 +264,7 @@ export default function EditProgram({ navigation, route }) {
             rules={{ required: true }}
             render={({ field: { value } }) => (
               <TitleInput
+                maxLength={25}
                 defaultValue={defaultValues.programTitle}
                 placeholder="프로그램 이름"
                 placeholderTextColor="#999999"

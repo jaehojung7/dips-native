@@ -36,7 +36,7 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function ProgramList({ route, navigation }) {
+export default function MyPrograms({ route, navigation }) {
   const { programs } = route.params;
   const renderItem = ({ item: program }) => {
     return (

@@ -7,25 +7,21 @@ const ProgramContainer = styled.View`
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
   padding: 15px 20px;
-  width: 210px;
-  height: 140px;
+  width: 200px;
 `;
 
 const ProgramTitle = styled.Text`
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 10px;
   color: ${(props) => props.theme.fontColor};
-  /* text-align: center; */
 `;
 
 const WorkoutTitle = styled.Text`
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 5px;
+  font-size: 17px;
+  font-weight: 600;
   color: ${(props) => props.theme.fontColor};
-  opacity: 0.5;
-  /* text-align: center; */
+  opacity: 0.6;
 `;
 
 export default function ProgramCards({ programs, exercises }) {
@@ -39,11 +35,7 @@ export default function ProgramCards({ programs, exercises }) {
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          {program?.workouts.map((workout, workoutIndex) => {
-            return (
-              <WorkoutTitle key={workoutIndex}>{workout.title}</WorkoutTitle>
-            );
-          })}
+          <WorkoutTitle>{program.workouts.length} workouts</WorkoutTitle>
         </ProgramContainer>
       </TouchableOpacity>
     );

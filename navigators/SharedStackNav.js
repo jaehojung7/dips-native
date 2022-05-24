@@ -10,7 +10,7 @@ import EditProgram from "../screens/EditProgram";
 import CreateExercise from "../screens/CreateExercise";
 import ExerciseListModalProgram from "../screens/ExerciseListModalProgram";
 import ExerciseListModalRecord from "../screens/ExerciseListModalRecord";
-import ProgramList from "../screens/ProgramList";
+import MyPrograms from "../screens/MyPrograms";
 import EditRecord from "../screens/EditRecord";
 import Search from "../screens/Search";
 import ExerciseList from "../screens/ExerciseList";
@@ -68,7 +68,7 @@ export default function SharedStackNav({ screenName, route }) {
       <Stack.Screen name="CreateProgram" component={CreateProgram} />
       <Stack.Screen name="EditProgram" component={EditProgram} />
       <Stack.Screen name="SeeProgram" component={SeeProgram} />
-      <Stack.Screen name="ProgramList" component={ProgramList} />
+      <Stack.Screen name="MyPrograms" component={MyPrograms} />
       <Stack.Screen name="ExerciseList" component={ExerciseList} />
       <Stack.Screen name="EditRecord" component={EditRecord} />
     </Stack.Navigator>

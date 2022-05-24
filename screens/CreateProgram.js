@@ -85,7 +85,7 @@ const TitleContainer = styled.View`
 
 const TitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
 `;
 
@@ -239,6 +239,7 @@ export default function CreateProgram({ navigation, route }) {
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
+                maxLength={25}
                 placeholder="Program title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}

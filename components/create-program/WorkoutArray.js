@@ -54,6 +54,7 @@ export default function WorkoutArray({
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <ContainerTitle
+                    maxLength={25}
                     defaultValue={defaultValues?.workouts[workoutIndex]?.title}
                     placeholder="Workout title"
                     placeholderTextColor="#999999"

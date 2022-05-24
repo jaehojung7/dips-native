@@ -2,10 +2,10 @@ import { React } from "react";
 import { ActivityIndicator } from "react-native";
 import { gql, useLazyQuery } from "@apollo/client";
 import styled from "styled-components/native";
-import { FlatList } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Controller, useForm } from "react-hook-form";
-import ProgramCardsHorizontal from "../components/ProgramCards";
+import SearchProgramList from "../components/SearchProgramList";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const SEARCH_PROGRAMS_QUERY = gql`
   query searchPrograms($keyword: String!) {
@@ -29,8 +29,12 @@ const SEARCH_PROGRAMS_QUERY = gql`
   }
 `;
 
+const Container = styled.View`
+  margin: 20px 10px;
+`;
+
 const HeaderContainer = styled.View`
-  margin: 40px 25px 5px 15px;
+  margin: 20px 15px 15px 5px;
 `;
 
 const Header = styled.Text`
@@ -40,8 +44,8 @@ const Header = styled.Text`
 `;
 
 const SearchContainer = styled.View`
-  margin: 10px 10px;
-  padding: 15px 25px;
+  margin: 5px 0;
+  padding: 10px 20px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
   flex-direction: row;
@@ -56,49 +60,14 @@ const SearchInput = styled.TextInput`
 `;
 
 const ProgramsContainer = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+  margin-top: 10px;
 `;
 
 const InstructionText = styled.Text`
+  font-size: 15px;
   font-weight: 600;
+  text-align: center;
   color: ${(props) => props.theme.fontColor};
-`;
-
-const ProgramContainer = styled.View`
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  margin: 10px 10px;
-  padding: 15px;
-`;
-
-const ProgramTitleContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const ProgramTitle = styled.Text`
-  font-size: 19px;
-  font-weight: 600;
-  color: ${(props) => props.theme.fontColor};
-`;
-
-const ProgramSubheaderContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding-right: 5px;
-  margin-bottom: 7px;
-`;
-
-const ProgramDate = styled.Text`
-  font-size: 16px;
-  font-weight: 500;
-  color: ${(props) => props.theme.gray};
-  /* margin-bottom: 7px; */
-  text-align: left;
 `;
 
 export default function Search({ navigation }) {
@@ -117,68 +86,48 @@ export default function Search({ navigation }) {
     searchProgramsFunction({ variables: { keyword } });
   };
 
-  // const renderProgram = ({ item: program, index }) => {
-  //   return (
-  //     <ProgramContainer>
-  //       <ProgramTitleContainer>
-  //         <ProgramTitle>{program?.title}</ProgramTitle>
-  //       </ProgramTitleContainer>
-  //       <ProgramSubheaderContainer>
-  //         <ProgramDate>{Program?.date}</ProgramDate>
-  //         <EditProgram
-  //           onPress={() =>
-  //             navigation.navigate("EditProgram", { Program, exercises })
-  //           }
-  //         >
-  //           <EditText>Edit</EditText>
-  //         </EditProgram>
-  //       </ProgramSubheaderContainer>
-  //       {expanded[index] && (
-  //         <WorkoutProgram ProgramExercises={Program?.ProgramExercises} />
-  //       )}
-  //     </ProgramContainer>
-  //   );
-  // };
-
   return (
-    <>
-      <HeaderContainer>
-        <Header>Search</Header>
-      </HeaderContainer>
-      <SearchContainer>
-        <FontAwesome
-          name="search"
-          size={16}
-          color="lightgray"
-          style={{ marginRight: 10 }}
-        />
-        <Controller
-          name="keyword"
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <SearchInput
-              placeholder="Search programs"
-              placeholderTextColor="#999999"
-              onChangeText={(text) => setValue("keyword", text)}
-              onSubmitEditing={handleSubmit(onSubmitValid)}
-            />
-          )}
-        />
-      </SearchContainer>
-      <ProgramsContainer>
-        {loading ? <ActivityIndicator /> : null}
-        {!called ? (
-          <InstructionText>Search programs with keyword</InstructionText>
-        ) : null}
-        {programs !== undefined ? (
-          programs?.length === 0 ? (
-            <InstructionText>No matching program</InstructionText>
-          ) : (
-            <ProgramCardsHorizontal programs={programs} />
-          )
-        ) : null}
-      </ProgramsContainer>
-    </>
+    <DismissKeyboard>
+      <Container>
+        <HeaderContainer>
+          <Header>Search</Header>
+        </HeaderContainer>
+        <SearchContainer>
+          <FontAwesome
+            name="search"
+            size={16}
+            color="lightgray"
+            style={{ marginRight: 10 }}
+          />
+          <Controller
+            name="keyword"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <SearchInput
+                placeholder="Search programs"
+                placeholderTextColor="#999999"
+                onChangeText={(text) => setValue("keyword", text)}
+                onSubmitEditing={handleSubmit(onSubmitValid)}
+              />
+            )}
+          />
+        </SearchContainer>
+        <ProgramsContainer>
+          {loading ? <ActivityIndicator /> : null}
+          {!called ? (
+            <InstructionText>Search programs with keyword</InstructionText>
+          ) : null}
+
+          {programs !== undefined ? (
+            programs?.length === 0 ? (
+              <InstructionText>No matching program</InstructionText>
+            ) : (
+              <SearchProgramList programs={programs} />
+            )
+          ) : null}
+        </ProgramsContainer>
+      </Container>
+    </DismissKeyboard>
   );
 }

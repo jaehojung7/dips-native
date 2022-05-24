@@ -29,6 +29,7 @@ const ProgramTitle = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-size: 25px;
   font-weight: 700;
+  width: 85%;
 `;
 
 const InfoContainer = styled.View`
@@ -45,16 +46,14 @@ const InfoText = styled.Text`
   margin-left: 7px;
 `;
 
-const BookmarkContainer = styled.TouchableOpacity`
+const IconContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `;
 
-const UnlockContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+const IconText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -155,35 +154,40 @@ export default function SeeProgram({ route, navigation }) {
         </HeaderContainer>
 
         <InfoContainer>
-          <BookmarkContainer onPress={toggleLikeFunction}>
+          <IconContainer onPress={toggleLikeFunction}>
             {program.isLiked ? (
               <>
-                <FontAwesome
-                  name={program.isLiked ? "bookmark" : "bookmark-o"}
-                  size={15}
-                />
-                <InfoText>Marked</InfoText>
+                <IconText>
+                  <FontAwesome name="star" size={16} />
+                </IconText>
+                <InfoText>Favorite</InfoText>
               </>
             ) : (
               <>
-                <FontAwesome name="bookmark-o" size={15} />
-                <InfoText>Unmarked</InfoText>
+                <IconText>
+                  <FontAwesome name="star-o" size={16} />
+                </IconText>
+                <InfoText>Like</InfoText>
               </>
             )}
-          </BookmarkContainer>
-          <UnlockContainer>
+          </IconContainer>
+          <IconContainer>
             {program.isPublic ? (
               <>
-                <FontAwesome5 name="unlock" size={15} />
+                <IconText>
+                  <FontAwesome5 name="unlock" size={14} />
+                </IconText>
                 <InfoText>Public</InfoText>
               </>
             ) : (
               <>
-                <FontAwesome5 name="lock" size={15} />
+                <IconText>
+                  <FontAwesome5 name="lock" size={14} />
+                </IconText>
                 <InfoText>Private</InfoText>
               </>
             )}
-          </UnlockContainer>
+          </IconContainer>
         </InfoContainer>
 
         {program?.workouts.map((workout, workoutIndex) => {

@@ -30,9 +30,8 @@ export default function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="Workout"
+        name="Programs"
         options={{
-          // title: "프로그램",
           tabBarLabel: "Programs",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="calendar-check" size={22} color={color} />
@@ -52,17 +51,6 @@ export default function LoggedInNav() {
       >
         {() => <SharedStackNav screenName="Record" />}
       </Tabs.Screen>
-
-      {/* <Tabs.Screen
-        name="Exercise"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="list-ul" size={22} color={color} />
-          ),
-        }}
-      >
-        {() => <SharedStackNav screenName="Exercise" />}
-      </Tabs.Screen> */}
 
       <Tabs.Screen
         name="Search"
