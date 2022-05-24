@@ -194,7 +194,7 @@ export default function Program({ navigation }) {
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={data?.me.programs} exercises={exercises} />
+        <ProgramCards programs={programs} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

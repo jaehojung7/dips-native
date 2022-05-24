@@ -68,7 +68,7 @@ const ButtonText = styled.Text`
 export default function CreateExercise({ navigation, route }) {
   const { handleSubmit, setValue, getValues, control } = useForm();
   const [selectedBodyPart, setSelectedBodyPart] = useState("Leg");
-  const { user } = route.params;
+  const { userId } = route.params;
   const scheme = useColorScheme();
 
   const createExerciseUpdate = (cache, result) => {
@@ -99,7 +99,7 @@ export default function CreateExercise({ navigation, route }) {
       });
 
       cache.modify({
-        id: `User:${user.id}`,
+        id: `User:${userId}`,
         fields: {
           exercises(prev) {
             return [...prev, newExerciseCache];
@@ -114,7 +114,7 @@ export default function CreateExercise({ navigation, route }) {
       createExercise: { ok },
     } = data;
     if (ok) {
-      navigation.navigate("StackSearch");
+      navigation.navigate("StackSetting");
     }
   };
 
