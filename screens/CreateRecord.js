@@ -194,7 +194,6 @@ export default function CreateRecord({ navigation, route }) {
       }
     );
     navigation.navigate("StackProgram");
-    navigation.navigate("Record");
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(

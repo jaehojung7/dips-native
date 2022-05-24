@@ -129,7 +129,6 @@ const ButtonText = styled.Text`
 
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
-
   const { exercises } = route.params;
   const [isPublic, setisPublic] = useState(program.isPublic);
   const [modalVisible, setModalVisible] = useState(false);

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Modal } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
-import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";

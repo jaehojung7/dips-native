@@ -43,17 +43,12 @@ const InfoText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
   font-weight: 500;
-  margin-left: 7px;
 `;
 
 const IconContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-`;
-
-const IconText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -111,6 +106,7 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
+  console.log(program);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -144,47 +140,49 @@ export default function SeeProgram({ route, navigation }) {
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          <EditProgram
-            onPress={() =>
-              navigation.navigate("EditProgram", { program, exercises })
-            }
-          >
-            <EditText>Edit</EditText>
-          </EditProgram>
+          {program.isMine ? (
+            <EditProgram
+              onPress={() =>
+                navigation.navigate("EditProgram", { program, exercises })
+              }
+            >
+              <EditText>Edit</EditText>
+            </EditProgram>
+          ) : null}
         </HeaderContainer>
 
         <InfoContainer>
           <IconContainer onPress={toggleLikeFunction}>
             {program.isLiked ? (
               <>
-                <IconText>
+                <InfoText>
                   <FontAwesome name="star" size={16} />
-                </IconText>
-                <InfoText>Favorite</InfoText>
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>Favorite</InfoText>
               </>
             ) : (
               <>
-                <IconText>
+                <InfoText>
                   <FontAwesome name="star-o" size={16} />
-                </IconText>
-                <InfoText>Like</InfoText>
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
               </>
             )}
           </IconContainer>
           <IconContainer>
             {program.isPublic ? (
               <>
-                <IconText>
+                <InfoText>
                   <FontAwesome5 name="unlock" size={14} />
-                </IconText>
-                <InfoText>Public</InfoText>
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>Public</InfoText>
               </>
             ) : (
               <>
-                <IconText>
+                <InfoText>
                   <FontAwesome5 name="lock" size={14} />
-                </IconText>
-                <InfoText>Private</InfoText>
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>Private</InfoText>
               </>
             )}
           </IconContainer>
@@ -203,7 +201,8 @@ export default function SeeProgram({ route, navigation }) {
                       programTitle: program?.title,
                       workout,
                       exercises,
-                    });
+                    }),
+                      { ...{ navigation } };
                   }}
                 />
               </WorkoutTitleContainer>

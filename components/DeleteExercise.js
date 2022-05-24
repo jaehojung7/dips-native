@@ -30,7 +30,7 @@ const ExerciseTitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 15px;
+  margin: 10px;
 `;
 
 const ExerciseTitle = styled.Text`

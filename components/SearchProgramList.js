@@ -36,9 +36,7 @@ export default function SearchProgramList({ programs }) {
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("SeeProgram", { program, exercises })
-        }
+        onPress={() => navigation.navigate("SeeProgram", { program })}
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
@@ -49,7 +47,7 @@ export default function SearchProgramList({ programs }) {
                   <FontAwesome5 name="user-alt" size={14} />
                 </>
               ) : (
-                <>null</>
+                <></>
               )}
             </IconText>
             <IconText>

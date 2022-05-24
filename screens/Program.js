@@ -146,6 +146,7 @@ export default function Program({ navigation }) {
   } else {
     nextWorkoutIndex = 0;
   }
+  const likedPrograms = programs.filter((program) => program.isLiked == true);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -188,12 +189,12 @@ export default function Program({ navigation }) {
         <TitleContainer>
           <FavoritePrograms>Favorite Programs</FavoritePrograms>
           <TouchableOpacity
-            onPress={() => navigation.navigate("MyPrograms", { programs })}
+            onPress={() => navigation.navigate("LikedPrograms", { programs })}
           >
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={programs} exercises={exercises} />
+        <ProgramCards programs={likedPrograms} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

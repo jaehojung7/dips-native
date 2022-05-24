@@ -3,11 +3,11 @@ import styled from "styled-components/native";
 import { FlatList } from "react-native";
 
 const Container = styled.View`
-  margin: 20px 0;
+  margin: 20px 10px;
 `;
 
 const HeaderContainer = styled.View`
-  margin: 50px 0 10px 15px;
+  margin: 50px 15px 10px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -21,7 +21,7 @@ const Header = styled.Text`
 
 const TitleContainer = styled.TouchableOpacity`
   justify-content: space-between;
-  margin: 10px 15px;
+  margin: 10px;
 `;
 
 const ProgramTitle = styled.Text`
@@ -36,7 +36,7 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function MyPrograms({ route, navigation }) {
+export default function LikedPrograms({ route, navigation }) {
   const { programs } = route.params;
   const renderItem = ({ item: program }) => {
     return (
@@ -56,7 +56,7 @@ export default function MyPrograms({ route, navigation }) {
   return (
     <Container>
       <HeaderContainer>
-        <Header>Program List</Header>
+        <Header>Programs</Header>
       </HeaderContainer>
       <FlatList
         data={programs}
