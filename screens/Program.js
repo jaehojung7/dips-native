@@ -10,6 +10,7 @@ export const ME_QUERY = gql`
   query me {
     me {
       id
+      # likes
       programs {
         id
         title
@@ -146,7 +147,7 @@ export default function Program({ navigation }) {
   } else {
     nextWorkoutIndex = 0;
   }
-  const likedPrograms = programs.filter((program) => program.isLiked == true);
+  // const likedPrograms = programs.filter((program) => program.isLiked == true);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -189,12 +190,12 @@ export default function Program({ navigation }) {
         <TitleContainer>
           <FavoritePrograms>Favorite Programs</FavoritePrograms>
           <TouchableOpacity
-            onPress={() => navigation.navigate("LikedPrograms", { programs })}
+            onPress={() => navigation.navigate("SettingPrograms", { programs })}
           >
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={likedPrograms} exercises={exercises} />
+        <ProgramCards programs={programs} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

@@ -207,9 +207,8 @@ export default function SeeProgram({ route, navigation }) {
                   text="Start"
                   onPress={() => {
                     navigation.navigate("CreateRecord", {
-                      program,
-                      // baseProgramId: program?.id,
-                      // programTitle: program?.title,
+                      baseProgramId: program?.id,
+                      programTitle: program?.title,
                       workout,
                       exercises,
                     }),

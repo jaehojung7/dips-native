@@ -36,15 +36,15 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function LikedPrograms({ route, navigation }) {
+export default function SettingPrograms({ route, navigation }) {
   const { programs } = route.params;
-  console.log(programs);
+  const { exercises } = route.params;
   const renderItem = ({ item: program }) => {
     return (
       <>
         <TitleContainer
           onPress={() => {
-            navigation.navigate("SeeProgram", { program });
+            navigation.navigate("SeeProgram", { program, exercises });
           }}
         >
           <ProgramTitle>{program.title}</ProgramTitle>

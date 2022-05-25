@@ -12,6 +12,22 @@ const ME_QUERY = gql`
       id
       username
       email
+      likes {
+        program {
+          id
+          title
+          workouts {
+            title
+            workoutIndex
+            workoutSets {
+              id
+              exercise
+              setCount
+              repCount
+            }
+          }
+        }
+      }
       programs {
         id
         title
@@ -95,9 +111,9 @@ const ListTextContainer = styled.View`
 `;
 
 const ListText = styled.Text`
-  padding: 15px 20px;
+  padding: 15px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   color: ${(props) => props.theme.fontColor};
 `;
 
@@ -118,8 +134,7 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
-  const myPrograms = programs.filter((program) => program.isMine == true);
-  const likedPrograms = programs.filter((program) => program.isLiked == true);
+  const likedprograms = data?.me.likes;
   const exercises = data?.me.exercises;
 
   return (
@@ -138,8 +153,8 @@ export default function Setting({ navigation }) {
         <ListsContainer>
           <ListTouchable
             onPress={() =>
-              navigation.navigate("LikedPrograms", {
-                programs: myPrograms,
+              navigation.navigate("SettingPrograms", {
+                programs,
                 exercises,
               })
             }
@@ -155,8 +170,8 @@ export default function Setting({ navigation }) {
 
           <ListTouchable
             onPress={() =>
-              navigation.navigate("LikedPrograms", {
-                programs: likedPrograms,
+              navigation.navigate("SettingPrograms", {
+                programs: likedprograms,
                 exercises,
               })
             }

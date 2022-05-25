@@ -8,7 +8,6 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(

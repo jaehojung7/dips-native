@@ -61,7 +61,6 @@ export default function ExerciseArray({
     control,
     name: "recordExercises",
   });
-  console.log(isMine);
 
   const [expanded, setExpanded] = useState(
     Array(defaultValues.recordExercises.length).fill([true])
@@ -79,28 +78,21 @@ export default function ExerciseArray({
       {fields.map((recordExercise, recordExerciseIndex) => {
         return (
           <MainContainer key={recordExercise.id}>
-            {isMine ? (
-              <Controller
-                name={`recordExercises[${recordExerciseIndex}].exercise`}
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value } }) => (
-                  <SelectExercise
-                    onPress={() => {
-                      setRecordExerciseIndexState(recordExerciseIndex);
-                      setModalVisible(true);
-                    }}
-                  >
-                    <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
-                  </SelectExercise>
-                )}
-              />
-            ) : (
-              <FixedExercise>
-                <ExerciseTitle>{recordExercise.exercise}</ExerciseTitle>
-              </FixedExercise>
-            )}
-
+            <Controller
+              name={`recordExercises[${recordExerciseIndex}].exercise`}
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value } }) => (
+                <SelectExercise
+                  onPress={() => {
+                    setRecordExerciseIndexState(recordExerciseIndex);
+                    setModalVisible(true);
+                  }}
+                >
+                  <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
+                </SelectExercise>
+              )}
+            />
             <ExerciseSetArray
               recordExerciseIndex={recordExerciseIndex}
               {...{ control, setValue, defaultValues }}
@@ -108,26 +100,23 @@ export default function ExerciseArray({
           </MainContainer>
         );
       })}
-      {isMine ? (
-        <ButtonContainer>
-          <AddDeleteExerciseButton
-            text="Add exercise"
-            onPress={() => {
-              append({});
-              setExpanded((arr) => [...arr, true]);
-            }}
-          />
-          <AddDeleteExerciseButton
-            text="Delete exercise"
-            onPress={() => {
-              remove(fields.length - 1);
-              setExpanded((arr) => arr.slice(0, -1));
-            }}
-          />
-        </ButtonContainer>
-      ) : (
-        <></>
-      )}
+
+      <ButtonContainer>
+        <AddDeleteExerciseButton
+          text="Add exercise"
+          onPress={() => {
+            append({});
+            setExpanded((arr) => [...arr, true]);
+          }}
+        />
+        <AddDeleteExerciseButton
+          text="Delete exercise"
+          onPress={() => {
+            remove(fields.length - 1);
+            setExpanded((arr) => arr.slice(0, -1));
+          }}
+        />
+      </ButtonContainer>
     </>
   );
 }
