@@ -17,12 +17,12 @@ const ProgramTitle = styled.Text`
   font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-  width: 70%;
+  width: 75%;
 `;
 
 const IconContainer = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 20%;
 `;
@@ -41,35 +41,28 @@ export default function SearchProgramList({ programs }) {
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
           <IconContainer>
-            <IconText>
-              {program.isMine ? (
-                <>
+            {program.isMine ? (
+              <>
+                <IconText>
                   <FontAwesome5 name="user-alt" size={14} />
-                </>
-              ) : null}
-            </IconText>
-            <IconText>
-              {program.isLiked ? (
-                <>
+                </IconText>
+                <IconText>
+                  {program.isPublic ? (
+                    <FontAwesome5 name="lock-open" size={14} />
+                  ) : (
+                    <FontAwesome5 name="lock" size={14} />
+                  )}
+                </IconText>
+              </>
+            ) : (
+              <IconText>
+                {program.isLiked ? (
                   <FontAwesome name="star" size={16} />
-                </>
-              ) : (
-                <>
+                ) : (
                   <FontAwesome name="star-o" size={16} />
-                </>
-              )}
-            </IconText>
-            <IconText>
-              {program.isPublic ? (
-                <>
-                  <FontAwesome5 name="unlock" size={14} />
-                </>
-              ) : (
-                <>
-                  <FontAwesome5 name="lock" size={14} />
-                </>
-              )}
-            </IconText>
+                )}
+              </IconText>
+            )}
           </IconContainer>
         </ProgramContainer>
       </TouchableOpacity>

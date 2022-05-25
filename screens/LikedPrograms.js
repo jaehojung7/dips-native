@@ -38,6 +38,7 @@ const BorderLine = styled.View`
 
 export default function LikedPrograms({ route, navigation }) {
   const { programs } = route.params;
+  console.log(programs);
   const renderItem = ({ item: program }) => {
     return (
       <>

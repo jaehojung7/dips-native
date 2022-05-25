@@ -33,7 +33,7 @@ const ProgramTitle = styled.Text`
 `;
 
 const InfoContainer = styled.View`
-  margin: 10px;
+  margin: 5px;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
@@ -45,10 +45,11 @@ const InfoText = styled.Text`
   font-weight: 500;
 `;
 
-const IconContainer = styled.TouchableOpacity`
+const LikeContainer = styled.TouchableOpacity`
+  margin: 10px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -150,8 +151,35 @@ export default function SeeProgram({ route, navigation }) {
           ) : null}
         </HeaderContainer>
 
-        <InfoContainer>
-          <IconContainer onPress={toggleLikeFunction}>
+        {program.isMine ? (
+          <InfoContainer>
+            <InfoContainer>
+              <InfoText>
+                <FontAwesome name="user" size={14} />
+              </InfoText>
+              <InfoText style={{ marginLeft: 7 }}>My program</InfoText>
+            </InfoContainer>
+
+            <InfoContainer>
+              {program.isPublic ? (
+                <>
+                  <InfoText>
+                    <FontAwesome5 name="lock-open" size={14} />
+                  </InfoText>
+                  <InfoText style={{ marginLeft: 7 }}>Public</InfoText>
+                </>
+              ) : (
+                <>
+                  <InfoText>
+                    <FontAwesome5 name="lock" size={14} />
+                  </InfoText>
+                  <InfoText style={{ marginLeft: 7 }}>Private</InfoText>
+                </>
+              )}
+            </InfoContainer>
+          </InfoContainer>
+        ) : (
+          <LikeContainer onPress={toggleLikeFunction}>
             {program.isLiked ? (
               <>
                 <InfoText>
@@ -167,25 +195,8 @@ export default function SeeProgram({ route, navigation }) {
                 <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
               </>
             )}
-          </IconContainer>
-          <IconContainer>
-            {program.isPublic ? (
-              <>
-                <InfoText>
-                  <FontAwesome5 name="unlock" size={14} />
-                </InfoText>
-                <InfoText style={{ marginLeft: 7 }}>Public</InfoText>
-              </>
-            ) : (
-              <>
-                <InfoText>
-                  <FontAwesome5 name="lock" size={14} />
-                </InfoText>
-                <InfoText style={{ marginLeft: 7 }}>Private</InfoText>
-              </>
-            )}
-          </IconContainer>
-        </InfoContainer>
+          </LikeContainer>
+        )}
 
         {program?.workouts.map((workout, workoutIndex) => {
           return (
