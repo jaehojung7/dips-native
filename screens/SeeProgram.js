@@ -107,6 +107,8 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
+  const { directStart } = route.params;
+  console.log(directStart);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -203,18 +205,20 @@ export default function SeeProgram({ route, navigation }) {
             <WorkoutContainer key={workoutIndex}>
               <WorkoutTitleContainer>
                 <WorkoutTitle>{workout.title}</WorkoutTitle>
-                <StartWorkoutButton
-                  text="Start"
-                  onPress={() => {
-                    navigation.navigate("CreateRecord", {
-                      baseProgramId: program?.id,
-                      programTitle: program?.title,
-                      workout,
-                      exercises,
-                    }),
-                      { ...{ navigation } };
-                  }}
-                />
+                {directStart ? (
+                  <StartWorkoutButton
+                    text="Start"
+                    onPress={() => {
+                      navigation.navigate("CreateRecord", {
+                        baseProgramId: program?.id,
+                        programTitle: program?.title,
+                        workout,
+                        exercises,
+                      }),
+                        { ...{ navigation } };
+                    }}
+                  />
+                ) : null}
               </WorkoutTitleContainer>
 
               {workout?.workoutSets.map((workoutSet, workoutSetIndex) => {

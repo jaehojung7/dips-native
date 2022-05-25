@@ -39,12 +39,17 @@ const BorderLine = styled.View`
 export default function SettingPrograms({ route, navigation }) {
   const { programs } = route.params;
   const { exercises } = route.params;
+  const directStart = true;
   const renderItem = ({ item: program }) => {
     return (
       <>
         <TitleContainer
           onPress={() => {
-            navigation.navigate("SeeProgram", { program, exercises });
+            navigation.navigate("SeeProgram", {
+              program,
+              exercises,
+              directStart,
+            });
           }}
         >
           <ProgramTitle>{program.title}</ProgramTitle>

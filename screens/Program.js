@@ -130,7 +130,7 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation }) {
   const { data, loading } = useQuery(ME_QUERY);
-
+  const directStart = true;
   if (loading)
     return (
       <IndicatorContainer>
@@ -147,7 +147,6 @@ export default function Program({ navigation }) {
   } else {
     nextWorkoutIndex = 0;
   }
-  // const likedPrograms = programs.filter((program) => program.isLiked == true);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -157,7 +156,10 @@ export default function Program({ navigation }) {
       <RecentProgramContainer
         onPress={() => {
           recentProgram
-            ? navigation.navigate("SeeProgram", { program: recentProgram })
+            ? navigation.navigate("SeeProgram", {
+                program: recentProgram,
+                directStart,
+              })
             : navigation.navigate("CreateProgram", { exercises });
         }}
       >

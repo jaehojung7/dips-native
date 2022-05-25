@@ -26,11 +26,12 @@ const WorkoutTitle = styled.Text`
 
 export default function ProgramCards({ programs, exercises }) {
   const navigation = useNavigation();
+  const directStart = true;
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("SeeProgram", { program, exercises })
+          navigation.navigate("SeeProgram", { program, exercises, directStart })
         }
       >
         <ProgramContainer>
