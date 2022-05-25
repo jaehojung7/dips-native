@@ -118,7 +118,6 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
-  console.log(programs);
   const myPrograms = programs.filter((program) => program.isMine == true);
   const likedPrograms = programs.filter((program) => program.isLiked == true);
   const exercises = data?.me.exercises;

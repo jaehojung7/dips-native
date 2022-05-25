@@ -89,8 +89,9 @@ const WorkoutTitleInput = styled.TextInput`
 `;
 
 export default function CreateRecord({ navigation, route }) {
-  const { baseProgramId } = route.params;
-  const { programTitle } = route.params;
+  const { program } = route.params;
+  const baseProgramId = program.id;
+  const programTitle = program.title;
   let { workout } = route.params;
   if (workout === undefined) {
     workout = {
@@ -255,6 +256,7 @@ export default function CreateRecord({ navigation, route }) {
 
         <ExerciseArray
           {...{
+            isMine: program.isMine,
             control,
             setValue,
             defaultValues,

@@ -106,7 +106,6 @@ const ExerciseTitle = styled.Text`
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
-  console.log(program);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -197,8 +196,9 @@ export default function SeeProgram({ route, navigation }) {
                   text="Start"
                   onPress={() => {
                     navigation.navigate("CreateRecord", {
-                      baseProgramId: program?.id,
-                      programTitle: program?.title,
+                      program,
+                      // baseProgramId: program?.id,
+                      // programTitle: program?.title,
                       workout,
                       exercises,
                     }),

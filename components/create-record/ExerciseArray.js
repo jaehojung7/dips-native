@@ -19,13 +19,16 @@ const TitleContainer = styled.View`
   padding: 0 5px;
 `;
 
-const ContainerTitle = styled.TextInput`
-  font-size: 20px;
-  font-weight: 600;
-  color: ${(props) => props.theme.fontColor};
+const SelectExercise = styled.TouchableOpacity`
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px 5px;
+  font-size: 15px;
+  border-radius: 5px;
+  text-align: center;
+  width: 85%;
 `;
 
-const SelectExercise = styled.TouchableOpacity`
+const FixedExercise = styled.View`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px 5px;
   font-size: 15px;
@@ -47,6 +50,7 @@ const ButtonContainer = styled.View`
 `;
 
 export default function ExerciseArray({
+  isMine,
   control,
   setValue,
   defaultValues,
@@ -57,6 +61,7 @@ export default function ExerciseArray({
     control,
     name: "recordExercises",
   });
+  console.log(isMine);
 
   const [expanded, setExpanded] = useState(
     Array(defaultValues.recordExercises.length).fill([true])
@@ -74,7 +79,7 @@ export default function ExerciseArray({
       {fields.map((recordExercise, recordExerciseIndex) => {
         return (
           <MainContainer key={recordExercise.id}>
-            <TitleContainer>
+            {isMine ? (
               <Controller
                 name={`recordExercises[${recordExerciseIndex}].exercise`}
                 control={control}
@@ -90,7 +95,12 @@ export default function ExerciseArray({
                   </SelectExercise>
                 )}
               />
-            </TitleContainer>
+            ) : (
+              <FixedExercise>
+                <ExerciseTitle>{recordExercise.exercise}</ExerciseTitle>
+              </FixedExercise>
+            )}
+
             <ExerciseSetArray
               recordExerciseIndex={recordExerciseIndex}
               {...{ control, setValue, defaultValues }}
@@ -98,22 +108,26 @@ export default function ExerciseArray({
           </MainContainer>
         );
       })}
-      <ButtonContainer>
-        <AddDeleteExerciseButton
-          text="Add exercise"
-          onPress={() => {
-            append({});
-            setExpanded((arr) => [...arr, true]);
-          }}
-        />
-        <AddDeleteExerciseButton
-          text="Delete exercise"
-          onPress={() => {
-            remove(fields.length - 1);
-            setExpanded((arr) => arr.slice(0, -1));
-          }}
-        />
-      </ButtonContainer>
+      {isMine ? (
+        <ButtonContainer>
+          <AddDeleteExerciseButton
+            text="Add exercise"
+            onPress={() => {
+              append({});
+              setExpanded((arr) => [...arr, true]);
+            }}
+          />
+          <AddDeleteExerciseButton
+            text="Delete exercise"
+            onPress={() => {
+              remove(fields.length - 1);
+              setExpanded((arr) => arr.slice(0, -1));
+            }}
+          />
+        </ButtonContainer>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

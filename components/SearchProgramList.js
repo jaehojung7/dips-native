@@ -46,9 +46,7 @@ export default function SearchProgramList({ programs }) {
                 <>
                   <FontAwesome5 name="user-alt" size={14} />
                 </>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </IconText>
             <IconText>
               {program.isLiked ? (
