@@ -163,7 +163,7 @@ export default function SeeProgram({ route, navigation }) {
   const onClickAlert = () => {
     Alert.alert(
       "Favorite program",
-      "Start this workout in Settings > Favorite programs"
+      "Start your favorite programs in Settings > Favorite programs"
     );
   };
 
