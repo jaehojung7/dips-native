@@ -132,7 +132,6 @@ export default function SeeProgram({ route, navigation }) {
   const { exercises } = route.params;
   const { directStart } = route.params;
   const [isLiked, setIsLiked] = useState(program.isLiked);
-  console.log(isLiked);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -269,13 +268,16 @@ export default function SeeProgram({ route, navigation }) {
                 return (
                   <ExerciseContainer key={workoutSetIndex}>
                     <ExerciseTitleContainer>
-                      <ExerciseTitle>{workoutSet?.exercise}</ExerciseTitle>
+                      <ExerciseTitle>{workoutSet.exercise}</ExerciseTitle>
                     </ExerciseTitleContainer>
 
                     <SetbyRepContainer>
                       <ExerciseTitle>{workoutSet.setCount}</ExerciseTitle>
-                      <ExerciseTitle> x </ExerciseTitle>
-                      <ExerciseTitle>{workoutSet.repCount}</ExerciseTitle>
+                      {workoutSet.repCount ? (
+                        <ExerciseTitle> x {workoutSet.repCount}</ExerciseTitle>
+                      ) : (
+                        <ExerciseTitle> sets</ExerciseTitle>
+                      )}
                     </SetbyRepContainer>
                   </ExerciseContainer>
                 );

@@ -33,12 +33,11 @@ const IconText = styled.Text`
 
 export default function SearchProgramList({ programs }) {
   const navigation = useNavigation();
-  const directStart = false;
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("SeeProgram", { program, directStart })
+          navigation.navigate("SeeProgram", { program, directStart: false })
         }
       >
         <ProgramContainer>
