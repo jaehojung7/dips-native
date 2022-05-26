@@ -32,7 +32,7 @@ const Header = styled.Text`
 `;
 
 export default function CreateAccount({ navigation }) {
-  const { register, handleSubmit, setValue, getValues, control } = useForm();
+  const { handleSubmit, setValue, getValues, control, watch } = useForm();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -68,18 +68,6 @@ export default function CreateAccount({ navigation }) {
       variables: { username, email, password },
     });
   };
-
-  useEffect(() => {
-    register("username", {
-      required: true,
-    });
-    register("email", {
-      required: true,
-    });
-    register("password", {
-      required: true,
-    });
-  }, [register]);
 
   return (
     <AuthLayout>
@@ -137,7 +125,7 @@ export default function CreateAccount({ navigation }) {
       />
       <MainButton
         text="Sign up"
-        disabled={false}
+        disabled={!watch("username") || !watch("email") || !watch("password")}
         loading={loading}
         onPress={handleSubmit(onSubmitValid)}
       />

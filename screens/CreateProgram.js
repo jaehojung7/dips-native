@@ -8,7 +8,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -128,8 +128,9 @@ export default function CreateProgram({ navigation, route }) {
       },
     ],
   };
-  const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({ defaultValues });
+  const { handleSubmit, setValue, getValues, control, watch } = useForm({
+    defaultValues,
+  });
   const { exercises } = route.params;
   const [isPublic, setisPublic] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);

@@ -108,7 +108,6 @@ export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
   const { directStart } = route.params;
-  console.log(directStart);
 
   const toggleLikeUpdate = (cache, result) => {
     const {

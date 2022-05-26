@@ -30,12 +30,11 @@ const Header = styled.Text`
 `;
 
 export default function Login({ route }) {
-  const { register, handleSubmit, setValue, getValues, watch, control } =
-    useForm({
-      defaultValues: {
-        email: route.params?.email,
-      },
-    });
+  const defaultValues = { email: route.params?.email };
+
+  const { handleSubmit, setValue, getValues, control, watch } = useForm({
+    defaultValues,
+  });
   const passwordRef = useRef();
 
   const onCompleted = async (data) => {
@@ -66,15 +65,6 @@ export default function Login({ route }) {
     });
   };
 
-  useEffect(() => {
-    register("email", {
-      required: true,
-    });
-    register("password", {
-      required: true,
-    });
-  }, [register]);
-
   return (
     <AuthLayout>
       <HeaderContainer>
@@ -86,8 +76,8 @@ export default function Login({ route }) {
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            value={watch("email")}
             placeholder="Email"
+            defaultValue={defaultValues?.email}
             autoCapitalize="none"
             keyboardType="email-address"
             returnKeyType="next"
@@ -115,7 +105,7 @@ export default function Login({ route }) {
         )}
       />
       <MainButton
-        text="로그인"
+        text="Log in"
         loading={loading}
         disabled={!watch("email") || !watch("password")}
         onPress={handleSubmit(onSubmitValid)}
