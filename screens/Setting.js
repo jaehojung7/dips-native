@@ -134,7 +134,7 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
-  const likedprograms = data?.me.likes;
+  const likedprograms = data?.me.likes.map((like) => like.program);
   const exercises = data?.me.exercises;
 
   return (
