@@ -1,5 +1,5 @@
-import React from "react";
-import { ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
@@ -16,6 +16,9 @@ const ME_QUERY = gql`
         program {
           id
           title
+          isLiked
+          isMine
+          isPublic
           workouts {
             title
             workoutIndex
@@ -124,7 +127,13 @@ const BorderLine = styled.View`
 `;
 
 export default function Setting({ navigation }) {
-  const { data, loading } = useQuery(ME_QUERY);
+  const { data, loading, refetch } = useQuery(ME_QUERY);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   if (loading)
     return (
@@ -134,12 +143,17 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
-  const likedprograms = data?.me.likes;
+  const likedprograms = data?.me.likes.map((like) => like.program);
   const exercises = data?.me.exercises;
 
   return (
     <DismissKeyboard>
-      <Container showsVerticalScrollIndicator={false}>
+      <Container
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <HeaderContainer>
           <Header>Settings</Header>
         </HeaderContainer>

@@ -132,12 +132,12 @@ export default function CreateProgram({ navigation, route }) {
     defaultValues,
   });
   const { exercises } = route.params;
-  const [isPublic, setisPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const toggleSwitch = () => setisPublic((previousState) => !previousState);
+  const toggleSwitch = () => setIsPublic((previousState) => !previousState);
 
   const onCreateWorkoutSetCompleted = (data) => {
     const {
@@ -255,7 +255,6 @@ export default function CreateProgram({ navigation, route }) {
             onValueChange={toggleSwitch}
             value={isPublic}
           />
-
           <ToggleInfoContainer onPress={onClickAlert}>
             <ToggleInfoText>
               <FontAwesome5 name="info-circle" size={20} />

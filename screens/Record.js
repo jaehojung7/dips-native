@@ -106,7 +106,6 @@ const EditText = styled.Text`
 export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading, refetch } = useQuery(ME_QUERY);
-
   const [refreshing, setRefreshing] = useState(false);
   const [expanded, setExpanded] = useState([false]);
 

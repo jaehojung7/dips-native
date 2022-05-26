@@ -8,6 +8,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -105,6 +106,14 @@ const ToggleText = styled.Text`
   margin-right: 10px;
 `;
 
+const ToggleInfoContainer = styled.TouchableOpacity`
+  margin-left: 20px;
+`;
+
+const ToggleInfoText = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+`;
+
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -129,9 +138,9 @@ const ButtonText = styled.Text`
 export default function EditProgram({ navigation, route }) {
   const { program } = route.params;
   const { exercises } = route.params;
-  const [isPublic, setisPublic] = useState(program.isPublic);
+  const [isPublic, setIsPublic] = useState(program.isPublic);
   const [modalVisible, setModalVisible] = useState(false);
-  const toggleSwitch = () => setisPublic((previousState) => !previousState);
+  const toggleSwitch = () => setIsPublic((previousState) => !previousState);
 
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {
@@ -252,6 +261,13 @@ export default function EditProgram({ navigation, route }) {
     });
   };
 
+  const onClickAlert = () => {
+    Alert.alert(
+      "Share your program",
+      "Turn on the toggle to allow other users can search this program"
+    );
+  };
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -279,6 +295,11 @@ export default function EditProgram({ navigation, route }) {
             onValueChange={toggleSwitch}
             value={isPublic}
           />
+          <ToggleInfoContainer onPress={onClickAlert}>
+            <ToggleInfoText>
+              <FontAwesome5 name="info-circle" size={20} />
+            </ToggleInfoText>
+          </ToggleInfoContainer>
         </ToggleContainer>
 
         <WorkoutArray
