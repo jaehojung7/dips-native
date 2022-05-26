@@ -16,6 +16,9 @@ const ME_QUERY = gql`
         program {
           id
           title
+          isLiked
+          isMine
+          isPublic
           workouts {
             title
             workoutIndex

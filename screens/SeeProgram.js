@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { Switch, Alert } from "react-native";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -104,11 +105,34 @@ const ExerciseTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
+const ToggleContainer = styled.View`
+  margin: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ToggleText = styled.Text`
+  color: ${(props) => props.theme.fontColor};
+  font-weight: 500;
+  font-size: 15px;
+  margin-right: 5px;
+`;
+
+const ToggleInfoContainer = styled.TouchableOpacity`
+  margin-left: 20px;
+`;
+
+const ToggleInfoText = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+`;
+
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
   const { directStart } = route.params;
-  console.log(directStart);
+  const [isLiked, setIsLiked] = useState(program.isLiked);
+  console.log(isLiked);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -116,17 +140,16 @@ export default function SeeProgram({ route, navigation }) {
         toggleLike: { ok },
       },
     } = result;
-
     if (ok) {
-      // const programId = `Program:${id}`;
-      cache.modify({
-        id: `Program:${program.id}`,
-        fields: {
-          isLiked(prev) {
-            return !prev;
-          },
-        },
-      });
+      setIsLiked((previousState) => !previousState);
+      // cache.modify({
+      //   id: `Program:${program.id}`,
+      //   fields: {
+      //     isLiked(prev) {
+      //       return !prev;
+      //     },
+      //   },
+      // });
     }
   };
 
@@ -136,6 +159,14 @@ export default function SeeProgram({ route, navigation }) {
     },
     update: toggleLikeUpdate,
   });
+  const toggleSwitch = toggleLikeFunction;
+
+  const onClickAlert = () => {
+    Alert.alert(
+      "Favorite program",
+      "Start this workout in Settings > Favorite programs"
+    );
+  };
 
   return (
     <DismissKeyboard>
@@ -181,23 +212,36 @@ export default function SeeProgram({ route, navigation }) {
             </InfoContainer>
           </InfoContainer>
         ) : (
-          <LikeContainer onPress={toggleLikeFunction}>
-            {program.isLiked ? (
-              <>
-                <InfoText>
-                  <FontAwesome name="star" size={16} />
-                </InfoText>
-                <InfoText style={{ marginLeft: 7 }}>Favorite</InfoText>
-              </>
-            ) : (
-              <>
-                <InfoText>
-                  <FontAwesome name="star-o" size={16} />
-                </InfoText>
-                <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
-              </>
-            )}
-          </LikeContainer>
+          <ToggleContainer>
+            <ToggleText>Favorite program</ToggleText>
+            <Switch
+              style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
+              onValueChange={toggleSwitch}
+              value={isLiked}
+            />
+            <ToggleInfoContainer onPress={onClickAlert}>
+              <ToggleInfoText>
+                <FontAwesome5 name="info-circle" size={20} />
+              </ToggleInfoText>
+            </ToggleInfoContainer>
+          </ToggleContainer>
+          // <LikeContainer onPress={toggleLikeFunction}>
+          //   {program.isLiked ? (
+          //     <>
+          //       <InfoText>
+          //         <FontAwesome name="star" size={16} />
+          //       </InfoText>
+          //       <InfoText style={{ marginLeft: 7 }}>Unlike</InfoText>
+          //     </>
+          //   ) : (
+          //     <>
+          //       <InfoText>
+          //         <FontAwesome name="star-o" size={16} />
+          //       </InfoText>
+          //       <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
+          //     </>
+          //   )}
+          // </LikeContainer>
         )}
 
         {program?.workouts.map((workout, workoutIndex) => {
