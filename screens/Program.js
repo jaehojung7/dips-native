@@ -228,13 +228,14 @@ export default function Program({ navigation }) {
         </TitleContainer>
         <ProgramCards programs={programs} exercises={exercises} />
       </ProgramContainer>
+
       <ProgramContainer>
         <TitleContainer>
           <FavoritePrograms>Favorite Programs</FavoritePrograms>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("ProgramList", {
-                programs,
+                programs: likes,
                 exercises,
                 header: "Favorite Programs",
               })
