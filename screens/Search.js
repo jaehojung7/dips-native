@@ -12,6 +12,9 @@ const SEARCH_PROGRAMS_QUERY = gql`
     searchPrograms(keyword: $keyword) {
       id
       title
+      user {
+        username
+      }
       isLiked
       isMine
       isPublic

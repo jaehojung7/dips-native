@@ -15,6 +15,9 @@ const ME_QUERY = gql`
       programs {
         id
         title
+        user {
+          username
+        }
         isLiked
         isMine
         isPublic

@@ -10,21 +10,14 @@ const ProgramContainer = styled.View`
   margin: 7px 0;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 5px;
-  padding: 15px 10px;
+  padding: 15px;
 `;
 
 const ProgramTitle = styled.Text`
   font-size: 18px;
   font-weight: 700;
   color: ${(props) => props.theme.fontColor};
-  width: 75%;
-`;
-
-const IconContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 20%;
+  width: 85%;
 `;
 
 const IconText = styled.Text`
@@ -42,30 +35,20 @@ export default function SearchProgramList({ programs }) {
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
-          <IconContainer>
-            {program.isMine ? (
-              <>
-                <IconText>
-                  <FontAwesome5 name="user-alt" size={14} />
-                </IconText>
-                <IconText>
-                  {program.isPublic ? (
-                    <FontAwesome5 name="lock-open" size={14} />
-                  ) : (
-                    <FontAwesome5 name="lock" size={14} />
-                  )}
-                </IconText>
-              </>
-            ) : (
-              <IconText>
-                {program.isLiked ? (
-                  <FontAwesome name="star" size={16} />
-                ) : (
-                  <FontAwesome name="star-o" size={16} />
-                )}
-              </IconText>
-            )}
-          </IconContainer>
+
+          {program.isMine ? (
+            <IconText>
+              <FontAwesome5 name="user-alt" size={14} />
+            </IconText>
+          ) : (
+            <IconText>
+              {program.isLiked ? (
+                <FontAwesome name="star" size={16} />
+              ) : (
+                <FontAwesome name="star-o" size={16} />
+              )}
+            </IconText>
+          )}
         </ProgramContainer>
       </TouchableOpacity>
     );

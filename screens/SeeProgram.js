@@ -34,7 +34,7 @@ const ProgramTitle = styled.Text`
 `;
 
 const InfoContainer = styled.View`
-  margin: 5px;
+  margin: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
@@ -44,13 +44,6 @@ const InfoText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
   font-weight: 500;
-`;
-
-const LikeContainer = styled.TouchableOpacity`
-  margin: 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -105,33 +98,11 @@ const ExerciseTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const ToggleContainer = styled.View`
-  margin: 10px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ToggleText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-weight: 500;
-  font-size: 15px;
-  margin-right: 5px;
-`;
-
-const ToggleInfoContainer = styled.TouchableOpacity`
-  margin-left: 20px;
-`;
-
-const ToggleInfoText = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-`;
-
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
+  console.log(program);
   const { exercises } = route.params;
   const { directStart } = route.params;
-  const [isLiked, setIsLiked] = useState(program.isLiked);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -140,15 +111,14 @@ export default function SeeProgram({ route, navigation }) {
       },
     } = result;
     if (ok) {
-      setIsLiked((previousState) => !previousState);
-      // cache.modify({
-      //   id: `Program:${program.id}`,
-      //   fields: {
-      //     isLiked(prev) {
-      //       return !prev;
-      //     },
-      //   },
-      // });
+      cache.modify({
+        id: `Program:${program.id}`,
+        fields: {
+          isLiked(prev) {
+            return !prev;
+          },
+        },
+      });
     }
   };
 
@@ -158,7 +128,6 @@ export default function SeeProgram({ route, navigation }) {
     },
     update: toggleLikeUpdate,
   });
-  const toggleSwitch = toggleLikeFunction;
 
   const onClickAlert = () => {
     Alert.alert(
@@ -183,65 +152,64 @@ export default function SeeProgram({ route, navigation }) {
           ) : null}
         </HeaderContainer>
 
-        {program.isMine ? (
-          <InfoContainer>
-            <InfoContainer>
-              <InfoText>
-                <FontAwesome name="user" size={14} />
-              </InfoText>
-              <InfoText style={{ marginLeft: 7 }}>My program</InfoText>
-            </InfoContainer>
+        <InfoContainer>
+          {program.isMine ? (
+            <>
+              <InfoContainer>
+                <InfoText>
+                  <FontAwesome name="user" size={16} />
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>My program</InfoText>
+              </InfoContainer>
+              <InfoContainer>
+                {program.isPublic ? (
+                  <>
+                    <InfoText>
+                      <FontAwesome5 name="lock-open" size={14} />
+                    </InfoText>
+                    <InfoText style={{ marginLeft: 7 }}>Public</InfoText>
+                  </>
+                ) : (
+                  <>
+                    <InfoText>
+                      <FontAwesome5 name="lock" size={14} />
+                    </InfoText>
+                    <InfoText style={{ marginLeft: 7 }}>Private</InfoText>
+                  </>
+                )}
+              </InfoContainer>
+            </>
+          ) : (
+            <>
+              <InfoContainer>
+                <InfoText>
+                  <FontAwesome name="user" size={16} />
+                </InfoText>
+                <InfoText style={{ marginLeft: 7 }}>
+                  {program?.user.username}
+                </InfoText>
+              </InfoContainer>
 
-            <InfoContainer>
-              {program.isPublic ? (
-                <>
-                  <InfoText>
-                    <FontAwesome5 name="lock-open" size={14} />
-                  </InfoText>
-                  <InfoText style={{ marginLeft: 7 }}>Public</InfoText>
-                </>
-              ) : (
-                <>
-                  <InfoText>
-                    <FontAwesome5 name="lock" size={14} />
-                  </InfoText>
-                  <InfoText style={{ marginLeft: 7 }}>Private</InfoText>
-                </>
-              )}
-            </InfoContainer>
-          </InfoContainer>
-        ) : (
-          <ToggleContainer>
-            <ToggleText>Favorite program</ToggleText>
-            <Switch
-              style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-              onValueChange={toggleSwitch}
-              value={isLiked}
-            />
-            <ToggleInfoContainer onPress={onClickAlert}>
-              <ToggleInfoText>
-                <FontAwesome5 name="info-circle" size={20} />
-              </ToggleInfoText>
-            </ToggleInfoContainer>
-          </ToggleContainer>
-          // <LikeContainer onPress={toggleLikeFunction}>
-          //   {program.isLiked ? (
-          //     <>
-          //       <InfoText>
-          //         <FontAwesome name="star" size={16} />
-          //       </InfoText>
-          //       <InfoText style={{ marginLeft: 7 }}>Unlike</InfoText>
-          //     </>
-          //   ) : (
-          //     <>
-          //       <InfoText>
-          //         <FontAwesome name="star-o" size={16} />
-          //       </InfoText>
-          //       <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
-          //     </>
-          //   )}
-          // </LikeContainer>
-        )}
+              <InfoContainer onPress={toggleLikeFunction}>
+                {program.isLiked ? (
+                  <>
+                    <InfoText>
+                      <FontAwesome name="star" size={16} />
+                    </InfoText>
+                    <InfoText style={{ marginLeft: 7 }}>Unlike</InfoText>
+                  </>
+                ) : (
+                  <>
+                    <InfoText>
+                      <FontAwesome name="star-o" size={16} />
+                    </InfoText>
+                    <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
+                  </>
+                )}
+              </InfoContainer>
+            </>
+          )}
+        </InfoContainer>
 
         {program?.workouts.map((workout, workoutIndex) => {
           return (
