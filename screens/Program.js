@@ -10,7 +10,6 @@ export const ME_QUERY = gql`
   query me {
     me {
       id
-      # likes
       programs {
         id
         title
@@ -51,6 +50,28 @@ export const ME_QUERY = gql`
         }
       }
       recentWorkoutIndex
+      likes {
+        program {
+          id
+          title
+          user {
+            username
+          }
+          isLiked
+          isMine
+          isPublic
+          workouts {
+            title
+            workoutIndex
+            workoutSets {
+              id
+              exercise
+              setCount
+              repCount
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -147,6 +168,7 @@ export default function Program({ navigation }) {
   } else {
     nextWorkoutIndex = 0;
   }
+  const likes = data?.me.likes.map((like) => like.program);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -158,6 +180,7 @@ export default function Program({ navigation }) {
           recentProgram
             ? navigation.navigate("SeeProgram", {
                 program: recentProgram,
+                exercises,
                 directStart,
               })
             : navigation.navigate("CreateProgram", { exercises });
@@ -190,14 +213,37 @@ export default function Program({ navigation }) {
       </ButtonContainer>
       <ProgramContainer>
         <TitleContainer>
-          <FavoritePrograms>Favorite Programs</FavoritePrograms>
+          <FavoritePrograms>My Programs</FavoritePrograms>
           <TouchableOpacity
-            onPress={() => navigation.navigate("SettingPrograms", { programs })}
+            onPress={() =>
+              navigation.navigate("ProgramList", {
+                programs,
+                exercises,
+                header: "My Programs",
+              })
+            }
           >
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
         <ProgramCards programs={programs} exercises={exercises} />
+      </ProgramContainer>
+      <ProgramContainer>
+        <TitleContainer>
+          <FavoritePrograms>Favorite Programs</FavoritePrograms>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ProgramList", {
+                programs,
+                exercises,
+                header: "Favorite Programs",
+              })
+            }
+          >
+            <MoreProgram>More</MoreProgram>
+          </TouchableOpacity>
+        </TitleContainer>
+        <ProgramCards programs={likes} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton

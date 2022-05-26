@@ -12,25 +12,6 @@ const ME_QUERY = gql`
       id
       username
       email
-      likes {
-        program {
-          id
-          title
-          isLiked
-          isMine
-          isPublic
-          workouts {
-            title
-            workoutIndex
-            workoutSets {
-              id
-              exercise
-              setCount
-              repCount
-            }
-          }
-        }
-      }
       programs {
         id
         title
@@ -52,6 +33,28 @@ const ME_QUERY = gql`
         id
         exercise
         bodyPart
+      }
+      likes {
+        program {
+          id
+          title
+          user {
+            username
+          }
+          isLiked
+          isMine
+          isPublic
+          workouts {
+            title
+            workoutIndex
+            workoutSets {
+              id
+              exercise
+              setCount
+              repCount
+            }
+          }
+        }
       }
     }
   }
@@ -143,7 +146,7 @@ export default function Setting({ navigation }) {
     );
 
   const programs = data?.me.programs;
-  const likedprograms = data?.me.likes.map((like) => like.program);
+  const likes = data?.me.likes.map((like) => like.program);
   const exercises = data?.me.exercises;
 
   return (
@@ -167,9 +170,10 @@ export default function Setting({ navigation }) {
         <ListsContainer>
           <ListTouchable
             onPress={() =>
-              navigation.navigate("SettingPrograms", {
+              navigation.navigate("ProgramList", {
                 programs,
                 exercises,
+                header: "My Programs",
               })
             }
           >
@@ -184,9 +188,10 @@ export default function Setting({ navigation }) {
 
           <ListTouchable
             onPress={() =>
-              navigation.navigate("SettingPrograms", {
-                programs: likedprograms,
+              navigation.navigate("ProgramList", {
+                programs: likes,
                 exercises,
+                header: "Favorite Programs",
               })
             }
           >

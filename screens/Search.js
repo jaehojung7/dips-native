@@ -61,6 +61,7 @@ const SearchInput = styled.TextInput`
 
 const ProgramsContainer = styled.View`
   margin-top: 10px;
+  /* align-items: center; */
 `;
 
 const InstructionText = styled.Text`

@@ -36,10 +36,10 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function SettingPrograms({ route, navigation }) {
+export default function ProgramList({ route, navigation }) {
   const { programs } = route.params;
   const { exercises } = route.params;
-  const directStart = true;
+  const { header } = route.params;
   const renderItem = ({ item: program }) => {
     return (
       <>
@@ -48,7 +48,7 @@ export default function SettingPrograms({ route, navigation }) {
             navigation.navigate("SeeProgram", {
               program,
               exercises,
-              directStart,
+              directStart: true,
             });
           }}
         >
@@ -62,7 +62,7 @@ export default function SettingPrograms({ route, navigation }) {
   return (
     <Container>
       <HeaderContainer>
-        <Header>Programs</Header>
+        <Header>{header}</Header>
       </HeaderContainer>
       <FlatList
         data={programs}
