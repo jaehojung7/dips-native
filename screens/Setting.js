@@ -6,63 +6,6 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      username
-      email
-      programs {
-        id
-        title
-        user {
-          username
-        }
-        isLiked
-        isMine
-        isPublic
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-      likes {
-        program {
-          id
-          title
-          user {
-            username
-          }
-          isLiked
-          isMine
-          isPublic
-          workouts {
-            title
-            workoutIndex
-            workoutSets {
-              id
-              exercise
-              setCount
-              repCount
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const Container = styled.ScrollView`
   margin: 20px 10px;
 `;
@@ -132,21 +75,14 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function Setting({ navigation }) {
-  const { data, loading, refetch } = useQuery(ME_QUERY);
+export default function Setting({ navigation, route }) {
+  const { data, loading, refetch } = route.params;
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
   };
-
-  if (loading)
-    return (
-      <IndicatorContainer>
-        <ActivityIndicator />
-      </IndicatorContainer>
-    );
 
   const programs = data?.me.programs;
   const likes = data?.me.likes.map((like) => like.program);

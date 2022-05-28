@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
-import { ME_QUERY } from "../../screens/Program";
+import { ME_QUERY } from "../../navigators/LoggedInNav";
 
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: Int!) {

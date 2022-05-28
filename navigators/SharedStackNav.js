@@ -17,7 +17,7 @@ import ExerciseList from "../screens/ExerciseList";
 
 const Stack = createStackNavigator();
 
-export default function SharedStackNav({ screenName, route }) {
+export default function SharedStackNav({ screenName, data, loading }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -30,17 +30,29 @@ export default function SharedStackNav({ screenName, route }) {
       }}
     >
       {screenName === "Program" ? (
-        <Stack.Screen name={"StackProgram"} component={Program} />
+        <Stack.Screen
+          name={"StackProgram"}
+          component={Program}
+          initialParams={{ data, loading }}
+        />
       ) : null}
       {screenName === "Record" ? (
-        <Stack.Screen name={"StackRecord"} component={Record} />
+        <Stack.Screen
+          name={"StackRecord"}
+          component={Record}
+          initialParams={{ data, loading }}
+        />
       ) : null}
       {screenName === "Search" ? (
         <Stack.Screen name={"StackSearch"} component={Search} />
       ) : null}
 
       {screenName === "Setting" ? (
-        <Stack.Screen name={"StackSetting"} component={Setting} />
+        <Stack.Screen
+          name={"StackSetting"}
+          component={Setting}
+          initialParams={{ data, loading }}
+        />
       ) : null}
       <Stack.Screen name="CreateRecord" component={CreateRecord} />
 

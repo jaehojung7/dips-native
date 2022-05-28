@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ME_QUERY } from "./Program";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
@@ -9,6 +8,7 @@ import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { ME_QUERY } from "../navigators/LoggedInNav";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(

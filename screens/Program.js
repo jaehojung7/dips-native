@@ -6,76 +6,6 @@ import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
 
-export const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      programs {
-        id
-        title
-        isLiked
-        isMine
-        isPublic
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-      recentProgram {
-        id
-        title
-        isLiked
-        isMine
-        isPublic
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      recentWorkoutIndex
-      likes {
-        program {
-          id
-          title
-          user {
-            username
-          }
-          isLiked
-          isMine
-          isPublic
-          workouts {
-            title
-            workoutIndex
-            workoutSets {
-              id
-              exercise
-              setCount
-              repCount
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const IndicatorContainer = styled.View`
   flex: 1;
   justify-content: center;
@@ -149,15 +79,16 @@ const ButtonContainer = styled.View`
   justify-content: space-between;
 `;
 
-export default function Program({ navigation }) {
-  const { data, loading } = useQuery(ME_QUERY);
+export default function Program({ navigation, route }) {
+  const { data, loading } = route.params;
+  console.log(data);
   const directStart = true;
-  if (loading)
-    return (
-      <IndicatorContainer>
-        <ActivityIndicator />
-      </IndicatorContainer>
-    );
+  // if (loading)
+  //   return (
+  //     <IndicatorContainer>
+  //       <ActivityIndicator />
+  //     </IndicatorContainer>
+  //   );
   const programs = data?.me.programs;
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;

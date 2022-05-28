@@ -46,6 +46,13 @@ const InfoText = styled.Text`
   font-weight: 500;
 `;
 
+const LikeContainer = styled.TouchableOpacity`
+  margin: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
 const EditProgram = styled.TouchableOpacity`
   color: ${(props) => props.theme.fontColor};
 `;
@@ -100,7 +107,6 @@ const ExerciseTitle = styled.Text`
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
-  console.log(program);
   const { exercises } = route.params;
   const { directStart } = route.params;
 
@@ -190,7 +196,7 @@ export default function SeeProgram({ route, navigation }) {
                 </InfoText>
               </InfoContainer>
 
-              <InfoContainer onPress={toggleLikeFunction}>
+              <LikeContainer onPress={toggleLikeFunction}>
                 {program.isLiked ? (
                   <>
                     <InfoText>
@@ -206,7 +212,7 @@ export default function SeeProgram({ route, navigation }) {
                     <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
                   </>
                 )}
-              </InfoContainer>
+              </LikeContainer>
             </>
           )}
         </InfoContainer>

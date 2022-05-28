@@ -6,9 +6,10 @@ import styled from "styled-components/native";
 import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
-import { ME_QUERY } from "./Program";
+
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { ME_QUERY } from "../navigators/LoggedInNav";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
