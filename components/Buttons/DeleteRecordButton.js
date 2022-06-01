@@ -48,7 +48,7 @@ export default function DeleteRecordButton({ navigation, record }) {
   });
 
   const onClickDelete = () => {
-    Alert.alert("운동 기록을 삭제할까요?", "", [
+    Alert.alert("Delete this record?", "", [
       {
         text: "Delete",
         onPress: () => deleteRecordFunction(),

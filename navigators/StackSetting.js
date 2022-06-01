@@ -8,7 +8,7 @@ import ExerciseList from "../screens/ExerciseList";
 
 const Stack = createStackNavigator();
 
-export default function StackSetting({ screenName, data, loading, refetch }) {
+export default function StackSetting({ screenName, data, loading }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,7 +24,7 @@ export default function StackSetting({ screenName, data, loading, refetch }) {
         <Stack.Screen
           name={"StackSetting"}
           component={Setting}
-          initialParams={{ data, loading, refetch }}
+          initialParams={{ data, loading }}
         />
       ) : null}
 

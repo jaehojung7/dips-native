@@ -8,7 +8,7 @@ import Search from "../screens/Search";
 
 const Stack = createStackNavigator();
 
-export default function StackRecord({ screenName, data, loading, refetch }) {
+export default function StackRecord({ screenName, data, loading }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,7 +24,7 @@ export default function StackRecord({ screenName, data, loading, refetch }) {
         <Stack.Screen
           name={"StackRecord"}
           component={Record}
-          initialParams={{ data, loading, refetch }}
+          initialParams={{ data, loading }}
         />
       ) : null}
 

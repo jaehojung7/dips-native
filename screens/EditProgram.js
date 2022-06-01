@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { Modal, Switch, Alert } from "react-native";
+import { Modal, Switch, Alert, Platform } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
@@ -227,8 +227,7 @@ export default function EditProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-
-    navigation.goBack();
+    // navigation.goBack();
     navigation.navigate("Settings");
   };
 
@@ -245,7 +244,7 @@ export default function EditProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onSubmitValid = (submissionData) => {
@@ -268,6 +267,20 @@ export default function EditProgram({ navigation, route }) {
       "Share your program",
       "Turn on the toggle to allow other users can search this program"
     );
+  };
+
+  const onClickSave = () => {
+    Alert.alert("Edit this program?", "", [
+      {
+        text: "Cancel",
+        style: "destructive",
+      },
+      {
+        text: "Save",
+        onPress: () => handleSubmit(onSubmitValid),
+        style: "default",
+      },
+    ]);
   };
 
   return (
@@ -319,7 +332,10 @@ export default function EditProgram({ navigation, route }) {
           <SaveProgramButton
             loading={loading}
             disabled={!watch("programTitle")}
-            onPress={handleSubmit(onSubmitValid)}
+            onPress={
+              handleSubmit(onSubmitValid)
+              // Platform.OS === "web" ? handleSubmit(onSubmitValid) : onClickSave
+            }
           >
             <ButtonText>Save</ButtonText>
           </SaveProgramButton>
