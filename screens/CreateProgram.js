@@ -133,6 +133,7 @@ export default function CreateProgram({ navigation, route }) {
     defaultValues,
   });
   const { exercises } = route.params;
+  const { isMounted, setIsMounted } = route.params;
   const [isPublic, setIsPublic] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
@@ -195,7 +196,8 @@ export default function CreateProgram({ navigation, route }) {
       });
     });
 
-    navigation.navigate("StackProgram");
+    navigation.goBack();
+    navigation.navigate("Settings");
   };
 
   const [createProgramFunction, { loading, error }] = useMutation(
@@ -230,6 +232,28 @@ export default function CreateProgram({ navigation, route }) {
       "Turn on the toggle to allow other users can search this program"
     );
   };
+
+  // useEffect(() => {
+  //   if (loading === false && data) {
+  //     records.length > 0
+  //       ? setExpanded([true].concat(Array(records.length - 1).fill(false)))
+  //       : setExpanded([false]);
+  //   }
+  // }, [loading, data]);
+
+  // useEffect(() => {
+  //   return () => setLoading(false);
+  // }, [loading, data]);
+
+  // useEffect(() => {
+  //   let isMounted = true; // note mutable flag
+  //   someAsyncOperation().then((data) => {
+  //     if (isMounted) setIsMounted(data); // add conditional check
+  //   });
+  //   return () => {
+  //     isMounted = false;
+  //   }; // cleanup toggles value, if unmounted
+  // }, [data]);
 
   return (
     <DismissKeyboard>

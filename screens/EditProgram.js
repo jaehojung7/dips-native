@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
@@ -221,13 +221,15 @@ export default function EditProgram({ navigation, route }) {
     }
 
     const submissionData = getValues();
+
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
 
-    navigation.navigate("StackProgram");
+    navigation.goBack();
+    navigation.navigate("Settings");
   };
 
   const [editProgramFunction, { loading, error }] = useMutation(

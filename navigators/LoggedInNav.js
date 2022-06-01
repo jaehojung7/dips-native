@@ -2,9 +2,11 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import SharedStackNav from "./SharedStackNav";
 import { useColorScheme, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
+import StackProgram from "./StackProgram";
+import StackSetting from "./StackSetting";
+import StackRecord from "./StackRecord";
 
 export const ME_QUERY = gql`
   query me {
@@ -147,7 +149,7 @@ export default function LoggedInNav() {
         }}
       >
         {() => (
-          <SharedStackNav
+          <StackProgram
             screenName="Program"
             data={data}
             loading={loading}
@@ -165,7 +167,7 @@ export default function LoggedInNav() {
         }}
       >
         {() => (
-          <SharedStackNav
+          <StackRecord
             screenName="Record"
             data={data}
             loading={loading}
@@ -182,7 +184,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <SharedStackNav screenName="Search" />}
+        {() => <StackRecord screenName="Search" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -194,7 +196,7 @@ export default function LoggedInNav() {
         }}
       >
         {() => (
-          <SharedStackNav
+          <StackSetting
             screenName="Setting"
             data={data}
             loading={loading}

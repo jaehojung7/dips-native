@@ -193,7 +193,7 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackProgram");
+    navigation.navigate("StackSetting");
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(

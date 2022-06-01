@@ -1,6 +1,4 @@
-import React from "react";
-import { ActivityIndicator } from "react-native";
-import { gql, useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
@@ -81,14 +79,8 @@ const ButtonContainer = styled.View`
 
 export default function Program({ navigation, route }) {
   const { data, loading } = route.params;
-  console.log(data);
   const directStart = true;
-  // if (loading)
-  //   return (
-  //     <IndicatorContainer>
-  //       <ActivityIndicator />
-  //     </IndicatorContainer>
-  //   );
+
   const programs = data?.me.programs;
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;
@@ -100,6 +92,7 @@ export default function Program({ navigation, route }) {
     nextWorkoutIndex = 0;
   }
   const likes = data?.me.likes.map((like) => like.program);
+  const [isMounted, setIsMounted] = useState(false);
 
   return (
     <Container showsVerticalScrollIndicator={false}>
@@ -126,10 +119,15 @@ export default function Program({ navigation, route }) {
           <>
             <WorkoutTitle>
               Recent workout:{" "}
-              {recentProgram?.workouts[recentWorkoutIndex].title}
+              {recentProgram?.workouts[recentWorkoutIndex]
+                ? recentProgram?.workouts[recentWorkoutIndex].title
+                : "empty"}
             </WorkoutTitle>
             <WorkoutTitle>
-              Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
+              Next workout:{" "}
+              {recentProgram?.workouts[nextWorkoutIndex]
+                ? recentProgram?.workouts[nextWorkoutIndex].title
+                : "empty"}
             </WorkoutTitle>
           </>
         ) : (
@@ -181,7 +179,13 @@ export default function Program({ navigation, route }) {
       <MainButton
         text="Create a new program"
         disabled={false}
-        onPress={() => navigation.navigate("CreateProgram", { exercises })}
+        onPress={() =>
+          navigation.navigate("CreateProgram", {
+            exercises,
+            isMounted,
+            setIsMounted,
+          })
+        }
       />
     </Container>
   );
