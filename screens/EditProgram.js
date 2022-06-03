@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ME_QUERY } from "./Program";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
@@ -7,8 +8,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { ME_QUERY } from "./Program";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -142,8 +142,6 @@ export default function EditProgram({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const toggleSwitch = () => setIsPublic((previousState) => !previousState);
 
-  const [active, setActive] = useState(true);
-
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {
       return workoutSets.map((workoutSet) => ({
@@ -223,13 +221,12 @@ export default function EditProgram({ navigation, route }) {
     }
 
     const submissionData = getValues();
-
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-    navigation.navigate("Settings", { screen: "StackSetting" });
+
     navigation.navigate("StackProgram");
   };
 
@@ -246,7 +243,7 @@ export default function EditProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    refetchQueries: [{ query: ME_QUERY }],
+    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
   });
 
   const onSubmitValid = (submissionData) => {

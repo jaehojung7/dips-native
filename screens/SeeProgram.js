@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { Alert } from "react-native";
+import { Switch, Alert } from "react-native";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
@@ -44,13 +44,6 @@ const InfoText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
   font-weight: 500;
-`;
-
-const LikeContainer = styled.TouchableOpacity`
-  margin: 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
 `;
 
 const EditProgram = styled.TouchableOpacity`
@@ -107,6 +100,7 @@ const ExerciseTitle = styled.Text`
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
+  console.log(program);
   const { exercises } = route.params;
   const { directStart } = route.params;
 
@@ -196,7 +190,7 @@ export default function SeeProgram({ route, navigation }) {
                 </InfoText>
               </InfoContainer>
 
-              <LikeContainer onPress={toggleLikeFunction}>
+              <InfoContainer onPress={toggleLikeFunction}>
                 {program.isLiked ? (
                   <>
                     <InfoText>
@@ -212,7 +206,7 @@ export default function SeeProgram({ route, navigation }) {
                     <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
                   </>
                 )}
-              </LikeContainer>
+              </InfoContainer>
             </>
           )}
         </InfoContainer>

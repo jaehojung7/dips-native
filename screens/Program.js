@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
+import { ActivityIndicator } from "react-native";
 import { gql, useQuery } from "@apollo/client";
-import { ActivityIndicator, RefreshControl } from "react-native";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
@@ -10,14 +10,9 @@ export const ME_QUERY = gql`
   query me {
     me {
       id
-      username
-      email
       programs {
         id
         title
-        user {
-          username
-        }
         isLiked
         isMine
         isPublic
@@ -40,9 +35,6 @@ export const ME_QUERY = gql`
       recentProgram {
         id
         title
-        user {
-          username
-        }
         isLiked
         isMine
         isPublic
@@ -157,17 +149,15 @@ const ButtonContainer = styled.View`
   justify-content: space-between;
 `;
 
-export default function Program({ navigation, route }) {
-  const { data, loading, refetch } = useQuery(ME_QUERY);
+export default function Program({ navigation }) {
+  const { data, loading } = useQuery(ME_QUERY);
   const directStart = true;
-
   if (loading)
     return (
       <IndicatorContainer>
         <ActivityIndicator />
       </IndicatorContainer>
     );
-
   const programs = data?.me.programs;
   const exercises = data?.me.exercises;
   const recentProgram = data?.me.recentProgram;
@@ -179,31 +169,9 @@ export default function Program({ navigation, route }) {
     nextWorkoutIndex = 0;
   }
   const likes = data?.me.likes.map((like) => like.program);
-  const [isMounted, setIsMounted] = useState(false);
-  // const [refreshing, setRefreshing] = useState(false);
-
-  // const refresh = async () => {
-  //   setRefreshing(true);
-  //   await refetch();
-  //   setRefreshing(false);
-  // };
-
-  // const wait = (timeout) => {
-  //   return new Promise((resolve) => setTimeout(resolve, timeout));
-  // };
-
-  // const refresh = useCallback(() => {
-  //   setRefreshing(true);
-  //   wait(2000).then(() => setRefreshing(false));
-  // }, []);
 
   return (
-    <Container
-      showsVerticalScrollIndicator={false}
-      // refreshControl={
-      //   <RefreshControl refreshing={refreshing} onRefresh={refresh} />
-      // }
-    >
+    <Container showsVerticalScrollIndicator={false}>
       <HeaderContainer>
         <Header>Programs</Header>
       </HeaderContainer>
@@ -227,15 +195,10 @@ export default function Program({ navigation, route }) {
           <>
             <WorkoutTitle>
               Recent workout:{" "}
-              {recentProgram?.workouts[recentWorkoutIndex]
-                ? recentProgram?.workouts[recentWorkoutIndex].title
-                : "empty"}
+              {recentProgram?.workouts[recentWorkoutIndex].title}
             </WorkoutTitle>
             <WorkoutTitle>
-              Next workout:{" "}
-              {recentProgram?.workouts[nextWorkoutIndex]
-                ? recentProgram?.workouts[nextWorkoutIndex].title
-                : "empty"}
+              Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
             </WorkoutTitle>
           </>
         ) : (
@@ -287,13 +250,7 @@ export default function Program({ navigation, route }) {
       <MainButton
         text="Create a new program"
         disabled={false}
-        onPress={() =>
-          navigation.navigate("CreateProgram", {
-            exercises,
-            isMounted,
-            setIsMounted,
-          })
-        }
+        onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />
     </Container>
   );

@@ -73,7 +73,7 @@ export default function ExerciseListModalRecord({
       </Container>
     );
   };
-
+  // console.log(exercises);
   return (
     <ModalContainer>
       <ButtonContainer

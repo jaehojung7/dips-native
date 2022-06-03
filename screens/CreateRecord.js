@@ -7,7 +7,7 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
-import { ME_QUERY } from "./Record";
+import { ME_QUERY } from "./Program";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -193,7 +193,7 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackSetting");
+    navigation.navigate("StackProgram");
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(
@@ -214,6 +214,7 @@ export default function CreateRecord({ navigation, route }) {
     CREATE_RECORD_EXERCISE_SET_MUTATION,
     {
       onCompleted: onCreateRecordExerciseSetCompleted,
+      // Creating a new program object directly in Apollo cache is probably better
       refetchQueries: [{ query: ME_QUERY }],
     }
   );

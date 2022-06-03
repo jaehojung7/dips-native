@@ -6,9 +6,9 @@ import styled from "styled-components/native";
 import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
+import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { ME_QUERY } from "./Program";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -132,7 +132,6 @@ export default function CreateProgram({ navigation, route }) {
     defaultValues,
   });
   const { exercises } = route.params;
-  const { isMounted, setIsMounted } = route.params;
   const [isPublic, setIsPublic] = useState(false);
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
@@ -194,6 +193,7 @@ export default function CreateProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
+
     navigation.navigate("StackProgram");
   };
 
@@ -210,7 +210,7 @@ export default function CreateProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    refetchQueries: [{ query: ME_QUERY }],
+    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
   });
 
   const onSubmitValid = (submissionData) => {

@@ -4,33 +4,11 @@ import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
 
-const DELETE_EXERCISE_MUTATION = gql`
-  mutation deleteExercise($id: Int!) {
-    deleteExercise(id: $id) {
-      ok
-      error
-    }
-  }
-`;
-
-const DeleteButton = styled.TouchableOpacity`
-  padding: 0 10px;
-  justify-content: center;
-  background-color: tomato;
-`;
-
-const DeleteText = styled.Text`
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-`;
-
 const ExerciseTitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px;
+  margin: 10px 15px;
 `;
 
 const ExerciseTitle = styled.Text`
@@ -51,11 +29,8 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function DeleteExercise({ exercise }) {
+export default function SelectExercise({ exercise }) {
   const swipeableRef = useRef(null);
-  const closeSwipeable = () => {
-    swipeableRef.current.close();
-  };
 
   const deleteExerciseUpdate = (cache, result) => {
     const {
@@ -68,18 +43,11 @@ export default function DeleteExercise({ exercise }) {
     }
   };
 
-  const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION, {
-    variables: {
-      id: exercise.id,
-    },
-    update: deleteExerciseUpdate,
-  });
-
   const combinedFunctions = () => {
     deleteExerciseFunction();
     closeSwipeable();
   };
-  const onClickDelete = () => {
+  const onClickSelect = () => {
     Alert.alert("이 운동을 삭제할까요?", "", [
       {
         text: "Delete",
@@ -94,29 +62,13 @@ export default function DeleteExercise({ exercise }) {
     ]);
   };
 
-  const renderRightActions = (progress, dragX) => {
-    const trans = dragX.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [1, 0],
-      extrapolate: "clamp",
-    });
-
-    return (
-      <DeleteButton
-        onPress={Platform.OS === "web" ? deleteExerciseFunction : onClickDelete}
-      >
-        <DeleteText>Delete</DeleteText>
-      </DeleteButton>
-    );
-  };
-
   return (
-    <Swipeable ref={swipeableRef} renderRightActions={renderRightActions}>
+    <>
       <ExerciseTitleContainer>
         <ExerciseTitle>{exercise.exercise}</ExerciseTitle>
         <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
       </ExerciseTitleContainer>
       <BorderLine />
-    </Swipeable>
+    </>
   );
 }

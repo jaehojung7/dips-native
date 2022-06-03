@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 

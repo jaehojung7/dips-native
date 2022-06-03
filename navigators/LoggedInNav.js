@@ -1,16 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import SharedStackNav from "./SharedStackNav";
 import { useColorScheme } from "react-native";
-import StackProgram from "./StackProgram";
-import StackSetting from "./StackSetting";
-import StackRecord from "./StackRecord";
 
 const Tabs = createBottomTabNavigator();
 
 export default function LoggedInNav() {
   const scheme = useColorScheme();
-
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -41,7 +38,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <StackProgram screenName="Program" />}
+        {() => <SharedStackNav screenName="Program" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -52,7 +49,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <StackRecord screenName="Record" />}
+        {() => <SharedStackNav screenName="Record" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -63,7 +60,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <StackRecord screenName="Search" />}
+        {() => <SharedStackNav screenName="Search" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -74,7 +71,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => <StackSetting screenName="Setting" />}
+        {() => <SharedStackNav screenName="Setting" />}
       </Tabs.Screen>
     </Tabs.Navigator>
   );

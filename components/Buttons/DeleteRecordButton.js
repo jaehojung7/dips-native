@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
-import { ME_QUERY } from "../../screens/Record";
+import { ME_QUERY } from "../../screens/Program";
 
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: Int!) {
@@ -48,7 +48,7 @@ export default function DeleteRecordButton({ navigation, record }) {
   });
 
   const onClickDelete = () => {
-    Alert.alert("Delete this record?", "", [
+    Alert.alert("운동 기록을 삭제할까요?", "", [
       {
         text: "Delete",
         onPress: () => deleteRecordFunction(),

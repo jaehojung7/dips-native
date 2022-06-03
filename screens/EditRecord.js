@@ -6,8 +6,8 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
+import { ME_QUERY } from "./Program";
 import DeleteRecordButton from "../components/Buttons/DeleteRecordButton";
-import { ME_QUERY } from "./Record";
 
 const EDIT_RECORD_MUTATION = gql`
   mutation editRecord($id: Int!, $title: String!, $description: String) {
@@ -214,6 +214,7 @@ export default function EditRecord({ navigation, route }) {
     CREATE_RECORD_EXERCISE_SET_MUTATION,
     {
       onCompleted: onCreateRecordExerciseSetCompleted,
+      // Creating a new program object directly in Apollo cache is probably better
       refetchQueries: [{ query: ME_QUERY }],
     }
   );

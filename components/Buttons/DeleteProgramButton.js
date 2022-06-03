@@ -48,7 +48,7 @@ export default function DeleteProgramButton({ navigation, program }) {
   });
 
   const onClickDelete = () => {
-    Alert.alert("Delete this program?", "", [
+    Alert.alert("이 프로그램을 삭제할까요?", "", [
       {
         text: "Delete",
         onPress: () => deleteProgramFunction(),

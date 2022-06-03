@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from "react";
-import { gql, useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
+import { gql, useQuery } from "@apollo/client";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export const ME_QUERY = gql`
+const ME_QUERY = gql`
   query me {
     me {
       id
@@ -132,24 +132,14 @@ const BorderLine = styled.View`
   opacity: 0.5;
 `;
 
-export default function Setting({ navigation, route }) {
+export default function Setting({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
-
-  // const refresh = async () => {
-  //   setRefreshing(true);
-  //   await refetch();
-  //   setRefreshing(false);
-  // };
-
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
-
-  const refresh = useCallback(() => {
+  const onRefresh = async () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+    await refetch();
+    setRefreshing(false);
+  };
 
   if (loading)
     return (
@@ -167,7 +157,7 @@ export default function Setting({ navigation, route }) {
       <Container
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         <HeaderContainer>

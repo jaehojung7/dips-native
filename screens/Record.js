@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
 import { ActivityIndicator } from "react-native";
+import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export const ME_QUERY = gql`
+const ME_QUERY = gql`
   query me {
     me {
       id
@@ -103,7 +103,7 @@ const EditText = styled.Text`
   font-weight: 600;
 `;
 
-export default function Record({ navigation, route }) {
+export default function Record({ navigation }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
