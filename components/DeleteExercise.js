@@ -80,7 +80,7 @@ export default function DeleteExercise({ exercise }) {
     closeSwipeable();
   };
   const onClickDelete = () => {
-    Alert.alert("이 운동을 삭제할까요?", "", [
+    Alert.alert("Delete this exercise?", "", [
       {
         text: "Delete",
         onPress: () => combinedFunctions(),

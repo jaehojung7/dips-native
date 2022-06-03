@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
 import { FontAwesome5 } from "@expo/vector-icons";

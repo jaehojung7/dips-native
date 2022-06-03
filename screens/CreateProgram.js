@@ -6,10 +6,9 @@ import styled from "styled-components/native";
 import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
-
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { ME_QUERY } from "../navigators/LoggedInNav";
+import { ME_QUERY } from "./Program";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -195,8 +194,7 @@ export default function CreateProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-    navigation.goBack();
-    navigation.navigate("Settings");
+    navigation.navigate("StackProgram");
   };
 
   const [createProgramFunction, { loading, error }] = useMutation(
@@ -212,7 +210,7 @@ export default function CreateProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    // refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onSubmitValid = (submissionData) => {
@@ -231,28 +229,6 @@ export default function CreateProgram({ navigation, route }) {
       "Turn on the toggle to allow other users can search this program"
     );
   };
-
-  // useEffect(() => {
-  //   if (loading === false && data) {
-  //     records.length > 0
-  //       ? setExpanded([true].concat(Array(records.length - 1).fill(false)))
-  //       : setExpanded([false]);
-  //   }
-  // }, [loading, data]);
-
-  // useEffect(() => {
-  //   return () => setLoading(false);
-  // }, [loading, data]);
-
-  // useEffect(() => {
-  //   let isMounted = true; // note mutable flag
-  //   someAsyncOperation().then((data) => {
-  //     if (isMounted) setIsMounted(data); // add conditional check
-  //   });
-  //   return () => {
-  //     isMounted = false;
-  //   }; // cleanup toggles value, if unmounted
-  // }, [data]);
 
   return (
     <DismissKeyboard>

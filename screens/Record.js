@@ -1,9 +1,38 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      records {
+        id
+        title
+        date
+        recordExercises {
+          id
+          recordExerciseIndex
+          exercise
+          recordExerciseSets {
+            recordExerciseSetIndex
+            weight
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+    }
+  }
+`;
 
 const IndicatorContainer = styled.View`
   flex: 1;
@@ -76,27 +105,18 @@ const EditText = styled.Text`
 
 export default function Record({ navigation, route }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
-  const { data, loading, refetch } = route.params;
+  const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
   const [expanded, setExpanded] = useState([false]);
 
   const records = data?.me.records;
   const exercises = data?.me.exercises;
 
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
-
-  const refresh = useCallback(() => {
+  const refresh = async () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
-
-  // const refresh = async () => {
-  //   setRefreshing(true);
-  //   await refetch();
-  //   setRefreshing(false);
-  // };
+    await refetch();
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     if (loading === false && data) {
@@ -106,12 +126,12 @@ export default function Record({ navigation, route }) {
     }
   }, [loading, data]);
 
-  // if (loading)
-  //   return (
-  //     <IndicatorContainer>
-  //       <ActivityIndicator />
-  //     </IndicatorContainer>
-  //   );
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator />
+      </IndicatorContainer>
+    );
 
   const handleClick = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

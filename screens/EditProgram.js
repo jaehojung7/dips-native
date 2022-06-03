@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { Modal, Switch, Alert, Platform } from "react-native";
+import { Modal, Switch, Alert } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { ME_QUERY } from "../navigators/LoggedInNav";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { ME_QUERY } from "./Program";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -142,6 +142,8 @@ export default function EditProgram({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const toggleSwitch = () => setIsPublic((previousState) => !previousState);
 
+  const [active, setActive] = useState(true);
+
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {
       return workoutSets.map((workoutSet) => ({
@@ -227,8 +229,8 @@ export default function EditProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-    // navigation.goBack();
-    navigation.navigate("Settings");
+    navigation.navigate("Settings", { screen: "StackSetting" });
+    navigation.navigate("StackProgram");
   };
 
   const [editProgramFunction, { loading, error }] = useMutation(
@@ -267,20 +269,6 @@ export default function EditProgram({ navigation, route }) {
       "Share your program",
       "Turn on the toggle to allow other users can search this program"
     );
-  };
-
-  const onClickSave = () => {
-    Alert.alert("Edit this program?", "", [
-      {
-        text: "Cancel",
-        style: "destructive",
-      },
-      {
-        text: "Save",
-        onPress: () => handleSubmit(onSubmitValid),
-        style: "default",
-      },
-    ]);
   };
 
   return (
@@ -332,10 +320,7 @@ export default function EditProgram({ navigation, route }) {
           <SaveProgramButton
             loading={loading}
             disabled={!watch("programTitle")}
-            onPress={
-              handleSubmit(onSubmitValid)
-              // Platform.OS === "web" ? handleSubmit(onSubmitValid) : onClickSave
-            }
+            onPress={handleSubmit(onSubmitValid)}
           >
             <ButtonText>Save</ButtonText>
           </SaveProgramButton>

@@ -1,10 +1,67 @@
-import React, { useState } from "react";
-import { ActivityIndicator, RefreshControl } from "react-native";
+import React, { useState, useCallback } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      username
+      email
+      programs {
+        id
+        title
+        user {
+          username
+        }
+        isLiked
+        isMine
+        isPublic
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+      likes {
+        program {
+          id
+          title
+          user {
+            username
+          }
+          isLiked
+          isMine
+          isPublic
+          workouts {
+            title
+            workoutIndex
+            workoutSets {
+              id
+              exercise
+              setCount
+              repCount
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
@@ -76,13 +133,30 @@ const BorderLine = styled.View`
 `;
 
 export default function Setting({ navigation, route }) {
-  const { data, loading, refetch } = route.params;
+  const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await refetch();
-    setRefreshing(false);
+
+  // const refresh = async () => {
+  //   setRefreshing(true);
+  //   await refetch();
+  //   setRefreshing(false);
+  // };
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
   };
+
+  const refresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator />
+      </IndicatorContainer>
+    );
 
   const programs = data?.me.programs;
   const likes = data?.me.likes.map((like) => like.program);
@@ -93,7 +167,7 @@ export default function Setting({ navigation, route }) {
       <Container
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={refresh} />
         }
       >
         <HeaderContainer>

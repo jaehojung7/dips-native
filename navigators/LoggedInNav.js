@@ -1,122 +1,15 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useColorScheme, ActivityIndicator } from "react-native";
-import styled from "styled-components/native";
+import { useColorScheme } from "react-native";
 import StackProgram from "./StackProgram";
 import StackSetting from "./StackSetting";
 import StackRecord from "./StackRecord";
 
-export const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      username
-      email
-      programs {
-        id
-        title
-        user {
-          username
-        }
-        isLiked
-        isMine
-        isPublic
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      records {
-        id
-        title
-        date
-        recordExercises {
-          id
-          recordExerciseIndex
-          exercise
-          recordExerciseSets {
-            recordExerciseSetIndex
-            weight
-            repCount
-          }
-        }
-      }
-      exercises {
-        id
-        exercise
-        bodyPart
-      }
-      recentProgram {
-        id
-        title
-        user {
-          username
-        }
-        isLiked
-        isMine
-        isPublic
-        workouts {
-          title
-          workoutIndex
-          workoutSets {
-            id
-            exercise
-            setCount
-            repCount
-          }
-        }
-      }
-      recentWorkoutIndex
-      likes {
-        program {
-          id
-          title
-          user {
-            username
-          }
-          isLiked
-          isMine
-          isPublic
-          workouts {
-            title
-            workoutIndex
-            workoutSets {
-              id
-              exercise
-              setCount
-              repCount
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const Tabs = createBottomTabNavigator();
 
-const IndicatorContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-`;
-
 export default function LoggedInNav() {
-  const { data, loading, refetch } = useQuery(ME_QUERY);
   const scheme = useColorScheme();
-  if (loading)
-    return (
-      <IndicatorContainer>
-        <ActivityIndicator />
-      </IndicatorContainer>
-    );
 
   return (
     <Tabs.Navigator
@@ -148,14 +41,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => (
-          <StackProgram
-            screenName="Program"
-            data={data}
-            loading={loading}
-            refetch={refetch}
-          />
-        )}
+        {() => <StackProgram screenName="Program" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -166,14 +52,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => (
-          <StackRecord
-            screenName="Record"
-            data={data}
-            loading={loading}
-            refetch={refetch}
-          />
-        )}
+        {() => <StackRecord screenName="Record" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -195,14 +74,7 @@ export default function LoggedInNav() {
           ),
         }}
       >
-        {() => (
-          <StackSetting
-            screenName="Setting"
-            data={data}
-            loading={loading}
-            refetch={refetch}
-          />
-        )}
+        {() => <StackSetting screenName="Setting" />}
       </Tabs.Screen>
     </Tabs.Navigator>
   );

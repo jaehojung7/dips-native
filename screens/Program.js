@@ -1,8 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import ProgramCards from "../components/ProgramCards";
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      username
+      email
+      programs {
+        id
+        title
+        user {
+          username
+        }
+        isLiked
+        isMine
+        isPublic
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      exercises {
+        id
+        exercise
+        bodyPart
+      }
+      recentProgram {
+        id
+        title
+        user {
+          username
+        }
+        isLiked
+        isMine
+        isPublic
+        workouts {
+          title
+          workoutIndex
+          workoutSets {
+            id
+            exercise
+            setCount
+            repCount
+          }
+        }
+      }
+      recentWorkoutIndex
+      likes {
+        program {
+          id
+          title
+          user {
+            username
+          }
+          isLiked
+          isMine
+          isPublic
+          workouts {
+            title
+            workoutIndex
+            workoutSets {
+              id
+              exercise
+              setCount
+              repCount
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const IndicatorContainer = styled.View`
   flex: 1;
@@ -78,8 +158,15 @@ const ButtonContainer = styled.View`
 `;
 
 export default function Program({ navigation, route }) {
-  const { data, loading } = route.params;
+  const { data, loading, refetch } = useQuery(ME_QUERY);
   const directStart = true;
+
+  if (loading)
+    return (
+      <IndicatorContainer>
+        <ActivityIndicator />
+      </IndicatorContainer>
+    );
 
   const programs = data?.me.programs;
   const exercises = data?.me.exercises;
@@ -93,9 +180,30 @@ export default function Program({ navigation, route }) {
   }
   const likes = data?.me.likes.map((like) => like.program);
   const [isMounted, setIsMounted] = useState(false);
+  // const [refreshing, setRefreshing] = useState(false);
+
+  // const refresh = async () => {
+  //   setRefreshing(true);
+  //   await refetch();
+  //   setRefreshing(false);
+  // };
+
+  // const wait = (timeout) => {
+  //   return new Promise((resolve) => setTimeout(resolve, timeout));
+  // };
+
+  // const refresh = useCallback(() => {
+  //   setRefreshing(true);
+  //   wait(2000).then(() => setRefreshing(false));
+  // }, []);
 
   return (
-    <Container showsVerticalScrollIndicator={false}>
+    <Container
+      showsVerticalScrollIndicator={false}
+      // refreshControl={
+      //   <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+      // }
+    >
       <HeaderContainer>
         <Header>Programs</Header>
       </HeaderContainer>
