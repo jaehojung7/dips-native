@@ -226,8 +226,8 @@ export default function EditProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
+    navigation.navigate("Settings", { screen: "StackSetting" });
     navigation.navigate("StackProgram");
-    navigation.navigate("StackSetting");
   };
 
   const [editProgramFunction, { loading, error }] = useMutation(
