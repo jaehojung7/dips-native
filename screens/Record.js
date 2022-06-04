@@ -112,7 +112,7 @@ export default function Record({ navigation }) {
   const records = data?.me.records;
   const exercises = data?.me.exercises;
 
-  const refresh = async () => {
+  const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
@@ -186,7 +186,7 @@ export default function Record({ navigation }) {
         initialNumToRender={3}
         windowSize={2}
         refreshing={refreshing}
-        onRefresh={refresh}
+        onRefresh={onRefresh}
       />
     </>
   );

@@ -114,7 +114,7 @@ export default function CreateExercise({ navigation, route }) {
       createExercise: { ok },
     } = data;
     if (ok) {
-      navigation.navigate("StackSetting");
+      navigation.navigate("Settings", { screen: "StackSetting" });
     }
   };
 

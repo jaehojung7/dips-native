@@ -37,11 +37,11 @@ const ButtonText = styled.Text`
 `;
 
 export default function ExerciseList({ navigation, route }) {
-  const { userId } = route.params;
-  const { exercises } = route.params;
+  const { userId, exercises } = route.params;
 
   const [refreshing, setRefreshing] = useState(false);
-  const refresh = async () => {
+
+  const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
@@ -71,7 +71,7 @@ export default function ExerciseList({ navigation, route }) {
         <ScrollContainer showsVerticalScrollIndicator={false}>
           <FlatList
             refreshing={refreshing}
-            onRefresh={refresh}
+            onRefresh={onRefresh}
             data={exercises}
             keyExtractor={(item, index) => "" + index}
             renderItem={renderItem}
@@ -84,8 +84,9 @@ export default function ExerciseList({ navigation, route }) {
         <Container>
           <FlatList
             refreshing={refreshing}
-            onRefresh={refresh}
+            onRefresh={onRefresh}
             data={exercises}
+            // extraData={exercises}
             keyExtractor={(item, index) => "" + index}
             renderItem={renderItem}
             initialNumToRender={50}

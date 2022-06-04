@@ -40,6 +40,13 @@ const InfoContainer = styled.View`
   justify-content: space-evenly;
 `;
 
+const LikeContainer = styled.TouchableOpacity`
+  margin: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
 const InfoText = styled.Text`
   color: ${(props) => props.theme.fontColor};
   font-size: 16px;
@@ -190,7 +197,7 @@ export default function SeeProgram({ route, navigation }) {
                 </InfoText>
               </InfoContainer>
 
-              <InfoContainer onPress={toggleLikeFunction}>
+              <LikeContainer onPress={toggleLikeFunction}>
                 {program.isLiked ? (
                   <>
                     <InfoText>
@@ -206,7 +213,7 @@ export default function SeeProgram({ route, navigation }) {
                     <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
                   </>
                 )}
-              </InfoContainer>
+              </LikeContainer>
             </>
           )}
         </InfoContainer>

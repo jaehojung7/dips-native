@@ -3,6 +3,7 @@ import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { gql, useMutation } from "@apollo/client";
+import { useNavigation } from "@react-navigation/native";
 
 const DELETE_EXERCISE_MUTATION = gql`
   mutation deleteExercise($id: Int!) {
@@ -52,6 +53,7 @@ const BorderLine = styled.View`
 `;
 
 export default function DeleteExercise({ exercise }) {
+  const navigation = useNavigation();
   const swipeableRef = useRef(null);
   const closeSwipeable = () => {
     swipeableRef.current.close();
@@ -77,7 +79,8 @@ export default function DeleteExercise({ exercise }) {
 
   const combinedFunctions = () => {
     deleteExerciseFunction();
-    closeSwipeable();
+    // closeSwipeable();
+    navigation.navigate("Settings", { screen: "StackSetting" });
   };
   const onClickDelete = () => {
     Alert.alert("이 운동을 삭제할까요?", "", [
