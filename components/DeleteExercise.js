@@ -35,15 +35,15 @@ const ExerciseTitleContainer = styled.View`
 `;
 
 const ExerciseTitle = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: ${(props) => props.theme.fontColor};
   font-weight: 600;
+  width: 80%;
 `;
 
 const ExerciseBodypart = styled.Text`
-  font-size: 16px;
+  font-size: 15px;
   color: ${(props) => props.theme.gray};
-  margin-top: 3px;
 `;
 
 const BorderLine = styled.View`

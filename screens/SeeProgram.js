@@ -5,6 +5,7 @@ import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { ME_QUERY } from "./Program";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -34,14 +35,14 @@ const ProgramTitle = styled.Text`
 `;
 
 const InfoContainer = styled.View`
-  margin: 10px;
+  margin: 5px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 `;
 
 const LikeContainer = styled.TouchableOpacity`
-  margin: 10px;
+  margin: 5px;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
@@ -107,9 +108,9 @@ const ExerciseTitle = styled.Text`
 
 export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
-  console.log(program);
   const { exercises } = route.params;
   const { directStart } = route.params;
+  const { isLiked, setIsLiked } = useState(program.isLiked);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -129,19 +130,24 @@ export default function SeeProgram({ route, navigation }) {
     }
   };
 
+  const onCompleted = (data) => {
+    const {
+      toggleLike: { ok },
+    } = data;
+    if (ok) {
+      console.log("Like pressed");
+    }
+  };
+
   const [toggleLikeFunction] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {
       id: program.id,
     },
-    update: toggleLikeUpdate,
+    // update: toggleLikeUpdate,
+    onCompleted,
   });
 
-  const onClickAlert = () => {
-    Alert.alert(
-      "Favorite program",
-      "Start your favorite programs in Settings > Favorite programs"
-    );
-  };
+  const toggleSwitch = () => toggleLikeFunction();
 
   return (
     <DismissKeyboard>
@@ -190,14 +196,14 @@ export default function SeeProgram({ route, navigation }) {
             <>
               <InfoContainer>
                 <InfoText>
-                  <FontAwesome name="user" size={16} />
+                  <FontAwesome name="user" size={17} />
                 </InfoText>
                 <InfoText style={{ marginLeft: 7 }}>
                   {program?.user.username}
                 </InfoText>
               </InfoContainer>
 
-              <LikeContainer onPress={toggleLikeFunction}>
+              {/* <LikeContainer onPress={toggleLikeFunction}>
                 {program.isLiked ? (
                   <>
                     <InfoText>
@@ -213,7 +219,20 @@ export default function SeeProgram({ route, navigation }) {
                     <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
                   </>
                 )}
-              </LikeContainer>
+              </LikeContainer> */}
+
+              <InfoContainer>
+                <InfoText style={{ marginRight: 7 }}>
+                  <FontAwesome name="star" size={16} />
+                </InfoText>
+                <InfoText style={{ marginRight: 5 }}>Favorite</InfoText>
+
+                <Switch
+                  style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
+                  onValueChange={toggleSwitch}
+                  value={program.isLiked}
+                />
+              </InfoContainer>
             </>
           )}
         </InfoContainer>

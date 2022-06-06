@@ -166,7 +166,7 @@ export default function CreateExercise({ navigation, route }) {
           name="bodyPart"
           control={control}
           rules={{ required: true }}
-          defaultValue="Back"
+          defaultValue="Leg"
           render={({ value }) => (
             <Picker
               itemStyle={{
@@ -181,9 +181,9 @@ export default function CreateExercise({ navigation, route }) {
                 setSelectedBodyPart(itemValue);
               }}
             >
+              <Picker.Item label="Leg" value="Leg" />
               <Picker.Item label="Back" value="Back" />
               <Picker.Item label="Chest" value="Chest" />
-              <Picker.Item label="Leg" value="Leg" />
               <Picker.Item label="Shoulder" value="Shoulder" />
               <Picker.Item label="Core" value="Core" />
               <Picker.Item label="Arm" value="Arm" />

@@ -38,15 +38,6 @@ const ButtonText = styled.Text`
 
 export default function ExerciseList({ navigation, route }) {
   const { userId, exercises } = route.params;
-
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await refetch();
-    setRefreshing(false);
-  };
-
   const renderItem = ({ item: exercise }) => {
     return <DeleteExercise exercise={exercise} />;
   };
@@ -83,10 +74,8 @@ export default function ExerciseList({ navigation, route }) {
       ) : (
         <Container>
           <FlatList
-            refreshing={refreshing}
-            onRefresh={onRefresh}
             data={exercises}
-            // extraData={exercises}
+            extraData={exercises}
             keyExtractor={(item, index) => "" + index}
             renderItem={renderItem}
             initialNumToRender={50}

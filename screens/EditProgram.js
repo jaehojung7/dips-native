@@ -136,8 +136,7 @@ const ButtonText = styled.Text`
 `;
 
 export default function EditProgram({ navigation, route }) {
-  const { program } = route.params;
-  const { exercises } = route.params;
+  const { program, exercises } = route.params;
   const [isPublic, setIsPublic] = useState(program.isPublic);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleSwitch = () => setIsPublic((previousState) => !previousState);
@@ -297,7 +296,7 @@ export default function EditProgram({ navigation, route }) {
           />
           <ToggleInfoContainer onPress={onClickAlert}>
             <ToggleInfoText>
-              <FontAwesome5 name="info-circle" size={20} />
+              <FontAwesome5 name="info-circle" size={18} />
             </ToggleInfoText>
           </ToggleInfoContainer>
         </ToggleContainer>
