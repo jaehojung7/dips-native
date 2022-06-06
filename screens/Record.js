@@ -66,6 +66,7 @@ const RecordTitleContainer = styled.View`
 const RecordTitle = styled.Text`
   font-size: 19px;
   font-weight: 600;
+  width: 85%;
   color: ${(props) => props.theme.fontColor};
 `;
 

@@ -33,7 +33,7 @@ const ProgramTitle = styled.Text`
   font-weight: 700;
   width: 85%;
 `;
-
+``;
 const InfoContainer = styled.View`
   margin: 5px;
   flex-direction: row;

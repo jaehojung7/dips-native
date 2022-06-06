@@ -3,6 +3,7 @@ import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
 import { ME_QUERY } from "../../screens/Program";
+import { DeviceEventEmitter } from "react-native";
 
 const DELETE_PROGRAM_MUTATION = gql`
   mutation deleteProgram($id: Int!) {
@@ -34,7 +35,9 @@ export default function DeleteProgramButton({ navigation, program }) {
     const {
       deleteProgram: { ok, error },
     } = data;
+
     if (ok) {
+      DeviceEventEmitter.emit("event.deleteProgram", { data });
       navigation.navigate("StackProgram");
     }
   };
@@ -44,11 +47,11 @@ export default function DeleteProgramButton({ navigation, program }) {
       id: program.id,
     },
     onCompleted,
-    refetchQueries: [{ query: ME_QUERY }],
+    // refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onClickDelete = () => {
-    Alert.alert("이 프로그램을 삭제할까요?", "", [
+    Alert.alert("Do you want to delete this program?", "", [
       {
         text: "Delete",
         onPress: () => deleteProgramFunction(),
