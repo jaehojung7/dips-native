@@ -83,7 +83,7 @@ export default function DeleteExercise({ exercise }) {
     navigation.navigate("Settings", { screen: "StackSetting" });
   };
   const onClickDelete = () => {
-    Alert.alert("이 운동을 삭제할까요?", "", [
+    Alert.alert("Do you want to delete this exercise?", "", [
       {
         text: "Delete",
         onPress: () => combinedFunctions(),

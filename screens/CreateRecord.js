@@ -113,7 +113,7 @@ export default function CreateRecord({ navigation, route }) {
         exercise: workoutSet.exercise,
         recordExerciseSets: Array(workoutSet.setCount).fill({
           weight: "",
-          repCount: workoutSet.repCount,
+          repCount: String(workoutSet.repCount),
         }),
       }));
     };

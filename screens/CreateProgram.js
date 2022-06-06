@@ -101,10 +101,11 @@ const ToggleText = styled.Text`
   font-weight: 500;
   font-size: 15px;
   margin-right: 5px;
+  margin-left: 5px;
 `;
 
 const ToggleInfoContainer = styled.TouchableOpacity`
-  margin-left: 20px;
+  margin-left: 10px;
 `;
 
 const ToggleInfoText = styled.Text`
@@ -141,7 +142,7 @@ export default function CreateProgram({ navigation, route }) {
 
   const onCreateWorkoutSetCompleted = (data) => {
     const {
-      createWorkoutSet: { ok, id: workoutSetId, error },
+      createWorkoutSet: { ok, error },
     } = data;
     if (!ok) {
       setError("result", {
@@ -225,8 +226,8 @@ export default function CreateProgram({ navigation, route }) {
 
   const onClickAlert = () => {
     Alert.alert(
-      "Share your program",
-      "Turn on the toggle to allow other users can search this program"
+      "Make this program public",
+      "Public programs are visible to other users"
     );
   };
 
@@ -249,12 +250,17 @@ export default function CreateProgram({ navigation, route }) {
           />
         </TitleContainer>
         <ToggleContainer>
-          <ToggleText>Share this program</ToggleText>
+          <ToggleText>
+            Private <FontAwesome5 name="lock" size={14} />
+          </ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             onValueChange={toggleSwitch}
             value={isPublic}
           />
+          <ToggleText>
+            Public <FontAwesome5 name="lock-open" size={14} />
+          </ToggleText>
           <ToggleInfoContainer onPress={onClickAlert}>
             <ToggleInfoText>
               <FontAwesome5 name="info-circle" size={20} />

@@ -106,8 +106,8 @@ export default function EditRecord({ navigation, route }) {
   const processDefaultValues = (record) => {
     const processRecordExerciseSets = (recordExerciseSets) => {
       return recordExerciseSets.map((recordExerciseSet) => ({
-        weight: recordExerciseSet.weight,
-        repCount: recordExerciseSet.repCount,
+        weight: String(recordExerciseSet.weight),
+        repCount: String(recordExerciseSet.repCount),
       }));
     };
 
