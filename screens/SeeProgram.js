@@ -109,6 +109,14 @@ export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
   const { directStart } = route.params;
+  const [isState, setIsState] = useState(program.isLiked);
+
+  useEffect(() => {
+    const cleanup = () => setIsState(program);
+    return () => {
+      cleanup();
+    };
+  }, []);
 
   const toggleLikeUpdate = (cache, result) => {
     const {

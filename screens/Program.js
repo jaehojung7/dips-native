@@ -1,5 +1,5 @@
-import React from "react";
-import { ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
@@ -150,7 +150,14 @@ const ButtonContainer = styled.View`
 `;
 
 export default function Program({ navigation }) {
-  const { data, loading } = useQuery(ME_QUERY);
+  const { data, loading, refetch } = useQuery(ME_QUERY);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+
   const directStart = true;
   if (loading)
     return (
@@ -184,7 +191,12 @@ export default function Program({ navigation }) {
   // );
 
   return (
-    <Container showsVerticalScrollIndicator={false}>
+    <Container
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <HeaderContainer>
         <Header>Programs</Header>
       </HeaderContainer>
