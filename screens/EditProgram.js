@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ME_QUERY } from "./Program";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
@@ -140,7 +140,16 @@ export default function EditProgram({ navigation, route }) {
   const { program, exercises } = route.params;
   const [isPublic, setIsPublic] = useState(program.isPublic);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isState, setIsState] = useState();
+
   const toggleSwitch = () => setIsPublic((previousState) => !previousState);
+
+  useEffect(() => {
+    const cleanup = () => setIsState(program);
+    return () => {
+      cleanup();
+    };
+  }, []);
 
   const processDefaultValues = (program) => {
     const processWorkoutSets = (workoutSets) => {

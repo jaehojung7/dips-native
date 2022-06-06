@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Switch, Alert } from "react-native";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { ME_QUERY } from "./Program";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -110,7 +109,6 @@ export default function SeeProgram({ route, navigation }) {
   const { program } = route.params;
   const { exercises } = route.params;
   const { directStart } = route.params;
-  const { isLiked, setIsLiked } = useState(program.isLiked);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -143,8 +141,8 @@ export default function SeeProgram({ route, navigation }) {
     variables: {
       id: program.id,
     },
-    // update: toggleLikeUpdate,
-    onCompleted,
+    update: toggleLikeUpdate,
+    // onCompleted,
   });
 
   const toggleSwitch = () => toggleLikeFunction();
@@ -203,7 +201,7 @@ export default function SeeProgram({ route, navigation }) {
                 </InfoText>
               </InfoContainer>
 
-              {/* <LikeContainer onPress={toggleLikeFunction}>
+              <LikeContainer onPress={toggleLikeFunction}>
                 {program.isLiked ? (
                   <>
                     <InfoText>
@@ -219,20 +217,16 @@ export default function SeeProgram({ route, navigation }) {
                     <InfoText style={{ marginLeft: 7 }}>Like</InfoText>
                   </>
                 )}
-              </LikeContainer> */}
+              </LikeContainer>
 
-              <InfoContainer>
-                <InfoText style={{ marginRight: 7 }}>
-                  <FontAwesome name="star" size={16} />
-                </InfoText>
+              {/* <InfoContainer>
                 <InfoText style={{ marginRight: 5 }}>Favorite</InfoText>
-
                 <Switch
                   style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
                   onValueChange={toggleSwitch}
                   value={program.isLiked}
                 />
-              </InfoContainer>
+              </InfoContainer> */}
             </>
           )}
         </InfoContainer>
