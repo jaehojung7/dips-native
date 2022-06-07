@@ -106,9 +106,7 @@ const ExerciseTitle = styled.Text`
 `;
 
 export default function SeeProgram({ route, navigation }) {
-  const { program } = route.params;
-  const { exercises } = route.params;
-  const { directStart } = route.params;
+  const { program, exercises, directStart } = route.params;
   const [isState, setIsState] = useState(program.isLiked);
 
   useEffect(() => {
@@ -136,14 +134,14 @@ export default function SeeProgram({ route, navigation }) {
     }
   };
 
-  const onCompleted = (data) => {
-    const {
-      toggleLike: { ok },
-    } = data;
-    if (ok) {
-      console.log("Like pressed");
-    }
-  };
+  // const onCompleted = (data) => {
+  //   const {
+  //     toggleLike: { ok },
+  //   } = data;
+  //   if (ok) {
+  //     console.log("Like pressed");
+  //   }
+  // };
 
   const [toggleLikeFunction] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {

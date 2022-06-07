@@ -24,18 +24,28 @@ const WorkoutTitle = styled.Text`
   opacity: 0.6;
 `;
 
-export default function ProgramCards({ programs, exercises }) {
+export default function ProgramCards({
+  programs,
+  exercises,
+  setSelectedProgram,
+  setModalVisible,
+}) {
   const navigation = useNavigation();
+  const onPress = (program) => {
+    setSelectedProgram(program);
+    setModalVisible(true);
+  };
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("SeeProgram", {
-            program,
-            exercises,
-            directStart: true,
-          })
-        }
+        // onPress={() =>
+        //   navigation.navigate("SeeProgram", {
+        //     program,
+        //     exercises,
+        //     directStart: true,
+        //   })
+        // }
+        onPress={onPress(program)}
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>

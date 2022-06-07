@@ -35,9 +35,7 @@ export default function DeleteProgramButton({ navigation, program }) {
     const {
       deleteProgram: { ok, error },
     } = data;
-
     if (ok) {
-      DeviceEventEmitter.emit("event.deleteProgram", { data });
       navigation.navigate("StackProgram");
     }
   };
@@ -47,7 +45,7 @@ export default function DeleteProgramButton({ navigation, program }) {
       id: program.id,
     },
     onCompleted,
-    // refetchQueries: [{ query: ME_QUERY }],
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onClickDelete = () => {
