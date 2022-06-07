@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { FlatList, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
@@ -27,6 +28,7 @@ const WorkoutTitle = styled.Text`
 export default function ProgramCards({
   programs,
   exercises,
+  selectedProgram,
   setSelectedProgram,
   setModalVisible,
 }) {
@@ -35,17 +37,18 @@ export default function ProgramCards({
     setSelectedProgram(program);
     setModalVisible(true);
   };
+
   const renderProgram = ({ item: program }) => {
     return (
       <TouchableOpacity
         // onPress={() =>
         //   navigation.navigate("SeeProgram", {
-        //     program,
+        //     program: selectedProgram,
         //     exercises,
         //     directStart: true,
         //   })
         // }
-        onPress={onPress(program)}
+        onPress={() => onPress(program)}
       >
         <ProgramContainer>
           <ProgramTitle>{program.title}</ProgramTitle>

@@ -119,6 +119,7 @@ export default function SeeProgramModal({
   exercises,
   setModalVisible,
 }) {
+  console.log(program);
   const directStart = true;
 
   const toggleLikeUpdate = (cache, result) => {
@@ -144,7 +145,6 @@ export default function SeeProgramModal({
       id: program.id,
     },
     update: toggleLikeUpdate,
-    // onCompleted,
   });
 
   return (
@@ -225,15 +225,6 @@ export default function SeeProgramModal({
                 </>
               )}
             </LikeContainer>
-
-            {/* <InfoContainer>
-                <InfoText style={{ marginRight: 5 }}>Favorite</InfoText>
-                <Switch
-                  style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
-                  onValueChange={toggleSwitch}
-                  value={program.isLiked}
-                />
-              </InfoContainer> */}
           </>
         )}
       </InfoContainer>

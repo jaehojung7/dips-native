@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
@@ -162,6 +162,11 @@ export default function Program({ navigation }) {
   };
 
   const directStart = true;
+
+  // useEffect(() => {
+  //   setModalVisible((prev) => !prev);
+  // }, []);
+
   if (loading)
     return (
       <IndicatorContainer>
@@ -257,6 +262,7 @@ export default function Program({ navigation }) {
         <ProgramCards
           programs={programs}
           exercises={exercises}
+          selectedProgram={selectedProgram}
           setSelectedProgram={setSelectedProgram}
           setModalVisible={setModalVisible}
         />
@@ -291,7 +297,7 @@ export default function Program({ navigation }) {
         onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />
 
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <Modal animationType="slide" transparent={false} visible={modalVisible}>
         <SeeProgramModal
           program={selectedProgram}
           exercises={exercises}
