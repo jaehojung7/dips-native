@@ -3,8 +3,9 @@ import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Modal } from "react-native";
 import ProgramCards from "../components/ProgramCards";
+import SeeProgramModal from "./SeeProgramModal";
 
 export const ME_QUERY = gql`
   query me {
@@ -152,6 +153,8 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
@@ -251,7 +254,12 @@ export default function Program({ navigation }) {
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={programs} exercises={exercises} />
+        <ProgramCards
+          programs={programs}
+          exercises={exercises}
+          setSelectedProgram={setSelectedProgram}
+          setModalVisible={setModalVisible}
+        />
       </ProgramContainer>
 
       <ProgramContainer>
@@ -269,7 +277,12 @@ export default function Program({ navigation }) {
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards programs={likes} exercises={exercises} />
+        <ProgramCards
+          programs={likes}
+          exercises={exercises}
+          setSelectedProgram={setSelectedProgram}
+          setModalVisible={setModalVisible}
+        />
       </ProgramContainer>
 
       <MainButton
@@ -277,6 +290,14 @@ export default function Program({ navigation }) {
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />
+
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <SeeProgramModal
+          program={selectedProgram}
+          exercises={exercises}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
     </Container>
   );
 }

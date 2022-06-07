@@ -72,6 +72,9 @@ export default function App() {
       <AppearanceProvider>
         <ThemeProvider theme={scheme === "dark" ? darkTheme : lightTheme}>
           <NavigationContainer
+            documentTitle={{
+              formatter: (options, route) => `Dips`,
+            }}
             theme={scheme === "dark" ? MyDarkTheme : MyLightTheme}
           >
             {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
