@@ -5,7 +5,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { gql, useMutation } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
-import { useColorScheme } from "react-native";
+import { useColorScheme, DeviceEventEmitter } from "react-native";
 
 const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
@@ -114,6 +114,7 @@ export default function CreateExercise({ navigation, route }) {
       createExercise: { ok },
     } = data;
     if (ok) {
+      DeviceEventEmitter.emit("event.createExercise", { data });
       navigation.navigate("Settings", { screen: "StackSetting" });
     }
   };
@@ -121,8 +122,8 @@ export default function CreateExercise({ navigation, route }) {
   const [createExerciseFunction, { loading }] = useMutation(
     CREATE_EXERCISE_MUTATION,
     {
-      update: createExerciseUpdate,
       onCompleted,
+      update: createExerciseUpdate,
     }
   );
 

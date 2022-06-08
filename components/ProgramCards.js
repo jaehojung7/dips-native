@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { FlatList, Modal, TouchableOpacity } from "react-native";
+import React from "react";
+import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,40 +25,32 @@ const WorkoutTitle = styled.Text`
   opacity: 0.6;
 `;
 
-export default function ProgramCards({
-  programs,
-  exercises,
-  selectedProgram,
-  setSelectedProgram,
-  setModalVisible,
-}) {
+export default function ProgramCards({ programs, exercises }) {
   const navigation = useNavigation();
-  const onPress = (program) => {
-    setSelectedProgram(program);
-    setModalVisible(true);
-  };
 
   const renderProgram = ({ item: program }) => {
     return (
-      <TouchableOpacity
-        // onPress={() =>
-        //   navigation.navigate("SeeProgram", {
-        //     program: selectedProgram,
-        //     exercises,
-        //     directStart: true,
-        //   })
-        // }
-        onPress={() => onPress(program)}
-      >
-        <ProgramContainer>
-          <ProgramTitle>{program.title}</ProgramTitle>
-          <WorkoutTitle>{program.workouts.length} workouts</WorkoutTitle>
-        </ProgramContainer>
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("SeeProgram", {
+              program,
+              exercises,
+              directStart: true,
+            })
+          }
+        >
+          <ProgramContainer>
+            <ProgramTitle>{program.title}</ProgramTitle>
+            <WorkoutTitle>{program.workouts.length} workouts</WorkoutTitle>
+          </ProgramContainer>
+        </TouchableOpacity>
+      </>
     );
   };
 
   return (
+    // <>
     <FlatList
       data={programs}
       keyExtractor={(item, index) => "" + index}

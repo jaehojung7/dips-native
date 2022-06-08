@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { DeviceEventEmitter } from "react-native";
 
 const ME_QUERY = gql`
   query me {
@@ -91,10 +93,6 @@ const ProfileText = styled.Text`
   margin-bottom: 7px;
 `;
 
-const Button = styled.TouchableOpacity`
-  border-radius: 30px;
-`;
-
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-size: 15px;
@@ -106,12 +104,6 @@ const IndicatorContainer = styled.View`
   flex: 1;
   justify-content: center;
 `;
-
-const ListsContainer = styled.View`
-  margin-bottom: 30px;
-`;
-
-const ListTouchable = styled.TouchableOpacity``;
 
 const ListTextContainer = styled.View`
   flex-direction: row;
@@ -152,6 +144,17 @@ export default function Setting({ navigation }) {
   const likes = data?.me.likes.map((like) => like.program);
   const exercises = data?.me.exercises;
 
+  DeviceEventEmitter.addListener(
+    "event.toggleLike",
+
+    async (data) => await refetch()
+  );
+
+  DeviceEventEmitter.addListener(
+    "event.createExercise",
+    async (data) => await refetch()
+  );
+
   return (
     <DismissKeyboard>
       <Container
@@ -170,8 +173,8 @@ export default function Setting({ navigation }) {
           </ProfileText>
         </ProfileContainer>
 
-        <ListsContainer>
-          <ListTouchable
+        <View style={{ marginBottom: 30 }}>
+          <TouchableOpacity
             onPress={() =>
               navigation.navigate("ProgramList", {
                 programs,
@@ -187,9 +190,9 @@ export default function Setting({ navigation }) {
               </ListText>
             </ListTextContainer>
             <BorderLine />
-          </ListTouchable>
+          </TouchableOpacity>
 
-          <ListTouchable
+          <TouchableOpacity
             onPress={() =>
               navigation.navigate("ProgramList", {
                 programs: likes,
@@ -205,9 +208,9 @@ export default function Setting({ navigation }) {
               </ListText>
             </ListTextContainer>
             <BorderLine />
-          </ListTouchable>
+          </TouchableOpacity>
 
-          <ListTouchable
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("ExerciseList", {
                 userId: data?.me.id,
@@ -222,11 +225,12 @@ export default function Setting({ navigation }) {
               </ListText>
             </ListTextContainer>
             <BorderLine />
-          </ListTouchable>
-        </ListsContainer>
-        <Button onPress={() => logUserOut()}>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => logUserOut()}>
           <ButtonText>Logout</ButtonText>
-        </Button>
+        </TouchableOpacity>
       </Container>
     </DismissKeyboard>
   );

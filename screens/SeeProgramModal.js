@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
@@ -119,7 +119,6 @@ export default function SeeProgramModal({
   exercises,
   setModalVisible,
 }) {
-  console.log(program);
   const directStart = true;
 
   const toggleLikeUpdate = (cache, result) => {
@@ -167,7 +166,7 @@ export default function SeeProgramModal({
           setModalVisible(false);
         }}
       >
-        <ButtonText>닫기</ButtonText>
+        <ButtonText>Close</ButtonText>
       </ButtonContainer>
 
       <InfoContainer>

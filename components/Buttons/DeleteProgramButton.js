@@ -3,7 +3,6 @@ import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
 import { ME_QUERY } from "../../screens/Program";
-import { DeviceEventEmitter } from "react-native";
 
 const DELETE_PROGRAM_MUTATION = gql`
   mutation deleteProgram($id: Int!) {
@@ -57,7 +56,6 @@ export default function DeleteProgramButton({ navigation, program }) {
       },
       {
         text: "Cancel",
-        // onPress: () => closeSwipeable(),
         style: "cancel",
       },
     ]);

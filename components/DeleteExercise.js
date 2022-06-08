@@ -70,23 +70,28 @@ export default function DeleteExercise({ exercise }) {
     }
   };
 
+  const onCompleted = (data) => {
+    const {
+      deleteExercise: { ok },
+    } = data;
+    if (ok) {
+      navigation.navigate("Settings", { screen: "StackSetting" });
+    }
+  };
+
   const [deleteExerciseFunction] = useMutation(DELETE_EXERCISE_MUTATION, {
     variables: {
       id: exercise.id,
     },
+    onCompleted,
     update: deleteExerciseUpdate,
   });
 
-  const combinedFunctions = () => {
-    deleteExerciseFunction();
-    // closeSwipeable();
-    navigation.navigate("Settings", { screen: "StackSetting" });
-  };
   const onClickDelete = () => {
     Alert.alert("Do you want to delete this exercise?", "", [
       {
         text: "Delete",
-        onPress: () => combinedFunctions(),
+        onPress: () => deleteExerciseFunction(),
         style: "destructive",
       },
       {

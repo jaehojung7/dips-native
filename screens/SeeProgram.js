@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { gql, useMutation } from "@apollo/client";
-import { Switch, Alert } from "react-native";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { DeviceEventEmitter } from "react-native";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -107,14 +107,6 @@ const ExerciseTitle = styled.Text`
 
 export default function SeeProgram({ route, navigation }) {
   const { program, exercises, directStart } = route.params;
-  const [isState, setIsState] = useState(program.isLiked);
-
-  useEffect(() => {
-    const cleanup = () => setIsState(program);
-    return () => {
-      cleanup();
-    };
-  }, []);
 
   const toggleLikeUpdate = (cache, result) => {
     const {
@@ -134,24 +126,34 @@ export default function SeeProgram({ route, navigation }) {
     }
   };
 
-  // const onCompleted = (data) => {
-  //   const {
-  //     toggleLike: { ok },
-  //   } = data;
-  //   if (ok) {
-  //     console.log("Like pressed");
-  //   }
-  // };
+  const onCompleted = (data) => {
+    const {
+      toggleLike: { ok },
+    } = data;
+    if (ok) {
+      DeviceEventEmitter.emit("event.toggleLike", { data });
+    }
+  };
 
   const [toggleLikeFunction] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {
       id: program.id,
     },
+    onCompleted,
     update: toggleLikeUpdate,
-    // onCompleted,
   });
 
-  const toggleSwitch = () => toggleLikeFunction();
+  // https://reactnavigation.org/docs/navigation-prop/#setparams
+  // https://stackoverflow.com/questions/9454863/updating-javascript-object-property
+  const onPress = () => {
+    toggleLikeFunction();
+    navigation.setParams({
+      program:
+        route.params.program.isLiked === true
+          ? { ...program, isLiked: false }
+          : { ...program, isLiked: true },
+    });
+  };
 
   return (
     <DismissKeyboard>
@@ -207,7 +209,7 @@ export default function SeeProgram({ route, navigation }) {
                 </InfoText>
               </InfoContainer>
 
-              <LikeContainer onPress={toggleLikeFunction}>
+              <LikeContainer onPress={onPress}>
                 {program.isLiked ? (
                   <>
                     <InfoText>

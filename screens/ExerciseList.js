@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -61,8 +61,6 @@ export default function ExerciseList({ navigation, route }) {
       {Platform.OS === "web" ? (
         <ScrollContainer showsVerticalScrollIndicator={false}>
           <FlatList
-            refreshing={refreshing}
-            onRefresh={onRefresh}
             data={exercises}
             keyExtractor={(item, index) => "" + index}
             renderItem={renderItem}

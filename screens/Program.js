@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, RefreshControl } from "react-native";
+import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  DeviceEventEmitter,
+} from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { TouchableOpacity, Modal } from "react-native";
 import ProgramCards from "../components/ProgramCards";
-import SeeProgramModal from "./SeeProgramModal";
 
 export const ME_QUERY = gql`
   query me {
@@ -153,8 +156,6 @@ const ButtonContainer = styled.View`
 export default function Program({ navigation }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
@@ -162,10 +163,6 @@ export default function Program({ navigation }) {
   };
 
   const directStart = true;
-
-  // useEffect(() => {
-  //   setModalVisible((prev) => !prev);
-  // }, []);
 
   if (loading)
     return (
@@ -185,18 +182,10 @@ export default function Program({ navigation }) {
   }
   const likes = data?.me.likes.map((like) => like.program);
 
-  // DeviceEventEmitter.addListener(
-  //   "event.createProgram",
-  //   async (data) => await refetch()
-  // );
-  // DeviceEventEmitter.addListener(
-  //   "event.editProgram",
-  //   async (data) => await refetch()
-  // );
-  // DeviceEventEmitter.addListener(
-  //   "event.deleteProgram",
-  //   async (data) => await refetch()
-  // );
+  DeviceEventEmitter.addListener(
+    "event.toggleLike",
+    async (data) => await refetch()
+  );
 
   return (
     <Container
@@ -259,13 +248,7 @@ export default function Program({ navigation }) {
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards
-          programs={programs}
-          exercises={exercises}
-          selectedProgram={selectedProgram}
-          setSelectedProgram={setSelectedProgram}
-          setModalVisible={setModalVisible}
-        />
+        <ProgramCards programs={programs} exercises={exercises} />
       </ProgramContainer>
 
       <ProgramContainer>
@@ -283,12 +266,7 @@ export default function Program({ navigation }) {
             <MoreProgram>More</MoreProgram>
           </TouchableOpacity>
         </TitleContainer>
-        <ProgramCards
-          programs={likes}
-          exercises={exercises}
-          setSelectedProgram={setSelectedProgram}
-          setModalVisible={setModalVisible}
-        />
+        <ProgramCards programs={likes} exercises={exercises} />
       </ProgramContainer>
 
       <MainButton
@@ -296,14 +274,6 @@ export default function Program({ navigation }) {
         disabled={false}
         onPress={() => navigation.navigate("CreateProgram", { exercises })}
       />
-
-      <Modal animationType="slide" transparent={false} visible={modalVisible}>
-        <SeeProgramModal
-          program={selectedProgram}
-          exercises={exercises}
-          setModalVisible={setModalVisible}
-        />
-      </Modal>
     </Container>
   );
 }
