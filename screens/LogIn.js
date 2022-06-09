@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import client, { logUserIn } from "../apollo";
 import styled from "styled-components/native";
 import { AuthInput } from "../components/auth/AuthInput";
+import FormError from "../components/record-components/FormError";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -25,14 +25,24 @@ const HeaderContainer = styled.View`
 
 const Header = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 23px;
+  font-size: 25px;
   font-weight: 700;
 `;
 
 export default function Login({ route }) {
-  const defaultValues = { email: route.params?.email };
+  // const defaultValues = { email: route.params?.email };
+  const defaultValues = { email: "", password: "" };
 
-  const { handleSubmit, setValue, getValues, control, watch } = useForm({
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
   const passwordRef = useRef();
@@ -41,6 +51,11 @@ export default function Login({ route }) {
     const {
       login: { ok, token, error },
     } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
     if (ok) {
       await logUserIn(token).then(() => client.resetStore());
     }
@@ -65,6 +80,10 @@ export default function Login({ route }) {
     });
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <AuthLayout>
       <HeaderContainer>
@@ -73,7 +92,9 @@ export default function Login({ route }) {
       <Controller
         name="email"
         control={control}
-        rules={{ required: true }}
+        rules={{
+          required: true,
+        }}
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             placeholder="Email"
@@ -84,13 +105,18 @@ export default function Login({ route }) {
             placeholderTextColor="#999999"
             onSubmitEditing={() => onNext(passwordRef)}
             onChangeText={(text) => setValue("email", text)}
+            hasError={Boolean(errors?.email?.message)}
+            onChange={clearLoginError}
           />
         )}
       />
+      <FormError message={errors?.email?.message} />
       <Controller
         name="password"
         control={control}
-        rules={{ required: true }}
+        rules={{
+          required: true,
+        }}
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             ref={passwordRef}
@@ -101,15 +127,20 @@ export default function Login({ route }) {
             placeholderTextColor="#999999"
             onSubmitEditing={handleSubmit(onSubmitValid)}
             onChangeText={(text) => setValue("password", text)}
+            hasError={Boolean(errors?.password?.message)}
+            onChange={clearLoginError}
           />
         )}
       />
+      <FormError message={errors?.password?.message} />
+
       <MainButton
         text="Log in"
         loading={loading}
         disabled={!watch("email") || !watch("password")}
         onPress={handleSubmit(onSubmitValid)}
       />
+      <FormError message={errors?.result?.message} />
     </AuthLayout>
   );
 }

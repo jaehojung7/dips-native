@@ -145,8 +145,12 @@ export default function Setting({ navigation }) {
   const exercises = data?.me.exercises;
 
   DeviceEventEmitter.addListener(
-    "event.toggleLike",
+    "event.deleteProgram",
+    async (data) => await refetch()
+  );
 
+  DeviceEventEmitter.addListener(
+    "event.toggleLike",
     async (data) => await refetch()
   );
 

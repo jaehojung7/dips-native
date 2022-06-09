@@ -2,7 +2,6 @@ import React from "react";
 import { Alert, Platform } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
-import { ME_QUERY } from "../../screens/Program";
 
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: Int!) {
@@ -30,6 +29,17 @@ const ButtonText = styled.Text`
 `;
 
 export default function DeleteRecordButton({ navigation, record }) {
+  const deleteRecordUpdate = (cache, result) => {
+    const {
+      data: {
+        deleteRecord: { ok, error },
+      },
+    } = result;
+    if (ok) {
+      cache.evict({ id: `Record:${record.id}` });
+    }
+  };
+
   const onCompleted = (data) => {
     const {
       deleteRecord: { ok, error },
@@ -44,11 +54,11 @@ export default function DeleteRecordButton({ navigation, record }) {
       id: record.id,
     },
     onCompleted,
-    refetchQueries: [{ query: ME_QUERY }],
+    update: deleteRecordUpdate,
   });
 
   const onClickDelete = () => {
-    Alert.alert("운동 기록을 삭제할까요?", "", [
+    Alert.alert("Do you want to delete this record?", "", [
       {
         text: "Delete",
         onPress: () => deleteRecordFunction(),
@@ -56,7 +66,6 @@ export default function DeleteRecordButton({ navigation, record }) {
       },
       {
         text: "Cancel",
-        // onPress: () => closeSwipeable(),
         style: "cancel",
       },
     ]);

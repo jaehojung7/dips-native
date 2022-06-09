@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Platform } from "react-native";
+import { Alert, Platform, DeviceEventEmitter } from "react-native";
 import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
 import { ME_QUERY } from "../../screens/Program";
@@ -30,11 +30,24 @@ const ButtonText = styled.Text`
 `;
 
 export default function DeleteProgramButton({ navigation, program }) {
+  const deleteProgramUpdate = (cache, result) => {
+    const {
+      data: {
+        deleteProgram: { ok, error },
+      },
+    } = result;
+    if (ok) {
+      cache.evict({ id: `Program:${program.id}` });
+    }
+  };
+
   const onCompleted = (data) => {
     const {
       deleteProgram: { ok, error },
     } = data;
     if (ok) {
+      DeviceEventEmitter.emit("event.deleteProgram", { data });
+      navigation.navigate("Settings", { screen: "StackSetting" });
       navigation.navigate("StackProgram");
     }
   };
@@ -45,6 +58,7 @@ export default function DeleteProgramButton({ navigation, program }) {
     },
     onCompleted,
     refetchQueries: [{ query: ME_QUERY }],
+    // update: deleteProgramUpdate,
   });
 
   const onClickDelete = () => {

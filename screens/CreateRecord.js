@@ -193,7 +193,9 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackProgram");
+    // navigation.navigate("StackProgram");
+    navigation.goBack();
+    navigation.navigate("Records", { screen: "StackRecord" });
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(

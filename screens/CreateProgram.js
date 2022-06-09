@@ -187,14 +187,12 @@ export default function CreateProgram({ navigation, route }) {
         message: error,
       });
     }
-
     const submissionData = getValues();
     submissionData.workouts.map((workout, workoutIndex) => {
       createWorkoutFunction({
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-
     navigation.navigate("StackProgram");
   };
 
@@ -238,7 +236,13 @@ export default function CreateProgram({ navigation, route }) {
           <Controller
             name="programTitle"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: "error message",
+              minLength: {
+                value: 4,
+                message: "error message",
+              },
+            }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
                 maxLength={25}
@@ -251,7 +255,7 @@ export default function CreateProgram({ navigation, route }) {
         </TitleContainer>
         <ToggleContainer>
           <ToggleText>
-            Private <FontAwesome5 name="lock" size={14} />
+            <FontAwesome5 name="lock" size={14} /> Private
           </ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
@@ -259,7 +263,7 @@ export default function CreateProgram({ navigation, route }) {
             value={isPublic}
           />
           <ToggleText>
-            Public <FontAwesome5 name="lock-open" size={14} />
+            <FontAwesome5 name="lock-open" size={14} /> Public
           </ToggleText>
           <ToggleInfoContainer onPress={onClickAlert}>
             <ToggleInfoText>

@@ -235,7 +235,7 @@ export default function EditProgram({ navigation, route }) {
         variables: { programId, workoutIndex, title: workout.title },
       });
     });
-    // navigation.navigate("Settings", { screen: "StackSetting" });
+    navigation.navigate("Settings", { screen: "StackSetting" });
     navigation.navigate("StackProgram");
   };
 
@@ -252,7 +252,7 @@ export default function EditProgram({ navigation, route }) {
 
   const [createWorkoutSetFunction] = useMutation(CREATE_WORKOUT_SET_MUTATION, {
     onCompleted: onCreateWorkoutSetCompleted,
-    refetchQueries: [{ query: ME_QUERY }], // Creating a new program object directly in Apollo cache is probably better
+    refetchQueries: [{ query: ME_QUERY }],
   });
 
   const onSubmitValid = (submissionData) => {

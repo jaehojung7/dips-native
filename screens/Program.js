@@ -183,6 +183,11 @@ export default function Program({ navigation }) {
   const likes = data?.me.likes.map((like) => like.program);
 
   DeviceEventEmitter.addListener(
+    "event.deleteProgram",
+    async (data) => await refetch()
+  );
+
+  DeviceEventEmitter.addListener(
     "event.toggleLike",
     async (data) => await refetch()
   );
@@ -211,7 +216,7 @@ export default function Program({ navigation }) {
         <RecentTitle>Recent Program</RecentTitle>
 
         <ProgramTitle>
-          {recentProgram ? recentProgram?.title : "없음"}{" "}
+          {recentProgram ? recentProgram?.title : "No recent program"}{" "}
         </ProgramTitle>
         {recentProgram ? (
           <>

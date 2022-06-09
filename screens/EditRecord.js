@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
@@ -102,6 +102,14 @@ const ButtonText = styled.Text`
 export default function EditRecord({ navigation, route }) {
   const { record } = route.params;
   const { exercises } = route.params;
+  const [isState, setIsState] = useState();
+
+  useEffect(() => {
+    const cleanup = () => setIsState(record);
+    return () => {
+      cleanup();
+    };
+  }, []);
 
   const processDefaultValues = (record) => {
     const processRecordExerciseSets = (recordExerciseSets) => {

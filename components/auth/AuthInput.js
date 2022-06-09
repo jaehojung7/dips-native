@@ -6,6 +6,8 @@ export const AuthInput = styled.TextInput`
   font-size: 17px;
   font-weight: 500;
   border-radius: 10px;
-  margin-bottom: ${(props) => (props.lastOne ? "15" : 13)}px;
-  border: 1px solid ${(props) => props.theme.mainColor};
+  margin-bottom: 8px;
+  border: 1.5px solid
+    ${(props) => (props.hasError ? props.theme.mainColor : props.theme.gray)};
+  opacity: ${(props) => (props.disabled ? "0.3" : "1")};
 `;
