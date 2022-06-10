@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
+import { TouchableOpacity } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { useForm, Controller } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../components/auth/AuthLayout";
+import { AuthInput } from "../components/auth/AuthInput";
 import client, { logUserIn } from "../apollo";
 import styled from "styled-components/native";
-import { AuthInput } from "../components/auth/AuthInput";
 import FormError from "../components/record-components/FormError";
 
 const LOGIN_MUTATION = gql`
@@ -25,13 +26,27 @@ const HeaderContainer = styled.View`
 
 const Header = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 50px;
+  font-weight: 800;
+  margin-bottom: 30px;
 `;
 
-export default function Login({ route }) {
-  // const defaultValues = { email: route.params?.email };
-  const defaultValues = { email: "", password: "" };
+const Subtitle = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+const SignupLink = styled.Text`
+  font-size: 16px;
+  color: ${(props) => props.theme.mainColor};
+  font-weight: 600;
+  margin-top: 5px;
+  text-align: center;
+`;
+
+export default function Login({ navigation, route }) {
+  const defaultValues = { email: route.params?.email };
 
   const {
     handleSubmit,
@@ -87,7 +102,8 @@ export default function Login({ route }) {
   return (
     <AuthLayout>
       <HeaderContainer>
-        <Header>Log in</Header>
+        <Header>Dips</Header>
+        <Subtitle>Squat, dip, lift your workout</Subtitle>
       </HeaderContainer>
       <Controller
         name="email"
@@ -105,7 +121,6 @@ export default function Login({ route }) {
             placeholderTextColor="#999999"
             onSubmitEditing={() => onNext(passwordRef)}
             onChangeText={(text) => setValue("email", text)}
-            hasError={Boolean(errors?.email?.message)}
             onChange={clearLoginError}
           />
         )}
@@ -127,20 +142,22 @@ export default function Login({ route }) {
             placeholderTextColor="#999999"
             onSubmitEditing={handleSubmit(onSubmitValid)}
             onChangeText={(text) => setValue("password", text)}
-            hasError={Boolean(errors?.password?.message)}
             onChange={clearLoginError}
           />
         )}
       />
-      <FormError message={errors?.password?.message} />
 
+      <FormError message={errors?.result?.message} />
       <MainButton
         text="Log in"
         loading={loading}
         disabled={!watch("email") || !watch("password")}
         onPress={handleSubmit(onSubmitValid)}
       />
-      <FormError message={errors?.result?.message} />
+
+      <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>
+        <SignupLink>Create account</SignupLink>
+      </TouchableOpacity>
     </AuthLayout>
   );
 }
