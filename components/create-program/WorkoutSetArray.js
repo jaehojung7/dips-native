@@ -2,6 +2,7 @@ import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import FormError from "../record-components/FormError";
 
 const Container = styled.View`
   /* padding: 0 5px; */
@@ -43,6 +44,9 @@ const SelectExercise = styled.TouchableOpacity`
   border-radius: 5px;
   text-align: center;
   width: 100%;
+  border: 1.5px solid
+    ${(props) =>
+      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
 `;
 
 const ExerciseTitle = styled.Text`
@@ -58,6 +62,9 @@ const InputCount = styled.TextInput`
   font-size: 15px;
   border-radius: 5px;
   text-align: center;
+  border: 1.5px solid
+    ${(props) =>
+      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
   width: 30%;
 `;
 
@@ -71,6 +78,7 @@ export default function WorkoutSetArray({
   workoutIndex,
   control,
   setValue,
+  errors,
   defaultValues,
   setWorkoutIndexState,
   setWorkoutSetIndexState,
@@ -102,7 +110,7 @@ export default function WorkoutSetArray({
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: "Select exercise" }}
                 render={({ field: { value } }) => (
                   <SelectExercise
                     onPress={() => {
@@ -110,12 +118,18 @@ export default function WorkoutSetArray({
                       setWorkoutSetIndexState(workoutSetIndex);
                       setModalVisible(true);
                     }}
+                    hasError={Boolean(
+                      errors?.workouts?.[workoutIndex]?.workoutSets?.[
+                        workoutSetIndex
+                      ]?.exercise.message
+                    )}
                   >
                     <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
                   </SelectExercise>
                 )}
               />
             </SubContainer>
+
             <SubContainer>
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
@@ -139,6 +153,11 @@ export default function WorkoutSetArray({
                         text
                       )
                     }
+                    hasError={Boolean(
+                      errors?.workouts?.[workoutIndex]?.workoutSets?.[
+                        workoutSetIndex
+                      ]?.setCount
+                    )}
                   />
                 )}
               />
@@ -152,7 +171,7 @@ export default function WorkoutSetArray({
                     defaultValue={
                       defaultValues?.workouts[workoutIndex]?.workoutSets[
                         workoutSetIndex
-                      ]?.repCount
+                      ]?.repCount.message
                     }
                     keyboardType="numeric"
                     type="number"
@@ -165,6 +184,11 @@ export default function WorkoutSetArray({
                         text
                       )
                     }
+                    hasError={Boolean(
+                      errors?.workouts?.[workoutIndex]?.workoutSets?.[
+                        workoutSetIndex
+                      ]?.repCount
+                    )}
                   />
                 )}
               />

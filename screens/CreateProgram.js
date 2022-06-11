@@ -9,6 +9,7 @@ import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
+import FormError from "../components/record-components/FormError";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -129,7 +130,16 @@ export default function CreateProgram({ navigation, route }) {
       },
     ],
   };
-  const { handleSubmit, setValue, getValues, control, watch } = useForm({
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
   const { exercises } = route.params;
@@ -144,22 +154,22 @@ export default function CreateProgram({ navigation, route }) {
     const {
       createWorkoutSet: { ok, error },
     } = data;
-    if (!ok) {
-      setError("result", {
-        message: error,
-      });
-    }
+    // if (!ok) {
+    //   setError("result", {
+    //     message: error,
+    //   });
+    // }
   };
 
   const onCreateWorkoutCompleted = (data) => {
     const {
       createWorkout: { ok, programId, workoutIndex, error },
     } = data;
-    if (!ok) {
-      setError("result", {
-        message: error,
-      });
-    }
+    // if (!ok) {
+    //   setError("result", {
+    //     message: error,
+    //   });
+    // }
 
     const submissionData = getValues();
     submissionData.workouts[workoutIndex].workoutSets.map(
@@ -187,13 +197,16 @@ export default function CreateProgram({ navigation, route }) {
         message: error,
       });
     }
-    const submissionData = getValues();
-    submissionData.workouts.map((workout, workoutIndex) => {
-      createWorkoutFunction({
-        variables: { programId, workoutIndex, title: workout.title },
+    if (ok) {
+      const submissionData = getValues();
+      console.log(submissionData);
+      submissionData.workouts.map((workout, workoutIndex) => {
+        createWorkoutFunction({
+          variables: { programId, workoutIndex, title: workout.title },
+        });
       });
-    });
-    navigation.navigate("StackProgram");
+      navigation.navigate("StackProgram");
+    }
   };
 
   const [createProgramFunction, { loading, error }] = useMutation(
@@ -229,6 +242,10 @@ export default function CreateProgram({ navigation, route }) {
     );
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -237,22 +254,30 @@ export default function CreateProgram({ navigation, route }) {
             name="programTitle"
             control={control}
             rules={{
-              required: "error message",
+              required: true,
               minLength: {
                 value: 4,
-                message: "error message",
+                message: "minLength error message",
+              },
+              maxLength: {
+                value: 25,
+                message: "maxLength error message",
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TitleInput
-                maxLength={25}
+                autoCapitalize="none"
+                returnKeyType="next"
                 placeholder="Program title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
+                onChange={clearLoginError}
               />
             )}
           />
         </TitleContainer>
+        <FormError message={errors?.programTitle?.message} />
+
         <ToggleContainer>
           <ToggleText>
             <FontAwesome5 name="lock" size={14} /> Private
@@ -280,9 +305,13 @@ export default function CreateProgram({ navigation, route }) {
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
+            setError,
+            clearErrors,
+            errors,
           }}
         />
 
+        <FormError message={errors?.result?.message} />
         <MainButton
           text="Save program"
           loading={loading}
