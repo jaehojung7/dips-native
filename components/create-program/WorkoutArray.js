@@ -1,32 +1,28 @@
 import React from "react";
+import { View } from "react-native";
 import { Controller, useFieldArray } from "react-hook-form";
 import styled from "styled-components/native";
 import WorkoutSetArray from "./WorkoutSetArray";
 import AddDeleteWorkoutButton from "../Buttons/AddDeleteWorkoutButton";
 import FormError from "../record-components/FormError";
 
-const BorderLine = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${(props) => props.theme.gray};
-  margin: 10px 0;
-`;
-
-const MainContainer = styled.View`
+const Container = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   margin-bottom: 15px;
   padding: 15px;
 `;
-const TitleContainer = styled.View`
-  padding: 0 5px;
-`;
 
-const ContainerTitle = styled.TextInput`
-  font-size: 18px;
+const WorkoutTitle = styled.TextInput`
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 5px;
+  font-size: 19px;
   font-weight: 600;
-  color: ${(props) => props.theme.fontColor};
+  border-radius: 5px;
+  border: 1.5px solid
+    ${(props) =>
+      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
 `;
-
 export default function WorkoutArray({
   control,
   setValue,
@@ -35,40 +31,35 @@ export default function WorkoutArray({
   setWorkoutIndexState,
   setWorkoutSetIndexState,
   setModalVisible,
-  clearErrors,
 }) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workouts",
   });
-  console.log(errors);
-  const clearLoginError = () => {
-    clearErrors("result");
-  };
 
   return (
     <>
       {fields.map((workout, workoutIndex) => {
         return (
-          <MainContainer key={workout.id}>
-            <TitleContainer>
+          <Container key={workout.id}>
+            <View style={{ marginBottom: 10 }}>
               <Controller
                 name={`workouts[${workoutIndex}].title`}
                 control={control}
                 rules={{
-                  required: "workout title required",
+                  required: "Workout title required",
                   minLength: {
                     value: 4,
                     message: "minLength error message",
                   },
                   maxLength: {
-                    value: 25,
+                    value: 21,
                     message: "maxLength error message",
                   },
                 }}
-                render={({ field: { onChange, onBlur, ref } }) => (
+                render={({ field: { onChange, onBlur } }) => (
                   <>
-                    <ContainerTitle
+                    <WorkoutTitle
                       defaultValue={
                         defaultValues?.workouts[workoutIndex]?.title
                       }
@@ -77,17 +68,18 @@ export default function WorkoutArray({
                       onChangeText={(text) =>
                         setValue(`workouts[${workoutIndex}].title`, text)
                       }
-                      onChange={clearLoginError}
+                      hasError={Boolean(
+                        errors?.workouts?.[workoutIndex]?.title?.message
+                      )}
                     />
                   </>
                 )}
               />
-            </TitleContainer>
+            </View>
 
-            <BorderLine />
             {errors?.workouts ? (
               <FormError
-                message={errors?.workouts[workoutIndex]?.title.message}
+                message={errors?.workouts[workoutIndex]?.title?.message}
               />
             ) : null}
 
@@ -103,7 +95,7 @@ export default function WorkoutArray({
                 setModalVisible,
               }}
             />
-          </MainContainer>
+          </Container>
         );
       })}
 

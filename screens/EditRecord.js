@@ -8,6 +8,7 @@ import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
 import DeleteRecordButton from "../components/Buttons/DeleteRecordButton";
+import FormError from "../components/record-components/FormError";
 
 const EDIT_RECORD_MUTATION = gql`
   mutation editRecord($id: Int!, $title: String!, $description: String) {
@@ -72,7 +73,7 @@ const HeaderContainer = styled.View`
   border-radius: 20px;
 `;
 
-const WorkoutTitleInput = styled.TextInput`
+const RecordTitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 23px;
   font-weight: 700;
@@ -81,10 +82,11 @@ const WorkoutTitleInput = styled.TextInput`
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  margin: 2px 0;
 `;
 
 const SaveRecordButton = styled.TouchableOpacity`
-  padding: 12px 25px;
+  padding: 12px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.mainColor};
   margin: 5px 0;
@@ -136,8 +138,16 @@ export default function EditRecord({ navigation, route }) {
 
   const defaultValues = processDefaultValues(record);
 
-  const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({ defaultValues });
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({ defaultValues });
 
   const [recordExerciseIndexState, setRecordExerciseIndexState] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -240,6 +250,9 @@ export default function EditRecord({ navigation, route }) {
       },
     });
   };
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
 
   return (
     <DismissKeyboard>
@@ -248,17 +261,29 @@ export default function EditRecord({ navigation, route }) {
           <Controller
             name="recordTitle"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: "Record title required",
+              minLength: {
+                value: 4,
+                message: "minLength error message",
+              },
+              maxLength: {
+                value: 21,
+                message: "maxLength error message",
+              },
+            }}
             render={({ field: { value } }) => (
-              <WorkoutTitleInput
+              <RecordTitleInput
                 defaultValue={defaultValues.recordTitle}
-                placeholder="워크아웃 제목"
+                placeholder="Record title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("recordTitle", text)}
+                onChange={clearLoginError}
               />
             )}
           />
         </HeaderContainer>
+        <FormError message={errors?.recordTitle?.message} />
 
         <ExerciseArray
           {...{
@@ -267,13 +292,14 @@ export default function EditRecord({ navigation, route }) {
             defaultValues,
             setRecordExerciseIndexState,
             setModalVisible,
+            errors,
           }}
         />
-
+        <FormError message={errors?.result?.message} />
         <ButtonContainer>
           <SaveRecordButton
             loading={loading}
-            disabled={!watch("recordTitle")}
+            // disabled={!watch("recordTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
             <ButtonText>Save</ButtonText>

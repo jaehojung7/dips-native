@@ -21,19 +21,6 @@ const IndexContainer = styled.View`
   justify-content: center;
 `;
 
-const WeightContainer = styled(IndexContainer)`
-  width: 40%;
-  justify-content: center;
-`;
-
-const RepsContainer = styled(IndexContainer)`
-  width: 25%;
-`;
-
-const SetContainer = styled(IndexContainer)`
-  width: 20%;
-`;
-
 const SetButton = styled.View`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px;
@@ -50,6 +37,9 @@ const WeightCount = styled.TextInput`
   border-radius: 5px;
   width: 70%;
   text-align: center;
+  border: 1.5px solid
+    ${(props) =>
+      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
 `;
 
 const RepCount = styled(WeightCount)`
@@ -81,6 +71,7 @@ export default function ExerciseSetArray({
   recordExerciseIndex,
   control,
   setValue,
+  errors,
   defaultValues,
 }) {
   const { fields, remove, append } = useFieldArray({
@@ -91,32 +82,33 @@ export default function ExerciseSetArray({
   return (
     <Container>
       <MainContainer>
-        <SetContainer>
+        <IndexContainer style={{ width: "20%" }}>
           <IndexText>Set</IndexText>
-        </SetContainer>
+        </IndexContainer>
 
-        <WeightContainer>
+        <IndexContainer style={{ width: "50%" }}>
           <IndexText>Weight</IndexText>
-        </WeightContainer>
+        </IndexContainer>
 
-        <RepsContainer>
+        <IndexContainer style={{ width: "25%" }}>
           <IndexText>Reps</IndexText>
-        </RepsContainer>
+        </IndexContainer>
       </MainContainer>
 
       {fields.map((recordExerciseSet, recordExerciseSetIndex) => {
         return (
           <MainContainer key={recordExerciseSet.id}>
-            <SetContainer>
+            <IndexContainer style={{ width: "20%" }}>
               <SetButton>
                 <Mainset>{parseInt(`${recordExerciseSetIndex}`) + 1}</Mainset>
               </SetButton>
-            </SetContainer>
+            </IndexContainer>
 
-            <WeightContainer>
+            <IndexContainer style={{ width: "50%" }}>
               <Controller
                 name={`recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].weight`}
                 control={control}
+                rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <WeightCount
                     defaultValue={
@@ -126,7 +118,7 @@ export default function ExerciseSetArray({
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
-                    maxLength={5}
+                    maxLength={6}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
@@ -134,16 +126,21 @@ export default function ExerciseSetArray({
                         text
                       )
                     }
+                    hasError={Boolean(
+                      errors?.recordExercises?.[recordExerciseIndex]
+                        ?.recordExerciseSets?.[recordExerciseSetIndex]?.weight
+                    )}
                   />
                 )}
               />
               <IndexText>kg</IndexText>
-            </WeightContainer>
+            </IndexContainer>
 
-            <RepsContainer>
+            <IndexContainer style={{ width: "25%" }}>
               <Controller
                 name={`recordExercises[${recordExerciseIndex}].recordExerciseSets[${recordExerciseSetIndex}].repCount`}
                 control={control}
+                rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <RepCount
                     defaultValue={
@@ -153,7 +150,7 @@ export default function ExerciseSetArray({
                     keyboardType="numeric"
                     type="number"
                     placeholder="0"
-                    maxLength={2}
+                    maxLength={3}
                     placeholderTextColor="#999999"
                     onChangeText={(text) =>
                       setValue(
@@ -161,10 +158,14 @@ export default function ExerciseSetArray({
                         text
                       )
                     }
+                    hasError={Boolean(
+                      errors?.recordExercises?.[recordExerciseIndex]
+                        ?.recordExerciseSets?.[recordExerciseSetIndex]?.repCount
+                    )}
                   />
                 )}
               />
-            </RepsContainer>
+            </IndexContainer>
           </MainContainer>
         );
       })}

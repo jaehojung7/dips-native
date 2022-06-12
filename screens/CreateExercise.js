@@ -6,6 +6,7 @@ import { gql, useMutation } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
 import { useColorScheme, DeviceEventEmitter } from "react-native";
+import FormError from "../components/record-components/FormError";
 
 const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
@@ -44,14 +45,15 @@ const ExerciseTitle = styled.TextInput`
   font-size: 21px;
   font-weight: 600;
   border-radius: 10px;
+  margin-bottom: 15px;
 `;
 
 const Bodypart = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 17px;
+  color: ${(props) => props.theme.fontColor};
+  font-size: 20px;
   font-weight: 600;
-  margin-top: 20px;
   text-align: center;
+  margin-top: 10px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -66,7 +68,15 @@ const ButtonText = styled.Text`
 `;
 
 export default function CreateExercise({ navigation, route }) {
-  const { handleSubmit, setValue, getValues, control } = useForm();
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm();
   const [selectedBodyPart, setSelectedBodyPart] = useState("Leg");
   const { userId } = route.params;
   const scheme = useColorScheme();
@@ -111,8 +121,13 @@ export default function CreateExercise({ navigation, route }) {
 
   const onCompleted = (data) => {
     const {
-      createExercise: { ok },
+      createExercise: { ok, id, error },
     } = data;
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
     if (ok) {
       DeviceEventEmitter.emit("event.createExercise", { data });
       navigation.navigate("Settings", { screen: "StackSetting" });
@@ -137,6 +152,10 @@ export default function CreateExercise({ navigation, route }) {
     });
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <DismissKeyboard>
       <Container>
@@ -150,7 +169,13 @@ export default function CreateExercise({ navigation, route }) {
         <Controller
           name="exercise"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: "Exercise title required",
+            maxLength: {
+              value: 24,
+              message: "maxLength error message",
+            },
+          }}
           render={({ onChange, onBlur, value }) => (
             <ExerciseTitle
               placeholder="Exercise title"
@@ -159,9 +184,12 @@ export default function CreateExercise({ navigation, route }) {
               returnKeyLabel="done"
               placeholderTextColor="#7b7b7b"
               onChangeText={(text) => setValue("exercise", text)}
+              onChange={clearLoginError}
             />
           )}
         />
+        <FormError message={errors?.exercise?.message} />
+
         <Bodypart>Select body part</Bodypart>
         <Controller
           name="bodyPart"
@@ -173,7 +201,7 @@ export default function CreateExercise({ navigation, route }) {
               itemStyle={{
                 height: 150,
                 color: scheme === "dark" ? "white" : "black",
-                fontSize: 18,
+                fontSize: 19,
               }}
               // numberOfLines={1}
               selectedValue={selectedBodyPart}
@@ -192,6 +220,7 @@ export default function CreateExercise({ navigation, route }) {
           )}
         />
 
+        <FormError message={errors?.result?.message} />
         <MainButton
           text="Add exercise"
           disabled={false}

@@ -14,7 +14,7 @@ const DELETE_RECORD_MUTATION = gql`
 
 const ButtonContainer = styled.TouchableOpacity`
   margin: 5px 0;
-  padding: 12px 25px;
+  padding: 12px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.gray};
   width: 49%;

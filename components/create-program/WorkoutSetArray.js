@@ -65,7 +65,7 @@ const InputCount = styled.TextInput`
   border: 1.5px solid
     ${(props) =>
       props.hasError ? props.theme.mainColor : props.theme.inputBackground};
-  width: 30%;
+  width: 35%;
 `;
 
 const ButtonContainer = styled.View`
@@ -110,7 +110,7 @@ export default function WorkoutSetArray({
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
-                rules={{ required: "Select exercise" }}
+                rules={{ required: true }}
                 render={({ field: { value } }) => (
                   <SelectExercise
                     onPress={() => {
@@ -121,7 +121,7 @@ export default function WorkoutSetArray({
                     hasError={Boolean(
                       errors?.workouts?.[workoutIndex]?.workoutSets?.[
                         workoutSetIndex
-                      ]?.exercise.message
+                      ]?.exercise
                     )}
                   >
                     <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
@@ -171,7 +171,7 @@ export default function WorkoutSetArray({
                     defaultValue={
                       defaultValues?.workouts[workoutIndex]?.workoutSets[
                         workoutSetIndex
-                      ]?.repCount.message
+                      ]?.repCount
                     }
                     keyboardType="numeric"
                     type="number"

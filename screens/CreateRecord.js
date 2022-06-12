@@ -8,6 +8,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
+import FormError from "../components/record-components/FormError";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -82,7 +83,7 @@ const HeaderContainer = styled.View`
   border-radius: 20px;
 `;
 
-const WorkoutTitleInput = styled.TextInput`
+const RecordTitleInput = styled.TextInput`
   color: ${(props) => props.theme.fontColor};
   font-size: 23px;
   font-weight: 700;
@@ -128,8 +129,16 @@ export default function CreateRecord({ navigation, route }) {
 
   const defaultValues = processDefaultValues(programTitle, workout);
 
-  const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({ defaultValues });
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({ defaultValues });
 
   const [recordExerciseIndexState, setRecordExerciseIndexState] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -236,6 +245,10 @@ export default function CreateRecord({ navigation, route }) {
     });
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -243,28 +256,42 @@ export default function CreateRecord({ navigation, route }) {
           <Controller
             name="recordTitle"
             control={control}
-            rules={{ required: true }}
-            render={({ field: { value } }) => (
-              <WorkoutTitleInput
+            rules={{
+              required: "Record title required",
+              minLength: {
+                value: 4,
+                message: "minLength error message",
+              },
+              maxLength: {
+                value: 21,
+                message: "maxLength error message",
+              },
+            }}
+            render={({ field: { onChange, onBlur } }) => (
+              <RecordTitleInput
                 defaultValue={defaultValues.recordTitle}
-                placeholder="Workout title"
+                placeholder="Record title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("recordTitle", text)}
+                onChange={clearLoginError}
               />
             )}
           />
         </HeaderContainer>
+        <FormError message={errors?.recordTitle?.message} />
 
         <ExerciseArray
           {...{
             control,
             setValue,
+            errors,
             defaultValues,
             setRecordExerciseIndexState,
             setModalVisible,
+            errors,
           }}
         />
-
+        <FormError message={errors?.result?.message} />
         <MainButton
           text="Save workout"
           loading={loading}

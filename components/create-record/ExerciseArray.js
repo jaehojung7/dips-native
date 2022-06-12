@@ -12,29 +12,15 @@ const MainContainer = styled.View`
   padding: 15px;
 `;
 
-const TitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5px;
-`;
-
 const SelectExercise = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.inputBackground};
   padding: 5px 5px;
   font-size: 15px;
   border-radius: 5px;
   text-align: center;
-  width: 85%;
-`;
-
-const FixedExercise = styled.View`
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  border-radius: 5px;
-  text-align: center;
-  width: 85%;
+  border: 1.5px solid
+    ${(props) =>
+      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
 `;
 
 const ExerciseTitle = styled.Text`
@@ -50,9 +36,9 @@ const ButtonContainer = styled.View`
 `;
 
 export default function ExerciseArray({
-  isMine,
   control,
   setValue,
+  errors,
   defaultValues,
   setRecordExerciseIndexState,
   setModalVisible,
@@ -88,6 +74,9 @@ export default function ExerciseArray({
                     setRecordExerciseIndexState(recordExerciseIndex);
                     setModalVisible(true);
                   }}
+                  hasError={Boolean(
+                    errors?.recordExercises?.[recordExerciseIndex]?.exercise
+                  )}
                 >
                   <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
                 </SelectExercise>
@@ -95,7 +84,7 @@ export default function ExerciseArray({
             />
             <ExerciseSetArray
               recordExerciseIndex={recordExerciseIndex}
-              {...{ control, setValue, defaultValues }}
+              {...{ control, setValue, errors, defaultValues }}
             />
           </MainContainer>
         );

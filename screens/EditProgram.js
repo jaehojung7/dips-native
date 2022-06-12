@@ -8,7 +8,8 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import FormError from "../components/record-components/FormError";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -56,7 +57,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
     $workoutSetIndex: Int!
     $exercise: String!
     $setCount: Int!
-    $repCount: Int
+    $repCount: Int!
   ) {
     createWorkoutSet(
       programId: $programId
@@ -75,7 +76,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 20px 10px;
-  /* border: 1px solid black; */
 `;
 
 const TitleContainer = styled.View`
@@ -175,8 +175,16 @@ export default function EditProgram({ navigation, route }) {
 
   const defaultValues = processDefaultValues(program);
 
-  const { handleSubmit, setValue, getValues, control, watch, setError } =
-    useForm({ defaultValues });
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({ defaultValues });
 
   const [workoutIndexState, setWorkoutIndexState] = useState(0);
   const [workoutSetIndexState, setWorkoutSetIndexState] = useState(0);
@@ -277,6 +285,10 @@ export default function EditProgram({ navigation, route }) {
     );
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
@@ -284,18 +296,30 @@ export default function EditProgram({ navigation, route }) {
           <Controller
             name="programTitle"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: "Program title required",
+              minLength: {
+                value: 4,
+                message: "minLength error message",
+              },
+              maxLength: {
+                value: 21,
+                message: "maxLength error message",
+              },
+            }}
             render={({ field: { value } }) => (
               <TitleInput
-                maxLength={25}
                 defaultValue={defaultValues.programTitle}
-                placeholder="프로그램 이름"
+                returnKeyType="next"
+                placeholder="Program title"
                 placeholderTextColor="#999999"
                 onChangeText={(text) => setValue("programTitle", text)}
+                onChange={clearLoginError}
               />
             )}
           />
         </TitleContainer>
+        <FormError message={errors?.programTitle?.message} />
 
         <ToggleContainer>
           <ToggleText>
@@ -324,13 +348,14 @@ export default function EditProgram({ navigation, route }) {
             setWorkoutIndexState,
             setWorkoutSetIndexState,
             setModalVisible,
+            errors,
           }}
         />
-
+        <FormError message={errors?.result?.message} />
         <ButtonContainer>
           <SaveProgramButton
             loading={loading}
-            disabled={!watch("programTitle")}
+            // disabled={!watch("programTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
             <ButtonText>Save</ButtonText>
