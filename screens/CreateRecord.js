@@ -72,7 +72,7 @@ const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const HeaderContainer = styled.View`
@@ -260,11 +260,11 @@ export default function CreateRecord({ navigation, route }) {
               required: "Record title required",
               minLength: {
                 value: 4,
-                message: "minLength error message",
+                message: "Record title length between 4 and 21",
               },
               maxLength: {
                 value: 21,
-                message: "maxLength error message",
+                message: "Record title length between 4 and 21",
               },
             }}
             render={({ field: { onChange, onBlur } }) => (
@@ -299,7 +299,11 @@ export default function CreateRecord({ navigation, route }) {
           onPress={handleSubmit(onSubmitValid)}
         />
 
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Modal
+          presentationStyle="pageSheet"
+          animationType="slide"
+          visible={modalVisible}
+        >
           <ExerciseListModalRecord
             {...{
               exercises,

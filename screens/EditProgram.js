@@ -75,7 +75,7 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const TitleContainer = styled.View`
@@ -300,11 +300,11 @@ export default function EditProgram({ navigation, route }) {
               required: "Program title required",
               minLength: {
                 value: 4,
-                message: "minLength error message",
+                message: "Program title length between 4 and 21",
               },
               maxLength: {
                 value: 21,
-                message: "maxLength error message",
+                message: "Program title length between 4 and 21",
               },
             }}
             render={({ field: { value } }) => (

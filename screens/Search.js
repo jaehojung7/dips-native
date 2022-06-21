@@ -1,11 +1,12 @@
 import { React } from "react";
-import { ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { gql, useLazyQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Controller, useForm } from "react-hook-form";
 import SearchProgramList from "../components/SearchProgramList";
 import DismissKeyboard from "../components/DismissKeyboard";
+import MainLayout from "../components/layouts/MainLayout";
 
 const SEARCH_PROGRAMS_QUERY = gql`
   query searchPrograms($keyword: String!) {
@@ -32,18 +33,8 @@ const SEARCH_PROGRAMS_QUERY = gql`
   }
 `;
 
-const Container = styled.View`
-  margin: 20px 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin: 20px 15px 15px 5px;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
+const Container = styled.ScrollView`
+  margin: 0 10px;
 `;
 
 const SearchContainer = styled.View`
@@ -60,11 +51,6 @@ const SearchInput = styled.TextInput`
   font-size: 18px;
   font-weight: 600;
   width: 100%;
-`;
-
-const ProgramsContainer = styled.View`
-  margin-top: 10px;
-  /* align-items: center; */
 `;
 
 const InstructionText = styled.Text`
@@ -91,11 +77,8 @@ export default function Search({ navigation }) {
   };
 
   return (
-    <DismissKeyboard>
-      <Container>
-        <HeaderContainer>
-          <Header>Search</Header>
-        </HeaderContainer>
+    <MainLayout title="Search">
+      <Container showsVerticalScrollIndicator={false}>
         <SearchContainer>
           <FontAwesome
             name="search"
@@ -117,7 +100,7 @@ export default function Search({ navigation }) {
             )}
           />
         </SearchContainer>
-        <ProgramsContainer>
+        <View style={{ marginTop: 10 }}>
           {loading ? <ActivityIndicator /> : null}
           {!called ? (
             <InstructionText>Search programs with keyword</InstructionText>
@@ -130,8 +113,8 @@ export default function Search({ navigation }) {
               <SearchProgramList programs={programs} />
             )
           ) : null}
-        </ProgramsContainer>
+        </View>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

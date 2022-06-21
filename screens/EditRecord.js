@@ -62,7 +62,7 @@ const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const HeaderContainer = styled.View`
@@ -265,11 +265,11 @@ export default function EditRecord({ navigation, route }) {
               required: "Record title required",
               minLength: {
                 value: 4,
-                message: "minLength error message",
+                message: "Record title length between 4 and 21",
               },
               maxLength: {
                 value: 21,
-                message: "maxLength error message",
+                message: "Record title length between 4 and 21",
               },
             }}
             render={({ field: { value } }) => (

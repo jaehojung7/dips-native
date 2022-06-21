@@ -101,12 +101,12 @@ export default function CreateAccount({ navigation }) {
           minLength: {
             value: 4,
             message:
-              "Username contains only letters and numbers, between 4 and 8 characters",
+              "Username contains only letters and numbers, between 4 and 8",
           },
           maxLength: {
             value: 8,
             message:
-              "Username contains only letters and numbers, between 4 and 8 characters",
+              "Username contains only letters and numbers, between 4 and 8",
           },
         }}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -159,11 +159,11 @@ export default function CreateAccount({ navigation }) {
           required: true,
           minLength: {
             value: 8,
-            message: "Password must be between 8 and 16 characters",
+            message: "Password length between 8 and 16",
           },
           maxLength: {
             value: 16,
-            message: "Password must be between 8 and 16 characters",
+            message: "Password length between 8 and 16",
           },
           // pattern: {
           //   value:

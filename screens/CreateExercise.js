@@ -62,9 +62,8 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  text-align: center;
 `;
 
 export default function CreateExercise({ navigation, route }) {

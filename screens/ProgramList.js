@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { FlatList } from "react-native";
 
 const Container = styled.View`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const HeaderContainer = styled.View`

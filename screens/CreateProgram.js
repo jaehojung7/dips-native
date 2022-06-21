@@ -73,12 +73,12 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const TitleContainer = styled.View`
   margin-top: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
@@ -91,7 +91,7 @@ const TitleInput = styled.TextInput`
 `;
 
 const ToggleContainer = styled.View`
-  margin-bottom: 7px;
+  margin-bottom: 10px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -252,11 +252,11 @@ export default function CreateProgram({ navigation, route }) {
               required: "Program title required",
               minLength: {
                 value: 4,
-                message: "minLength error message",
+                message: "Program title length between 4 and 21",
               },
               maxLength: {
                 value: 21,
-                message: "maxLength error message",
+                message: "Program title length between 4 and 21",
               },
             }}
             render={({ field: { onChange, onBlur } }) => (
@@ -312,7 +312,11 @@ export default function CreateProgram({ navigation, route }) {
           onPress={handleSubmit(onSubmitValid)}
         />
 
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Modal
+          presentationStyle="pageSheet"
+          animationType="slide"
+          visible={modalVisible}
+        >
           <ExerciseListModalProgram
             {...{
               exercises,

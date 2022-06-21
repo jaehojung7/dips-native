@@ -9,6 +9,7 @@ import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import ProgramCards from "../components/ProgramCards";
+import MainLayout from "../components/layouts/MainLayout";
 
 export const ME_QUERY = gql`
   query me {
@@ -80,23 +81,13 @@ export const ME_QUERY = gql`
   }
 `;
 
+const Container = styled.ScrollView`
+  margin: 0 10px;
+`;
+
 const IndicatorContainer = styled.View`
   flex: 1;
   justify-content: center;
-`;
-
-const Container = styled.ScrollView`
-  margin: 20px 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin: 20px 15px 15px 5px;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
 `;
 
 const RecentProgramContainer = styled.TouchableOpacity`
@@ -193,92 +184,91 @@ export default function Program({ navigation }) {
   );
 
   return (
-    <Container
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <HeaderContainer>
-        <Header>Programs</Header>
-      </HeaderContainer>
-      <RecentProgramContainer
-        onPress={() => {
-          recentProgram
-            ? navigation.navigate("SeeProgram", {
-                program: recentProgram,
-                exercises,
-                directStart,
-              })
-            : navigation.navigate("CreateProgram", { exercises });
-        }}
+    <MainLayout title="Program">
+      <Container
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
-        <RecentTitle>Recent Program</RecentTitle>
+        <RecentProgramContainer
+          onPress={() => {
+            recentProgram
+              ? navigation.navigate("SeeProgram", {
+                  program: recentProgram,
+                  exercises,
+                  directStart,
+                })
+              : navigation.navigate("CreateProgram", { exercises });
+          }}
+        >
+          <RecentTitle>Recent Program</RecentTitle>
 
-        <ProgramTitle>
-          {recentProgram ? recentProgram?.title : "No recent program"}{" "}
-        </ProgramTitle>
-        {recentProgram ? (
-          <>
-            <WorkoutTitle>
-              Recent workout:{" "}
-              {recentProgram?.workouts[recentWorkoutIndex].title}
-            </WorkoutTitle>
-            <WorkoutTitle>
-              Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
-            </WorkoutTitle>
-          </>
-        ) : (
-          <WorkoutTitle></WorkoutTitle>
-        )}
-      </RecentProgramContainer>
-      <ButtonContainer>
+          <ProgramTitle>
+            {recentProgram ? recentProgram?.title : "No recent program"}{" "}
+          </ProgramTitle>
+          {recentProgram ? (
+            <>
+              <WorkoutTitle>
+                Recent workout:{" "}
+                {recentProgram?.workouts[recentWorkoutIndex].title}
+              </WorkoutTitle>
+              <WorkoutTitle>
+                Next workout: {recentProgram?.workouts[nextWorkoutIndex].title}
+              </WorkoutTitle>
+            </>
+          ) : (
+            <WorkoutTitle></WorkoutTitle>
+          )}
+        </RecentProgramContainer>
+        <ButtonContainer>
+          <MainButton
+            text="Start an empty workout"
+            onPress={() => navigation.navigate("CreateRecord", { exercises })}
+          />
+        </ButtonContainer>
+        <ProgramContainer>
+          <TitleContainer>
+            <FavoritePrograms>My Programs</FavoritePrograms>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ProgramList", {
+                  programs,
+                  exercises,
+                  header: "My Programs",
+                })
+              }
+            >
+              <MoreProgram>More</MoreProgram>
+            </TouchableOpacity>
+          </TitleContainer>
+          <ProgramCards programs={programs} exercises={exercises} />
+        </ProgramContainer>
+
+        <ProgramContainer>
+          <TitleContainer>
+            <FavoritePrograms>Favorite Programs</FavoritePrograms>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ProgramList", {
+                  programs: likes,
+                  exercises,
+                  header: "Favorite Programs",
+                })
+              }
+            >
+              <MoreProgram>More</MoreProgram>
+            </TouchableOpacity>
+          </TitleContainer>
+          <ProgramCards programs={likes} exercises={exercises} />
+        </ProgramContainer>
+
         <MainButton
-          text="Start an empty workout"
-          onPress={() => navigation.navigate("CreateRecord", { exercises })}
+          text="Create a new program"
+          disabled={false}
+          onPress={() => navigation.navigate("CreateProgram", { exercises })}
         />
-      </ButtonContainer>
-      <ProgramContainer>
-        <TitleContainer>
-          <FavoritePrograms>My Programs</FavoritePrograms>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ProgramList", {
-                programs,
-                exercises,
-                header: "My Programs",
-              })
-            }
-          >
-            <MoreProgram>More</MoreProgram>
-          </TouchableOpacity>
-        </TitleContainer>
-        <ProgramCards programs={programs} exercises={exercises} />
-      </ProgramContainer>
-
-      <ProgramContainer>
-        <TitleContainer>
-          <FavoritePrograms>Favorite Programs</FavoritePrograms>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ProgramList", {
-                programs: likes,
-                exercises,
-                header: "Favorite Programs",
-              })
-            }
-          >
-            <MoreProgram>More</MoreProgram>
-          </TouchableOpacity>
-        </TitleContainer>
-        <ProgramCards programs={likes} exercises={exercises} />
-      </ProgramContainer>
-
-      <MainButton
-        text="Create a new program"
-        disabled={false}
-        onPress={() => navigation.navigate("CreateProgram", { exercises })}
-      />
-    </Container>
+      </Container>
+    </MainLayout>
   );
 }

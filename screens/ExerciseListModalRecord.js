@@ -1,21 +1,24 @@
 import React from "react";
 import styled from "styled-components/native";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 
 const ModalContainer = styled.View`
   flex: 1;
-  margin-top: 25px;
   background-color: ${(props) => props.theme.modalBackground};
 `;
 
-const Container = styled.View`
-  padding-bottom: 5px;
+const Header = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 15px;
 `;
 
-const ButtonContainer = styled.TouchableOpacity`
-  margin: 10px 15px 10px 0;
+const HeaderTitle = styled.Text`
+  font-size: 23px;
+  color: ${(props) => props.theme.mainColor};
+  font-weight: 700;
 `;
-
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-size: 16px;
@@ -56,7 +59,7 @@ export default function ExerciseListModalRecord({
 }) {
   const renderItem = ({ item: exercise }) => {
     return (
-      <Container>
+      <>
         <ExerciseTitleContainer
           onPress={() => {
             setValue(
@@ -70,25 +73,28 @@ export default function ExerciseListModalRecord({
           <ExerciseBodypart>{exercise.bodyPart}</ExerciseBodypart>
         </ExerciseTitleContainer>
         <BorderLine />
-      </Container>
+      </>
     );
   };
 
   return (
     <ModalContainer>
-      <ButtonContainer
-        onPress={() => {
-          setModalVisible(false);
-        }}
-      >
-        <ButtonText>닫기</ButtonText>
-      </ButtonContainer>
+      <Header>
+        <HeaderTitle>Exercises</HeaderTitle>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(false);
+          }}
+        >
+          <ButtonText>Close</ButtonText>
+        </TouchableOpacity>
+      </Header>
       <FlatList
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}
         renderItem={renderItem}
-        initialNumToRender={3}
-        windowSize={3}
+        initialNumToRender={50}
+        maxToRenderPerBatch={50}
       />
     </ModalContainer>
   );

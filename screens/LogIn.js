@@ -114,7 +114,7 @@ export default function Login({ navigation, route }) {
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             placeholder="Email"
-            defaultValue={defaultValues?.email}
+            // defaultValue={defaultValues?.email}
             autoCapitalize="none"
             keyboardType="email-address"
             returnKeyType="next"
@@ -151,7 +151,7 @@ export default function Login({ navigation, route }) {
       <MainButton
         text="Log in"
         loading={loading}
-        disabled={!watch("email") || !watch("password")}
+        disabled={!watch("password")}
         onPress={handleSubmit(onSubmitValid)}
       />
 

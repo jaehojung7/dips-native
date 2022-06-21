@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
+import MainLayout from "../components/layouts/MainLayout";
 
 const ME_QUERY = gql`
   query me {
@@ -39,20 +40,11 @@ const IndicatorContainer = styled.View`
   justify-content: center;
 `;
 
-const HeaderContainer = styled.View`
-  margin: 40px 25px 5px 15px;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
-`;
-
 const RecordContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  margin: 10px 10px;
+  margin: 0 10px;
+  margin-bottom: 10px;
   padding: 15px;
 `;
 
@@ -94,7 +86,7 @@ const EditRecord = styled.TouchableOpacity`
 const EditText = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 export default function Record({ navigation }) {
@@ -169,10 +161,7 @@ export default function Record({ navigation }) {
   };
 
   return (
-    <>
-      <HeaderContainer>
-        <Header>Records</Header>
-      </HeaderContainer>
+    <MainLayout title="Records">
       <FlatList
         data={records}
         keyExtractor={(item, index) => "" + index}
@@ -182,6 +171,6 @@ export default function Record({ navigation }) {
         refreshing={refreshing}
         onRefresh={onRefresh}
       />
-    </>
+    </MainLayout>
   );
 }

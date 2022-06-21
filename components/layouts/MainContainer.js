@@ -2,18 +2,19 @@ import React from "react";
 import styled from "styled-components/native";
 import DismissKeyboard from "../DismissKeyboard";
 
-const MainContainer = styled.View`
+export const MainContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
   margin-bottom: 15px;
   padding: 15px;
 `;
 
-const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 20px;
+export const TitleContainer = styled.View`
+  margin-top: 50px;
+  margin-bottom: 15px;
+  padding: 15px 25px;
+  background-color: ${(props) => props.theme.cardColor};
+  border-radius: 20px;
 `;
 
 // const TitleContainer = styled.View`
@@ -28,11 +29,3 @@ const Container = styled.View`
 //   font-weight: 600;
 //   color: ${(props) => props.theme.fontColor};
 // `;
-
-export default function Container({ children }) {
-  return (
-    <DismissKeyboard>
-      <Container>{children}</Container>
-    </DismissKeyboard>
-  );
-}

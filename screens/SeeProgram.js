@@ -16,7 +16,7 @@ const TOGGLE_LIKE_MUTATION = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const HeaderContainer = styled.View`

@@ -7,6 +7,7 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { DeviceEventEmitter } from "react-native";
+import MainLayout from "../components/layouts/MainLayout";
 
 const ME_QUERY = gql`
   query me {
@@ -66,17 +67,7 @@ const ME_QUERY = gql`
 `;
 
 const Container = styled.ScrollView`
-  margin: 20px 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin: 20px 15px 15px 5px;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
+  margin: 0 10px;
 `;
 
 const ProfileContainer = styled.View`
@@ -160,16 +151,13 @@ export default function Setting({ navigation }) {
   );
 
   return (
-    <DismissKeyboard>
+    <MainLayout title="Settings">
       <Container
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <HeaderContainer>
-          <Header>Settings</Header>
-        </HeaderContainer>
         <ProfileContainer>
           <ProfileText>{data?.me.username}</ProfileText>
           <ProfileText style={{ marginBottom: 0 }}>
@@ -236,6 +224,6 @@ export default function Setting({ navigation }) {
           <ButtonText>Logout</ButtonText>
         </TouchableOpacity>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

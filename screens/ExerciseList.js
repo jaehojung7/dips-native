@@ -5,15 +5,15 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { FlatList, Platform } from "react-native";
 
 const Container = styled.View`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const ScrollContainer = styled.ScrollView`
-  margin: 20px 10px;
+  margin: 15px 10px 0 10px;
 `;
 
 const HeaderContainer = styled.View`
-  margin: 50px 15px 10px 15px;
+  margin: 50px 10px 20px 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -32,8 +32,8 @@ const ButtonContainer = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
 `;
 
 export default function ExerciseList({ navigation, route }) {
@@ -49,9 +49,9 @@ export default function ExerciseList({ navigation, route }) {
         onPress={() => navigation.navigate("CreateExercise", { userId })}
       >
         <ButtonText>
-          <FontAwesome5 name="plus" size={15} />
+          <FontAwesome5 name="plus" size={14} />
+          <ButtonText> Add</ButtonText>
         </ButtonText>
-        <ButtonText style={{ marginLeft: 5 }}>New exercise</ButtonText>
       </ButtonContainer>
     </HeaderContainer>
   );
@@ -79,6 +79,7 @@ export default function ExerciseList({ navigation, route }) {
             initialNumToRender={50}
             maxToRenderPerBatch={50}
             ListHeaderComponent={headerComponent}
+            persistentScrollbar={false}
           />
         </Container>
       )}

@@ -3,14 +3,8 @@ import { Controller, useFieldArray } from "react-hook-form";
 import { LayoutAnimation } from "react-native";
 import styled from "styled-components/native";
 import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import { MainContainer } from "../layouts/MainContainer";
 import ExerciseSetArray from "./ExerciseSetArray";
-
-const MainContainer = styled.View`
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  margin-bottom: 15px;
-  padding: 15px;
-`;
 
 const SelectExercise = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.inputBackground};

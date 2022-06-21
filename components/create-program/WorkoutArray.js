@@ -5,13 +5,7 @@ import styled from "styled-components/native";
 import WorkoutSetArray from "./WorkoutSetArray";
 import AddDeleteWorkoutButton from "../Buttons/AddDeleteWorkoutButton";
 import FormError from "../record-components/FormError";
-
-const Container = styled.View`
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  margin-bottom: 15px;
-  padding: 15px;
-`;
+import { MainContainer } from "../layouts/MainContainer";
 
 const WorkoutTitle = styled.TextInput`
   background-color: ${(props) => props.theme.inputBackground};
@@ -41,7 +35,8 @@ export default function WorkoutArray({
     <>
       {fields.map((workout, workoutIndex) => {
         return (
-          <Container key={workout.id}>
+          <MainContainer key={workout.id}>
+            {/* <Container key={workout.id}> */}
             <View style={{ marginBottom: 10 }}>
               <Controller
                 name={`workouts[${workoutIndex}].title`}
@@ -50,11 +45,11 @@ export default function WorkoutArray({
                   required: "Workout title required",
                   minLength: {
                     value: 4,
-                    message: "minLength error message",
+                    message: "Workout title length between 4 and 21",
                   },
                   maxLength: {
                     value: 21,
-                    message: "maxLength error message",
+                    message: "Workout title length between 4 and 21",
                   },
                 }}
                 render={({ field: { onChange, onBlur } }) => (
@@ -95,7 +90,8 @@ export default function WorkoutArray({
                 setModalVisible,
               }}
             />
-          </Container>
+            {/* </Container> */}
+          </MainContainer>
         );
       })}
 
