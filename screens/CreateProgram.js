@@ -10,6 +10,15 @@ import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
+import {
+  TitleContainer,
+  TitleInput,
+} from "../components/layouts/MainContainer";
+import {
+  ToggleContainer,
+  ToggleInfoText,
+  ToggleText,
+} from "../components/layouts/Toggle";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -74,39 +83,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 15px 10px 0 10px;
-`;
-
-const TitleContainer = styled.View`
-  margin-top: 50px;
-  margin-bottom: 15px;
-  padding: 15px 25px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-`;
-
-const TitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 20px;
-  font-weight: 600;
-`;
-
-const ToggleContainer = styled.View`
-  margin-bottom: 10px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ToggleText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-weight: 500;
-  font-size: 15px;
-  margin-right: 5px;
-  margin-left: 5px;
-`;
-
-const ToggleInfoText = styled.Text`
-  color: ${(props) => props.theme.mainColor};
 `;
 
 export default function CreateProgram({ navigation, route }) {

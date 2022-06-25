@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native";
+import TextButton from "../components/Buttons/TextButton";
 
 const ModalContainer = styled.View`
   flex: 1;
@@ -17,12 +18,6 @@ const Header = styled.View`
 const HeaderTitle = styled.Text`
   font-size: 23px;
   color: ${(props) => props.theme.mainColor};
-  font-weight: 700;
-`;
-
-const ButtonText = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 16px;
   font-weight: 700;
 `;
 
@@ -82,14 +77,14 @@ export default function ExerciseListModalProgram({
     <ModalContainer>
       <Header>
         <HeaderTitle>Exercises</HeaderTitle>
-        <TouchableOpacity
+        <TextButton
+          text="Close"
           onPress={() => {
             setModalVisible(false);
           }}
-        >
-          <ButtonText>Close</ButtonText>
-        </TouchableOpacity>
+        />
       </Header>
+
       <FlatList
         data={exercises}
         keyExtractor={(exercise, index) => "" + index}

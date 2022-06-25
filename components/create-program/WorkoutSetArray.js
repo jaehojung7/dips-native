@@ -1,78 +1,15 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
-import styled from "styled-components/native";
-import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
-import FormError from "../record-components/FormError";
-
-const Container = styled.View`
-  /* padding: 0 5px; */
-`;
-
-const MainContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const SubContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-`;
-
-const IndexText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0 5px;
-`;
-
-const SetsReps = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-  width: 30%;
-`;
-
-const SelectExercise = styled.TouchableOpacity`
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%;
-  border: 1.5px solid
-    ${(props) =>
-      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
-`;
-
-const ExerciseTitle = styled.Text`
-  color: black;
-  font-size: 15px;
-  text-align: center;
-`;
-
-const InputCount = styled.TextInput`
-  color: black;
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1.5px solid
-    ${(props) =>
-      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
-  width: 35%;
-`;
-
-const ButtonContainer = styled.View`
-  margin-top: 10px;
-  flex-direction: row;
-  justify-content: space-around;
-`;
+import { View } from "react-native";
+import TextButton from "../Buttons/TextButton";
+import {
+  ExerciseTitle,
+  SelectExercise,
+  ArrayContainer,
+  IndexContainer,
+  IndexText,
+  InputCount,
+} from "../layouts/ArrayLayout";
 
 export default function WorkoutSetArray({
   workoutIndex,
@@ -90,29 +27,30 @@ export default function WorkoutSetArray({
   });
 
   return (
-    <Container>
-      <MainContainer>
-        <SubContainer>
+    <>
+      <ArrayContainer>
+        <IndexContainer>
           <IndexText>Exercise</IndexText>
-        </SubContainer>
+        </IndexContainer>
 
-        <SubContainer>
-          <SetsReps>Sets</SetsReps>
+        <IndexContainer>
+          <IndexText>Sets</IndexText>
           <IndexText>x</IndexText>
-          <SetsReps>Reps</SetsReps>
-        </SubContainer>
-      </MainContainer>
+          <IndexText>Reps</IndexText>
+        </IndexContainer>
+      </ArrayContainer>
 
       {fields.map((workoutSet, workoutSetIndex) => {
         return (
-          <MainContainer key={workoutSet.id}>
-            <SubContainer>
+          <ArrayContainer key={workoutSet.id}>
+            <IndexContainer>
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].exercise`}
                 control={control}
                 rules={{ required: true }}
                 render={({ field: { value } }) => (
                   <SelectExercise
+                    style={{ width: "100%" }}
                     onPress={() => {
                       setWorkoutIndexState(workoutIndex);
                       setWorkoutSetIndexState(workoutSetIndex);
@@ -128,9 +66,9 @@ export default function WorkoutSetArray({
                   </SelectExercise>
                 )}
               />
-            </SubContainer>
+            </IndexContainer>
 
-            <SubContainer>
+            <IndexContainer>
               <Controller
                 name={`workouts[${workoutIndex}].workoutSets[${workoutSetIndex}].setCount`}
                 control={control}
@@ -192,24 +130,30 @@ export default function WorkoutSetArray({
                   />
                 )}
               />
-            </SubContainer>
-          </MainContainer>
+            </IndexContainer>
+          </ArrayContainer>
         );
       })}
-      <ButtonContainer>
-        <AddDeleteExerciseButton
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          marginTop: 7,
+        }}
+      >
+        <TextButton
           text="Add exercise"
           onPress={() => {
             append({});
           }}
         />
-        <AddDeleteExerciseButton
+        <TextButton
           text="Delete exercise"
           onPress={() => {
             remove(fields.length - 1);
           }}
         />
-      </ButtonContainer>
-    </Container>
+      </View>
+    </>
   );
 }

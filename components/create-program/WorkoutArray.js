@@ -17,6 +17,7 @@ const WorkoutTitle = styled.TextInput`
     ${(props) =>
       props.hasError ? props.theme.mainColor : props.theme.inputBackground};
 `;
+
 export default function WorkoutArray({
   control,
   setValue,
@@ -36,7 +37,6 @@ export default function WorkoutArray({
       {fields.map((workout, workoutIndex) => {
         return (
           <MainContainer key={workout.id}>
-            {/* <Container key={workout.id}> */}
             <View style={{ marginBottom: 10 }}>
               <Controller
                 name={`workouts[${workoutIndex}].title`}
@@ -90,7 +90,6 @@ export default function WorkoutArray({
                 setModalVisible,
               }}
             />
-            {/* </Container> */}
           </MainContainer>
         );
       })}

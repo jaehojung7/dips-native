@@ -10,12 +10,16 @@ const Container = styled.View`
   padding: 0px 20px;
 `;
 
-const Logo = styled.Image`
-  max-width: 50%;
-  width: 100%;
-  height: 100px;
-  margin: 0 auto;
-  margin-bottom: 20px;
+export const AuthInput = styled.TextInput`
+  color: ${(props) => props.theme.fontColor};
+  border: 1.5px solid
+    ${(props) => (props.hasError ? props.theme.mainColor : props.theme.gray)};
+  padding: 13px 15px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  opacity: ${(props) => (props.disabled ? "0.3" : "1")};
 `;
 
 export default function AuthLayout({ children }) {

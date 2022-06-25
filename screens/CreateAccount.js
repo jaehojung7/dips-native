@@ -1,12 +1,10 @@
 import React, { useRef } from "react";
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
-import AuthLayout from "../components/auth/AuthLayout";
 import { gql, useMutation } from "@apollo/client";
-import { AuthInput } from "../components/auth/AuthInput";
 import styled from "styled-components/native";
 import FormError from "../components/record-components/FormError";
+import AuthLayout, { AuthInput } from "../components/layouts/AuthLayout";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
@@ -50,6 +48,8 @@ export default function CreateAccount({ navigation }) {
     nextOne?.current?.focus();
   };
 
+  const successMessage = "Account created. Please log in.";
+
   const onCompleted = (data) => {
     const {
       createAccount: { ok, id, error },
@@ -61,9 +61,7 @@ export default function CreateAccount({ navigation }) {
       });
     }
     if (ok) {
-      navigation.navigate("LogIn", {
-        email,
-      });
+      navigation.navigate("LogIn", { successMessage });
     }
   };
 
@@ -168,7 +166,7 @@ export default function CreateAccount({ navigation }) {
           // pattern: {
           //   value:
           //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          //   message: "Password must contain 1 or more digit and uppercase characters ",
+          // message: "Password must contain 1 or more digit and uppercase characters ",
           // },
         }}
         render={({ field: { onChange, onBlur, value } }) => (

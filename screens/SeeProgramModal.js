@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { gql, useMutation } from "@apollo/client";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
+import TextButton from "../components/Buttons/TextButton";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -234,7 +235,7 @@ export default function SeeProgramModal({
             <WorkoutTitleContainer>
               <WorkoutTitle>{workout.title}</WorkoutTitle>
               {directStart ? (
-                <StartWorkoutButton
+                <TextButton
                   text="Start"
                   onPress={() => {
                     navigation.navigate("CreateRecord", {

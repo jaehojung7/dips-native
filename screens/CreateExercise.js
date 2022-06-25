@@ -7,6 +7,7 @@ import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
 import { useColorScheme, DeviceEventEmitter } from "react-native";
 import FormError from "../components/record-components/FormError";
+import TextButton from "../components/Buttons/TextButton";
 
 const CREATE_EXERCISE_MUTATION = gql`
   mutation createExercise($exercise: String!, $bodyPart: String!) {
@@ -160,9 +161,7 @@ export default function CreateExercise({ navigation, route }) {
       <Container>
         <HeaderContainer>
           <Header>New Exercise</Header>
-          <Button onPress={() => navigation.goBack()}>
-            <ButtonText>Close</ButtonText>
-          </Button>
+          <TextButton text="Close" onPress={() => navigation.goBack()} />
         </HeaderContainer>
 
         <Controller

@@ -3,11 +3,10 @@ import { TouchableOpacity } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { useForm, Controller } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
-import AuthLayout from "../components/auth/AuthLayout";
-import { AuthInput } from "../components/auth/AuthInput";
 import client, { logUserIn } from "../apollo";
 import styled from "styled-components/native";
 import FormError from "../components/record-components/FormError";
+import AuthLayout, { AuthInput } from "../components/layouts/AuthLayout";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -45,9 +44,16 @@ const SignupLink = styled.Text`
   text-align: center;
 `;
 
-export default function Login({ navigation, route }) {
-  const defaultValues = { email: route.params?.email };
+const SuccessMessage = styled.Text`
+  color: green;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 12px;
+  text-align: center;
+`;
 
+export default function Login({ navigation, route }) {
+  const successMessage = route.params?.successMessage;
   const {
     handleSubmit,
     setValue,
@@ -57,9 +63,7 @@ export default function Login({ navigation, route }) {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm({
-    defaultValues,
-  });
+  } = useForm({});
   const passwordRef = useRef();
 
   const onCompleted = async (data) => {
@@ -105,6 +109,9 @@ export default function Login({ navigation, route }) {
         <Header>Dips</Header>
         <Subtitle>Squat, dip, lift your workout</Subtitle>
       </HeaderContainer>
+      {successMessage ? (
+        <SuccessMessage>{successMessage}</SuccessMessage>
+      ) : null}
       <Controller
         name="email"
         control={control}
@@ -114,7 +121,6 @@ export default function Login({ navigation, route }) {
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             placeholder="Email"
-            // defaultValue={defaultValues?.email}
             autoCapitalize="none"
             keyboardType="email-address"
             returnKeyType="next"
@@ -125,7 +131,7 @@ export default function Login({ navigation, route }) {
           />
         )}
       />
-      <FormError message={errors?.email?.message} />
+
       <Controller
         name="password"
         control={control}
@@ -151,7 +157,7 @@ export default function Login({ navigation, route }) {
       <MainButton
         text="Log in"
         loading={loading}
-        disabled={!watch("password")}
+        disabled={!watch("email") || !watch("password")}
         onPress={handleSubmit(onSubmitValid)}
       />
 

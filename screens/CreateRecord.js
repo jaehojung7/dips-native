@@ -9,6 +9,10 @@ import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
 import FormError from "../components/record-components/FormError";
+import {
+  TitleContainer,
+  TitleInput,
+} from "../components/layouts/MainContainer";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -73,20 +77,6 @@ const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 15px 10px 0 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin-top: 50px;
-  margin-bottom: 15px;
-  padding: 15px 25px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-`;
-
-const RecordTitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 23px;
-  font-weight: 700;
 `;
 
 export default function CreateRecord({ navigation, route }) {
@@ -252,7 +242,7 @@ export default function CreateRecord({ navigation, route }) {
   return (
     <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <HeaderContainer>
+        <TitleContainer>
           <Controller
             name="recordTitle"
             control={control}
@@ -268,7 +258,7 @@ export default function CreateRecord({ navigation, route }) {
               },
             }}
             render={({ field: { onChange, onBlur } }) => (
-              <RecordTitleInput
+              <TitleInput
                 defaultValue={defaultValues.recordTitle}
                 placeholder="Record title"
                 placeholderTextColor="#999999"
@@ -277,7 +267,7 @@ export default function CreateRecord({ navigation, route }) {
               />
             )}
           />
-        </HeaderContainer>
+        </TitleContainer>
         <FormError message={errors?.recordTitle?.message} />
 
         <ExerciseArray

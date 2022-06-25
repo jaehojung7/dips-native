@@ -1,10 +1,10 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
-import StartWorkoutButton from "../components/Buttons/StartWorkoutButton";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { DeviceEventEmitter } from "react-native";
+import TextButton from "../components/Buttons/TextButton";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -245,7 +245,7 @@ export default function SeeProgram({ route, navigation }) {
               <WorkoutTitleContainer>
                 <WorkoutTitle>{workout.title}</WorkoutTitle>
                 {directStart ? (
-                  <StartWorkoutButton
+                  <TextButton
                     text="Start"
                     onPress={() => {
                       navigation.navigate("CreateRecord", {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  View,
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
@@ -117,10 +118,6 @@ const WorkoutTitle = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const ProgramContainer = styled.View`
-  margin: 15px 0;
-`;
-
 const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -227,7 +224,7 @@ export default function Program({ navigation }) {
             onPress={() => navigation.navigate("CreateRecord", { exercises })}
           />
         </ButtonContainer>
-        <ProgramContainer>
+        <View style={{ marginVertical: 10 }}>
           <TitleContainer>
             <FavoritePrograms>My Programs</FavoritePrograms>
             <TouchableOpacity
@@ -243,9 +240,9 @@ export default function Program({ navigation }) {
             </TouchableOpacity>
           </TitleContainer>
           <ProgramCards programs={programs} exercises={exercises} />
-        </ProgramContainer>
+        </View>
 
-        <ProgramContainer>
+        <View style={{ marginVertical: 10 }}>
           <TitleContainer>
             <FavoritePrograms>Favorite Programs</FavoritePrograms>
             <TouchableOpacity
@@ -261,7 +258,7 @@ export default function Program({ navigation }) {
             </TouchableOpacity>
           </TitleContainer>
           <ProgramCards programs={likes} exercises={exercises} />
-        </ProgramContainer>
+        </View>
 
         <MainButton
           text="Create a new program"

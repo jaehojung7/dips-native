@@ -1,21 +1,18 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-
-const Button = styled.TouchableOpacity`
-  /* border-radius: 30px; */
-`;
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   text-align: center;
 `;
 
-export default function StartWorkoutButton({ onPress, text }) {
+export default function TextButton({ onPress, text }) {
   return (
-    <Button onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <ButtonText>{text}</ButtonText>
-    </Button>
+    </TouchableOpacity>
   );
 }

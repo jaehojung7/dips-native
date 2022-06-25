@@ -1,33 +1,10 @@
 import React, { useState } from "react";
 import { Controller, useFieldArray } from "react-hook-form";
-import { LayoutAnimation } from "react-native";
-import styled from "styled-components/native";
-import AddDeleteExerciseButton from "../Buttons/AddDeleteExerciseButton";
+import { LayoutAnimation, View } from "react-native";
 import { MainContainer } from "../layouts/MainContainer";
+import { ExerciseTitle, SelectExercise } from "../layouts/ArrayLayout";
 import ExerciseSetArray from "./ExerciseSetArray";
-
-const SelectExercise = styled.TouchableOpacity`
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 5px 5px;
-  font-size: 15px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1.5px solid
-    ${(props) =>
-      props.hasError ? props.theme.mainColor : props.theme.inputBackground};
-`;
-
-const ExerciseTitle = styled.Text`
-  color: black;
-  font-size: 15px;
-  text-align: center;
-`;
-
-const ButtonContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: 7px 0;
-`;
+import TextButton from "../Buttons/TextButton";
 
 export default function ExerciseArray({
   control,
@@ -72,7 +49,9 @@ export default function ExerciseArray({
                     errors?.recordExercises?.[recordExerciseIndex]?.exercise
                   )}
                 >
-                  <ExerciseTitle>{value ? value : "Select"}</ExerciseTitle>
+                  <ExerciseTitle>
+                    {value ? value : "Select Exercise"}
+                  </ExerciseTitle>
                 </SelectExercise>
               )}
             />
@@ -84,22 +63,28 @@ export default function ExerciseArray({
         );
       })}
 
-      <ButtonContainer>
-        <AddDeleteExerciseButton
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginBottom: 10,
+        }}
+      >
+        <TextButton
           text="Add exercise"
           onPress={() => {
             append({});
             setExpanded((arr) => [...arr, true]);
           }}
         />
-        <AddDeleteExerciseButton
+        <TextButton
           text="Delete exercise"
           onPress={() => {
             remove(fields.length - 1);
             setExpanded((arr) => arr.slice(0, -1));
           }}
         />
-      </ButtonContainer>
+      </View>
     </>
   );
 }

@@ -1,6 +1,4 @@
-import React from "react";
 import styled from "styled-components/native";
-import DismissKeyboard from "../DismissKeyboard";
 
 export const MainContainer = styled.View`
   border-radius: 20px;
@@ -17,15 +15,8 @@ export const TitleContainer = styled.View`
   border-radius: 20px;
 `;
 
-// const TitleContainer = styled.View`
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 0 5px;
-// `;
-
-// const ContainerTitle = styled.TextInput`
-//   font-size: 20px;
-//   font-weight: 600;
-//   color: ${(props) => props.theme.fontColor};
-// `;
+export const TitleInput = styled.TextInput`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 21px;
+  font-weight: 600;
+`;

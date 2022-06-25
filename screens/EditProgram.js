@@ -3,13 +3,22 @@ import { ME_QUERY } from "./Program";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { Modal, Switch, Alert } from "react-native";
+import { Modal, Switch, Alert, View, TouchableOpacity } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import DeleteProgramButton from "../components/Buttons/DeleteProgramButton";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
+import {
+  TitleContainer,
+  TitleInput,
+} from "../components/layouts/MainContainer";
+import {
+  ToggleContainer,
+  ToggleInfoText,
+  ToggleText,
+} from "../components/layouts/Toggle";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -76,48 +85,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 15px 10px 0 10px;
-`;
-
-const TitleContainer = styled.View`
-  margin-top: 50px;
-  margin-bottom: 15px;
-  padding: 15px 20px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-`;
-
-const TitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 20px;
-  font-weight: 600;
-`;
-
-const ToggleContainer = styled.View`
-  margin-bottom: 7px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ToggleText = styled.Text`
-  color: ${(props) => props.theme.fontColor};
-  font-weight: 500;
-  font-size: 15px;
-  margin-right: 10px;
-  margin-left: 5px;
-`;
-
-const ToggleInfoContainer = styled.TouchableOpacity`
-  margin-left: 10px;
-`;
-
-const ToggleInfoText = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-`;
-
-const ButtonContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const SaveProgramButton = styled.TouchableOpacity`
@@ -333,11 +300,11 @@ export default function EditProgram({ navigation, route }) {
           <ToggleText>
             Public <FontAwesome5 name="lock-open" size={14} />
           </ToggleText>
-          <ToggleInfoContainer onPress={onClickAlert}>
+          <TouchableOpacity style={{ marginLeft: 10 }} onPress={onClickAlert}>
             <ToggleInfoText>
               <FontAwesome5 name="info-circle" size={18} />
             </ToggleInfoText>
-          </ToggleInfoContainer>
+          </TouchableOpacity>
         </ToggleContainer>
 
         <WorkoutArray
@@ -352,17 +319,17 @@ export default function EditProgram({ navigation, route }) {
           }}
         />
         <FormError message={errors?.result?.message} />
-        <ButtonContainer>
+        <View style={{}}>
           <SaveProgramButton
             loading={loading}
-            // disabled={!watch("programTitle")}
+            disabled={!watch("programTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
             <ButtonText>Save</ButtonText>
           </SaveProgramButton>
 
           <DeleteProgramButton program={program} {...{ navigation }} />
-        </ButtonContainer>
+        </View>
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModalProgram
