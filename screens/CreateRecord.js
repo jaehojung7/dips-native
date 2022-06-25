@@ -13,6 +13,7 @@ import {
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
+import MainLayout from "../components/layouts/MainLayout";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -240,7 +241,7 @@ export default function CreateRecord({ navigation, route }) {
   };
 
   return (
-    <DismissKeyboard>
+    <MainLayout>
       <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
@@ -304,6 +305,6 @@ export default function CreateRecord({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

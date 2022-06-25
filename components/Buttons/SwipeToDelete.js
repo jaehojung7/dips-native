@@ -1,5 +1,4 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import styled from "styled-components/native";
 

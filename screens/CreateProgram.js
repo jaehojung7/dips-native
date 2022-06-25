@@ -11,7 +11,6 @@ import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
 import {
-  SuccessMessage,
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
@@ -20,6 +19,7 @@ import {
   ToggleInfoText,
   ToggleText,
 } from "../components/layouts/Toggle";
+import MainLayout from "../components/layouts/MainLayout";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -219,7 +219,7 @@ export default function CreateProgram({ navigation, route }) {
   };
 
   return (
-    <DismissKeyboard>
+    <MainLayout>
       <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
@@ -304,6 +304,6 @@ export default function CreateProgram({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

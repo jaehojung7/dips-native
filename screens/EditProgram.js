@@ -19,6 +19,7 @@ import {
   ToggleInfoText,
   ToggleText,
 } from "../components/layouts/Toggle";
+import MainLayout from "../components/layouts/MainLayout";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -85,6 +86,12 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
 
 const Container = styled.ScrollView`
   margin: 15px 10px 0 10px;
+`;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2px 0;
 `;
 
 const SaveProgramButton = styled.TouchableOpacity`
@@ -257,7 +264,7 @@ export default function EditProgram({ navigation, route }) {
   };
 
   return (
-    <DismissKeyboard>
+    <MainLayout>
       <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
@@ -315,7 +322,7 @@ export default function EditProgram({ navigation, route }) {
           }}
         />
         <FormError message={errors?.result?.message} />
-        <View style={{}}>
+        <ButtonContainer>
           <SaveProgramButton
             loading={loading}
             disabled={!watch("programTitle")}
@@ -325,7 +332,7 @@ export default function EditProgram({ navigation, route }) {
           </SaveProgramButton>
 
           <DeleteProgramButton program={program} {...{ navigation }} />
-        </View>
+        </ButtonContainer>
 
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <ExerciseListModalProgram
@@ -339,6 +346,6 @@ export default function EditProgram({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

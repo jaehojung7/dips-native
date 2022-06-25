@@ -9,6 +9,7 @@ import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
 import DeleteRecordButton from "../components/Buttons/DeleteRecordButton";
 import FormError from "../components/record-components/FormError";
+import MainLayout from "../components/layouts/MainLayout";
 
 const EDIT_RECORD_MUTATION = gql`
   mutation editRecord($id: Int!, $title: String!, $description: String) {
@@ -256,7 +257,7 @@ export default function EditRecord({ navigation, route }) {
   };
 
   return (
-    <DismissKeyboard>
+    <MainLayout>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <Controller
@@ -320,6 +321,6 @@ export default function EditRecord({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

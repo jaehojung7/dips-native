@@ -8,7 +8,7 @@ export const MainContainer = styled.View`
 `;
 
 export const TitleContainer = styled.View`
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-bottom: 15px;
   padding: 15px 25px;
   background-color: ${(props) => props.theme.cardColor};
