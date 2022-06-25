@@ -3,7 +3,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
-import { Modal, Switch, Alert, TouchableOpacity } from "react-native";
+import { Modal, Switch, Alert, TouchableOpacity, Platform } from "react-native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
@@ -11,6 +11,7 @@ import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
 import {
+  SuccessMessage,
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
@@ -250,22 +251,21 @@ export default function CreateProgram({ navigation, route }) {
         <FormError message={errors?.programTitle?.message} />
 
         <ToggleContainer>
-          <ToggleText>
-            <FontAwesome5 name="lock" size={14} /> Private
-          </ToggleText>
+          <ToggleText>Private</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             onValueChange={toggleSwitch}
             value={isPublic}
           />
-          <ToggleText>
-            <FontAwesome5 name="lock-open" size={14} /> Public
-          </ToggleText>
-          <TouchableOpacity style={{ marginLeft: 10 }} onPress={onClickAlert}>
-            <ToggleInfoText>
-              <FontAwesome5 name="info-circle" size={20} />
-            </ToggleInfoText>
-          </TouchableOpacity>
+          <ToggleText>Public</ToggleText>
+
+          {Platform.OS === "web" ? null : (
+            <TouchableOpacity style={{ marginLeft: 10 }} onPress={onClickAlert}>
+              <ToggleInfoText>
+                <FontAwesome5 name="info-circle" size={20} />
+              </ToggleInfoText>
+            </TouchableOpacity>
+          )}
         </ToggleContainer>
 
         <WorkoutArray

@@ -20,3 +20,11 @@ export const TitleInput = styled.TextInput`
   font-size: 21px;
   font-weight: 600;
 `;
+
+export const SuccessMessage = styled.Text`
+  color: #40b981;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 12px;
+  text-align: center;
+`;

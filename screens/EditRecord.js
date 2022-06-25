@@ -105,6 +105,7 @@ export default function EditRecord({ navigation, route }) {
   const { record } = route.params;
   const { exercises } = route.params;
   const [isState, setIsState] = useState();
+  const successMessage = "Record edited. Please pull to refresh.";
 
   useEffect(() => {
     const cleanup = () => setIsState(record);
@@ -211,7 +212,7 @@ export default function EditRecord({ navigation, route }) {
         });
       }
     );
-    navigation.navigate("StackRecord");
+    navigation.navigate("StackRecord", { successMessage });
   };
 
   const [editRecordFunction, { loading, error }] = useMutation(

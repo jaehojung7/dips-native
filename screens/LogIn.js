@@ -7,6 +7,7 @@ import client, { logUserIn } from "../apollo";
 import styled from "styled-components/native";
 import FormError from "../components/record-components/FormError";
 import AuthLayout, { AuthInput } from "../components/layouts/AuthLayout";
+import { SuccessMessage } from "../components/layouts/MainContainer";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -41,14 +42,6 @@ const SignupLink = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-weight: 600;
   margin-top: 5px;
-  text-align: center;
-`;
-
-const SuccessMessage = styled.Text`
-  color: green;
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 12px;
   text-align: center;
 `;
 

@@ -6,6 +6,7 @@ import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
 import MainLayout from "../components/layouts/MainLayout";
+import { SuccessMessage } from "../components/layouts/MainContainer";
 
 const ME_QUERY = gql`
   query me {
@@ -66,7 +67,6 @@ const RecordDate = styled.Text`
   font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.gray};
-  /* margin-bottom: 7px; */
   text-align: left;
 `;
 
@@ -89,11 +89,13 @@ const EditText = styled.Text`
   font-weight: 700;
 `;
 
-export default function Record({ navigation }) {
+export default function Record({ navigation, route }) {
   // https://stackoverflow.com/questions/60736179/how-to-usestate-and-usequery-in-apollo-graphql-and-react
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
   const [expanded, setExpanded] = useState([false]);
+  const successMessage = route.params?.successMessage;
+  console.log(successMessage);
 
   const records = data?.me.records;
   const exercises = data?.me.exercises;
@@ -162,15 +164,20 @@ export default function Record({ navigation }) {
 
   return (
     <MainLayout title="Records">
-      <FlatList
-        data={records}
-        keyExtractor={(item, index) => "" + index}
-        renderItem={renderRecord}
-        initialNumToRender={3}
-        windowSize={2}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-      />
+      <>
+        {successMessage ? (
+          <SuccessMessage>{successMessage}</SuccessMessage>
+        ) : null}
+        <FlatList
+          data={records}
+          keyExtractor={(item, index) => "" + index}
+          renderItem={renderRecord}
+          initialNumToRender={3}
+          windowSize={2}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      </>
     </MainLayout>
   );
 }

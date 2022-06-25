@@ -289,17 +289,13 @@ export default function EditProgram({ navigation, route }) {
         <FormError message={errors?.programTitle?.message} />
 
         <ToggleContainer>
-          <ToggleText>
-            Private <FontAwesome5 name="lock" size={14} />
-          </ToggleText>
+          <ToggleText>Private</ToggleText>
           <Switch
             style={{ transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }] }}
             onValueChange={toggleSwitch}
             value={isPublic}
           />
-          <ToggleText>
-            Public <FontAwesome5 name="lock-open" size={14} />
-          </ToggleText>
+          <ToggleText>Public</ToggleText>
           <TouchableOpacity style={{ marginLeft: 10 }} onPress={onClickAlert}>
             <ToggleInfoText>
               <FontAwesome5 name="info-circle" size={18} />
