@@ -265,12 +265,12 @@ export default function EditRecord({ navigation, route }) {
             rules={{
               required: "Record title required",
               minLength: {
-                value: 4,
-                message: "Record title length between 4 and 21",
+                value: 5,
+                message: "Record title length between 5 and 30",
               },
               maxLength: {
-                value: 21,
-                message: "Record title length between 4 and 21",
+                value: 30,
+                message: "Record title length between 5 and 30",
               },
             }}
             render={({ field: { value } }) => (

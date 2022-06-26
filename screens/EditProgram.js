@@ -273,12 +273,12 @@ export default function EditProgram({ navigation, route }) {
             rules={{
               required: "Program title required",
               minLength: {
-                value: 4,
-                message: "Program title length between 4 and 21",
+                value: 5,
+                message: "Program title length between 5 and 25",
               },
               maxLength: {
-                value: 21,
-                message: "Program title length between 4 and 21",
+                value: 25,
+                message: "Program title length between 5 and 25",
               },
             }}
             render={({ field: { value } }) => (

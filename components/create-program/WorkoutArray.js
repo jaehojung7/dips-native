@@ -44,12 +44,12 @@ export default function WorkoutArray({
                 rules={{
                   required: "Workout title required",
                   minLength: {
-                    value: 4,
-                    message: "Workout title length between 4 and 21",
+                    value: 5,
+                    message: "Workout title length between 5 and 25",
                   },
                   maxLength: {
-                    value: 21,
-                    message: "Workout title length between 4 and 21",
+                    value: 25,
+                    message: "Workout title length between 5 and 25",
                   },
                 }}
                 render={({ field: { onChange, onBlur } }) => (

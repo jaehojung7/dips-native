@@ -6,13 +6,14 @@ import TextButton from "../components/Buttons/TextButton";
 const ModalContainer = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.modalBackground};
+  margin: 0 10px;
 `;
 
 const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 15px;
+  margin: 15px 10px 5px 10px;
 `;
 
 const HeaderTitle = styled.Text`
@@ -25,7 +26,7 @@ const ExerciseTitleContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 15px;
+  margin: 10px;
 `;
 
 const ExerciseTitle = styled.Text`

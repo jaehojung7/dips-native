@@ -35,7 +35,7 @@ const ExerciseTitleContainer = styled.View`
 `;
 
 const ExerciseTitle = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   color: ${(props) => props.theme.fontColor};
   font-weight: 600;
   width: 80%;

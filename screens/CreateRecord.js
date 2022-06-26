@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "react-native";
+import { Modal, DeviceEventEmitter, ScrollView } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
-import styled from "styled-components/native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
@@ -76,10 +74,6 @@ const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
   }
 `;
 
-const Container = styled.ScrollView`
-  margin: 15px 10px 0 10px;
-`;
-
 export default function CreateRecord({ navigation, route }) {
   const { baseProgramId } = route.params;
   const { programTitle } = route.params;
@@ -97,6 +91,7 @@ export default function CreateRecord({ navigation, route }) {
     };
   }
   const { exercises } = route.params;
+  const successMessage = "Record created. Please pull to refresh.";
 
   const processDefaultValues = (programTitle, workout) => {
     // https://stackoverflow.com/questions/12503146/create-an-array-with-same-element-repeated-multiple-times
@@ -193,9 +188,12 @@ export default function CreateRecord({ navigation, route }) {
         });
       }
     );
-    // navigation.navigate("StackProgram");
+    DeviceEventEmitter.emit("event.createRecord", { data });
     navigation.goBack();
-    navigation.navigate("Records", { screen: "StackRecord" });
+    navigation.navigate("Records", {
+      screen: "StackRecord",
+      params: { successMessage },
+    });
   };
 
   const [createRecordFunction, { loading, error }] = useMutation(
@@ -242,7 +240,7 @@ export default function CreateRecord({ navigation, route }) {
 
   return (
     <MainLayout>
-      <Container showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
             name="recordTitle"
@@ -250,12 +248,12 @@ export default function CreateRecord({ navigation, route }) {
             rules={{
               required: "Record title required",
               minLength: {
-                value: 4,
-                message: "Record title length between 4 and 21",
+                value: 5,
+                message: "Record title length between 5 and 30",
               },
               maxLength: {
-                value: 21,
-                message: "Record title length between 4 and 21",
+                value: 30,
+                message: "Record title length between 5 and 30",
               },
             }}
             render={({ field: { onChange, onBlur } }) => (
@@ -304,7 +302,7 @@ export default function CreateRecord({ navigation, route }) {
             }}
           />
         </Modal>
-      </Container>
+      </ScrollView>
     </MainLayout>
   );
 }

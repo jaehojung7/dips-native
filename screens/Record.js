@@ -118,6 +118,9 @@ export default function Record({ navigation, route }) {
     }
   }, [loading, data]);
 
+  DeviceEventEmitter.addListener("event.createRecord", (data) =>
+    setSuccessMessageVisible(true)
+  );
   DeviceEventEmitter.addListener("event.editRecord", (data) =>
     setSuccessMessageVisible(true)
   );
