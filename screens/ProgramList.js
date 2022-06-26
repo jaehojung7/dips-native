@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { FlatList } from "react-native";
-
-const Container = styled.View`
-  margin: 15px 10px 0 10px;
-`;
+import { View, FlatList } from "react-native";
+import MainLayout from "../components/layouts/MainLayout";
 
 const HeaderContainer = styled.View`
-  margin: 50px 15px 10px 15px;
+  margin: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -60,17 +57,19 @@ export default function ProgramList({ route, navigation }) {
   };
 
   return (
-    <Container>
-      <HeaderContainer>
-        <Header>{header}</Header>
-      </HeaderContainer>
-      <FlatList
-        data={programs}
-        keyExtractor={(item, index) => "" + index}
-        renderItem={renderItem}
-        initialNumToRender={3}
-        windowSize={3}
-      />
-    </Container>
+    <MainLayout>
+      <View style={{ marginHorizontal: 10 }}>
+        <HeaderContainer>
+          <Header>{header}</Header>
+        </HeaderContainer>
+        <FlatList
+          data={programs}
+          keyExtractor={(item, index) => "" + index}
+          renderItem={renderItem}
+          initialNumToRender={3}
+          windowSize={3}
+        />
+      </View>
+    </MainLayout>
   );
 }

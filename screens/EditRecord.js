@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal } from "react-native";
+import { Modal, DeviceEventEmitter } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
@@ -103,8 +102,7 @@ const ButtonText = styled.Text`
 `;
 
 export default function EditRecord({ navigation, route }) {
-  const { record } = route.params;
-  const { exercises } = route.params;
+  const { record, exercises } = route.params;
   const [isState, setIsState] = useState();
   const successMessage = "Record edited. Please pull to refresh.";
 
@@ -213,6 +211,7 @@ export default function EditRecord({ navigation, route }) {
         });
       }
     );
+    DeviceEventEmitter.emit("event.editRecord", { data });
     navigation.navigate("StackRecord", { successMessage });
   };
 
@@ -301,7 +300,7 @@ export default function EditRecord({ navigation, route }) {
         <ButtonContainer>
           <SaveRecordButton
             loading={loading}
-            // disabled={!watch("recordTitle")}
+            disabled={!watch("recordTitle")}
             onPress={handleSubmit(onSubmitValid)}
           >
             <ButtonText>Save</ButtonText>

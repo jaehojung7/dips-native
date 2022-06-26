@@ -2,18 +2,11 @@ import React from "react";
 import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { FlatList, Platform } from "react-native";
-
-const Container = styled.View`
-  margin: 15px 10px 0 10px;
-`;
-
-const ScrollContainer = styled.ScrollView`
-  margin: 15px 10px 0 10px;
-`;
+import { FlatList, Platform, ScrollView, View } from "react-native";
+import MainLayout from "../components/layouts/MainLayout";
 
 const HeaderContainer = styled.View`
-  margin: 50px 10px 20px 10px;
+  margin: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -57,9 +50,12 @@ export default function ExerciseList({ navigation, route }) {
   );
 
   return (
-    <>
+    <MainLayout>
       {Platform.OS === "web" ? (
-        <ScrollContainer showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={{ marginHorizontal: 10 }}
+          showsVerticalScrollIndicator={false}
+        >
           <FlatList
             data={exercises}
             keyExtractor={(item, index) => "" + index}
@@ -68,9 +64,9 @@ export default function ExerciseList({ navigation, route }) {
             maxToRenderPerBatch={50}
             ListHeaderComponent={headerComponent}
           />
-        </ScrollContainer>
+        </ScrollView>
       ) : (
-        <Container>
+        <View style={{ marginHorizontal: 10 }}>
           <FlatList
             data={exercises}
             extraData={exercises}
@@ -81,8 +77,8 @@ export default function ExerciseList({ navigation, route }) {
             ListHeaderComponent={headerComponent}
             persistentScrollbar={false}
           />
-        </Container>
+        </View>
       )}
-    </>
+    </MainLayout>
   );
 }

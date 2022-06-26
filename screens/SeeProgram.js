@@ -1,10 +1,10 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import styled from "styled-components/native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { DeviceEventEmitter } from "react-native";
 import TextButton from "../components/Buttons/TextButton";
+import MainLayout from "../components/layouts/MainLayout";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -20,7 +20,7 @@ const Container = styled.ScrollView`
 `;
 
 const HeaderContainer = styled.View`
-  margin: 50px 15px 5px 15px;
+  margin: 0 15px 5px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -156,7 +156,7 @@ export default function SeeProgram({ route, navigation }) {
   };
 
   return (
-    <DismissKeyboard>
+    <MainLayout>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
           <ProgramTitle>{program.title}</ProgramTitle>
@@ -282,6 +282,6 @@ export default function SeeProgram({ route, navigation }) {
           );
         })}
       </Container>
-    </DismissKeyboard>
+    </MainLayout>
   );
 }

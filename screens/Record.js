@@ -1,8 +1,12 @@
 import { React, useState, useEffect } from "react";
-import { ActivityIndicator } from "react-native";
+import {
+  ActivityIndicator,
+  DeviceEventEmitter,
+  FlatList,
+  LayoutAnimation,
+} from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
-import { FlatList, LayoutAnimation } from "react-native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
 import MainLayout from "../components/layouts/MainLayout";
@@ -94,15 +98,15 @@ export default function Record({ navigation, route }) {
   const { data, loading, refetch } = useQuery(ME_QUERY);
   const [refreshing, setRefreshing] = useState(false);
   const [expanded, setExpanded] = useState([false]);
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const successMessage = route.params?.successMessage;
-  console.log(successMessage);
-
   const records = data?.me.records;
   const exercises = data?.me.exercises;
 
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
+    setSuccessMessageVisible(false);
     setRefreshing(false);
   };
 
@@ -113,6 +117,10 @@ export default function Record({ navigation, route }) {
         : setExpanded([false]);
     }
   }, [loading, data]);
+
+  DeviceEventEmitter.addListener("event.editRecord", (data) =>
+    setSuccessMessageVisible(true)
+  );
 
   if (loading)
     return (
@@ -149,7 +157,10 @@ export default function Record({ navigation, route }) {
           <RecordDate>{record?.date}</RecordDate>
           <EditRecord
             onPress={() =>
-              navigation.navigate("EditRecord", { record, exercises })
+              navigation.navigate("EditRecord", {
+                record,
+                exercises,
+              })
             }
           >
             <EditText>Edit</EditText>
@@ -165,9 +176,10 @@ export default function Record({ navigation, route }) {
   return (
     <MainLayout title="Records">
       <>
-        {successMessage ? (
+        {successMessageVisible ? (
           <SuccessMessage>{successMessage}</SuccessMessage>
         ) : null}
+
         <FlatList
           data={records}
           keyExtractor={(item, index) => "" + index}

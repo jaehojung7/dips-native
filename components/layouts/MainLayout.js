@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import DismissKeyboard from "../DismissKeyboard";
 
 const HeaderContainer = styled.View`
-  margin: 30px 0 10px 15px;
+  margin: 50px 0 10px 15px;
 `;
 
 const Header = styled.Text`

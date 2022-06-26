@@ -92,6 +92,7 @@ const IndicatorContainer = styled.View`
 `;
 
 const RecentProgramContainer = styled.TouchableOpacity`
+  margin-bottom: 15px;
   padding: 25px 20px;
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
@@ -134,11 +135,6 @@ const FavoritePrograms = styled.Text`
 const MoreProgram = styled.Text`
   font-weight: 600;
   color: ${(props) => props.theme.mainColor};
-`;
-
-const ButtonContainer = styled.View`
-  margin: 15px 0;
-  justify-content: space-between;
 `;
 
 export default function Program({ navigation }) {
@@ -218,13 +214,13 @@ export default function Program({ navigation }) {
             <WorkoutTitle></WorkoutTitle>
           )}
         </RecentProgramContainer>
-        <ButtonContainer>
-          <MainButton
-            text="Start an empty workout"
-            onPress={() => navigation.navigate("CreateRecord", { exercises })}
-          />
-        </ButtonContainer>
-        <View style={{ marginVertical: 10 }}>
+
+        <MainButton
+          text="Start an empty workout"
+          onPress={() => navigation.navigate("CreateRecord", { exercises })}
+        />
+
+        <View style={{ marginVertical: 15 }}>
           <TitleContainer>
             <FavoritePrograms>My Programs</FavoritePrograms>
             <TouchableOpacity
@@ -242,7 +238,7 @@ export default function Program({ navigation }) {
           <ProgramCards programs={programs} exercises={exercises} />
         </View>
 
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginVertical: 15 }}>
           <TitleContainer>
             <FavoritePrograms>Favorite Programs</FavoritePrograms>
             <TouchableOpacity
