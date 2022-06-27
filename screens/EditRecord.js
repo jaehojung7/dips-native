@@ -253,11 +253,7 @@ export default function EditRecord({ navigation, route }) {
               required: "Record title required",
               minLength: {
                 value: 5,
-                message: "Record title length between 5 and 30",
-              },
-              maxLength: {
-                value: 30,
-                message: "Record title length between 5 and 30",
+                message: "Record title length longer than 5",
               },
             }}
             render={({ field: { value } }) => (
@@ -296,7 +292,11 @@ export default function EditRecord({ navigation, route }) {
           <DeleteRecordButton record={record} {...{ navigation }} />
         </ButtonContainer>
 
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Modal
+          presentationStyle="pageSheet"
+          animationType="slide"
+          visible={modalVisible}
+        >
           <ExerciseListModalRecord
             {...{
               exercises,

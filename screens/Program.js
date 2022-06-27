@@ -20,6 +20,9 @@ export const ME_QUERY = gql`
       programs {
         id
         title
+        user {
+          username
+        }
         isLiked
         isMine
         isPublic
@@ -45,6 +48,9 @@ export const ME_QUERY = gql`
         isLiked
         isMine
         isPublic
+        user {
+          username
+        }
         workouts {
           title
           workoutIndex

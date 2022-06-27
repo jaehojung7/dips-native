@@ -251,11 +251,7 @@ export default function CreateRecord({ navigation, route }) {
               required: "Record title required",
               minLength: {
                 value: 5,
-                message: "Record title length between 5 and 30",
-              },
-              maxLength: {
-                value: 30,
-                message: "Record title length between 5 and 30",
+                message: "Record title length longer than 5",
               },
             }}
             render={({ field: { onChange, onBlur } }) => (

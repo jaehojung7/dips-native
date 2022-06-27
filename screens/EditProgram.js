@@ -330,7 +330,11 @@ export default function EditProgram({ navigation, route }) {
           <DeleteProgramButton program={program} {...{ navigation }} />
         </ButtonContainer>
 
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Modal
+          presentationStyle="pageSheet"
+          animationType="slide"
+          visible={modalVisible}
+        >
           <ExerciseListModalProgram
             {...{
               exercises,

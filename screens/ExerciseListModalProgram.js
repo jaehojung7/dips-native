@@ -6,7 +6,7 @@ import TextButton from "../components/Buttons/TextButton";
 const ModalContainer = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.modalBackground};
-  margin: 0 10px;
+  padding: 0 10px;
 `;
 
 const Header = styled.View`

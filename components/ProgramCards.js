@@ -56,9 +56,9 @@ export default function ProgramCards({ programs, exercises }) {
       keyExtractor={(item, index) => "" + index}
       renderItem={renderProgram}
       horizontal
-      initialNumToRender={3}
+      initialNumToRender={5}
       windowSize={3}
-      maxToRenderPerBatch={2}
+      maxToRenderPerBatch={3}
       showsHorizontalScrollIndicator={false}
     />
   );
