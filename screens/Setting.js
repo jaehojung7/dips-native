@@ -4,10 +4,10 @@ import { ActivityIndicator, RefreshControl } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import { logUserOut } from "../apollo";
 import styled from "styled-components/native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { DeviceEventEmitter } from "react-native";
-import MainLayout from "../components/layouts/MainLayout";
+import DismissKeyboard from "../components/DismissKeyboard";
+import { Container } from "../components/layouts/MainContainer";
 
 const ME_QUERY = gql`
   query me {
@@ -64,10 +64,6 @@ const ME_QUERY = gql`
       }
     }
   }
-`;
-
-const Container = styled.ScrollView`
-  margin: 0 10px;
 `;
 
 const ProfileContainer = styled.View`
@@ -151,7 +147,7 @@ export default function Setting({ navigation }) {
   );
 
   return (
-    <MainLayout title="Settings">
+    <DismissKeyboard>
       <Container
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -224,6 +220,6 @@ export default function Setting({ navigation }) {
           <ButtonText>Logout</ButtonText>
         </TouchableOpacity>
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

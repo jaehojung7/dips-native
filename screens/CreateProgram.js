@@ -4,13 +4,13 @@ import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import { Modal, Switch, Alert, TouchableOpacity, Platform } from "react-native";
-import DismissKeyboard from "../components/DismissKeyboard";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";
 import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
 import {
+  Container,
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
@@ -19,7 +19,7 @@ import {
   ToggleInfoText,
   ToggleText,
 } from "../components/layouts/Toggle";
-import MainLayout from "../components/layouts/MainLayout";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const CREATE_PROGRAM_MUTATION = gql`
   mutation createProgram(
@@ -80,10 +80,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
       error
     }
   }
-`;
-
-const Container = styled.ScrollView`
-  margin: 15px 10px 0 10px;
 `;
 
 export default function CreateProgram({ navigation, route }) {
@@ -219,7 +215,7 @@ export default function CreateProgram({ navigation, route }) {
   };
 
   return (
-    <MainLayout>
+    <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
@@ -304,6 +300,6 @@ export default function CreateProgram({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

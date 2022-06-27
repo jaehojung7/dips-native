@@ -8,7 +8,12 @@ import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
 import DeleteRecordButton from "../components/Buttons/DeleteRecordButton";
 import FormError from "../components/record-components/FormError";
-import MainLayout from "../components/layouts/MainLayout";
+import {
+  Container,
+  TitleContainer,
+  TitleInput,
+} from "../components/layouts/MainContainer";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const EDIT_RECORD_MUTATION = gql`
   mutation editRecord($id: Int!, $title: String!, $description: String) {
@@ -59,24 +64,6 @@ const CREATE_RECORD_EXERCISE_SET_MUTATION = gql`
       error
     }
   }
-`;
-
-const Container = styled.ScrollView`
-  margin: 15px 10px 0 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin-top: 50px;
-  margin-bottom: 15px;
-  padding: 15px 25px;
-  background-color: ${(props) => props.theme.cardColor};
-  border-radius: 20px;
-`;
-
-const RecordTitleInput = styled.TextInput`
-  color: ${(props) => props.theme.fontColor};
-  font-size: 23px;
-  font-weight: 700;
 `;
 
 const ButtonContainer = styled.View`
@@ -256,9 +243,9 @@ export default function EditRecord({ navigation, route }) {
   };
 
   return (
-    <MainLayout>
+    <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
-        <HeaderContainer>
+        <TitleContainer>
           <Controller
             name="recordTitle"
             control={control}
@@ -274,7 +261,7 @@ export default function EditRecord({ navigation, route }) {
               },
             }}
             render={({ field: { value } }) => (
-              <RecordTitleInput
+              <TitleInput
                 defaultValue={defaultValues.recordTitle}
                 placeholder="Record title"
                 placeholderTextColor="#999999"
@@ -283,7 +270,7 @@ export default function EditRecord({ navigation, route }) {
               />
             )}
           />
-        </HeaderContainer>
+        </TitleContainer>
         <FormError message={errors?.recordTitle?.message} />
 
         <ExerciseArray
@@ -320,6 +307,6 @@ export default function EditRecord({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

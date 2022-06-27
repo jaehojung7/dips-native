@@ -10,7 +10,8 @@ import { gql, useQuery } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import styled from "styled-components/native";
 import ProgramCards from "../components/ProgramCards";
-import MainLayout from "../components/layouts/MainLayout";
+import DismissKeyboard from "../components/DismissKeyboard";
+import { Container } from "../components/layouts/MainContainer";
 
 export const ME_QUERY = gql`
   query me {
@@ -80,10 +81,6 @@ export const ME_QUERY = gql`
       }
     }
   }
-`;
-
-const Container = styled.ScrollView`
-  margin: 0 10px;
 `;
 
 const IndicatorContainer = styled.View`
@@ -177,7 +174,7 @@ export default function Program({ navigation }) {
   );
 
   return (
-    <MainLayout title="Program">
+    <DismissKeyboard>
       <Container
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -262,6 +259,6 @@ export default function Program({ navigation }) {
           onPress={() => navigation.navigate("CreateProgram", { exercises })}
         />
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

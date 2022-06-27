@@ -1,4 +1,5 @@
 import React from "react";
+import { useColorScheme } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Program from "../screens/Program";
 import Record from "../screens/Record";
@@ -18,29 +19,52 @@ import ExerciseList from "../screens/ExerciseList";
 const Stack = createStackNavigator();
 
 export default function SharedStackNav({ screenName, route }) {
+  const scheme = useColorScheme();
   return (
     <Stack.Navigator
       screenOptions={{
-        // headerShown: false,
+        headerShown: true,
         headerMode: "screen",
         headerBackTitleVisible: false,
         headerTitle: "",
-        headerTransparent: true,
+        headerTitleAlign: "left",
+        headerTitleStyle: {
+          color: scheme === "dark" ? "#FF7F50" : "#2389da",
+          fontSize: 25,
+          fontWeight: "700",
+          marginLeft: 7,
+        },
         headerStyle: { shadowColor: "transparent" },
       }}
     >
       {screenName === "Program" ? (
-        <Stack.Screen name={"StackProgram"} component={Program} />
+        <Stack.Screen
+          name={"StackProgram"}
+          component={Program}
+          options={{ headerTitle: "Program" }}
+        />
       ) : null}
       {screenName === "Record" ? (
-        <Stack.Screen name={"StackRecord"} component={Record} />
+        <Stack.Screen
+          name={"StackRecord"}
+          component={Record}
+          options={{ headerTitle: "Record" }}
+        />
       ) : null}
       {screenName === "Search" ? (
-        <Stack.Screen name={"StackSearch"} component={Search} />
+        <Stack.Screen
+          name={"StackSearch"}
+          component={Search}
+          options={{ headerTitle: "Search" }}
+        />
       ) : null}
 
       {screenName === "Setting" ? (
-        <Stack.Screen name={"StackSetting"} component={Setting} />
+        <Stack.Screen
+          name={"StackSetting"}
+          component={Setting}
+          options={{ headerTitle: "Settings" }}
+        />
       ) : null}
       <Stack.Screen name="CreateRecord" component={CreateRecord} />
 
@@ -49,20 +73,18 @@ export default function SharedStackNav({ screenName, route }) {
         component={CreateExercise}
         options={{
           presentation: "modal",
-          headerShown: false,
         }}
       />
       <Stack.Screen
         name="ExerciseListModalProgram"
         component={ExerciseListModalProgram}
-        options={{ presentation: "modal", headerShown: false }}
+        options={{ presentation: "modal" }}
       />
       <Stack.Screen
         name="ExerciseListModalRecord"
         component={ExerciseListModalRecord}
         options={{
           presentation: "modal",
-          headerShown: false,
         }}
       />
       <Stack.Screen name="CreateProgram" component={CreateProgram} />

@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components/native";
 
 const ErrorText = styled.Text`
-  color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.fontColor};
   font-weight: 600;
   font-size: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   text-align: center;
 `;
 

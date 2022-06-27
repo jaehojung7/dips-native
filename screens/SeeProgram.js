@@ -4,7 +4,12 @@ import styled from "styled-components/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { DeviceEventEmitter } from "react-native";
 import TextButton from "../components/Buttons/TextButton";
-import MainLayout from "../components/layouts/MainLayout";
+import {
+  Container,
+  Header,
+  HeaderContainer,
+} from "../components/layouts/MainContainer";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -15,24 +20,6 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `;
 
-const Container = styled.ScrollView`
-  margin: 15px 10px 0 10px;
-`;
-
-const HeaderContainer = styled.View`
-  margin: 0 15px 5px 15px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ProgramTitle = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
-  width: 85%;
-`;
-``;
 const InfoContainer = styled.View`
   margin: 5px;
   flex-direction: row;
@@ -156,10 +143,10 @@ export default function SeeProgram({ route, navigation }) {
   };
 
   return (
-    <MainLayout>
+    <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <ProgramTitle>{program.title}</ProgramTitle>
+          <Header>{program.title}</Header>
           {program.isMine ? (
             <EditProgram
               onPress={() =>
@@ -282,6 +269,6 @@ export default function SeeProgram({ route, navigation }) {
           );
         })}
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

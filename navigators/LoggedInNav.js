@@ -12,18 +12,6 @@ export default function LoggedInNav() {
     <Tabs.Navigator
       screenOptions={{
         headerShown: false,
-        // headerTitleAlign: "left",
-        // headerTitleStyle: {
-        //   color: "#FF7F50",
-        //   fontSize: 26,
-        //   fontWeight: "700",
-        //   marginTop: 25,
-        //   marginLeft: 10,
-        // },
-        // headerStyle: {
-        //   shadowColor: "transparent",
-        //   height: 70,
-        // },
         tabBarActiveTintColor: scheme === "dark" ? "#FF7F50" : "#2389da",
         tabBarInactiveTintColor: "#797d7f",
         tabBarLabelStyle: { fontSize: 12, fontWeight: "500" },

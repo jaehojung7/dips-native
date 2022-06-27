@@ -9,8 +9,8 @@ import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components/native";
 import WorkoutRecord from "../components/record-components/WorkoutRecord";
 import { FontAwesome5 } from "@expo/vector-icons";
-import MainLayout from "../components/layouts/MainLayout";
 import { SuccessMessage } from "../components/layouts/MainContainer";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const ME_QUERY = gql`
   query me {
@@ -48,7 +48,6 @@ const IndicatorContainer = styled.View`
 const RecordContainer = styled.View`
   border-radius: 20px;
   background-color: ${(props) => props.theme.cardColor};
-  margin: 0 10px;
   margin-bottom: 10px;
   padding: 15px;
 `;
@@ -177,13 +176,14 @@ export default function Record({ navigation, route }) {
   };
 
   return (
-    <MainLayout title="Records">
+    <DismissKeyboard>
       <>
         {successMessageVisible ? (
           <SuccessMessage>{successMessage}</SuccessMessage>
         ) : null}
 
         <FlatList
+          style={{ marginTop: 5, marginHorizontal: 10 }}
           data={records}
           keyExtractor={(item, index) => "" + index}
           renderItem={renderRecord}
@@ -193,6 +193,6 @@ export default function Record({ navigation, route }) {
           onRefresh={onRefresh}
         />
       </>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

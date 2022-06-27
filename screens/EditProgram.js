@@ -11,6 +11,7 @@ import ExerciseListModalProgram from "./ExerciseListModalProgram";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FormError from "../components/record-components/FormError";
 import {
+  Container,
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
@@ -19,7 +20,6 @@ import {
   ToggleInfoText,
   ToggleText,
 } from "../components/layouts/Toggle";
-import MainLayout from "../components/layouts/MainLayout";
 
 const EDIT_PROGRAM_MUTATION = gql`
   mutation editProgram(
@@ -82,10 +82,6 @@ const CREATE_WORKOUT_SET_MUTATION = gql`
       error
     }
   }
-`;
-
-const Container = styled.ScrollView`
-  margin: 15px 10px 0 10px;
 `;
 
 const ButtonContainer = styled.View`
@@ -264,7 +260,7 @@ export default function EditProgram({ navigation, route }) {
   };
 
   return (
-    <MainLayout>
+    <DismissKeyboard>
       <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
@@ -346,6 +342,6 @@ export default function EditProgram({ navigation, route }) {
           />
         </Modal>
       </Container>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

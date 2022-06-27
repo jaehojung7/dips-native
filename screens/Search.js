@@ -5,7 +5,8 @@ import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Controller, useForm } from "react-hook-form";
 import SearchProgramList from "../components/SearchProgramList";
-import MainLayout from "../components/layouts/MainLayout";
+import DismissKeyboard from "../components/DismissKeyboard";
+import { Container } from "../components/layouts/MainContainer";
 
 const SEARCH_PROGRAMS_QUERY = gql`
   query searchPrograms($keyword: String!) {
@@ -32,7 +33,6 @@ const SEARCH_PROGRAMS_QUERY = gql`
   }
 `;
 const SearchContainer = styled.View`
-  margin: 5px 0;
   padding: 10px 20px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
@@ -71,8 +71,8 @@ export default function Search({ navigation }) {
   };
 
   return (
-    <MainLayout title="Search">
-      <View style={{ marginHorizontal: 10 }}>
+    <DismissKeyboard>
+      <View style={{ marginTop: 5, marginHorizontal: 10 }}>
         <SearchContainer>
           <FontAwesome
             name="search"
@@ -109,6 +109,6 @@ export default function Search({ navigation }) {
           ) : null}
         </View>
       </View>
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

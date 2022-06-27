@@ -59,9 +59,9 @@ export default function SearchProgramList({ programs }) {
       data={programs}
       keyExtractor={(item, index) => "" + index}
       renderItem={renderProgram}
-      initialNumToRender={3}
-      windowSize={3}
-      maxToRenderPerBatch={2}
+      // initialNumToRender={3}
+      // windowSize={3}
+      maxToRenderPerBatch={15}
       showsHorizontalScrollIndicator={false}
     />
   );

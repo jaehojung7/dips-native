@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Modal, DeviceEventEmitter, ScrollView } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
+import styled from "styled-components/native";
 import MainButton from "../components/Buttons/MainButton";
 import ExerciseListModalRecord from "./ExerciseListModalRecord";
 import ExerciseArray from "../components/create-record/ExerciseArray";
 import { ME_QUERY } from "./Program";
 import FormError from "../components/record-components/FormError";
 import {
+  Container,
   TitleContainer,
   TitleInput,
 } from "../components/layouts/MainContainer";
-import MainLayout from "../components/layouts/MainLayout";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const CREATE_RECORD_MUTATION = gql`
   mutation createRecord(
@@ -239,8 +241,8 @@ export default function CreateRecord({ navigation, route }) {
   };
 
   return (
-    <MainLayout>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <DismissKeyboard>
+      <Container showsVerticalScrollIndicator={false}>
         <TitleContainer>
           <Controller
             name="recordTitle"
@@ -302,7 +304,7 @@ export default function CreateRecord({ navigation, route }) {
             }}
           />
         </Modal>
-      </ScrollView>
-    </MainLayout>
+      </Container>
+    </DismissKeyboard>
   );
 }

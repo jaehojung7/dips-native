@@ -2,31 +2,20 @@ import React from "react";
 import styled from "styled-components/native";
 import DeleteExercise from "../components/DeleteExercise";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { FlatList, Platform, ScrollView, View } from "react-native";
-import MainLayout from "../components/layouts/MainLayout";
-
-const HeaderContainer = styled.View`
-  margin: 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Header = styled.Text`
-  color: ${(props) => props.theme.mainColor};
-  font-size: 25px;
-  font-weight: 700;
-`;
+import { FlatList, Platform, ScrollView } from "react-native";
+import { Header, HeaderContainer } from "../components/layouts/MainContainer";
+import DismissKeyboard from "../components/DismissKeyboard";
 
 const ButtonContainer = styled.TouchableOpacity`
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 const ButtonText = styled.Text`
   color: ${(props) => props.theme.mainColor};
   font-size: 16px;
   font-weight: 700;
+  text-align: right;
 `;
 
 export default function ExerciseList({ navigation, route }) {
@@ -50,7 +39,7 @@ export default function ExerciseList({ navigation, route }) {
   );
 
   return (
-    <MainLayout>
+    <DismissKeyboard>
       {Platform.OS === "web" ? (
         <ScrollView
           style={{ marginHorizontal: 10 }}
@@ -66,19 +55,17 @@ export default function ExerciseList({ navigation, route }) {
           />
         </ScrollView>
       ) : (
-        <View style={{ marginHorizontal: 10 }}>
-          <FlatList
-            data={exercises}
-            extraData={exercises}
-            keyExtractor={(item, index) => "" + index}
-            renderItem={renderItem}
-            initialNumToRender={50}
-            maxToRenderPerBatch={50}
-            ListHeaderComponent={headerComponent}
-            persistentScrollbar={false}
-          />
-        </View>
+        <FlatList
+          style={{ marginTop: 5, marginHorizontal: 10 }}
+          data={exercises}
+          extraData={exercises}
+          keyExtractor={(item, index) => "" + index}
+          renderItem={renderItem}
+          initialNumToRender={50}
+          maxToRenderPerBatch={50}
+          ListHeaderComponent={headerComponent}
+        />
       )}
-    </MainLayout>
+    </DismissKeyboard>
   );
 }

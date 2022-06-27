@@ -1,5 +1,8 @@
 import styled from "styled-components/native";
-import { Animated } from "react-native";
+
+export const Container = styled.ScrollView`
+  margin: 5px 10px;
+`;
 
 export const MainContainer = styled.View`
   border-radius: 20px;
@@ -8,10 +11,22 @@ export const MainContainer = styled.View`
   padding: 15px;
 `;
 
+export const HeaderContainer = styled.View`
+  margin: 0 10px 5px 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Header = styled.Text`
+  color: ${(props) => props.theme.mainColor};
+  font-size: 25px;
+  font-weight: 700;
+`;
+
 export const TitleContainer = styled.View`
-  /* margin-top: 50px; */
   margin-bottom: 15px;
-  padding: 15px 25px;
+  padding: 10px 20px;
   background-color: ${(props) => props.theme.cardColor};
   border-radius: 20px;
 `;
