@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Controller, useForm } from "react-hook-form";
 import MainButton from "../components/Buttons/MainButton";
-import styled from "styled-components/native";
 import { Modal, Switch, Alert, TouchableOpacity, Platform } from "react-native";
 import WorkoutArray from "../components/create-program/WorkoutArray";
 import { ME_QUERY } from "./Program";

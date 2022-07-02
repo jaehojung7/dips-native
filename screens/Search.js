@@ -6,7 +6,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Controller, useForm } from "react-hook-form";
 import SearchProgramList from "../components/SearchProgramList";
 import DismissKeyboard from "../components/DismissKeyboard";
-import { Container } from "../components/layouts/MainContainer";
 
 const SEARCH_PROGRAMS_QUERY = gql`
   query searchPrograms($keyword: String!) {

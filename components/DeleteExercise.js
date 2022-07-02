@@ -83,7 +83,7 @@ export default function DeleteExercise({ exercise }) {
     variables: {
       id: exercise.id,
     },
-    onCompleted,
+    // onCompleted,
     update: deleteExerciseUpdate,
   });
 

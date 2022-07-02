@@ -5,7 +5,7 @@ import DismissKeyboard from "../components/DismissKeyboard";
 import { gql, useMutation } from "@apollo/client";
 import MainButton from "../components/Buttons/MainButton";
 import { Controller, useForm } from "react-hook-form";
-import { useColorScheme, DeviceEventEmitter, View } from "react-native";
+import { useColorScheme, DeviceEventEmitter } from "react-native";
 import FormError from "../components/record-components/FormError";
 import TextButton from "../components/Buttons/TextButton";
 import {
@@ -65,7 +65,6 @@ export default function CreateExercise({ navigation, route }) {
       };
 
       const newExerciseCache = cache.writeFragment({
-        data: newExercise,
         fragment: gql`
           fragment newExerciseFragment on Exercise {
             id
@@ -73,6 +72,7 @@ export default function CreateExercise({ navigation, route }) {
             bodyPart
           }
         `,
+        data: newExercise,
       });
 
       cache.modify({
@@ -170,7 +170,6 @@ export default function CreateExercise({ navigation, route }) {
             render={({ value }) => (
               <Picker
                 itemStyle={{
-                  // height: 200,
                   color: scheme === "dark" ? "white" : "black",
                   fontSize: 18,
                   fontWeight: "600",

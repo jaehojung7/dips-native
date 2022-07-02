@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.ScrollView`
-  margin: 5px 10px;
+  margin: 5px 10px 0 10px;
 `;
 
 export const MainContainer = styled.View`
