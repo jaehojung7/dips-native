@@ -67,14 +67,6 @@ export default function DeleteExercise({ exercise }) {
     } = result;
     if (ok) {
       cache.evict({ id: `Exercise:${exercise.id}` });
-    }
-  };
-
-  const onCompleted = (data) => {
-    const {
-      deleteExercise: { ok },
-    } = data;
-    if (ok) {
       navigation.navigate("Settings", { screen: "StackSetting" });
     }
   };
@@ -83,7 +75,6 @@ export default function DeleteExercise({ exercise }) {
     variables: {
       id: exercise.id,
     },
-    // onCompleted,
     update: deleteExerciseUpdate,
   });
 
